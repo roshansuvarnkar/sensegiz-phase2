@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sensegiz';
+  login:any=[
+    {
+      id:1,
+      name:'Roshan Suvarnkar'
+    }
+  ]
 }

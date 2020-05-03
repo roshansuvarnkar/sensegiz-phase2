@@ -1,0 +1,28 @@
+<div class="dcd">
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="Loginform" (ngSubmit)="onSubmit(Loginform.value)">
+        <h2>Log In</h2>
+
+        <mat-error *ngIf="loginInvalid">
+          The username and password were not recognised
+        </mat-error>
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Email" formControlName="username" required>
+          <mat-error>
+            Please provide a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input matInput  [type]="passwordType" placeholder="Password" formControlName="password" matInput required >
+          <mat-icon matSuffix (click)="hideShowPassword()">{{passwordIcon}}</mat-icon>
+          <mat-error>
+            Please provide a valid password
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button [disabled]="!Loginform.valid" color="primary">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

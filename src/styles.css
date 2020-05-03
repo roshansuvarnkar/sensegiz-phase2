@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+.flex{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.end{
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+}
+
+.mat-icon {
+   vertical-align: middle;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+}
+.flexWrap{
+  display:flex;
+  align-items: center;
+}
+.space-around{
+  justify-content: space-around;
+}
+.space-between{
+  justify-content: space-between;
+}
+/* "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css" */

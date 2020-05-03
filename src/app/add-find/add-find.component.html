@@ -1,0 +1,40 @@
+<div class="flexWrap space-between">
+  <h2 mat-dialog-title>Add User</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+</div>
+
+
+
+
+<mat-horizontal-stepper  #stepper>
+  <form [formGroup]="Findform" >
+    <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="User Name" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your Find Id</ng-template>
+        <mat-form-field>
+          <mat-label>Find Id</mat-label>
+          <input type="number" matInput formControlName="secondCtrl" placeholder="Ex. 1" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button [disabled]="!Findform.valid" (click)="submit(Findform.value)" >Done</button>
+      </div>
+    </mat-step>
+  </form>
+</mat-horizontal-stepper>
