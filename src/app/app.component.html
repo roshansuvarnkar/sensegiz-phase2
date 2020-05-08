@@ -6,10 +6,37 @@
       <span class="flex">
         <mat-icon >person</mat-icon>
         <p>{{title}}</p>
+        <span (click)="logout()">Logout</span>
       </span>
     </span>
   </span>
 
 </mat-toolbar>
+<div *ngIf="loginData">
+  <mat-toolbar color="primary" class="menubar">
+    <span routerLink="/dashboard">Manage Assets</span>
 
-<router-outlet></router-outlet>
+    <span>Social Distancing</span>
+    <span routerLink="/history">History</span>
+    <span routerLink="/settings">Setting</span>
+  </mat-toolbar>
+
+
+
+
+
+  <mat-sidenav-container class="example-container">
+      <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
+                   fixedInViewport="fixed" >
+                   <app-side-bar></app-side-bar>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+
+      </mat-sidenav-content>
+
+
+  </mat-sidenav-container>
+
+</div>

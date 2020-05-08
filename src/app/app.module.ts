@@ -14,6 +14,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManageFindsComponent } from './manage-finds/manage-finds.component';
 import { HistoryComponent } from './history/history.component';
 import { AddFindComponent } from './add-find/add-find.component';
+import { AuthGuard } from './auth.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { ManageGatewaysComponent } from './manage-gateways/manage-gateways.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { DeviceHistoryComponent } from './device-history/device-history.component';
+import { EditDeviceComponent } from './edit-device/edit-device.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +30,13 @@ import { AddFindComponent } from './add-find/add-find.component';
     DashboardComponent,
     ManageFindsComponent,
     HistoryComponent,
-    AddFindComponent
+    AddFindComponent,
+    ManageGatewaysComponent,
+    ManageUsersComponent,
+    SettingsComponent,
+    SideBarComponent,
+    DeviceHistoryComponent,
+    EditDeviceComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +46,10 @@ import { AddFindComponent } from './add-find/add-find.component';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

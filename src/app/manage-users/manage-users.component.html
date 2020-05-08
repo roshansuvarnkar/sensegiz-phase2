@@ -1,9 +1,5 @@
-<!-- <fieldset>
-  <legend>Reports</legend>
-  <p>manage-finds works!</p>
-</fieldset> -->
 <br>
-<button mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
+<button mat-flat-button color="primary" (click)="openDialog()">Add Users</button>
 
 
 <div class="table">
@@ -11,22 +7,20 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Device Id</th>
-        <th scope="col">Device Name</th>
+        <th scope="col"> <mat-icon matListIcon>call</mat-icon>  Mobile number</th>
+        <th scope="col">    <mat-icon matListIcon>mail</mat-icon> Email Id</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of findData;let i=index">
+      <tr *ngFor="let a of userData;let i=index">
         <td>{{i+1}}</td>
-        <td>{{a.deviceId}}</td>
-        <td>{{a.deviceName}}</td>
+        <td>{{a.mobileNum}}</td>
+        <td>{{a.emailId}}</td>
         <td><mat-icon matListIcon (click)="edit(a)">create</mat-icon></td>
         <td><mat-icon matListIcon (click)="delete(a)">delete</mat-icon></td>
-
-
       </tr>
     </tbody>
-  </table>
+  </table> 
 </div>

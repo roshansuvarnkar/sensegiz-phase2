@@ -1,0 +1,8 @@
+<mat-list>
+  <p class="header">Devices</p>
+  <hr>
+  <mat-list-item *ngFor="let a of findData">
+    <mat-icon matListIcon>label_important</mat-icon>
+    <h3 matLine (click)="clickDevice(a)"> {{a.deviceName}} </h3>
+  </mat-list-item>
+</mat-list>

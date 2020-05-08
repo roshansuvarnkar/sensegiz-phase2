@@ -1,9 +1,5 @@
-<!-- <fieldset>
-  <legend>Reports</legend>
-  <p>manage-finds works!</p>
-</fieldset> -->
 <br>
-<button mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
+<button mat-flat-button color="primary" (click)="openDialog()">Add Gateways</button>
 
 
 <div class="table">
@@ -11,21 +7,19 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Device Id</th>
-        <th scope="col">Device Name</th>
+        <th scope="col">Gateway Id</th>
+        <th scope="col">Gateway Name</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of findData;let i=index">
+      <tr *ngFor="let a of gatewayData;let i=index">
         <td>{{i+1}}</td>
-        <td>{{a.deviceId}}</td>
-        <td>{{a.deviceName}}</td>
+        <td>{{a.gatewayId}}</td>
+        <td>{{a.gatewayName}}</td>
         <td><mat-icon matListIcon (click)="edit(a)">create</mat-icon></td>
         <td><mat-icon matListIcon (click)="delete(a)">delete</mat-icon></td>
-
-
       </tr>
     </tbody>
   </table>

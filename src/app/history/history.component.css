@@ -1,0 +1,10 @@
+mat-card.mat-card.mat-focus-indicator {
+    width: 20rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+.history {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

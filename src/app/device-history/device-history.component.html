@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-title>
+    {{deviceData.deviceId}} Details
+  </mat-card-title>
+  <mat-card-subtitle>
+    Below are the data of {{deviceData.deviceId}}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <div class="table">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Contact Device Id</th>
+            <th scope="col">Contact Device Name</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of findData;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{a.baseDevice}}</td>
+            <td>{{a.contactDevice}}</td>
+            <td>{{ a.insertedOn | date : 'medium' : 'UTC' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

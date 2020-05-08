@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginCheckService } from '../login-check.service';
+import { ApiService } from '../api.service';
+import { GeneralMaterialsService } from '../general-materials.service';
+
 
 @Component({
   selector: 'app-login',
@@ -18,13 +22,16 @@ export class LoginComponent implements OnInit {
       private fb: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
+      private login: LoginCheckService,
+      private api: ApiService,
+      private general: GeneralMaterialsService
     ) {
     }
 
 
   ngOnInit(): void {
     this.Loginform = this.fb.group({
-      username: ['', Validators.email],
+      userName: ['', Validators.email],
       password: ['', Validators.required]
     });
   }
@@ -33,8 +40,14 @@ export class LoginComponent implements OnInit {
     this.loginInvalid = false;
     if (this.Loginform.valid) {
       try {
-        const username = data.username;
-        const password = data.password;
+        data.system='portal'
+        this.api.send(data).then((res:any)=>{
+          if(res.status){
+            if(this.login.login(JSON.stringify(res.success))){
+                this.router.navigate(['/dashboard'])
+              }
+          }
+        })
       } catch (err) {
         this.loginInvalid = true;
       }
