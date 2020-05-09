@@ -8,3 +8,7 @@ mat-card.mat-card.mat-focus-indicator {
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+.mat-card-header {
+    background-color: red !important;
+    padding: 5px !important;
+}

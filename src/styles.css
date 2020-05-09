@@ -45,4 +45,8 @@ h1 {
 .space-between{
   justify-content: space-between;
 }
+
+hr {
+    border: 1px solid #ef6c00;
+}
 /* "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css" */

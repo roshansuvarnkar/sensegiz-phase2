@@ -49,6 +49,7 @@ export class SettingsComponent implements OnInit {
            if(res.status){
              var msg = 'Shift time updated Successfully'
              this.general.openSnackBar(msg,'')
+             this.workingForm.reset()
            }
          })
        } catch (err) {

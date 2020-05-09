@@ -9,13 +9,10 @@
     <mat-card-content>
       <form [formGroup]="workingForm" (ngSubmit)="onSubmit(workingForm.value)">
         <mat-form-field>
-          <mat-label>Select shift</mat-label>
-          <mat-select formControlName="shift" required>
-            <mat-option *ngFor="let a of shifts" [value]="a.name">
-              {{a.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error >Please choose a shift</mat-error>
+          <input type='text' matInput placeholder="Shift name" formControlName="shift" required>
+          <mat-error>
+            Please provide a valid shift name
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
           <input type='time' matInput placeholder="From time" formControlName="fromTime" required>

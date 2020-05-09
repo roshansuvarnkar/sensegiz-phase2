@@ -1,3 +1,7 @@
 table.mat-table.cdk-table.mat-sort.mat-elevation-z8 {
     width: 100%;
 }
+button.mat-focus-indicator.button.mat-flat-button.mat-button-base.mat-primary {
+    display: flex;
+    margin: 1rem auto;
+}

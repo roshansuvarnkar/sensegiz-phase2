@@ -22,33 +22,37 @@
   </mat-toolbar>
 
 
+<div class="container-fluid">
 
-<div class="row">
-  <div class="col-2">
-    <app-side-bar></app-side-bar>
+  <div class="row">
+    <div class="col-2">
+      <app-side-bar></app-side-bar>
+    </div>
+    <div class="col-10">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="col-10">
-    <router-outlet></router-outlet>
-  </div>
-</div>
 
 
   <!-- <mat-sidenav-container class="example-container">
-      <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
-                   fixedInViewport="fixed" >
-                   <app-side-bar></app-side-bar>
-      </mat-sidenav>
+    <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
+    fixedInViewport="fixed" >
+    <app-side-bar></app-side-bar>
+  </mat-sidenav>
 
-      <mat-sidenav-content>
-        <router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
 
-      </mat-sidenav-content>
+  </mat-sidenav-content>
 
 
-  </mat-sidenav-container> -->
+</mat-sidenav-container> -->
 
+  </div>
 </div>
+
+
 <div *ngIf="!loginData">
   <router-outlet></router-outlet>
-  
+
 </div>
