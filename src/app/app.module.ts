@@ -22,6 +22,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { DeviceHistoryComponent } from './device-history/device-history.component';
 import { EditDeviceComponent } from './edit-device/edit-device.component';
+import { HomeComponent } from './home/home.component';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { EditDeviceComponent } from './edit-device/edit-device.component';
     SettingsComponent,
     SideBarComponent,
     DeviceHistoryComponent,
-    EditDeviceComponent
+    EditDeviceComponent,
+    HomeComponent,
+
   ],
   imports: [
     BrowserModule,

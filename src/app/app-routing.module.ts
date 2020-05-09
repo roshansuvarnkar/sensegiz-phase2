@@ -6,7 +6,7 @@ import { AuthGuard } from './auth.guard';
 import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DeviceHistoryComponent } from './device-history/device-history.component';
-
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', component:DashboardComponent, canActivate: [AuthGuard]},
@@ -16,6 +16,7 @@ const routes: Routes = [
   {path:'history' , component:HistoryComponent , canActivate: [AuthGuard]},
   {path:'settings' , component:SettingsComponent , canActivate: [AuthGuard]},
   {path:'device-history' , component:DeviceHistoryComponent , canActivate: [AuthGuard]},
+  {path:'home' , component:HomeComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

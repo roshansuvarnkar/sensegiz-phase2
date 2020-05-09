@@ -1,0 +1,126 @@
+
+<div class="container-fluid">
+  <mat-toolbar class="search">
+   <mat-icon >search</mat-icon>
+
+   <span class = "filler">search</span>
+</mat-toolbar>
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      <mat-card class="card-1">
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-md-4">
+                  <mat-icon >account_circle</mat-icon><br><br>
+                  <mat-label>Employees</mat-label>
+                  <p>313</p>
+                  <mat-label>Active Employees</mat-label>
+                  <p>{{findLen}}</p>
+                  <mat-label> Infected </mat-label>
+                  <p>313</p>
+                </div>
+                  <div class="col-md-8">
+                  <mat-icon >settings</mat-icon><br>
+
+
+                  <mat-list>
+                   <mat-list-item>
+                      Minimum social distance
+                       <span><mat-icon >keyboard_arrow_right</mat-icon></span><br>
+
+                     </mat-list-item>
+                       <mat-divider></mat-divider>
+
+
+                   <mat-list-item>
+                    Margin of error
+                     <span><mat-icon >keyboard_arrow_right</mat-icon></span><br>
+
+                   </mat-list-item>
+                   <mat-divider></mat-divider>
+                   <mat-list-item>
+                    Automatic warning
+                     <span><mat-icon >keyboard_arrow_right</mat-icon></span><br>
+
+                   </mat-list-item>
+                   <mat-divider></mat-divider>
+                   <mat-list-item>
+                   Automatic alert
+                     <span><mat-icon>keyboard_arrow_right</mat-icon></span><br>
+
+                   </mat-list-item>
+                   <mat-divider></mat-divider>
+
+                </mat-list>
+                </div>
+              </div>
+              </mat-card-content>
+
+
+
+
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>2</mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="card-3">
+        <mat-card-title>Repeated Contact</mat-card-title>
+        <div >
+          <mat-card class="card-inner" *ngFor="let find of findData; let i = index">
+            <mat-card-content>
+              <table class="table table-borderless">
+
+                    <tbody>
+                      <tr >
+                        <td class="cell"><li></li></td>
+                        <td class="cell"><img mat-card-avatar src="../assets/person.jpg"></td>
+                        <td class="cell">{{find.deviceName}}</td>
+                        <td class="btn1"><button mat-raised-button class="btn">Send warning</button></td>
+                      </tr>
+                    </tbody>
+                    </table>
+            </mat-card-content>
+
+          </mat-card>
+
+        </div>
+        </mat-card>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="card-4">
+        <mat-card-title class="card-head">Employees in Contact
+          <mat-card-content class="search-bar" >
+            <span >
+              <mat-icon >search</mat-icon>
+              <span >search</span></span></mat-card-content>
+        </mat-card-title>
+        <div>
+          <mat-card class="card-inner-1">
+            <mat-card-content>
+
+                <div class="row">
+                    <div class="col-md-6">
+                      <mat-label>Employees</mat-label>
+                      <p>313</p>
+                      </div>
+                    <div class="col-md-6">
+                      <mat-label>Employees</mat-label>
+                      <span class="progress"></span>
+                      </div>
+
+                </div>
+
+            </mat-card-content>
+
+          </mat-card>
+
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+
+
+  </mat-grid-list>
+
+
+</div>

@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { LoginCheckService } from './login-check.service';
-import {Router} from '@angular/router'
+import { Router , ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,31 @@ import {Router} from '@angular/router'
 export class AppComponent {
   title = 'sensegiz';
   loginData:boolean=false
-
-  constructor(private login:LoginCheckService,private router:Router){
+  checkUrl:any
+  statusHome:boolean
+  statusNotHome:boolean
+  constructor(private login:LoginCheckService,private router:Router,private route:ActivatedRoute){
     this.loginData = this.login.loginStatus()
     this.login.loginCred.subscribe(res=>{
       console.log("login data===",res)
       this.loginData = res
     })
+
   }
 
   ngOnInit(){
-    
+    // this.login.pageCheck.subscribe(res=>{
+    //   this.checkUrl=res.page
+    //
+    //     console.log("url====",this.checkUrl);
+    // });
+    //
+    //   this.router.events.subscribe((url:any) => console.log(url));
+    //   console.log(router.url);
+    //console.log(window.location.pathname)  // array of states
+// this.checkUrl=window.location.pathname
+
+
   }
 
   logout(){

@@ -14,8 +14,8 @@
 </mat-toolbar>
 <div *ngIf="loginData">
   <mat-toolbar color="primary" class="menubar">
+    <span routerLink="/home">Home</span>
     <span routerLink="/dashboard">Manage Assets</span>
-
     <span>Social Distancing</span>
     <span routerLink="/history">History</span>
     <span routerLink="/settings">Setting</span>
@@ -23,13 +23,17 @@
 
 
 
+  <div >
+      <router-outlet></router-outlet>
+  </div>
+
 <div class="row">
-  <div class="col-2">
-    <app-side-bar></app-side-bar>
-  </div>
-  <div class="col-10">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="col-2">
+      <app-side-bar></app-side-bar>
+    </div>
+    <div class="col-10">
+      <router-outlet></router-outlet>
+    </div>
 </div>
 
 
@@ -50,5 +54,5 @@
 </div>
 <div *ngIf="!loginData">
   <router-outlet></router-outlet>
-  
+
 </div>
