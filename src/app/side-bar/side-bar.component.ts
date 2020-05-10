@@ -12,6 +12,7 @@ export class SideBarComponent implements OnInit {
 
   loginData:any
   findData:any=[]
+  checkUrl:any
 
   constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
 
@@ -19,6 +20,8 @@ export class SideBarComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
+    //this.checkPage()
+
   }
 
 
@@ -36,7 +39,12 @@ export class SideBarComponent implements OnInit {
     })
   }
 
+checkPage(){
 
+    console.log(window.location.pathname)  // array of states
+  this.checkUrl=window.location.pathname
+
+}
 
   clickDevice(data){
     console.log("data====",data)

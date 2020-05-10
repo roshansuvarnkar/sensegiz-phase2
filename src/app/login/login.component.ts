@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         this.api.send(data).then((res:any)=>{
           if(res.status){
             if(this.login.login(JSON.stringify(res.success))){
-                this.router.navigate(['/dashboard'])
+                this.router.navigate(['/home'])
               }
           }
         })

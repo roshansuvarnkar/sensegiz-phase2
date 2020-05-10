@@ -3,3 +3,8 @@ mat-card {
   margin: 2em auto;
   text-align: center;
 }
+.setting {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

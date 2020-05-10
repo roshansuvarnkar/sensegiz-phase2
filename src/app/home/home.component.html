@@ -1,0 +1,184 @@
+
+<div class="main-home">
+  <!-- <mat-toolbar class="search">
+   <mat-icon >search</mat-icon>
+
+   <span class = "filler">search</span>
+  </mat-toolbar> -->
+
+
+
+
+  <!-- <div class="row">
+    <div class="col-md-4">
+      <mat-icon >account_circle</mat-icon><br><br>
+      <mat-label>Employees</mat-label>
+      <p>313</p>
+      <mat-label>Active Employees</mat-label>
+      <p>{{findLen}}</p>
+      <mat-label> Infected </mat-label>
+      <p>313</p>
+    </div>
+    <div class="col-md-8">
+      <mat-icon >settings</mat-icon><br>
+        <mat-list>
+          <mat-list-item>
+            Minimum social distance
+            <mat-icon >keyboard_arrow_right</mat-icon><br>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            Automatic alert
+            <mat-icon>keyboard_arrow_right</mat-icon><br>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+    </div>
+  </div> -->
+
+
+
+<div class="home">
+  <div class="first">
+    <mat-card>
+      <mat-card-content>
+        <div class="row">
+          <span class="tot">
+            <mat-icon >account_circle</mat-icon>
+            <mat-label>Total Finds</mat-label>
+            <mat-label>{{totalEmp}}</mat-label>
+          </span><br>
+          <span class="tot"><br>
+            <mat-icon >account_circle</mat-icon>
+            <mat-label>Total Finds</mat-label>
+            <mat-labe
+          </span>
+        </div>
+        <div class="row">
+          <div class="first-cont">
+            <div class="regi">
+              Active Finds <br>
+              <circle-progress
+                [percent]="activeEmp"
+                [showUnits]="false"
+                [showBackground] = "true"
+                [backgroundColor]= "'#ef6c00'"
+                [outerStrokeColor] = "'#ffffff'"
+                [outerStrokeWidth] = 6
+                [showInnerStroke] = false
+                [radius] = 60
+                [titleColor] = "'#ffffff'"
+                [showSubtitle] = false
+                [backgroundPadding] = 5
+                [animation]="true"
+                [animationDuration]="500"
+                [startFromZero]="true"
+                [responsive]="false"
+              ></circle-progress>
+            </div>
+            <div class="infe">
+              Infected Finds <br>
+              <circle-progress
+                [percent]="infectedEmp"
+                [showUnits]="false"
+                [showBackground] = "true"
+                [backgroundColor]= "'#ef6c00'"
+                [outerStrokeColor] = "'#ffffff'"
+                [outerStrokeWidth] = 6
+                [showInnerStroke] = false
+                [radius] = 60
+                [titleColor] = "'#ffffff'"
+                [showSubtitle] = false
+                [backgroundPadding] = 5
+                [animation]="true"
+                [animationDuration]="500"
+                [startFromZero]="true"
+                [responsive]="false"
+              ></circle-progress>
+            </div>
+            <div class="count">
+              Normal Finds <br>
+              <circle-progress
+                [percent]="normalEmp"
+                [showUnits]="false"
+                [showBackground] = "true"
+                [backgroundColor]= "'#ef6c00'"
+                [outerStrokeColor] = "'#ffffff'"
+                [outerStrokeWidth] = 6
+                [showInnerStroke] = false
+                [radius] = 60
+                [titleColor] = "'#ffffff'"
+                [showSubtitle] = false
+                [backgroundPadding] = 5
+                [animation]="true"
+                [animationDuration]="500"
+                [startFromZero]="true"
+                [responsive]="false"
+              ></circle-progress>
+            </div>
+          </div>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="three">
+    <mat-card>
+      <mat-card-title>Repeated Contact</mat-card-title>
+      <mat-card-content>
+        <mat-card *ngFor="let find of findData; let i = index">
+          <mat-card-content>
+            <div class="tab-head">
+              <span class="tab-emp">
+                <span><li></li></span>
+                <span class="emp-pad"><mat-icon >person_outline</mat-icon></span>
+                <span class="emp-pad">{{find.deviceName}}</span>
+              </span>
+              <span class="tab-btn">
+                <button mat-raised-button class="btn">Send warning</button>
+              </span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+      </mat-card>
+  </div>
+
+</div>
+
+<div class="rowhome">
+  <div class="second">
+    <mat-card>
+      <mat-card-content>
+        <div id="chartContainer" style="height: 228px; width: 100%;"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="four">
+    <mat-card>
+      <mat-card-title class="search-title">
+        <span class="search-head">
+           Max contact time
+        </span>
+      </mat-card-title>
+        <mat-card >
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-label>Employees</mat-label>
+                <p>313</p>
+              </div>
+              <div class="col-md-6">
+                <mat-label>Employees</mat-label>
+                <mat-progress-bar mode="determinate" value="40">40 persons</mat-progress-bar>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+    </mat-card>
+  </div>
+</div>
+
+</div>

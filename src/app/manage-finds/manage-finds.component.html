@@ -13,6 +13,7 @@
         <th scope="col">#</th>
         <th scope="col">Device Id</th>
         <th scope="col">Device Name</th>
+        <th scope="col">Infected</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
       </tr>
@@ -22,6 +23,10 @@
         <td>{{i+1}}</td>
         <td>{{a.deviceId}}</td>
         <td>{{a.deviceName}}</td>
+        <td>
+          <mat-icon *ngIf="a.infected==0" color="primary" matListIcon (click)="infected(a)">report</mat-icon>
+          <mat-icon *ngIf="a.infected==1" matListIcon (click)="infected(a)">report_off</mat-icon>
+        </td>
         <td><mat-icon matListIcon (click)="edit(a)">create</mat-icon></td>
         <td><mat-icon matListIcon (click)="delete(a)">delete</mat-icon></td>
 

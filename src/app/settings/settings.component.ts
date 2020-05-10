@@ -11,6 +11,7 @@ import { GeneralMaterialsService } from '../general-materials.service';
 })
 export class SettingsComponent implements OnInit {
   workingForm:FormGroup
+  distanceForm:FormGroup
   loginData:any
   shifts:any=[
     {
@@ -36,10 +37,15 @@ export class SettingsComponent implements OnInit {
       fromTime: ['', Validators.required],
       toTime: ['', Validators.required]
     });
+
+
+    this.distanceForm = this.fb.group({
+      distance: ['', Validators.required],
+    });
   }
 
 
-  onSubmit(data) {
+  onSubmitWorkForm(data) {
      if (this.workingForm.valid) {
        try {
          console.log("time data===",data)
@@ -48,6 +54,26 @@ export class SettingsComponent implements OnInit {
            console.log("time insrted or updated",res)
            if(res.status){
              var msg = 'Shift time updated Successfully'
+             this.general.openSnackBar(msg,'')
+             this.workingForm.reset()
+           }
+         })
+       } catch (err) {
+       }
+     }
+   }
+
+
+
+  onSubmitDistanceForm(data) {
+     if (this.distanceForm.valid) {
+       try {
+         console.log("distance ===",data)
+         data.userId = this.loginData.userId
+         this.api.addDistance(data).then((res:any)=>{
+           console.log("distance insrted or updated",res)
+           if(res.status){
+             var msg = 'Minimum distance updated Successfully'
              this.general.openSnackBar(msg,'')
              this.workingForm.reset()
            }

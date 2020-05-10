@@ -7,6 +7,7 @@ import { Subject } from 'rxjs'
 })
 export class LoginCheckService {
   public loginCred = new Subject<any>()
+  public pageCheck = new Subject<any>()
 
   constructor() {
     this.loginStatusMenu()
@@ -14,6 +15,7 @@ export class LoginCheckService {
 
 
   loginStatus(){
+    this.checkPage()
     var status = localStorage.getItem('sensegizlogin')
     if(status){
       return true
@@ -23,8 +25,13 @@ export class LoginCheckService {
     }
   }
 
+  checkPage(){
+    this.pageCheck.next({page:window.location.pathname})
+  }
 
   loginStatusMenu(){
+    this.checkPage()
+
     var status = localStorage.getItem('sensegizlogin')
     if(status){
       this.loginCred.next(true)
@@ -38,6 +45,8 @@ export class LoginCheckService {
 
 
   Getlogin(){
+    this.checkPage()
+
     var status = localStorage.getItem('sensegizlogin')
     if(status){
       return status
@@ -49,6 +58,7 @@ export class LoginCheckService {
 
 
   login(data){
+    
     localStorage.setItem('sensegizlogin',data)
     this.loginStatusMenu()
     return true

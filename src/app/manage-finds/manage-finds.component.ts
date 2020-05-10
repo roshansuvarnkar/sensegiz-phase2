@@ -96,4 +96,27 @@ delete(a){
 }
 
 
+
+infected(a){
+  if(confirm('Are you sure to do this operation')){
+    console.log("yes",a)
+  }
+
+  var inf = a.infected == 0 ? 1 :0
+  var data = {
+    deviceId:a.deviceId,
+    userId:a.userId,
+    infected:inf
+  }
+  this.api.editInfectedPerson(data).then((res:any)=>{
+    console.log("infected data ======",res);
+    if(res.status){
+      this.refreshFinds()
+      var msg = 'Employee updated Successfully'
+      this.general.openSnackBar(msg,'')
+    }
+  })
+}
+
+
 }
