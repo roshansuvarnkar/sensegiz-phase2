@@ -8,6 +8,11 @@ img.mat-card-image {
 .mat-icon{
   color: #ef6c00;
 }
+
+mat-list-item.mat-list-item.mat-focus-indicator.mat-list-item-avatar.mat-list-item-with-avatar {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
   .sidebar{
     display: none;

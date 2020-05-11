@@ -12,3 +12,11 @@ mat-card.mat-card.mat-focus-indicator {
     background-color: red !important;
     padding: 5px !important;
 }
+mat-card.mat-card.mat-focus-indicator {
+    box-shadow: 0 2px 8px 0 #ef6c00;
+}
+mat-card-title{
+  color: #ef6c00;
+  font-family: serif;
+  line-height: 2rem;
+} 

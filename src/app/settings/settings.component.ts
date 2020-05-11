@@ -12,18 +12,9 @@ import { GeneralMaterialsService } from '../general-materials.service';
 export class SettingsComponent implements OnInit {
   workingForm:FormGroup
   distanceForm:FormGroup
+  maxContactForm:FormGroup
   loginData:any
-  shifts:any=[
-    {
-      name:"Shift1 Morning Shift"
-    },
-    {
-      name:"Shift2 Afternoon Shift"
-    },
-    {
-      name:"Shift3 Night Shift"
-    }
-  ]
+
   constructor(private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -41,6 +32,11 @@ export class SettingsComponent implements OnInit {
 
     this.distanceForm = this.fb.group({
       distance: ['', Validators.required],
+    });
+
+
+    this.maxContactForm = this.fb.group({
+      threshold: ['', Validators.required],
     });
   }
 
@@ -76,6 +72,25 @@ export class SettingsComponent implements OnInit {
              var msg = 'Minimum distance updated Successfully'
              this.general.openSnackBar(msg,'')
              this.workingForm.reset()
+           }
+         })
+       } catch (err) {
+       }
+     }
+   }
+
+
+  onSubmitmaxContactForm(data) {
+     if (this.maxContactForm.valid) {
+       try {
+         console.log("threshold ===",data)
+         data.userId = this.loginData.userId
+         this.api.addMaxContactThreshold(data).then((res:any)=>{
+           console.log("contact threshold insrted or updated",res)
+           if(res.status){
+             var msg = 'Max contact threshold updated Successfully'
+             this.general.openSnackBar(msg,'')
+             this.maxContactForm.reset()
            }
          })
        } catch (err) {

@@ -11,7 +11,10 @@ import { GeneralMaterialsService } from '../general-materials.service';
 })
 export class HistoryComponent implements OnInit {
 loginData:any
-workingForm:FormGroup
+findIdForm:FormGroup
+findNameForm:FormGroup
+dateForm:FormGroup
+finds:any=[]
   constructor(private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -20,16 +23,55 @@ workingForm:FormGroup
 
 
 
-    this.workingForm = this.fb.group({
-      shift: ['', Validators.required],
-      fromTime: ['', Validators.required],
-      toTime: ['', Validators.required]
+    this.dateForm = this.fb.group({
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
     });
+
+
+    this.findIdForm = this.fb.group({
+      selectedValue: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    });
+
+
+    this.findNameForm = this.fb.group({
+      deviceName: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    });
+
+
+    this.refreshFinds()
+  }
+
+
+  refreshFinds(){
+    var data={
+      userId:this.loginData.userId,
+      tblName:'deviceRegistration'
+    }
+    this.api.getData(data).then((res:any)=>{
+      console.log("find data ======",res);
+      if(res.status){
+        this.finds=res.success
+      }
+    })
+  }
+
+  onSubmitDateForm(data){
+    console.log("data====",data)
+  }
+
+
+  onSubmitFindId(data){
+    console.log("data====",data)
   }
 
 
 
-  onSubmit(data){
+  onSubmitFindName(data){
     console.log("data====",data)
   }
 

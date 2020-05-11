@@ -9,6 +9,7 @@ img {
 .menubar{
     display: flex;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 

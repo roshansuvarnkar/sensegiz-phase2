@@ -1,5 +1,5 @@
 mat-card {
-  max-width: 400px;
+  width: 20rem;
   margin: 2em auto;
   text-align: center;
 }
@@ -7,4 +7,12 @@ mat-card {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
+mat-card.mat-card.mat-focus-indicator {
+    box-shadow: 0 2px 8px 0 #ef6c00;
+}
+mat-card-title{
+  color: #ef6c00;
+  font-family: serif;
+  line-height: 2rem;
 }

@@ -14,6 +14,7 @@ findData:any=[]
 loginData:any
 findLen:any
 checkUrl:any
+setting:any
 totalEmp = 0;
 infectedEmp = 0;
 normalEmp = 0;
@@ -30,6 +31,7 @@ intervalId
     // this.checkUrl = this.router.url
     this.refreshFinds()
     this.refreshCount()
+    this.refreshSetting()
     let chart = new CanvasJS.Chart("chartContainer", {
                   animationEnabled: true,
                   exportEnabled: true,
@@ -63,10 +65,9 @@ chart.render();
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
-    tblName:'deviceRegistration'
   }
 
-  this.api.getData(data).then((res:any)=>{
+  this.api.getAssignedDevices(data).then((res:any)=>{
     console.log("find data ======",res);
     if(res.status){
       this.findData=res.success
@@ -93,4 +94,24 @@ refreshCount(){
     }
   })
 }
+
+
+
+refreshSetting(){
+  var data={
+    userId:this.loginData.userId,
+    tblName:'deviceSetting'
+  }
+  this.api.getData(data).then((res:any)=>{
+    console.log("setting data ======",res);
+    if(res.status){
+      this.setting = res.success[0]
+    }
+  })
+}
+
+
+
+
+
 }

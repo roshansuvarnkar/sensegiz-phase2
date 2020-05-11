@@ -32,14 +32,14 @@ userform:FormGroup
   ngOnInit(): void {
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', Validators.required]
+      deviceId: [{value: '', disabled: true}, Validators.required]
     });
 
 
 
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', Validators.required]
+      deviceId: [{value: '', disabled: true}, Validators.required]
     });
 
 

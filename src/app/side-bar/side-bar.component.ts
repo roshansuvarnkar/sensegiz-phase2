@@ -28,10 +28,9 @@ export class SideBarComponent implements OnInit {
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
-      tblName:'deviceRegistration'
     }
 
-    this.api.getData(data).then((res:any)=>{
+    this.api.getAssignedDevices(data).then((res:any)=>{
       console.log("find data ======",res);
       if(res.status){
         this.findData=res.success

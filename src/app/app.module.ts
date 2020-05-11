@@ -24,6 +24,7 @@ import { DeviceHistoryComponent } from './device-history/device-history.componen
 import { EditDeviceComponent } from './edit-device/edit-device.component';
 import { HomeComponent } from './home/home.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { LiveDataComponent } from './live-data/live-data.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     DeviceHistoryComponent,
     EditDeviceComponent,
     HomeComponent,
+    LiveDataComponent,
   ],
   imports: [
     BrowserModule,
