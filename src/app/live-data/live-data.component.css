@@ -1,0 +1,11 @@
+.mat-sort-header-arrow{
+
+    display:none !important;
+}
+.mat-sort-header-indicator{
+    display:none !important;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding: 10px !important;
+
+}
