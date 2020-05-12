@@ -30,18 +30,18 @@
 
       <ng-container matColumnDef="Contact_1">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact_1 </th>
-        <td mat-cell *matCellDef="let live of liveData"> {{live.contactDevice}} </td>
+        <td mat-cell *matCellDef="let live"> {{live.contactDevice}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="Contact_2">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact_2 </th>
-        <td mat-cell *matCellDef="let live of liveData"> {{live.contactName}} </td>
+        <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
       </ng-container>
 
       <ng-container matColumnDef="Time">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-        <td mat-cell *matCellDef="let live of liveData"> {{live.updatedOn}} </td>
+        <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'UTC'}} </td>
       </ng-container>
  </div>
 

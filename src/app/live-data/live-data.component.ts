@@ -19,7 +19,7 @@ liveData:any=[]
 dataSource:any=[]
 loginData:any
 displayedColumns: string[] = ['Sl_No','Contact_1', 'Contact_2', 'Time'];
-// dataSource = new MatTableDataSource(this.liveData);
+
   constructor(
     private api: ApiService,
     private login:LoginCheckService,
@@ -27,9 +27,12 @@ displayedColumns: string[] = ['Sl_No','Contact_1', 'Contact_2', 'Time'];
   ) {
 
 
-    this.dataSource.sort = this.sort;
+    // this.dataSource.sort = this.sort;
    }
-
+ngAfterViewInit(){
+  // this.refreshData()
+  this.dataSource.sort=this.sort
+}
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
@@ -41,6 +44,7 @@ displayedColumns: string[] = ['Sl_No','Contact_1', 'Contact_2', 'Time'];
 
   }
 
+
   refreshData(){
     var data={
       userId:this.loginData.userId,
@@ -51,10 +55,11 @@ displayedColumns: string[] = ['Sl_No','Contact_1', 'Contact_2', 'Time'];
       console.log("live data ======",res);
       if(res.status){
         this.liveData=res.success
-        this.dataSource  =  this.liveData;
-
-        this.dataSource.sort = this.sort;
-        console.log(this.dataSource)
+        this.dataSource = new MatTableDataSource(this.liveData);
+        // this.dataSource  =  this.liveData;
+        //
+        // this.dataSource.sort = this.sort;
+        // console.log(this.dataSource)
       }
     })
   }
