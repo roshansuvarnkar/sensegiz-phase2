@@ -14,34 +14,26 @@ import { Timestamp } from 'rxjs';
   styleUrls: ['./live-data.component.css']
 })
 export class LiveDataComponent implements OnInit {
-@ViewChild(MatSort, {static: true}) sort: MatSort;
+@ViewChild(MatSort) sort: MatSort;
 liveData:any=[]
 dataSource:any=[]
 loginData:any
-displayedColumns: string[] = ['Sl_No','Contact_1', 'Contact_2', 'Time'];
+displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
 
   constructor(
     private api: ApiService,
     private login:LoginCheckService,
     private router:Router
   ) {
-
-
-    // this.dataSource.sort = this.sort;
    }
-ngAfterViewInit(){
-  // this.refreshData()
-  this.dataSource.sort=this.sort
-}
+
+
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
     this.refreshData()
-
-
-
-
+    this.dataSource.sort=this.sort
   }
 
 
@@ -56,12 +48,14 @@ ngAfterViewInit(){
       if(res.status){
         this.liveData=res.success
         this.dataSource = new MatTableDataSource(this.liveData);
-        // this.dataSource  =  this.liveData;
-        //
-        // this.dataSource.sort = this.sort;
-        // console.log(this.dataSource)
+
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+        })
       }
     })
   }
+
+
 
 }
