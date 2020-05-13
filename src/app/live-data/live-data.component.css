@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .mat-sort-header-arrow{
 
     display:none !important;
@@ -9,3 +10,33 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     padding: 10px !important;
 
 }
+=======
+
+table.mat-table {
+
+    width: 100%;
+    margin-top: 1rem;
+    /* text-align: center; */
+}
+
+::ng-deep .mat-sort-header-container {
+  display:flex;
+  justify-content:center;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #ef6c00;
+}
+.center {
+  text-align: center;
+  font-size: 1.6rem;
+  margin: 1.2rem 0 2rem 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+hr{
+  width: 29rem;
+}
+mat-icon{
+  color: #ef6c00;
+}
+>>>>>>> 3c5160d70b815049642b25c0ec765c3867808df3
