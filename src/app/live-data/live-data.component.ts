@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 
@@ -15,6 +16,8 @@ import { Timestamp } from 'rxjs';
 })
 export class LiveDataComponent implements OnInit {
 @ViewChild(MatSort) sort: MatSort;
+@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 liveData:any=[]
 dataSource:any=[]
 loginData:any
@@ -34,6 +37,8 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
 
     this.refreshData()
     this.dataSource.sort=this.sort
+    this.dataSource.paginator = this.paginator;
+
   }
 
 
@@ -51,6 +56,8 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
 
         setTimeout(() => {
           this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          
         })
       }
     })

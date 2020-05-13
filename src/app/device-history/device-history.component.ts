@@ -38,6 +38,6 @@ export class DeviceHistoryComponent implements OnInit {
       }
     })
   }
-
+  
 
 }
