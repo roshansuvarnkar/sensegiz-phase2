@@ -20,3 +20,7 @@ mat-card-title{
   font-family: serif;
   line-height: 2rem;
 } 
+.dailog {
+    display: flex;
+    justify-content: center;
+}

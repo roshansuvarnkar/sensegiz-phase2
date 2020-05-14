@@ -8,7 +8,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { DeviceHistoryComponent } from './device-history/device-history.component';
 import { HomeComponent } from './home/home.component';
 import { LiveDataComponent } from './live-data/live-data.component';
-
+import { HistoryReportComponent } from './history-report/history-report.component';
 
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard]},
@@ -20,6 +20,7 @@ const routes: Routes = [
   {path:'device-history' , component:DeviceHistoryComponent , canActivate: [AuthGuard]},
   {path:'home' , component:HomeComponent, canActivate: [AuthGuard] },
   {path:'live-data' , component:LiveDataComponent, canActivate: [AuthGuard] },
+  {path:'history-report' , component:HistoryReportComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
