@@ -1,1 +1,155 @@
-<p>history-report works!</p>
+<div class="main">
+
+<!-- based on date -->
+<div *ngIf="type =='basedOnDate'">
+
+
+  <div class="content">
+    <p class="center">REPORT</p>
+            <span>
+
+            <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+          </span>
+    </div> <br>
+
+    <p  mat-dialog-title> Based on date from {{from}} to {{to}} </p>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort >
+
+
+       <div >
+          <ng-container matColumnDef="i">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+              <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="baseName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Person </th>
+              <td mat-cell *matCellDef="let live"> {{live.baseName}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="contactName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
+              <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedOn">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
+              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'UTC'}} </td>
+            </ng-container>
+
+       </div>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+<!-- based On FindId -->
+
+<div *ngIf="type =='basedOnFindId'">
+  <div class="content">
+    <p class="center">REPORT</p>
+            <span>
+
+            <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+          </span>
+    </div> <br>
+      <p class="center-head" mat-dialog-title>Based on Find Id {{selectedValue}}</p>
+
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort >
+
+
+       <div >
+          <ng-container matColumnDef="i">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+              <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="baseName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Person </th>
+              <td mat-cell *matCellDef="let live"> {{live.baseName}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="contactName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
+              <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedOn">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
+              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'UTC'}} </td>
+            </ng-container>
+
+       </div>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+</div>
+
+
+<!-- based On FindName -->
+
+
+<div *ngIf="type =='basedOnFindName'">
+  <div class="content">
+    <p class="center">REPORT</p>
+            <span>
+
+            <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+          </span>
+    </div> <br>
+      <p class="center-head" mat-dialog-title>Based on Find Name {{deviceName}}</p>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort >
+
+
+       <div >
+          <ng-container matColumnDef="i">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+              <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="baseName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Person </th>
+              <td mat-cell *matCellDef="let live"> {{live.baseName}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="contactName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
+              <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedOn">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
+              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'UTC'}} </td>
+            </ng-container>
+
+       </div>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+</div>
+
+
+</div>

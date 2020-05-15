@@ -26,6 +26,7 @@ import { HomeComponent } from './home/home.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { HistoryReportComponent } from './history-report/history-report.componen
     FlexLayoutModule,
     HttpClientModule,
     NgCircleProgressModule.forRoot({}),
+    ToastrModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthGuard],

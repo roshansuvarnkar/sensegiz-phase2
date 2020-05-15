@@ -13,6 +13,7 @@
         <th scope="col">#</th>
         <th scope="col">Device Id</th>
         <th scope="col">Device Name</th>
+        <th scope="col">Shift</th>
         <th scope="col">Infected</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
@@ -23,6 +24,16 @@
         <td>{{i+1}}</td>
         <td>{{a.deviceId}}</td>
         <td>{{a.deviceName}}</td>
+        <td>
+          <mat-form-field>
+            <mat-label>Shift</mat-label>
+            <mat-select  [(value)]="a.shiftName" (selectionChange)="onFoodSelection1(a,$event)">
+              <mat-option *ngFor="let b of shifts" [value]="b.name">
+                {{b.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
         <td>
           <mat-icon *ngIf="a.infected==0" color="primary" matListIcon (click)="infected(a)">report</mat-icon>
           <mat-icon *ngIf="a.infected==1" matListIcon (click)="infected(a)">report_off</mat-icon>

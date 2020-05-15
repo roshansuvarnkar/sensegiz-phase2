@@ -7,43 +7,39 @@ import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Timestamp } from 'rxjs';
 
+
 @Component({
   selector: 'app-live-data',
   templateUrl: './live-data.component.html',
   styleUrls: ['./live-data.component.css']
 })
+
 export class LiveDataComponent implements OnInit {
 @ViewChild(MatSort) sort: MatSort;
-@ViewChild(MatPaginator) paginator: MatPaginator;
+@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 liveData:any=[]
-dataSource:any=[]
+dataSource:any
 loginData:any
 displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
+
 
   constructor(
     private api: ApiService,
     private login:LoginCheckService,
     private router:Router
-  ) {
-   }
-
+  ) { }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
     this.refreshData()
-    this.dataSource.sort=this.sort
+
+
     // this.dataSource.paginator = this.paginator;
+
   }
-
-  applyFilter(filterValue: string) {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-
-      if (this.dataSource.paginator) {
-        this.dataSource.paginator.firstPage();
-      }
-    }
 
   refreshData(){
     var data={
@@ -55,16 +51,16 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
       console.log("live data ======",res);
       if(res.status){
         this.liveData=res.success
-        this.dataSource = new MatTableDataSource(this.liveData);
 
+        this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+
         })
       }
-    });
-  }
-
+    })
+   }
 
 
 }
