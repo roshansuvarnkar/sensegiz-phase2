@@ -58,7 +58,7 @@ finds:any=[]
   //     type:"finds"
   //   }
   //   const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-  
+
   //   dialogRef.afterClosed().subscribe(result => {
   //     this.refreshFinds()
   //   });
@@ -89,7 +89,7 @@ finds:any=[]
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.height = 'vh';
+        dialogConfig.height = '90vh';
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnDate",
@@ -98,7 +98,7 @@ finds:any=[]
           to:data.toDate,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-      
+
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
@@ -121,7 +121,7 @@ finds:any=[]
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.height = 'vh';
+        dialogConfig.height = '90vh';
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnFindId",
@@ -129,7 +129,7 @@ finds:any=[]
           valueSelected:data.selectedValue
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-      
+
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
@@ -146,7 +146,7 @@ finds:any=[]
       deviceName:data.deviceName,
       fromDate:data.fromDate,
       toDate:data.toDate,
-      
+
     }
     this.api.getDeviceHistoryBasedOnDeviceName(value).then((res:any)=>{
       console.log("find data ======",res);
@@ -154,7 +154,7 @@ finds:any=[]
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.height = 'vh';
+        dialogConfig.height = '90vh';
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnFindName",
@@ -162,7 +162,7 @@ finds:any=[]
           deviceName:data.deviceName
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-      
+
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });

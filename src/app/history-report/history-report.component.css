@@ -19,16 +19,14 @@ p.center{
   font-size: 2rem;
   font-weight: 500;
   font-family: serif;
-  position: absolute;
+  margin: 0 auto;
 }
 .content {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+
 }
-button.mat-focus-indicator.mat-button.mat-button-base {
-  margin-left: 31rem;
-  position: fixed;
-}
+
 .mat-dialog-title {
   text-align: center;
   font-size: 1rem;
@@ -37,10 +35,6 @@ button.mat-focus-indicator.mat-button.mat-button-base {
 @media only screen and (max-width: 768px) {
 .main{
   display: block;
-}
-button.mat-focus-indicator.mat-button.mat-button-base {
-  margin-left: 5rem;
-  position: fixed;
 }
 table.mat-table.cdk-table.mat-sort {
   margin: 0px 0px 0px -25px;

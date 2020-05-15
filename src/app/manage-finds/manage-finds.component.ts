@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { EditDeviceComponent } from '../edit-device/edit-device.component';
 import { GeneralMaterialsService } from '../general-materials.service';
+import {FormControl, Validators} from '@angular/forms';
 
 
 
@@ -16,6 +17,18 @@ import { GeneralMaterialsService } from '../general-materials.service';
 export class ManageFindsComponent implements OnInit {
 loginData:any
 findData:any=[]
+shift = new FormControl('');
+shifts=[
+  {
+    name:"Shift1 Morning Shift"
+  },
+  {
+    name:"Shift2 Afternoon Shift"
+  },
+  {
+    name:"Shift3 Night Shift"
+  },
+]
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
 
 
@@ -51,7 +64,7 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("find data ======",res);
+    console.log("find device data ======",res);
     if(res.status){
       this.findData=res.success
     }
@@ -118,5 +131,9 @@ infected(a){
   })
 }
 
+
+onFoodSelection1(a,b){
+  console.log("a===",a,"b===",b.value)
+}
 
 }
