@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-history',
@@ -46,7 +48,21 @@ finds:any=[]
     this.refreshFinds()
   }
 
+  openModal(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '50vh';
+    dialogConfig.width = '50vw';
+    dialogConfig.data = {
+      type:"finds"
+    }
+    const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshFinds()
+    });
+  }
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
