@@ -48,21 +48,6 @@ finds:any=[]
   }
 
 
-  // openDialog(): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.height = 'vh';
-  //   dialogConfig.width = '75vw';
-  //   dialogConfig.data = {
-  //     type:"finds"
-  //   }
-  //   const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-  
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     this.refreshFinds()
-  //   });
-  // }
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
