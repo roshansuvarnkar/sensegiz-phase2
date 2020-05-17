@@ -56,8 +56,8 @@ sendWarning(){
   var data={
     userId:this.loginData.userId
   }
-  var msg="This feature is not avilable"
-  this.general.openSnackBar(msg,'')
+  // var msg="This feature is not avilable"
+  // this.general.openSnackBar(msg,'')
 
 }
 refreshFinds(){
@@ -90,6 +90,7 @@ activeUser(){
            dialogConfig.width = '75vw';
            dialogConfig.data = {
              type:"activeUserData",
+             data:this.activeEmp
              
            }
            const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
@@ -242,7 +243,18 @@ numOfcontactPerDay(){
     console.log("repeated contacts data ======",res);
     if(res.status){
       this.countPerday = res.success
-      
+      // var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+      //   for(let i=0;i<this.countPerday.length-1;i++){
+      //     var dateObj=new Date(this.countPerday[i].updatedOn)
+      //     console.log("date==",dateObj)
+      //    this.month[i] = months[dateObj.getUTCMonth()]
+      //    console.log("updatedon==",this.month[i])
+      //    this.day[i] = dateObj[0].getUTCDate() -i
+      // }
+      // for (let i = 0; i < 10; i++) {
+      //   this.date[i] =this.month[i] + " "+ this.day[i]
+      //     console.log(this.date[i])
+      // }
 
       let chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
@@ -265,6 +277,18 @@ numOfcontactPerDay(){
                         { y: this.countPerday[3].dailyCount, label: 'May 5'},
                         { y: this.countPerday[4].dailyCount, label: 'May 6'}
 
+
+
+                        // { y: this.countPerday[0].dailyCount, label: this.date[9] },
+                        // { y: this.countPerday[1].dailyCount, label: this.date[8] },
+                        // { y: this.countPerday[2].dailyCount, label: this.date[7] },
+                        // { y: this.countPerday[3].dailyCount, label: this.date[6] },
+                        // { y: this.countPerday[4].dailyCount, label: this.date[5] },
+                        // { y: this.countPerday[5].dailyCount, label: this.date[4] },
+                        // { y: this.countPerday[6].dailyCount, label: this.date[3] },
+                        // { y: this.countPerday[7].dailyCount, label: this.date[2] },
+                        // { y: this.countPerday[8].dailyCount, label: this.date[1] },
+                        // { y: this.countPerday[9].dailyCount, label: this.date[0] }
                       ]
                     }]
                   });
