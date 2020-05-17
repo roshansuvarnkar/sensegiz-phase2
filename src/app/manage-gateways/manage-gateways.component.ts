@@ -18,6 +18,8 @@ export class ManageGatewaysComponent implements OnInit {
 
   loginData:any
   gatewayData:any=[]
+  elements: any = [];
+  headElements = ['id','gatewayId','gatewayName',	'edit',	'delete'];
   constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) { }
 
 
@@ -58,7 +60,17 @@ refreshGateway(){
     console.log("gateway data ======",res);
     if(res.status){
       this.gatewayData=res.success
+      for (let i = 0; i <this.gatewayData.length; i++) {
+        this.elements.push(
+          {   id: i+1,
+              gatewayId: this.gatewayData[i].gatewayId,
+              gatewayName: this.gatewayData[i].gatewayName,
+              edit:'edit',
+              delete:'delete'
+          });
+      }
     }
+    
   })
 }
 

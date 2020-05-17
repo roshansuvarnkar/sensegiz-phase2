@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import {Router} from '@angular/router'
+import { GeneralMaterialsService } from '../general-materials.service';
 import * as CanvasJS from '../../assets/canvasjs-2.3.2/canvasjs.min';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import { HomeCountViewComponent } from '../home-count-view/home-count-view.component';
+
 
 @Component({
   selector: 'app-home',
@@ -15,14 +19,22 @@ loginData:any
 findLen:any
 checkUrl:any
 setting:any
+contactTimeMax:any
+contactDeviceMax:any
+countPerday:any
 totalEmp = 0;
 infectedEmp = 0;
 normalEmp = 0;
 activeEmp = 0;
-intervalId
+totMin:any=[]
+date:any=[]
+month:any=[]
+day:any=[]
   constructor(private api: ApiService,
   private login:LoginCheckService,
-  private router:Router
+  private router:Router,
+  public dialog: MatDialog,
+  private general:GeneralMaterialsService
 ) { }
 
   ngOnInit(): void {
@@ -32,34 +44,20 @@ intervalId
     this.refreshFinds()
     this.refreshCount()
     this.refreshSetting()
-    let chart = new CanvasJS.Chart("chartContainer", {
-                  animationEnabled: true,
-                  exportEnabled: true,
-                  title: {
-                    text: "No. of contacts",
-                    fontColor: "#ef6c00",
-                  },
-                  axisY:{
-                    gridThickness: 0
-                  },
-                  dataPointWidth: 30,
-                  data: [{
-                    type: "column",
-                    dataPoints: [
-                      { y: 1, label: "May 1" },
-                      { y: 3, label: "May 2" },
-                      { y: 6, label: "May 3" },
-                      { y: 2, label: "May 4" },
-                      { y: 5, label: "May 5" },
-                      { y: 4, label: "May 6" },
-                      { y: 10, label: "May 7" },
-                      { y: 8, label: "May 8" },
-                      { y: 3, label: "May 9" }
-                    ]
-                  }]
-                });
+    this.maximumContactTime()
+    this.repeatedContacts()
+    this.numOfcontactPerDay()
 
-chart.render();
+
+
+}
+
+sendWarning(){
+  var data={
+    userId:this.loginData.userId
+  }
+  var msg="This feature is not avilable"
+  this.general.openSnackBar(msg,'')
 
 }
 refreshFinds(){
@@ -76,6 +74,94 @@ refreshFinds(){
   })
 }
 
+activeUser(){
+  var data={
+    userId:this.loginData.userId,
+    type:'active'
+  }
+  this.api.getHomeCountData(data).then((res:any)=>{
+        if(res.status){
+           this.activeEmp = res.success
+           console.log("Active users===",this.activeEmp)
+           const dialogConfig = new MatDialogConfig();
+           dialogConfig.disableClose = true;
+           dialogConfig.autoFocus = true;
+           dialogConfig.height = '90vh';
+           dialogConfig.width = '75vw';
+           dialogConfig.data = {
+             type:"activeUserData",
+             
+           }
+           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+   
+           dialogRef.afterClosed().subscribe(result => {
+             this.refreshFinds()
+           });
+      
+    }
+  })
+
+}
+infectedUser(){
+  var data={
+    userId:this.loginData.userId,
+    type:'infected'
+  }
+  this.api.getHomeCountData(data).then((res:any)=>{
+    console.log("count data ======",res);
+    if(res.status){
+      this.infectedEmp = res.success
+      console.log("Infected users===",this.infectedEmp)
+           const dialogConfig = new MatDialogConfig();
+           dialogConfig.disableClose = true;
+           dialogConfig.autoFocus = true;
+           dialogConfig.height = '90vh';
+           dialogConfig.width = '75vw';
+           dialogConfig.data = {
+             type:"infectedUserData",
+             data:this.infectedEmp
+             
+           }
+           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+   
+           dialogRef.afterClosed().subscribe(result => {
+             this.refreshFinds()
+           });
+      
+    }
+  })
+
+}
+normalUser(){
+  var data={
+    userId:this.loginData.userId,
+    type:'normal'
+  }
+  this.api.getHomeCountData(data).then((res:any)=>{
+    console.log("count data ======",res);
+    if(res.status){
+      this.normalEmp = res.success
+      console.log("Normal users===",this.normalEmp)
+           const dialogConfig = new MatDialogConfig();
+           dialogConfig.disableClose = true;
+           dialogConfig.autoFocus = true;
+           dialogConfig.height = '90vh';
+           dialogConfig.width = '75vw';
+           dialogConfig.data = {
+             type:"normalUserData",
+             data:this.normalEmp
+             
+           }
+           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+   
+           dialogRef.afterClosed().subscribe(result => {
+             this.refreshFinds()
+           });
+      
+    }
+  })
+
+}
 
 
 refreshCount(){
@@ -112,6 +198,81 @@ refreshSetting(){
 
 
 
+maximumContactTime(){
+  var data={
+    userId:this.loginData.userId,
+  }
+  this.api.getMaxTimeContact(data).then((res:any)=>{
+    console.log("max contact time ======",res);
+    if(res.status){
+      this.contactTimeMax = res.success
+      for(var i=0;i<this.contactTimeMax.length;i++){
+        var hms = this.contactTimeMax[i].totTime
+        var a = hms.split(':')
+        this.totMin[i]=Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
 
+      }
+        for(var i=0;i<this.contactTimeMax.length;i++){
+          console.log("minutes==",this.totMin[i])
+        }
+    }
+  })
+
+}
+
+repeatedContacts(){
+  var data={
+    userId:this.loginData.userId,
+  }
+  this.api.getMaxContactDevice(data).then((res:any)=>{
+    console.log("max contact devices data ======",res);
+    if(res.status){
+      this.contactDeviceMax = res.success
+
+    }
+  })
+
+}
+
+numOfcontactPerDay(){
+  var data={
+    userId:this.loginData.userId,
+  }
+  this.api.getPerDayCount(data).then((res:any)=>{
+    console.log("repeated contacts data ======",res);
+    if(res.status){
+      this.countPerday = res.success
+      
+
+      let chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    title: {
+                      text: "No. of contacts",
+                      fontColor: "#ef6c00",
+                    },
+                    axisY:{
+                      gridThickness: 0
+                    },
+                    dataPointWidth: 30,
+                    data: [{
+                      type: "column",
+                      dataPoints: [
+                        { y: this.countPerday[0].dailyCount, label: 'May 1'},
+                        { y: this.countPerday[0].dailyCount, label: 'May 2'},
+                        { y: this.countPerday[1].dailyCount, label: 'May 3'},
+                        { y: this.countPerday[2].dailyCount, label: 'May 4'},
+                        { y: this.countPerday[3].dailyCount, label: 'May 5'},
+                        { y: this.countPerday[4].dailyCount, label: 'May 6'}
+
+                      ]
+                    }]
+                  });
+
+  chart.render();
+    }
+  })
+
+}
 
 }

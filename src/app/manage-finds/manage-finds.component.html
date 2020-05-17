@@ -5,14 +5,15 @@
 <br>
 <button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
 
-
+<!-- 
 <div class="table">
-  <table class="table table-hover">
+  <table class="table table-hover" >
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Device Id</th>
         <th scope="col">Device Name</th>
+        <th scope="col">Shift</th>
         <th scope="col">Infected</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
@@ -24,11 +25,64 @@
         <td>{{a.deviceId}}</td>
         <td>{{a.deviceName}}</td>
         <td>
+          <mat-form-field>
+            <mat-label>Shift</mat-label>
+            <mat-select  [(value)]="a.shiftName" (selectionChange)="onFoodSelection1(a,$event)">
+              <mat-option *ngFor="let b of shifts" [value]="b.name">
+                {{b.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
           <mat-icon *ngIf="a.infected==0" color="primary" matListIcon (click)="infected(a)">report</mat-icon>
           <mat-icon *ngIf="a.infected==1" matListIcon (click)="infected(a)">report_off</mat-icon>
         </td>
         <td><mat-icon matListIcon (click)="edit(a)">create</mat-icon></td>
         <td><mat-icon matListIcon (click)="delete(a)">delete</mat-icon></td>
+
+
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+
+<div class="table">
+  <table  mdbTable class="table table-hover z-depth-1" mdbTable >
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" [mdbTableSort]="elements" sortBy="deviceId">Device Id </th>
+        <th scope="col" [mdbTableSort]="elements" sortBy="deviceName">Device Name</th>
+        <th scope="col">Shift</th>
+        <th scope="col" [mdbTableSort]="elements" sortBy="infected">Infected</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let el of elements; let i = index">
+        <td>{{i+1}}</td>
+        <td >{{el.deviceId}}</td>
+        <td>{{el.deviceName}}</td>
+        <td>
+          <mat-form-field>
+            <mat-label>Shift</mat-label>
+            <mat-select  [(value)]="el.shiftName" (selectionChange)="onFoodSelection1(el,$event)">
+              <mat-option *ngFor="let b of shifts" [value]="b.name">
+                {{b.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-icon *ngIf="el.infected==0" color="primary" matListIcon (click)="infected(el)">{{icon1}}</mat-icon>
+          <mat-icon *ngIf="el.infected==1" color="primary" matListIcon (click)="infected(el)">{{icon2}}</mat-icon>
+       
+        </td>
+        <td><mat-icon matListIcon (click)="edit(el)">{{el.edit}}</mat-icon></td>
+        <td><mat-icon matListIcon (click)="delete(el)">{{el.delete}}</mat-icon></td>
 
 
       </tr>

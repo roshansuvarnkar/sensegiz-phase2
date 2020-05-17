@@ -2,11 +2,10 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import {Router} from '@angular/router';
-import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { Timestamp } from 'rxjs';
-import {MatPaginator} from '@angular/material/paginator';
-
 
 
 @Component({
@@ -22,6 +21,7 @@ export class LiveDataComponent implements OnInit {
 liveData:any=[]
 dataSource:any
 loginData:any
+count= 0
 displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
 
 
@@ -34,15 +34,38 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-
-    this.refreshData()
-    
-    
+    this.count=0
+    this.refreshData(this.count)
+    console.log("count",this.count)
     // this.dataSource.paginator = this.paginator;
 
   }
 
-  refreshData(){
+  prevDayData(){
+   
+    this.count++;
+    console.log("count",this.count)
+      var data={
+        userId:this.loginData.userId,
+        tblName:'deviceData',
+        count:this.count
+      }
+
+      this.api.getLiveData(data).then((res:any)=>{
+        console.log("live data ======",res);
+        if(res.status){
+          this.liveData=res.success
+          this.dataSource = new MatTableDataSource(this.liveData);
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+
+          })
+        }
+      })
+  }
+
+  refreshData(value){
     var data={
       userId:this.loginData.userId,
       tblName:'deviceData'
@@ -57,13 +80,11 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
-          
+
         })
       }
     })
    }
-  
+
 
 }
-
-

@@ -15,7 +15,7 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class HistoryReportComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   type:any
   liveData:any=[]
   dataSource:any
@@ -25,8 +25,8 @@ export class HistoryReportComponent implements OnInit {
   selectedValue:any
   deviceName:any
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
-  
-  
+
+
     constructor(
       private api: ApiService,
       private login:LoginCheckService,
@@ -47,34 +47,15 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-   
+
     // basedOnDate
 
     this.dataSource = new MatTableDataSource(this.liveData);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      
+
     })
   }
-  refreshData(){
-    var data={
-      userId:this.loginData.userId,
-      tblName:'deviceData'
-    }
 
-    this.api.getLiveData(data).then((res:any)=>{
-      console.log("live data ======",res);
-      if(res.status){
-        this.liveData=res.success
-
-        this.dataSource = new MatTableDataSource(this.liveData);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          
-        })
-      }
-    })
-   }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,6 +26,8 @@ import { HomeComponent } from './home/home.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
+import { HomeCountViewComponent } from './home-count-view/home-count-view.component';
+
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { HistoryReportComponent } from './history-report/history-report.componen
     HomeComponent,
     LiveDataComponent,
     HistoryReportComponent,
+    HomeCountViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { HistoryReportComponent } from './history-report/history-report.componen
     FlexLayoutModule,
     HttpClientModule,
     NgCircleProgressModule.forRoot({}),
+    MDBBootstrapModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthGuard],

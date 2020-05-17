@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { EditDeviceComponent } from '../edit-device/edit-device.component';
 import { GeneralMaterialsService } from '../general-materials.service';
+import {FormControl, Validators} from '@angular/forms';
 
 
 
@@ -16,6 +17,26 @@ import { GeneralMaterialsService } from '../general-materials.service';
 export class ManageFindsComponent implements OnInit {
 loginData:any
 findData:any=[]
+icon1:string='report'
+icon2:string='report_off'
+icon4:string='keyboard_arrow_up'
+elements: any = [];
+headElements = ['id','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
+shift = new FormControl('');
+shifts=[
+  {
+    name:"Shift1 Morning Shift"
+  },
+  {
+    name:"Shift2 Afternoon Shift"
+  },
+  {
+    name:"Shift3 Night Shift"
+  },
+]
+
+    
+
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
 
 
@@ -51,9 +72,20 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("find data ======",res);
+    console.log("find device data ======",res);
     if(res.status){
       this.findData=res.success
+      for (let i = 0; i <this.findData.length; i++) {
+        this.elements.push(
+          { id: this.findData[i].id,
+             deviceId: this.findData[i].deviceId,
+              deviceName: this.findData[i].deviceName,
+              shift: this.findData[i].shiftName ,
+              infected: this.findData[i].infected,
+              edit:'edit',
+              delete:'delete'
+          });
+      }
     }
   })
 }
@@ -118,5 +150,9 @@ infected(a){
   })
 }
 
+
+onFoodSelection1(a,b){
+  console.log("a===",a,"b===",b.value)
+}
 
 }

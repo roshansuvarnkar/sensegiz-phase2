@@ -6,7 +6,7 @@
       <span class="flex">
         <mat-icon >person</mat-icon>
         <p>{{title}}</p>&nbsp;&nbsp;
-        <span (click)="logout()">Logout</span>
+        <span *ngIf="loginData" (click)="logout()">Logout</span>
       </span>
     </span>
   </span>
@@ -15,7 +15,7 @@
 <div *ngIf="loginData">
   <mat-toolbar color="primary" class="menubar">
     <span routerLink="/home">Home</span>
-    <span routerLink="/dashboard">Manage Assets</span>
+    <span routerLink="/dashboard">Manage People</span>
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/history">History</span>
     <span routerLink="/settings">Setting</span>

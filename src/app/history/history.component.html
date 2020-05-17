@@ -11,6 +11,20 @@
     <mat-card-content>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
         <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="Last week" formControlName="lastWeek" >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid date
+          </mat-error>
+        </mat-form-field><br>
+        <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="Previous day date" formControlName="prevDate" >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid previous date
+          </mat-error>
+        </mat-form-field><br>
+        <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
           <mat-error>
@@ -42,6 +56,7 @@
     </span>
     <mat-card-content>
       <form [formGroup]="findIdForm" (ngSubmit)="onSubmitFindId(findIdForm.value)">
+       
         <mat-form-field>
           <mat-label>Select find</mat-label>
           <mat-select formControlName="selectedValue" name="find">
@@ -50,6 +65,20 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="Last week" formControlName="lastWeek" >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid date
+          </mat-error>
+        </mat-form-field><br>
+        <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="Previous day date" formControlName="prevDate" >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid previous date
+          </mat-error>
+        </mat-form-field><br>
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
@@ -83,12 +112,27 @@
     </span>
     <mat-card-content>
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
+        
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="Find Name" formControlName="deviceName" required>
           <mat-error>
             Please provide a valid device name
           </mat-error>
         </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="Last week" formControlName="lastWeek" >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid date
+          </mat-error>
+        </mat-form-field><br>
+        <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="Previous day date" formControlName="prevDate" >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid previous date
+          </mat-error>
+        </mat-form-field><br>
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>

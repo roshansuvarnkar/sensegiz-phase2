@@ -238,7 +238,7 @@ export class ApiService {
         resolve(res);
       })
     });
-  } 
+  }
 
 
   getDeviceHistoryBasedOnDate(data){
@@ -252,37 +252,84 @@ export class ApiService {
         resolve(res);
       })
     });
-  } 
+  }
   getDeviceHistoryBasedOnDeviceId(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-  
+
     let url = this.host+'/historyBasedOnDeviceId';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
       })
     });
-  } 
+  }
   getDeviceHistoryBasedOnDeviceName(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-  
+
     let url = this.host+'/historyBasedOnDeviceName';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
       })
     });
-  } 
+  }
 
+// max Time Contact
+
+  getMaxTimeContact(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/maxTimeContact';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+
+
+  getMaxContactDevice(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/maxContactDevice';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+
+
+  getPerDayCount(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/perDayCount';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+  getHomeCountData(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/getDataType';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
 }
-
-// DeviceHistory Dates
-
-// historyBasedOnDeviceId id userId deviceid from to
-
-// historybasedondevicename userid devicename from to
-

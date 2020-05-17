@@ -9,6 +9,7 @@ import { DeviceHistoryComponent } from './device-history/device-history.componen
 import { HomeComponent } from './home/home.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
+import { HomeCountViewComponent } from './home-count-view/home-count-view.component';
 
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard]},
@@ -21,6 +22,8 @@ const routes: Routes = [
   {path:'home' , component:HomeComponent, canActivate: [AuthGuard] },
   {path:'live-data' , component:LiveDataComponent, canActivate: [AuthGuard] },
   {path:'history-report' , component:HistoryReportComponent, canActivate: [AuthGuard]},
+  {path:'home-count-view' , component:HomeCountViewComponent, canActivate: [AuthGuard]},
+
 ];
 
 @NgModule({
