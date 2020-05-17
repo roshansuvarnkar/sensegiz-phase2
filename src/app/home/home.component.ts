@@ -26,7 +26,6 @@ totalEmp = 0;
 infectedEmp = 0;
 normalEmp = 0;
 activeEmp = 0;
-totMin:any=[]
 date:any=[]
 month:any=[]
 day:any=[]
@@ -60,6 +59,11 @@ sendWarning(){
   this.general.openSnackBar(msg,'')
 
 }
+
+
+
+
+
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
@@ -74,6 +78,10 @@ refreshFinds(){
   })
 }
 
+
+
+
+
 activeUser(){
   var data={
     userId:this.loginData.userId,
@@ -81,7 +89,6 @@ activeUser(){
   }
   this.api.getHomeCountData(data).then((res:any)=>{
         if(res.status){
-           this.activeEmp = res.success
            console.log("Active users===",this.activeEmp)
            const dialogConfig = new MatDialogConfig();
            dialogConfig.disableClose = true;
@@ -90,18 +97,22 @@ activeUser(){
            dialogConfig.width = '75vw';
            dialogConfig.data = {
              type:"activeUserData",
-             
+             data:res.success
            }
            const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
-   
+
            dialogRef.afterClosed().subscribe(result => {
              this.refreshFinds()
            });
-      
+
     }
   })
 
 }
+
+
+
+
 infectedUser(){
   var data={
     userId:this.loginData.userId,
@@ -110,28 +121,31 @@ infectedUser(){
   this.api.getHomeCountData(data).then((res:any)=>{
     console.log("count data ======",res);
     if(res.status){
-      this.infectedEmp = res.success
       console.log("Infected users===",this.infectedEmp)
-           const dialogConfig = new MatDialogConfig();
-           dialogConfig.disableClose = true;
-           dialogConfig.autoFocus = true;
-           dialogConfig.height = '90vh';
-           dialogConfig.width = '75vw';
-           dialogConfig.data = {
-             type:"infectedUserData",
-             data:this.infectedEmp
-             
-           }
-           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
-   
-           dialogRef.afterClosed().subscribe(result => {
-             this.refreshFinds()
-           });
-      
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.disableClose = true;
+       dialogConfig.autoFocus = true;
+       dialogConfig.height = '90vh';
+       dialogConfig.width = '75vw';
+       dialogConfig.data = {
+         type:"infectedUserData",
+         data:res.success
+       }
+       const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+
+       dialogRef.afterClosed().subscribe(result => {
+         this.refreshFinds()
+       });
+
     }
   })
 
 }
+
+
+
+
+
 normalUser(){
   var data={
     userId:this.loginData.userId,
@@ -140,28 +154,29 @@ normalUser(){
   this.api.getHomeCountData(data).then((res:any)=>{
     console.log("count data ======",res);
     if(res.status){
-      this.normalEmp = res.success
-      console.log("Normal users===",this.normalEmp)
-           const dialogConfig = new MatDialogConfig();
-           dialogConfig.disableClose = true;
-           dialogConfig.autoFocus = true;
-           dialogConfig.height = '90vh';
-           dialogConfig.width = '75vw';
-           dialogConfig.data = {
-             type:"normalUserData",
-             data:this.normalEmp
-             
-           }
-           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
-   
-           dialogRef.afterClosed().subscribe(result => {
-             this.refreshFinds()
-           });
-      
+       console.log("Normal users===",this.normalEmp)
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.disableClose = true;
+       dialogConfig.autoFocus = true;
+       dialogConfig.height = '90vh';
+       dialogConfig.width = '75vw';
+       dialogConfig.data = {
+         type:"normalUserData",
+         data:res.success
+       }
+       const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+
+       dialogRef.afterClosed().subscribe(result => {
+         this.refreshFinds()
+       });
+
     }
   })
 
 }
+
+
+
 
 
 refreshCount(){
@@ -175,11 +190,11 @@ refreshCount(){
       this.infectedEmp = res.success[1].inectedEmp
       this.normalEmp = res.success[2].normalEmp
       this.activeEmp = res.success[3].activeEmp
-      // this.findData=res.success
-      // this.findLen=this.findData.length
     }
   })
 }
+
+
 
 
 
@@ -198,6 +213,9 @@ refreshSetting(){
 
 
 
+
+
+
 maximumContactTime(){
   var data={
     userId:this.loginData.userId,
@@ -206,19 +224,25 @@ maximumContactTime(){
     console.log("max contact time ======",res);
     if(res.status){
       this.contactTimeMax = res.success
-      for(var i=0;i<this.contactTimeMax.length;i++){
-        var hms = this.contactTimeMax[i].totTime
+      for(var i=0;i<res.success.length;i++){
+        var hms = res.success[i].totTime
         var a = hms.split(':')
-        this.totMin[i]=Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
-
+        var totmin = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
+        this.contactTimeMax.push(
+            {
+              contactName:res.success[i].contactName,
+              totTime:totmin
+            }
+        )
       }
-        for(var i=0;i<this.contactTimeMax.length;i++){
-          console.log("minutes==",this.totMin[i])
-        }
     }
   })
 
 }
+
+
+
+
 
 repeatedContacts(){
   var data={
@@ -234,6 +258,9 @@ repeatedContacts(){
 
 }
 
+
+
+
 numOfcontactPerDay(){
   var data={
     userId:this.loginData.userId,
@@ -242,7 +269,7 @@ numOfcontactPerDay(){
     console.log("repeated contacts data ======",res);
     if(res.status){
       this.countPerday = res.success
-      
+
 
       let chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,

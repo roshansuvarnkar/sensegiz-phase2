@@ -42,33 +42,21 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
   }
 
   prevDayData(){
-   
-    this.count++;
-    console.log("count",this.count)
-      var data={
-        userId:this.loginData.userId,
-        tblName:'deviceData',
-        count:this.count
-      }
+    this.count = this.count + 1;
+    console.log("count==",this.count);
 
-      this.api.getLiveData(data).then((res:any)=>{
-        console.log("live data ======",res);
-        if(res.status){
-          this.liveData=res.success
-          this.dataSource = new MatTableDataSource(this.liveData);
-          setTimeout(() => {
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
-
-          })
-        }
-      })
+    this.refreshData(this.count)
   }
+
+
+
+
 
   refreshData(value){
     var data={
       userId:this.loginData.userId,
-      tblName:'deviceData'
+      tblName:'deviceData',
+      count:value
     }
 
     this.api.getLiveData(data).then((res:any)=>{

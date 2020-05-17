@@ -60,6 +60,7 @@ refreshGateway(){
     console.log("gateway data ======",res);
     if(res.status){
       this.gatewayData=res.success
+      this.elements=[]
       for (let i = 0; i <this.gatewayData.length; i++) {
         this.elements.push(
           {   id: i+1,
@@ -70,7 +71,7 @@ refreshGateway(){
           });
       }
     }
-    
+
   })
 }
 
