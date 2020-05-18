@@ -19,17 +19,20 @@ loginData:any
 findLen:any
 checkUrl:any
 setting:any
-contactTimeMax:any
+contactTimeMax:any=[]
 contactDeviceMax:any
 countPerday:any
 totalEmp = 0;
 infectedEmp = 0;
 normalEmp = 0;
 activeEmp = 0;
-totMin:any=[]
-date:any=[]
+dates:any=[]
 month:any=[]
 day:any=[]
+totmin:any
+y:any
+label:any
+dataPoints:any=[]
   constructor(private api: ApiService,
   private login:LoginCheckService,
   private router:Router,
@@ -60,6 +63,11 @@ sendWarning(){
   // this.general.openSnackBar(msg,'')
 
 }
+
+
+
+
+
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
@@ -74,6 +82,10 @@ refreshFinds(){
   })
 }
 
+
+
+
+
 activeUser(){
   var data={
     userId:this.loginData.userId,
@@ -81,7 +93,6 @@ activeUser(){
   }
   this.api.getHomeCountData(data).then((res:any)=>{
         if(res.status){
-           this.activeEmp = res.success
            console.log("Active users===",this.activeEmp)
            const dialogConfig = new MatDialogConfig();
            dialogConfig.disableClose = true;
@@ -90,19 +101,22 @@ activeUser(){
            dialogConfig.width = '75vw';
            dialogConfig.data = {
              type:"activeUserData",
-             data:this.activeEmp
-             
+             data:res.success
            }
            const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
-   
+
            dialogRef.afterClosed().subscribe(result => {
              this.refreshFinds()
            });
-      
+
     }
   })
 
 }
+
+
+
+
 infectedUser(){
   var data={
     userId:this.loginData.userId,
@@ -111,28 +125,31 @@ infectedUser(){
   this.api.getHomeCountData(data).then((res:any)=>{
     console.log("count data ======",res);
     if(res.status){
-      this.infectedEmp = res.success
       console.log("Infected users===",this.infectedEmp)
-           const dialogConfig = new MatDialogConfig();
-           dialogConfig.disableClose = true;
-           dialogConfig.autoFocus = true;
-           dialogConfig.height = '90vh';
-           dialogConfig.width = '75vw';
-           dialogConfig.data = {
-             type:"infectedUserData",
-             data:this.infectedEmp
-             
-           }
-           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
-   
-           dialogRef.afterClosed().subscribe(result => {
-             this.refreshFinds()
-           });
-      
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.disableClose = true;
+       dialogConfig.autoFocus = true;
+       dialogConfig.height = '90vh';
+       dialogConfig.width = '75vw';
+       dialogConfig.data = {
+         type:"infectedUserData",
+         data:res.success
+       }
+       const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+
+       dialogRef.afterClosed().subscribe(result => {
+         this.refreshFinds()
+       });
+
     }
   })
 
 }
+
+
+
+
+
 normalUser(){
   var data={
     userId:this.loginData.userId,
@@ -141,28 +158,29 @@ normalUser(){
   this.api.getHomeCountData(data).then((res:any)=>{
     console.log("count data ======",res);
     if(res.status){
-      this.normalEmp = res.success
-      console.log("Normal users===",this.normalEmp)
-           const dialogConfig = new MatDialogConfig();
-           dialogConfig.disableClose = true;
-           dialogConfig.autoFocus = true;
-           dialogConfig.height = '90vh';
-           dialogConfig.width = '75vw';
-           dialogConfig.data = {
-             type:"normalUserData",
-             data:this.normalEmp
-             
-           }
-           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
-   
-           dialogRef.afterClosed().subscribe(result => {
-             this.refreshFinds()
-           });
-      
+       console.log("Normal users===",this.normalEmp)
+       const dialogConfig = new MatDialogConfig();
+       dialogConfig.disableClose = true;
+       dialogConfig.autoFocus = true;
+       dialogConfig.height = '90vh';
+       dialogConfig.width = '75vw';
+       dialogConfig.data = {
+         type:"normalUserData",
+         data:res.success
+       }
+       const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+
+       dialogRef.afterClosed().subscribe(result => {
+         this.refreshFinds()
+       });
+
     }
   })
 
 }
+
+
+
 
 
 refreshCount(){
@@ -176,11 +194,11 @@ refreshCount(){
       this.infectedEmp = res.success[1].inectedEmp
       this.normalEmp = res.success[2].normalEmp
       this.activeEmp = res.success[3].activeEmp
-      // this.findData=res.success
-      // this.findLen=this.findData.length
     }
   })
 }
+
+
 
 
 
@@ -199,6 +217,9 @@ refreshSetting(){
 
 
 
+
+
+
 maximumContactTime(){
   var data={
     userId:this.loginData.userId,
@@ -206,20 +227,29 @@ maximumContactTime(){
   this.api.getMaxTimeContact(data).then((res:any)=>{
     console.log("max contact time ======",res);
     if(res.status){
-      this.contactTimeMax = res.success
-      for(var i=0;i<this.contactTimeMax.length;i++){
-        var hms = this.contactTimeMax[i].totTime
+    
+      for(var i=0;i<res.success.length;i++){
+        var hms = res.success[i].totTime
         var a = hms.split(':')
-        this.totMin[i]=Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
-
+         this.totmin = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
+     
+        this.contactTimeMax.push(
+          {
+            contactName:res.success[i].contactName,
+            totmin:this.totmin,
+            totTime:res.success[i].totTime
+          }
+      )
+       
       }
-        for(var i=0;i<this.contactTimeMax.length;i++){
-          console.log("minutes==",this.totMin[i])
-        }
     }
   })
 
 }
+
+
+
+
 
 repeatedContacts(){
   var data={
@@ -235,6 +265,9 @@ repeatedContacts(){
 
 }
 
+
+
+
 numOfcontactPerDay(){
   var data={
     userId:this.loginData.userId,
@@ -242,19 +275,25 @@ numOfcontactPerDay(){
   this.api.getPerDayCount(data).then((res:any)=>{
     console.log("repeated contacts data ======",res);
     if(res.status){
-      this.countPerday = res.success
-      // var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-      //   for(let i=0;i<this.countPerday.length-1;i++){
-      //     var dateObj=new Date(this.countPerday[i].updatedOn)
-      //     console.log("date==",dateObj)
-      //    this.month[i] = months[dateObj.getUTCMonth()]
-      //    console.log("updatedon==",this.month[i])
-      //    this.day[i] = dateObj[0].getUTCDate() -i
-      // }
-      // for (let i = 0; i < 10; i++) {
-      //   this.date[i] =this.month[i] + " "+ this.day[i]
-      //     console.log(this.date[i])
-      // }
+      this.countPerday = res.success.reverse()
+     
+      for (let i = 0; i < this.countPerday.length; i++) {
+        var months=['Jan','Feb', 'Mar','Apr','May','Jun','Jul','Aug','sep','Oct','Nov','Dec']
+          var dateObj=this.countPerday[i].updatedOn.split('T')
+          var date=new Date(dateObj[0])
+          this.month[i]=months[date.getMonth()]
+          this.day[i]=date.getDate()+1
+          this.dates[i]=this.month[i] + " "+this.day[i]
+         this.dataPoints.push(
+           {
+            y:this.countPerday[i].dailyCount,
+            label:this.dates[i]
+           }
+         )
+
+      }
+     
+    
 
       let chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
@@ -264,32 +303,15 @@ numOfcontactPerDay(){
                       fontColor: "#ef6c00",
                     },
                     axisY:{
+                      
                       gridThickness: 0
                     },
                     dataPointWidth: 30,
+                 
                     data: [{
                       type: "column",
-                      dataPoints: [
-                        { y: this.countPerday[0].dailyCount, label: 'May 1'},
-                        { y: this.countPerday[0].dailyCount, label: 'May 2'},
-                        { y: this.countPerday[1].dailyCount, label: 'May 3'},
-                        { y: this.countPerday[2].dailyCount, label: 'May 4'},
-                        { y: this.countPerday[3].dailyCount, label: 'May 5'},
-                        { y: this.countPerday[4].dailyCount, label: 'May 6'}
-
-
-
-                        // { y: this.countPerday[0].dailyCount, label: this.date[9] },
-                        // { y: this.countPerday[1].dailyCount, label: this.date[8] },
-                        // { y: this.countPerday[2].dailyCount, label: this.date[7] },
-                        // { y: this.countPerday[3].dailyCount, label: this.date[6] },
-                        // { y: this.countPerday[4].dailyCount, label: this.date[5] },
-                        // { y: this.countPerday[5].dailyCount, label: this.date[4] },
-                        // { y: this.countPerday[6].dailyCount, label: this.date[3] },
-                        // { y: this.countPerday[7].dailyCount, label: this.date[2] },
-                        // { y: this.countPerday[8].dailyCount, label: this.date[1] },
-                        // { y: this.countPerday[9].dailyCount, label: this.date[0] }
-                      ]
+                     
+                      dataPoints:this.dataPoints
                     }]
                   });
 

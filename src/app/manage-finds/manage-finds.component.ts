@@ -35,7 +35,7 @@ shifts=[
   },
 ]
 
-    
+
 
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
 
@@ -75,9 +75,10 @@ refreshFinds(){
     console.log("find device data ======",res);
     if(res.status){
       this.findData=res.success
+      this.elements=[]
       for (let i = 0; i <this.findData.length; i++) {
         this.elements.push(
-          { id: this.findData[i].id,
+          { id: i+1,
              deviceId: this.findData[i].deviceId,
               deviceName: this.findData[i].deviceName,
               shift: this.findData[i].shiftName ,

@@ -24,3 +24,11 @@ mat-card-title{
     display: flex;
     justify-content: center;
 }
+
+mat-radio-button {
+    display: inline !important;
+    margin-left: 2.6rem;
+}
+.text{
+    margin-right: 4rem;
+}

@@ -16,6 +16,10 @@ findIdForm:FormGroup
 findNameForm:FormGroup
 dateForm:FormGroup
 finds:any=[]
+prevDate:any
+radioStatus0:boolean=false
+radioStatus1:boolean=false
+radioStatus2:boolean=false
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
               private api:ApiService,
@@ -30,8 +34,6 @@ finds:any=[]
 
 
     this.dateForm = this.fb.group({
-      lastWeek: [''],
-      prevDate: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
@@ -39,8 +41,6 @@ finds:any=[]
 
     this.findIdForm = this.fb.group({
       selectedValue: ['', Validators.required],
-      lastWeek: [''],
-      prevDate: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
@@ -48,17 +48,39 @@ finds:any=[]
 
     this.findNameForm = this.fb.group({
       deviceName: ['', Validators.required],
-      lastWeek: [''],
-      prevDate: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
 
 
     this.refreshFinds()
+    
   }
 
 
+  onclick(data,i){
+    console.log("data==",data,i)
+    
+ 
+  var date = new Date();                       
+    this.prevDate=date.setDate(date.getDate() - 1); 
+    if(data.value==1){
+      if(i==0){
+        this.radioStatus0=true
+      }else if(i==1){
+        this.radioStatus1=true
+      }else{
+        this.radioStatus2=true
+      }
+    }
+  else{
+    this.radioStatus0=false
+    this.radioStatus1=false
+    this.radioStatus2=false
+  }
+
+
+    }
 
 
   refreshFinds(){
