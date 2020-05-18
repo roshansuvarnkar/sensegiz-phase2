@@ -223,7 +223,6 @@ maximumContactTime(){
   this.api.getMaxTimeContact(data).then((res:any)=>{
     console.log("max contact time ======",res);
     if(res.status){
-      this.contactTimeMax = res.success
       for(var i=0;i<res.success.length;i++){
         var hms = res.success[i].totTime
         var a = hms.split(':')
