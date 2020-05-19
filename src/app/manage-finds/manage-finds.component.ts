@@ -23,7 +23,7 @@ icon4:string='keyboard_arrow_up'
 elements: any = [];
 headElements = ['id','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
 shift = new FormControl('');
-
+shifts:any=[]
 
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
 

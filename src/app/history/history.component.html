@@ -9,7 +9,7 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-      <mat-radio-group (click)="onclickDate($event,0)" color="primary">
+      <mat-radio-group (click)="onclickDate($event)" color="primary">
         <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
         <p *ngIf="radioStatus0==true" class="text" >{{prevDate | date}}</p>
       </mat-radio-group><br>
