@@ -22,7 +22,7 @@ type:any
 data:any
 deviceName:any
 dataSource:any
-displayedColumns: string[] = ['i','id', 'deviceId', 'deviceName'];
+displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
   constructor(private api: ApiService,
     private login:LoginCheckService,
     public dialogRef: MatDialogRef<HomeCountViewComponent>,
@@ -37,13 +37,13 @@ displayedColumns: string[] = ['i','id', 'deviceId', 'deviceName'];
     this.loginData = JSON.parse(this.loginData)
     // this.checkUrl = this.router.url
     this.dataSource = new MatTableDataSource(this.data);
-      
+
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
 
-    
+
         })
   }
- 
+
 }

@@ -14,7 +14,7 @@
         <p *ngIf="radioStatus0==true" class="text" >{{prevDate | date}}</p>
       </mat-radio-group><br>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
-        
+
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
@@ -46,12 +46,12 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-   <!--    <mat-radio-group (change)="onclickFindId($event)" color="primary">
+      <mat-radio-group (change)="onclickFindId($event)" color="primary">
         <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
         <p *ngIf="radioStatus1==true" class="text" >{{prevDate | date}}</p>
-      </mat-radio-group><br> -->
+      </mat-radio-group><br>
       <form [formGroup]="findIdForm" (ngSubmit)="onSubmitFindId(findIdForm.value)">
-       
+
         <mat-form-field>
           <mat-label>Select find</mat-label>
           <mat-select formControlName="selectedValue" name="find">
@@ -60,7 +60,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-    
+
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
@@ -93,19 +93,19 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-    <!--   <mat-radio-group (change)="onclickFindName($event)" color="primary">
+      <mat-radio-group (change)="onclickFindName($event)" color="primary">
         <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
-        <p *ngIf="radioStatus2==true" class="text" >{{prevDate | date : 'dd-MM-yyyy'}}</p>
-      </mat-radio-group><br> -->
+        <p *ngIf="radioStatus2==true" class="text" >{{prevDate | date }}</p>
+      </mat-radio-group><br>
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
-        
+
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="Find Name" formControlName="deviceName" required>
           <mat-error>
             Please provide a valid device name
           </mat-error>
         </mat-form-field>
-    
+
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
