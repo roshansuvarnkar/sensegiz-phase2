@@ -320,6 +320,10 @@ export class ApiService {
       })
     });
   }
+
+
+
+
   getHomeCountData(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -331,5 +335,26 @@ export class ApiService {
         resolve(res);
       })
     });
+  } 
+
+
+
+
+   editShift(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/updateDeviceShift';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
   }
+
+
+
+
+
 }

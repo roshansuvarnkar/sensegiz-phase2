@@ -88,6 +88,23 @@ mat-card-content.mat-card-content.setting {
     display: flex;
     justify-content: space-between;
 }
+
+.regi, .infe, .count{
+    cursor: pointer;
+
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle, 
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+ .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+  .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: #ef6c00 ;
+}
+.mat-radio-outer-circle {
+    border-color: #ef6c00 !important;
+}
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #ef6c00 !important;
+}
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .main-home {

@@ -63,7 +63,7 @@ refreshGateway(){
       this.elements=[]
       for (let i = 0; i <this.gatewayData.length; i++) {
         this.elements.push(
-          {   id: i+1,
+          {   id: this.gatewayData[i].id,
               gatewayId: this.gatewayData[i].gatewayId,
               gatewayName: this.gatewayData[i].gatewayName,
               edit:'edit',

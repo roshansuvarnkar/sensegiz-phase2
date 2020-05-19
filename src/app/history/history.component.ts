@@ -16,6 +16,10 @@ findIdForm:FormGroup
 findNameForm:FormGroup
 dateForm:FormGroup
 finds:any=[]
+prevDate:any
+radioStatus0:boolean=false
+radioStatus1:boolean=false
+radioStatus2:boolean=false
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
               private api:ApiService,
@@ -30,8 +34,6 @@ finds:any=[]
 
 
     this.dateForm = this.fb.group({
-      lastWeek: [''],
-      prevDate: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
@@ -39,8 +41,6 @@ finds:any=[]
 
     this.findIdForm = this.fb.group({
       selectedValue: ['', Validators.required],
-      lastWeek: [''],
-      prevDate: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
@@ -48,17 +48,64 @@ finds:any=[]
 
     this.findNameForm = this.fb.group({
       deviceName: ['', Validators.required],
-      lastWeek: [''],
-      prevDate: [''],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
 
 
     this.refreshFinds()
+    
   }
 
 
+  onclickDate(data){
+    console.log("data==",data)
+    
+    var date = new Date();                       
+    this.prevDate=date.setDate(date.getDate() - 1);
+
+    this.radioStatus0= this.radioStatus0==true?false:true
+
+
+    var date = new Date(this.prevDate); 
+    var year = date.getFullYear();
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+    var tot = year + '-' + month + '-'  + day 
+
+    if(this.radioStatus0){
+      console.log("data====",tot)
+      var value={
+        userId:this.loginData.userId,
+        fromDate:tot,
+        toDate:tot,
+      }
+      this.api.getDeviceHistoryBasedOnDate(value).then((res:any)=>{
+        console.log("find data ======",res);
+        if(res.status){
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = true;
+          dialogConfig.height = '90vh';
+          dialogConfig.width = '75vw';
+          dialogConfig.data = {
+            type:"basedOnDate",
+            data:res.success,
+            from:data.fromDate,
+            to:data.toDate,
+          }
+          const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+          dialogRef.afterClosed().subscribe(result => {
+            this.refreshFinds()
+          });
+        }
+      })
+    }
+
+
+  }
 
 
   refreshFinds(){

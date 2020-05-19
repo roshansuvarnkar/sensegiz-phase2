@@ -7,23 +7,14 @@
       <mat-card-subtitle>
         Enter From to To date
       </mat-card-subtitle>
-    </span><br>
+    </span>
     <mat-card-content>
+      <mat-radio-group (click)="onclickDate($event,0)" color="primary">
+        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
+        <p *ngIf="radioStatus0==true" class="text" >{{prevDate | date}}</p>
+      </mat-radio-group><br>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="Last week" formControlName="lastWeek" >
-          <mat-icon matPrefix >calendar_today</mat-icon>
-          <mat-error>
-            Please provide a valid date
-          </mat-error>
-        </mat-form-field><br>
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="Previous day date" formControlName="prevDate" >
-          <mat-icon matPrefix >calendar_today</mat-icon>
-          <mat-error>
-            Please provide a valid previous date
-          </mat-error>
-        </mat-form-field><br>
+        
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
@@ -55,6 +46,10 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
+   <!--    <mat-radio-group (change)="onclickFindId($event)" color="primary">
+        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
+        <p *ngIf="radioStatus1==true" class="text" >{{prevDate | date}}</p>
+      </mat-radio-group><br> -->
       <form [formGroup]="findIdForm" (ngSubmit)="onSubmitFindId(findIdForm.value)">
        
         <mat-form-field>
@@ -65,20 +60,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="Last week" formControlName="lastWeek" >
-          <mat-icon matPrefix >calendar_today</mat-icon>
-          <mat-error>
-            Please provide a valid date
-          </mat-error>
-        </mat-form-field><br>
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="Previous day date" formControlName="prevDate" >
-          <mat-icon matPrefix >calendar_today</mat-icon>
-          <mat-error>
-            Please provide a valid previous date
-          </mat-error>
-        </mat-form-field><br>
+    
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
@@ -111,6 +93,10 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
+    <!--   <mat-radio-group (change)="onclickFindName($event)" color="primary">
+        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
+        <p *ngIf="radioStatus2==true" class="text" >{{prevDate | date : 'dd-MM-yyyy'}}</p>
+      </mat-radio-group><br> -->
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
         
         <mat-form-field class="full-width-input">
@@ -119,20 +105,7 @@
             Please provide a valid device name
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="Last week" formControlName="lastWeek" >
-          <mat-icon matPrefix >calendar_today</mat-icon>
-          <mat-error>
-            Please provide a valid date
-          </mat-error>
-        </mat-form-field><br>
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="Previous day date" formControlName="prevDate" >
-          <mat-icon matPrefix >calendar_today</mat-icon>
-          <mat-error>
-            Please provide a valid previous date
-          </mat-error>
-        </mat-form-field><br>
+    
         <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>

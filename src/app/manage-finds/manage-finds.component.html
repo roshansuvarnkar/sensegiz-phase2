@@ -63,15 +63,15 @@
     </thead>
     <tbody >
       <tr *ngFor="let el of elements; let i = index">
-        <td>{{el.id}}</td>
+        <td>{{i+1}}</td>
         <td >{{el.deviceId}}</td>
         <td>{{el.deviceName}}</td>
         <td>
           <mat-form-field>
             <mat-label>Shift</mat-label>
-            <mat-select  [(value)]="el.shift" (selectionChange)="onFoodSelection1(el,$event)">
-              <mat-option *ngFor="let b of shifts" [value]="b.name">
-                {{b.name}}
+            <mat-select  [(value)]="el.shift" (selectionChange)="onShiftSelection(el)">
+              <mat-option *ngFor="let b of shifts" [value]="b.shiftName">
+                {{b.shiftName}}
               </mat-option>
             </mat-select>
           </mat-form-field>

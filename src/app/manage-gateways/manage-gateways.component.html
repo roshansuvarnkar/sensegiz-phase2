@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let el of elements;let i=index">
-        <td>{{el.id}}</td>
+        <td>{{i+1}}</td>
         <td>{{el.gatewayId}}</td>
         <td>{{el.gatewayName}}</td>
         <td><mat-icon matListIcon (click)="edit(el)">create</mat-icon></td>

@@ -23,18 +23,6 @@ icon4:string='keyboard_arrow_up'
 elements: any = [];
 headElements = ['id','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
 shift = new FormControl('');
-shifts=[
-  {
-    name:"Shift1 Morning Shift"
-  },
-  {
-    name:"Shift2 Afternoon Shift"
-  },
-  {
-    name:"Shift3 Night Shift"
-  },
-]
-
 
 
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
@@ -61,6 +49,7 @@ ngOnInit(): void {
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
   this.refreshFinds()
+  this.refreshShift()
 }
 
 
@@ -78,15 +67,33 @@ refreshFinds(){
       this.elements=[]
       for (let i = 0; i <this.findData.length; i++) {
         this.elements.push(
-          { id: i+1,
-             deviceId: this.findData[i].deviceId,
+          { 
+              id: this.findData[i].id,
+              deviceId: this.findData[i].deviceId,
               deviceName: this.findData[i].deviceName,
               shift: this.findData[i].shiftName ,
               infected: this.findData[i].infected,
               edit:'edit',
-              delete:'delete'
+              delete:'delete',
           });
       }
+    }
+  })
+}
+
+
+
+
+refreshShift(){
+  var data={
+    userId:this.loginData.userId,
+    tblName:'deviceShift'
+  }
+
+  this.api.getData(data).then((res:any)=>{
+    console.log("shift  data ======",res);
+    if(res.status){
+      this.shifts=res.success
     }
   })
 }
@@ -138,7 +145,7 @@ infected(a){
   var inf = a.infected == 0 ? 1 :0
   var data = {
     deviceId:a.deviceId,
-    userId:a.userId,
+    userId:this.loginData.userId,
     infected:inf
   }
   this.api.editInfectedPerson(data).then((res:any)=>{
@@ -152,8 +159,21 @@ infected(a){
 }
 
 
-onFoodSelection1(a,b){
-  console.log("a===",a,"b===",b.value)
+onShiftSelection(a){
+  console.log("a===",a)
+    var data = {
+    shiftId:a.shift,
+    userId:this.loginData.userId,
+    deviceId:a.deviceId
+  }
+  this.api.editShift(data).then((res:any)=>{
+    console.log("shift update data ======",res);
+    if(res.status){
+      this.refreshFinds()
+      var msg = 'Employee Shift updated Successfully'
+      this.general.openSnackBar(msg,'')
+    }
+  })
 }
 
 }

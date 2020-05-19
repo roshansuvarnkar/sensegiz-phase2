@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 
@@ -13,6 +14,8 @@ import { Timestamp } from 'rxjs';
 })
 export class HomeCountViewComponent implements OnInit {
 @ViewChild(MatSort) sort: MatSort;
+@ViewChild(MatPaginator) paginator: MatPaginator;
+
 findData:any=[]
 loginData:any
 type:any
@@ -37,7 +40,8 @@ displayedColumns: string[] = ['i','id', 'deviceId', 'deviceName'];
       
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          
+          this.dataSource.paginator = this.paginator;
+
     
         })
   }

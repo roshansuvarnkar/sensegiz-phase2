@@ -19,16 +19,20 @@ loginData:any
 findLen:any
 checkUrl:any
 setting:any
-contactTimeMax:any
+contactTimeMax:any=[]
 contactDeviceMax:any
 countPerday:any
 totalEmp = 0;
 infectedEmp = 0;
 normalEmp = 0;
 activeEmp = 0;
-date:any=[]
+dates:any=[]
 month:any=[]
 day:any=[]
+totmin:any
+y:any
+label:any
+dataPoints:any=[]
   constructor(private api: ApiService,
   private login:LoginCheckService,
   private router:Router,
@@ -55,8 +59,8 @@ sendWarning(){
   var data={
     userId:this.loginData.userId
   }
-  var msg="This feature is not avilable"
-  this.general.openSnackBar(msg,'')
+  // var msg="This feature is not avilable"
+  // this.general.openSnackBar(msg,'')
 
 }
 
@@ -223,16 +227,20 @@ maximumContactTime(){
   this.api.getMaxTimeContact(data).then((res:any)=>{
     console.log("max contact time ======",res);
     if(res.status){
+
       for(var i=0;i<res.success.length;i++){
         var hms = res.success[i].totTime
         var a = hms.split(':')
-        var totmin = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
+         this.totmin = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
+     
         this.contactTimeMax.push(
-            {
-              contactName:res.success[i].contactName,
-              totTime:totmin
-            }
-        )
+          {
+            contactName:res.success[i].contactName,
+            totmin:this.totmin,
+            totTime:res.success[i].totTime
+          }
+      )
+       
       }
     }
   })
@@ -267,8 +275,25 @@ numOfcontactPerDay(){
   this.api.getPerDayCount(data).then((res:any)=>{
     console.log("repeated contacts data ======",res);
     if(res.status){
-      this.countPerday = res.success
+      this.countPerday = res.success.reverse()
+     
+      for (let i = 0; i < this.countPerday.length; i++) {
+        var months=['Jan','Feb', 'Mar','Apr','May','Jun','Jul','Aug','sep','Oct','Nov','Dec']
+          var dateObj=this.countPerday[i].updatedOn.split('T')
+          var date=new Date(dateObj[0])
+          this.month[i]=months[date.getMonth()]
+          this.day[i]=date.getDate()+1
+          this.dates[i]=this.month[i] + " "+this.day[i]
+         this.dataPoints.push(
+           {
+            y:this.countPerday[i].dailyCount,
+            label:this.dates[i]
+           }
+         )
 
+      }
+     
+    
 
       let chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
@@ -278,20 +303,15 @@ numOfcontactPerDay(){
                       fontColor: "#ef6c00",
                     },
                     axisY:{
+                      
                       gridThickness: 0
                     },
                     dataPointWidth: 30,
+                 
                     data: [{
                       type: "column",
-                      dataPoints: [
-                        { y: this.countPerday[0].dailyCount, label: 'May 1'},
-                        { y: this.countPerday[0].dailyCount, label: 'May 2'},
-                        { y: this.countPerday[1].dailyCount, label: 'May 3'},
-                        { y: this.countPerday[2].dailyCount, label: 'May 4'},
-                        { y: this.countPerday[3].dailyCount, label: 'May 5'},
-                        { y: this.countPerday[4].dailyCount, label: 'May 6'}
-
-                      ]
+                     
+                      dataPoints:this.dataPoints
                     }]
                   });
 
