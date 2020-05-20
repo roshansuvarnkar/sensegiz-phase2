@@ -32,3 +32,6 @@ mat-radio-button {
 .text{
     margin-right: 4rem;
 }
+mat-radio-group.mat-radio-group.ng-untouched.ng-pristine.ng-valid {
+    display: flex;
+}

@@ -66,8 +66,6 @@ radioStatus2:boolean=false
 
     this.radioStatus0= this.radioStatus0==true?false:true
     
-
-
     var date = new Date(this.prevDate);
     var year = date.getFullYear();
     var month = ("0" + (date.getMonth() + 1)).slice(-2);
@@ -75,37 +73,15 @@ radioStatus2:boolean=false
 
     var tot = year + '-' + month + '-'  + day
 
-    if(this.radioStatus0){
-      console.log("data====",tot)
-      var value={
-        userId:this.loginData.userId,
-        fromDate:tot,
-        toDate:tot,
-      }
-      this.api.getDeviceHistoryBasedOnDate(value).then((res:any)=>{
-        console.log("find data ======",res);
-        if(res.status){
-          const dialogConfig = new MatDialogConfig();
-          dialogConfig.disableClose = true;
-          dialogConfig.autoFocus = true;
-          dialogConfig.height = '90vh';
-          dialogConfig.width = '75vw';
-          dialogConfig.data = {
-            type:"basedOnDate",
-            data:res.success,
-            from:data.fromDate,
-            to:data.toDate,
-          }
-          const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-
-          dialogRef.afterClosed().subscribe(result => {
-            this.refreshFinds()
-          });
-        }
-      })
-    }
-
+    this.dateForm.patchValue({
+      fromDate:tot,
+      toDate:tot
+    })
   }
+
+
+
+
 onclickFindId(data){
   console.log("data==",data)
 
@@ -114,55 +90,29 @@ onclickFindId(data){
 
   this.radioStatus1= this.radioStatus1==true?false:true
 
-
   var date = new Date(this.prevDate);
   var year = date.getFullYear();
   var month = ("0" + (date.getMonth() + 1)).slice(-2);
   var day = ("0" + date.getDate()).slice(-2);
 
   var tot = year + '-' + month + '-'  + day
-  if(this.radioStatus1){
-    console.log("data====",tot)
-    var value={
-      userId:this.loginData.userId,
-      deviceId:this.selectedValue,
+
+   this.findIdForm.patchValue({
       fromDate:tot,
-      toDate:tot,
-    }
-    this.api.getDeviceHistoryBasedOnDate(value).then((res:any)=>{
-      console.log("find data ======",res);
-      if(res.status){
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.height = '90vh';
-        dialogConfig.width = '75vw';
-        dialogConfig.data = {
-          type:"basedOnDate",
-          data:res.success,
-          from:data.fromDate,
-          to:data.toDate,
-        }
-        const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-
-        dialogRef.afterClosed().subscribe(result => {
-          this.refreshFinds()
-        });
-      }
+      toDate:tot
     })
-
-  }
-
 }
+
+
+
+
 onclickFindName(data){
   console.log("data==",data)
 
   var date = new Date();
   this.prevDate=date.setDate(date.getDate() - 1);
 
-
   this.radioStatus2= this.radioStatus2==true?false:true
-
 
   var date = new Date(this.prevDate);
   var year = date.getFullYear();
@@ -171,33 +121,9 @@ onclickFindName(data){
 
   var tot = year + '-' + month + '-'  + day
 
-  console.log("data====",tot)
-  var value={
-    userId:this.loginData.userId,
-    deviceName:this.deviceName,
-    fromDate:tot,
-    toDate:tot,
-  }
-  this.api.getDeviceHistoryBasedOnDate(value).then((res:any)=>{
-    console.log("find data ======",res);
-    if(res.status){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.height = '90vh';
-      dialogConfig.width = '75vw';
-      dialogConfig.data = {
-        type:"basedOnDate",
-        data:res.success,
-        from:data.fromDate,
-        to:data.toDate,
-      }
-      const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.refreshFinds()
-      });
-    }
+  this.findNameForm.patchValue({
+      fromDate:tot,
+      toDate:tot
   })
 }
 

@@ -11,7 +11,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Contact Device Id</th>
+            <th scope="col">Base Device Name</th>
             <th scope="col">Contact Device Name</th>
             <th scope="col">Time</th>
           </tr>
@@ -19,9 +19,9 @@
         <tbody>
           <tr *ngFor="let a of findData;let i=index">
             <td>{{i+1}}</td>
-            <td>{{a.baseDevice}}</td>
-            <td>{{a.contactDevice}}</td>
-            <td>{{ a.insertedOn | date : 'medium' : 'IST' }}</td>
+            <td>{{deviceData.deviceName}}</td>
+            <td>{{a.contactDeviceName}}</td>
+            <td>{{ a.updatedOn | date : 'medium' : 'IST' }}</td>
           </tr>
         </tbody>
       </table>

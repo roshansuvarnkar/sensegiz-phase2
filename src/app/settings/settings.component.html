@@ -28,7 +28,8 @@
             Please provide a valid to time
           </mat-error>
         </mat-form-field><br>
-        <button mat-raised-button [disabled]="!workingForm.valid" color="primary">Submit</button>
+        <button mat-raised-button [disabled]="!workingForm.valid" color="primary">Submit</button> &nbsp;&nbsp;&nbsp;
+        <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
       </form>
     </mat-card-content>
   </mat-card>

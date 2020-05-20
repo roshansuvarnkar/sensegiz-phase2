@@ -27,6 +27,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
 import { HomeCountViewComponent } from './home-count-view/home-count-view.component';
+import { EditSettingShiftComponent } from './edit-setting-shift/edit-setting-shift.component';
 
 
 
@@ -48,6 +49,7 @@ import { HomeCountViewComponent } from './home-count-view/home-count-view.compon
     LiveDataComponent,
     HistoryReportComponent,
     HomeCountViewComponent,
+    EditSettingShiftComponent,
   ],
   imports: [
     BrowserModule,

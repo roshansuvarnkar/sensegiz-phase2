@@ -10,7 +10,7 @@
     </span>
     <mat-card-content>
       <mat-radio-group (click)="onclickDate($event)" color="primary">
-        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
+        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> 
         <p *ngIf="radioStatus0==true" class="text" >{{prevDate | date}}</p>
       </mat-radio-group><br>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
@@ -47,7 +47,7 @@
     </span>
     <mat-card-content>
       <mat-radio-group (change)="onclickFindId($event)" color="primary">
-        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
+        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> 
         <p *ngIf="radioStatus1==true" class="text" >{{prevDate | date}}</p>
       </mat-radio-group><br>
       <form [formGroup]="findIdForm" (ngSubmit)="onSubmitFindId(findIdForm.value)">
@@ -94,7 +94,7 @@
     </span>
     <mat-card-content>
       <mat-radio-group (change)="onclickFindName($event)" color="primary">
-        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> <br>
+        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button> 
         <p *ngIf="radioStatus2==true" class="text" >{{prevDate | date }}</p>
       </mat-radio-group><br>
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">

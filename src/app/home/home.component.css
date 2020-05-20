@@ -35,7 +35,7 @@ span.tab-emp {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    place-items: ;
+    width: 50%;
 }
 .tab-head {
     display: flex;
@@ -104,6 +104,11 @@ mat-card-content.mat-card-content.setting {
 }
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color: #ef6c00 !important;
+}
+span.rec {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */

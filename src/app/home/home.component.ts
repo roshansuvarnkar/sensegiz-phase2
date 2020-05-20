@@ -66,8 +66,8 @@ sendWarning(id,value){
   this.api.showWarning(data).then((res:any)=>{
     console.log("warning ======",res);
     if(res.status){
-    var warning=res.success
-
+      var msg = 'Warning sent Successfully'
+      this.general.openSnackBar(msg,'')
     }
   })
 
@@ -244,7 +244,7 @@ maximumContactTime(){
 
         this.contactTimeMax.push(
           {
-            contactName:res.success[i].contactName,
+            baseName:res.success[i].baseName,
             totmin:this.totmin,
             totTime:res.success[i].totTime
           }
@@ -252,7 +252,7 @@ maximumContactTime(){
 
       }
     }
-  })
+  }) 
 
 }
 

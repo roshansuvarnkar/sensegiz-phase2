@@ -94,14 +94,14 @@
               <mat-card-content class="setting" routerLink="/settings">
                 <mat-label>  Minimum social distance</mat-label>
                 <mat-label>  {{setting?.distance}}</mat-label>
-                <mat-icon >keyboard_arrow_right</mat-icon><br>
+                <mat-icon >keyboard_arrow_right</mat-icon>
               </mat-card-content>
-            </mat-card>
+            </mat-card><br>
             <mat-card >
               <mat-card-content class="setting" routerLink="/settings">
                 <mat-label>Automatic alert</mat-label>
                 <mat-label>{{setting?.threshold}}</mat-label>
-                <mat-icon>keyboard_arrow_right</mat-icon><br>
+                <mat-icon>keyboard_arrow_right</mat-icon>
               </mat-card-content>
             </mat-card>
 
@@ -122,8 +122,11 @@
               <span class="tab-emp">
                 <span><li></li></span>
                 <span class="emp-pad"><mat-icon >person_outline</mat-icon></span>
-                <span class="emp-pad">{{data.deviceName}}</span>
-                <span class="emp-pad">{{data.totalCount}}</span>
+                <span class="rec">
+                  <span class="emp-pad">{{data.deviceName}}</span>
+                  <span class="emp-pad">{{data.totalCount}}</span>
+                </span>
+                
               </span>
               <span class="tab-btn">
                 <button mat-raised-button class="btn" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
@@ -158,7 +161,7 @@
               <div class="col-md-6">
                 <span class="max-emp">
                   <mat-icon>person_outline</mat-icon>&nbsp;
-                  <mat-label>{{data.contactName}}</mat-label>
+                  <mat-label>{{data.baseName}}</mat-label>
                 </span>
               </div>
               <div class="col-md-6">
