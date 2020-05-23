@@ -1,0 +1,41 @@
+<div class="head" *ngIf="type=='addBle'">
+	<div class="content">
+    	<p class="center">Add BLE Id for devices</p>
+		<span>
+			<button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+		</span>
+    </div> 
+    <br>
+
+	<mat-card>
+		<mat-card-content>
+			<form [formGroup]="bleIdForm"  >
+		      <div class="diagWrapper"  formArrayName="items" *ngIf="bleIdForm.get('items')['controls']?.length>0">
+		        <div class='item' *ngFor="let item of bleIdForm.get('items')['controls']; let i=index;">
+		          <ng-container [formGroupName]="i">
+		          	{{i+1}}.
+					<mat-form-field class="full-width-input">
+						<input matInput  type="text" placeholder="Devicee Name" formControlName="deviceName" matInput required >
+					</mat-form-field>
+
+
+					<mat-form-field class="full-width-input">
+						<input matInput  placeholder="MAC Address" formControlName="macAddress" matInput required >
+						<mat-error>
+							Please provide a valid MAC address
+						</mat-error>
+					</mat-form-field>
+					<button type="button" mat-raised-button color="primary" (click)="submit(item.value)">Submit</button>
+
+		          </ng-container>
+		        </div>
+
+		        <br>
+
+		      </div>
+		    </form>
+		</mat-card-content>
+	</mat-card>
+
+
+</div>

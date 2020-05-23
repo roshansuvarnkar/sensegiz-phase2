@@ -10,6 +10,7 @@ import { Router , ActivatedRoute } from '@angular/router';
 export class AppComponent {
   title = 'sensegiz';
   loginData:boolean=false
+  loginStatus:boolean=false
   checkUrl:any
   statusHome:boolean
   statusNotHome:boolean
@@ -19,22 +20,21 @@ export class AppComponent {
       console.log("login data===",res)
       this.loginData = res
     })
+    this.login.loginCheckStatus.subscribe(res=>{
+      console.log("login data===",res)
+      this.loginStatus = res
+    })
 
   }
 
   ngOnInit(){
-    // this.login.pageCheck.subscribe(res=>{
-    //   this.checkUrl=res.page
-    //
-    //     console.log("url====",this.checkUrl);
-    // });
-
   }
 
   logout(){
-    if(this.login.logout()){
-      this.router.navigate(['/login'])
-    }
+    localStorage.clear()
+    this.login.loginCheckStatus.next(false)
+    this.login.loginCred.next(false)
+    this.router.navigate(['/login'])
   }
 
 

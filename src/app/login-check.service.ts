@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs'
+import { Router , ActivatedRoute } from '@angular/router';
 
 
 @Injectable({
@@ -7,33 +8,32 @@ import { Subject } from 'rxjs'
 })
 export class LoginCheckService {
   public loginCred = new Subject<any>()
+  public loginCheckStatus = new Subject<any>()
   public pageCheck = new Subject<any>()
 
-  constructor() {
-    this.loginStatusMenu()
+  constructor(private router:Router) {
+      this.loginStatus()
    }
 
 
   loginStatus(){
-    this.checkPage()
     var status = localStorage.getItem('sensegizlogin')
     if(status){
+      this.loginCheckStatus.next(true)
       return true
     }
     else{
+      this.loginCheckStatus.next(false)
       return false
     }
   }
 
-  checkPage(){
-    this.pageCheck.next({page:window.location.pathname})
-  }
 
   loginStatusMenu(){
-    this.checkPage()
-
     var status = localStorage.getItem('sensegizlogin')
-    if(status){
+    var route = window.location.pathname
+    console.log("route==",route)
+    if(route !='/login' && route!='/admin-login'){
       this.loginCred.next(true)
     }
     else{
@@ -45,8 +45,6 @@ export class LoginCheckService {
 
 
   Getlogin(){
-    this.checkPage()
-
     var status = localStorage.getItem('sensegizlogin')
     if(status){
       return status
@@ -58,15 +56,12 @@ export class LoginCheckService {
 
 
   login(data){
-    
     localStorage.setItem('sensegizlogin',data)
-    this.loginStatusMenu()
     return true
   }
 
   logout(){
     localStorage.clear()
-    this.loginStatusMenu()
     return true
   }
 

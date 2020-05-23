@@ -385,4 +385,73 @@ showWarning(data){
 
 
 
+  adminLogin(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+
+   let url = this.host+'/adminLogin';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ }  
+
+
+ getAdminData(){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   var data = ""
+   let url = this.host+'/getUser';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ } 
+
+
+ createUser(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   let url = this.host+'/createUser';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ } 
+
+
+ deleteAdminUser(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   let url = this.host+'/deleteUser';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ } 
+
+
+ updateBleMac(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   let url = this.host+'/updateMacId';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ }
+
+
+
+
 }

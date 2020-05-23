@@ -5,15 +5,14 @@ import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class AdminLoginComponent implements OnInit {
 
-    Loginform: FormGroup;
+   adminLoginform: FormGroup;
    public loginInvalid: boolean;
    passwordType: string = 'password';
    passwordIcon: string = 'visibility_off';
@@ -31,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.login.loginStatusMenu()
-    this.Loginform = this.fb.group({
+    this.adminLoginform = this.fb.group({
       userName: ['', Validators.email],
       password: ['', Validators.required]
     });
@@ -39,15 +38,15 @@ export class LoginComponent implements OnInit {
 
  onSubmit(data) {
     this.loginInvalid = false;
-    if (this.Loginform.valid) {
+    if (this.adminLoginform.valid) {
       try {
-        data.system='portal'
-        this.api.send(data).then((res:any)=>{
+        this.api.adminLogin(data).then((res:any)=>{
+        	console.log("admin res===",res)
           if(res.status){
-            res.success.role='user'
+          	res.success.role='admin'
             if(this.login.login(JSON.stringify(res.success))){
-              this.router.navigate(['/home'])
-            }
+                this.router.navigate(['/admin-dashboard'])
+              }
           }
         })
       } catch (err) {
@@ -62,8 +61,6 @@ export class LoginComponent implements OnInit {
       this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
       this.passwordIcon = this.passwordIcon === 'visibility_off' ? 'visibility' : 'visibility_off';
   }
-
-
 
 
 }

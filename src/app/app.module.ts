@@ -28,6 +28,9 @@ import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
 import { HomeCountViewComponent } from './home-count-view/home-count-view.component';
 import { EditSettingShiftComponent } from './edit-setting-shift/edit-setting-shift.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminAddBleIdComponent } from './admin-add-ble-id/admin-add-ble-id.component';
 
 
 
@@ -50,6 +53,9 @@ import { EditSettingShiftComponent } from './edit-setting-shift/edit-setting-shi
     HistoryReportComponent,
     HomeCountViewComponent,
     EditSettingShiftComponent,
+    AdminLoginComponent,
+    AdminDashboardComponent,
+    AdminAddBleIdComponent,
   ],
   imports: [
     BrowserModule,

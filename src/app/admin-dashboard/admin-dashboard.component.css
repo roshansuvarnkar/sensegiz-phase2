@@ -1,0 +1,23 @@
+mat-card.mat-card.mat-focus-indicator.sub {
+    max-width: 20rem;
+    text-align: center;
+    color: #ef6c00eb;
+}
+mat-card-content.mat-card-content.main {
+    display: flex;
+    justify-content: space-around;
+    margin: 3rem auto;
+}
+mat-card.mat-card.mat-focus-indicator.main {
+    text-align: center;
+    margin: 1rem;
+    padding: 2rem;
+    color: #df7217;
+}
+mat-card-title.mat-card-title.main  {
+    font-size: 2rem;
+}
+hr.main {
+    width: 19rem;
+    border: 1px solid #f082602b;
+}

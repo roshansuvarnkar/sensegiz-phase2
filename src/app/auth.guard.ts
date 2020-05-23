@@ -8,7 +8,7 @@ import { LoginCheckService } from './login-check.service';
 })
 export class AuthGuard implements CanActivate {
 
-
+loginData:any
 constructor(private router: Router, private login: LoginCheckService) {}
 
 
@@ -16,12 +16,27 @@ constructor(private router: Router, private login: LoginCheckService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.login.loginStatus()){
+
+      this.loginData = this.login.Getlogin()
+      this.loginData = JSON.parse(this.loginData)
+
+      if(this.login.loginStatus() && this.loginData.role == next.data.role){
+        if(next.data.role == 'admin'){
+           this.login.loginCred.next(false)
+           this.login.loginCheckStatus.next(true)
+        }
+        else if(next.data.role == 'user'){
+           this.login.loginCred.next(true)
+           this.login.loginCheckStatus.next(true)
+        }
+
         return true; 
       }
       else{
+        this.login.loginCred.next(false)
+        this.login.loginCheckStatus.next(false)
         this.router.navigate(['/login'])
       }
   }
-
+ 
 }

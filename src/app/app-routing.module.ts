@@ -10,19 +10,24 @@ import { HomeComponent } from './home/home.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
 import { HomeCountViewComponent } from './home-count-view/home-count-view.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
-  { path: '', component:HomeComponent, canActivate: [AuthGuard]},
-  // { path: '**', component:DashboardComponent, canActivate: [AuthGuard]},
+  { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'login' , component:LoginComponent},
-  {path:'dashboard' , component:DashboardComponent , canActivate: [AuthGuard]},
-  {path:'history' , component:HistoryComponent , canActivate: [AuthGuard]},
-  {path:'settings' , component:SettingsComponent , canActivate: [AuthGuard]},
-  {path:'device-history' , component:DeviceHistoryComponent , canActivate: [AuthGuard]},
-  {path:'home' , component:HomeComponent, canActivate: [AuthGuard] },
-  {path:'live-data' , component:LiveDataComponent, canActivate: [AuthGuard] },
-  {path:'history-report' , component:HistoryReportComponent, canActivate: [AuthGuard]},
-  {path:'home-count-view' , component:HomeCountViewComponent, canActivate: [AuthGuard]},
+  {path:'dashboard' , component:DashboardComponent , canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'history' , component:HistoryComponent , canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'settings' , component:SettingsComponent , canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'device-history' , component:DeviceHistoryComponent , canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'home' , component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'live-data' , component:LiveDataComponent, canActivate: [AuthGuard], data:{role:['user']} },
+  {path:'history-report' , component:HistoryReportComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'home-count-view' , component:HomeCountViewComponent, canActivate: [AuthGuard], data:{role:['user']}},
+
+
+  {path:'admin-login' , component:AdminLoginComponent},
+  {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},
 
 ];
 
