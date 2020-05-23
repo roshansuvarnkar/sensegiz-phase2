@@ -19,6 +19,7 @@ export class ManageGatewaysComponent implements OnInit {
   loginData:any
   gatewayData:any=[]
   elements: any = [];
+  elementsTemp: any = [];
   headElements = ['id','gatewayId','gatewayName',	'edit',	'delete'];
   constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) { }
 
@@ -70,6 +71,8 @@ refreshGateway(){
               delete:'delete'
           });
       }
+      this.elementsTemp = this.elements
+
     }
 
   })
@@ -111,6 +114,19 @@ delete(a){
       this.general.openSnackBar(msg,'')
     }
   })
+}
+
+
+
+search(a){
+  if(a.length>0){
+    this.elements = this.elementsTemp.filter(obj=>{
+      return ((obj.gatewayId.toString().toLowerCase().indexOf(a)>-1) || (obj.gatewayName.toString().toLowerCase().indexOf(a)>-1))
+    })
+  }
+  else{
+    this.elements = this.elementsTemp
+  }
 }
 
 

@@ -6,3 +6,8 @@ table.table thead th {
     font-weight: 600;
     cursor: pointer;
 }
+.search{
+	position: absolute;
+    top: 2rem;
+    right: 1rem;
+}

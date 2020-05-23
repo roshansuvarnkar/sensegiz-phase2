@@ -24,6 +24,7 @@ elements: any = [];
 headElements = ['id','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
+elementsTemp:any=[]
 
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
 
@@ -77,6 +78,7 @@ refreshFinds(){
               delete:'delete',
           });
       }
+      this.elementsTemp = this.elements
     }
   })
 }
@@ -174,6 +176,19 @@ onShiftSelection(a){
       this.general.openSnackBar(msg,'')
     }
   })
+}
+
+
+
+search(a){
+  if(a.length>0){
+    this.elements = this.elementsTemp.filter(obj=>{
+      return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
+    })
+  }
+  else{
+    this.elements = this.elementsTemp
+  }
 }
 
 }

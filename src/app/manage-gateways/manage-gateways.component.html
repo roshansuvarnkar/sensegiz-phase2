@@ -1,6 +1,9 @@
 <br>
 <button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Gateways</button>
-
+<mat-form-field class="full-width-input search">
+  <input matInput placeholder="Search device" matInput (input)="search($event.target.value)">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field> 
 
 <div class="table">
   <table mdbTable  class="table table-hover z-depth-1">

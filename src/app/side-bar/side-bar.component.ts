@@ -31,7 +31,7 @@ export class SideBarComponent implements OnInit {
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
-      console.log("find data ======",res);
+      console.log("find data side bar ======",res);
       if(res.status){
         this.findData=res.success
       }
