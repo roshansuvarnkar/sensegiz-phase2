@@ -33,16 +33,25 @@ p.center{
   font-family: serif;
 }
 @media only screen and (max-width: 768px) {
-.main{
-  display: block;
-}
-table.mat-table.cdk-table.mat-sort {
-  margin: 0px 0px 0px -25px;
-}
-.mat-dialog-title[_ngcontent-gta-c193] {
-  text-align: center;
-  font-size: small;
-  font-family: serif;
+  .main{
+    display: block;
+  }
+  table.mat-table.cdk-table.mat-sort {
+    width: max-content !important;
+  }
+  p.center {
+    color: #ef6c00;
+    font-size:x-large;
+    font-family: serif;
+    margin-left: 0rem !important;
+  }
+  mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color {
+    vertical-align: top;
+  }
+  .mat-dialog-title {
+    text-align: left;
+    font-size: 1rem;
+    font-family: serif;
 }
 
 }

@@ -1,0 +1,17 @@
+@media only screen and (max-width: 768px) {
+    .mat-step-icon {
+        border-radius: 50%;
+        height: 18px;
+        width: 18px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    .mat-step-icon .mat-icon {
+        font-size: 13px;
+        height: 13px;
+        width: 13px;
+    }
+    .mat-step-label{
+        font-size: x-small;
+    }
+}

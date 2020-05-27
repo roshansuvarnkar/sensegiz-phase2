@@ -26,3 +26,9 @@ hr{
 mat-icon{
   color: #ef6c00;
 }
+.prev{
+  margin-left: 1rem;
+}
+@media only screen and (max-width: 768px) {
+    
+}

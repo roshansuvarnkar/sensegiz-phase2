@@ -8,6 +8,9 @@ img.mat-card-image {
 .mat-icon{
   color: #ef6c00;
 }
+.mobilemenu{
+  display: none;
+}
 
 mat-list-item.mat-list-item.mat-focus-indicator.mat-list-item-avatar.mat-list-item-with-avatar {
     cursor: pointer;
@@ -17,8 +20,11 @@ mat-list-item.mat-list-item.mat-focus-indicator.mat-list-item-avatar.mat-list-it
   .sidebar{
     display: none;
   }
-  .container-fluid {
-    width: 110%;
-    margin-left: -2rem;
+
+  .mobilemenu{
+    display: block;
+  }
+button.mat-focus-indicator.mat-menu-item {
+  width: 225px;
 }
 }

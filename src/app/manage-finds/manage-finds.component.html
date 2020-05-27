@@ -3,11 +3,13 @@
   <p>manage-finds works!</p>
 </fieldset> -->
 <br>
-<button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
-<mat-form-field class="full-width-input search">
-  <input matInput placeholder="Search device" matInput (input)="search($event.target.value)">
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field> 
+<div class="">
+  <button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
+  <mat-form-field class="full-width-input search">
+    <input matInput placeholder="Search device" matInput (input)="search($event.target.value)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field> 
+</div>
 <!--
 <div class="table">
   <table class="table table-hover" >

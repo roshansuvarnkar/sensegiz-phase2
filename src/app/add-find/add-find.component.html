@@ -1,16 +1,16 @@
 
 
-<div *ngIf="type=='finds'">
+<div *ngIf="type=='finds'" >
 
   <div class="flexWrap space-between">
     <h2 mat-dialog-title>Add Find Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
   </div>
 
 
-  <mat-horizontal-stepper  #stepper >
+  <mat-horizontal-stepper  #stepper  >
     <form [formGroup]="Findform" >
       <mat-step >
-          <ng-template matStepLabel>Fill out your name</ng-template>
+          <ng-template matStepLabel class="stepper">Fill out your name</ng-template>
           <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput placeholder="User Name" formControlName="deviceName" required>
@@ -53,10 +53,10 @@
 
 
 
-  <mat-horizontal-stepper  #stepper >
+  <mat-horizontal-stepper  #stepper  >
     <form [formGroup]="gatewayform" >
       <mat-step >
-          <ng-template matStepLabel>Fill out your gateway nick name</ng-template>
+          <ng-template matStepLabel class="stepper">Fill out your gateway nick name</ng-template>
           <mat-form-field>
             <mat-label>Gateway Nick Name</mat-label>
             <input matInput placeholder="User Name" formControlName="deviceName" required>
@@ -108,7 +108,7 @@
   <mat-horizontal-stepper  #stepper >
     <form [formGroup]="userform" >
       <mat-step >
-          <ng-template matStepLabel>Fill out user mobile number</ng-template>
+          <ng-template matStepLabel class="stepper" >Fill out user mobile number</ng-template>
           <mat-form-field>
             <mat-label>User Mobile number</mat-label>
             <input matInput type='number' placeholder="Mobile number" formControlName="mobileNum" required>

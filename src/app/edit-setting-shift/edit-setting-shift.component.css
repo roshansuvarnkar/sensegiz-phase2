@@ -17,3 +17,24 @@ p.center{
   justify-content: space-between;
 
 }
+@media only screen and (max-width: 768px) {
+  mat-card.mat-card.mat-focus-indicator.shifts{
+    display: flex;
+    width: fit-content !important;
+    margin-top: 2rem !important;
+  }
+  p.center {
+    color: #ef6c00;
+    font-size:x-large;
+    font-family: serif;
+    margin-left: 0rem !important;
+    
+  }
+  mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color {
+    vertical-align: top;
+    
+  }
+  .content{
+    /* position: fixed; */
+}
+}
