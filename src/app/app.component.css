@@ -1,11 +1,6 @@
 img {
     width: 14%;
 }
-.example-fill-remaining-space {
-  /* This fills the remaining space, by using flexbox.
-     Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
-}
 .menubar{
     display: flex;
     justify-content: space-evenly;
@@ -19,4 +14,11 @@ img {
   justify-content: center;
   width: 250px;
   margin-top: 8rem;
+}
+
+
+.end{
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-side-bar',
@@ -12,7 +14,11 @@ export class SideBarComponent implements OnInit {
 
   loginData:any
   findData:any=[]
+  findDataTemp:any=[]
   checkUrl:any
+  dataSource:any
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['i','deviceName'];
 
   constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
 
@@ -34,6 +40,13 @@ export class SideBarComponent implements OnInit {
       console.log("find data side bar ======",res);
       if(res.status){
         this.findData=res.success
+        this.findDataTemp=res.success
+        this.dataSource = new MatTableDataSource(res.success);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+
+        })
       }
     })
   }
@@ -49,5 +62,29 @@ checkPage(){
     console.log("data====",data)
     this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
   }
+
+
+  search(a){
+  if(a.length>0){
+    this.findData = this.findDataTemp.filter(obj=>{
+      return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
+    })
+    this.dataSource = new MatTableDataSource(this.findData);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+  else{
+    this.dataSource = new MatTableDataSource(this.findDataTemp);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    })
+  }
+}
+
+
 
 }

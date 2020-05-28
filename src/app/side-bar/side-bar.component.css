@@ -8,8 +8,35 @@ img.mat-card-image {
 .mat-icon{
   color: #ef6c00;
 }
+.sidebar {
+    margin-top: 1rem;
+}
+mat-form-field {
+    width: 100% !important;
+}
+td.mat-cell{
+    border-bottom-style: none;
+}
 
-mat-list-item.mat-list-item.mat-focus-indicator.mat-list-item-avatar.mat-list-item-with-avatar {
+th.mat-header-cell{
+    border-bottom-style: none;
+}
+table.mat-table {
+    width: 100%;
+}
+tr.mat-header-row.cdk-header-row.ng-star-inserted {
+    display: none;
+}
+tr.mat-row.cdk-row.ng-star-inserted {
+    text-align: left;
+}
+td.mat-cell.cdk-cell.cdk-column-i.mat-column-i.ng-star-inserted {
+    padding: 0 !important;
+}
+td.mat-cell.cdk-cell.cdk-column-deviceName.mat-column-deviceName.ng-star-inserted {
+    padding:0 0 0 1rem !important;
+    font-size: 1rem;
+    letter-spacing: 1px;
     cursor: pointer;
 }
 
@@ -17,8 +44,4 @@ mat-list-item.mat-list-item.mat-focus-indicator.mat-list-item-avatar.mat-list-it
   .sidebar{
     display: none;
   }
-  .container-fluid {
-    width: 110%;
-    margin-left: -2rem;
-}
 }

@@ -1,0 +1,129 @@
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../api.service';
+import { LoginCheckService } from '../login-check.service';
+import { GeneralMaterialsService } from '../general-materials.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+
+@Component({
+  selector: 'app-order-contact',
+  templateUrl: './order-contact.component.html',
+  styleUrls: ['./order-contact.component.css']
+})
+export class OrderContactComponent implements OnInit {
+	@ViewChild(MatSort) sort: MatSort;
+  	@ViewChild(MatPaginator) paginator: MatPaginator;
+  	displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
+	order:any=0
+  	dataSource:any
+	dataSet:any=[]
+	from:Date
+  	to:Date
+  	orderShow:any
+  	orderType:any=[
+  		{
+  			id:2,
+  			name:"Second lever order"
+  		},
+  		{
+  			id:3,
+  			name:"Third lever order"
+  		},
+  		{
+  			id:4,
+  			name:"Fourth lever order"
+  		},
+  		{
+  			id:5,
+  			name:"Fifth lever order"
+  		},
+  		{
+  			id:6,
+  			name:"Sixth lever order"
+  		},
+  		{
+  			id:7,
+  			name:"Seventh lever order"
+  		},
+  		{
+  			id:8,
+  			name:"Eighth lever order"
+  		},
+  		{
+  			id:9,
+  			name:"Ninth lever order"
+  		},
+  	]
+    constructor(
+      public dialog: MatDialog,
+      private api: ApiService,
+      private login:LoginCheckService,
+      private router:Router,
+      public dialogRef: MatDialogRef<OrderContactComponent>,
+       @Inject(MAT_DIALOG_DATA)  data,
+    ) {
+      this.order=data.order
+      this.dataSet=data.data
+      this.from = data.fromDate
+      this.to = data.toDate
+      console.log("data from===",data)
+      console.log("data set===",this.dataSet)
+      this.orderShow = this.orderType.filter(obj=>{
+      	return obj.id==this.order
+      })
+      this.onSubmitFindName()
+    }
+
+  ngOnInit(): void {
+  }
+
+
+   onSubmitFindName(){
+    console.log("data====",this.dataSet)
+    var value={
+      userId:this.dataSet.userId,
+      deviceName:this.dataSet.contactName,
+      fromDate:this.from,
+      toDate:this.to,
+    }
+      console.log("value data ======",value);
+
+    this.api.getDeviceHistoryBasedOnDeviceName(value).then((res:any)=>{
+      console.log("order data ======",res);
+      if(res.status){
+      	this.dataSource = new MatTableDataSource(res.success);
+	    setTimeout(() => {
+	      this.dataSource.sort = this.sort;
+	      this.dataSource.paginator = this.paginator;
+
+	    })
+      }
+    })
+  }
+
+   orderContactOpen(a){
+   this.order = parseInt(this.order) + 1
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      data:a,
+      order:this.order,
+      fromDate : this.from,
+      toDate : this.to
+    }
+    const dialogRef = this.dialog.open(OrderContactComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+
+
+}

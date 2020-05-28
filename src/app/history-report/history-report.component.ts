@@ -1,5 +1,5 @@
 import { Component, OnInit,Inject, ViewChild } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import {Router} from '@angular/router';
@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
+import { OrderContactComponent } from '../order-contact/order-contact.component';
 
 @Component({
   selector: 'app-history-report',
@@ -28,6 +29,7 @@ export class HistoryReportComponent implements OnInit {
 
 
     constructor(
+      public dialog: MatDialog,
       private api: ApiService,
       private login:LoginCheckService,
       private router:Router,
@@ -37,8 +39,8 @@ export class HistoryReportComponent implements OnInit {
       this.type=data.type
       console.log("type==",this.type)
       this.liveData = data.data
-      this.from = data.from
-      this.to = data.to
+      this.from = data.fromDate
+      this.to = data.toDate
       this.selectedValue=data.valueSelected
       this.deviceName=data.deviceName
      }
@@ -56,6 +58,26 @@ export class HistoryReportComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
 
     })
+  }
+
+
+
+  orderContactOpen(a){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      data:a,
+      order:2,
+      fromDate : this.from,
+      toDate : this.to
+    }
+    const dialogRef = this.dialog.open(OrderContactComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

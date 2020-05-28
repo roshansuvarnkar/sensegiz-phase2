@@ -5,6 +5,8 @@ import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { HistoryReportComponent } from '../history-report/history-report.component';
+import { OrderContactComponent } from '../order-contact/order-contact.component';
+
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -160,8 +162,8 @@ onclickFindName(data){
         dialogConfig.data = {
           type:"basedOnDate",
           data:res.success,
-          from:data.fromDate,
-          to:data.toDate,
+          fromDate:data.fromDate,
+          toDate:data.toDate,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -192,7 +194,9 @@ onclickFindName(data){
         dialogConfig.data = {
           type:"basedOnFindId",
           data:res.success,
-          valueSelected:data.selectedValue
+          valueSelected:data.selectedValue,
+          fromDate:data.fromDate,
+          toDate:data.toDate,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -225,7 +229,9 @@ onclickFindName(data){
         dialogConfig.data = {
           type:"basedOnFindName",
           data:res.success,
-          deviceName:data.deviceName
+          deviceName:data.deviceName,
+          fromDate:data.fromDate,
+          toDate:data.toDate,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -235,5 +241,8 @@ onclickFindName(data){
       }
     })
   }
+
+
+
 
 }

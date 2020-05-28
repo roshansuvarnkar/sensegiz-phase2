@@ -10,7 +10,7 @@
 
             <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
           </span>
-    </div> <br>
+  </div> <br>
 
     <p  mat-dialog-title> Based on date from {{from}} to {{to}} </p>
     <div class="mat-elevation-z8">
@@ -32,7 +32,7 @@
 
             <ng-container matColumnDef="contactName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
-              <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
+              <td mat-cell *matCellDef="let live " (click)="orderContactOpen(live)"> {{live.contactName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="updatedOn">
@@ -82,7 +82,7 @@
 
             <ng-container matColumnDef="contactName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
-              <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
+              <td mat-cell *matCellDef="let live " (click)="orderContactOpen(live)"> {{live.contactName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="updatedOn">
@@ -133,7 +133,7 @@
 
             <ng-container matColumnDef="contactName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
-              <td mat-cell *matCellDef="let live "> {{live.contactName}} </td>
+              <td mat-cell *matCellDef="let live " (click)="orderContactOpen(live)"> {{live.contactName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="updatedOn">

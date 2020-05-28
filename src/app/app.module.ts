@@ -31,6 +31,7 @@ import { EditSettingShiftComponent } from './edit-setting-shift/edit-setting-shi
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminAddBleIdComponent } from './admin-add-ble-id/admin-add-ble-id.component';
+import { OrderContactComponent } from './order-contact/order-contact.component';
 
 
 
@@ -56,6 +57,7 @@ import { AdminAddBleIdComponent } from './admin-add-ble-id/admin-add-ble-id.comp
     AdminLoginComponent,
     AdminDashboardComponent,
     AdminAddBleIdComponent,
+    OrderContactComponent,
   ],
   imports: [
     BrowserModule,

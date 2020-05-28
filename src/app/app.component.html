@@ -3,10 +3,14 @@
   <span class="flex">
     <img src="./assets/logo.png" alt="Sensegiz">
     <span class="end">
-      <span class="flex">
-        <mat-icon >person</mat-icon>
-        <p>{{title}}</p>&nbsp;&nbsp;
-        <span *ngIf="loginStatus" (click)="logout()">Logout</span>
+      <span class="flex" *ngIf="loginStatus">
+        <span>
+          <mat-icon >person</mat-icon>
+        </span>
+        <p>{{title | uppercase }}</p>&emsp;&nbsp;&emsp;
+        <span  (click)="logout()">
+          <mat-icon >exit_to_app</mat-icon>
+        </span>
       </span>
     </span>
   </span>
