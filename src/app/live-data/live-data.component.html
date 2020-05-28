@@ -3,8 +3,8 @@
   <p>Live Data</p>
   <hr>
 </div>
-<div class="prev" (click)="prevDayData()">
-  <span> <mat-icon>keyboard_arrow_left</mat-icon>   Previous Day Data</span>
+<div (click)="prevDayData()">
+  <span class="prev" > <mat-icon>keyboard_arrow_left</mat-icon>   Previous Day Data</span>
 </div>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort >

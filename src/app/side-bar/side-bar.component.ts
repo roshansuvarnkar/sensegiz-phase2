@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   selector: 'app-side-bar',
@@ -11,13 +12,13 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent implements OnInit {
-
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   loginData:any
   findData:any=[]
   findDataTemp:any=[]
   checkUrl:any
   dataSource:any
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['i','deviceName'];
 
   constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
@@ -27,6 +28,7 @@ export class SideBarComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     //this.checkPage()
+
 
   }
 
@@ -43,11 +45,16 @@ export class SideBarComponent implements OnInit {
         this.findDataTemp=res.success
         this.dataSource = new MatTableDataSource(res.success);
         setTimeout(() => {
-          this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
 
         })
       }
+
+      this.dataSource = new MatTableDataSource(this.findData);
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+
+      });
     })
   }
 
@@ -59,6 +66,7 @@ checkPage(){
 }
 
   clickDevice(data){
+
     console.log("data====",data)
     this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
   }
@@ -71,14 +79,12 @@ checkPage(){
     })
     this.dataSource = new MatTableDataSource(this.findData);
     setTimeout(() => {
-      this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
   }
   else{
     this.dataSource = new MatTableDataSource(this.findDataTemp);
     setTimeout(() => {
-      this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
     })

@@ -15,3 +15,18 @@ table.table thead th {
     top: 2rem;
     right: 1rem;
 }
+@media only screen and (max-width: 768px) {
+    table.table thead th {
+        font-weight: 600;
+        cursor: pointer;
+        font-size: smaller;
+    }
+    .search{
+        width: 120px;
+       
+    }
+    button.mat-focus-indicator.button.mat-flat-button.mat-button-base.mat-primary {
+        margin-left: 1.2rem;
+    }
+    
+}

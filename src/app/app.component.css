@@ -6,19 +6,57 @@ img {
     justify-content: space-evenly;
     cursor: pointer;
 }
-
-
-.example-sidenav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 250px;
-  margin-top: 8rem;
+.mobilemenu{
+  display: none;
+}
+.devices{
+  display: none;
 }
 
+.logouticon{
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 56px;
+    background: orange;
+}
+.main-home[_ngcontent-ejw-c257]{
+  display: block;
+  width: 100% !important;
+}
+.col-2{
+  display: none;
+}
+.devices{
+  display: block;
+  margin-left: 2rem;
+}
+.menubar{
+  display: none;
+}
+.mobilemenu{
+  display: block;
+}
+.logout{
+  display: none;
+}
+.logouticon{
+  display: block;
+}
+img {
+  width: 35%;
+}
+.menu{
+  margin-left: -2rem;
+}
+p.title {
+  margin-top: -0.2rem;
+  font-size: large;
+}
+button.mat-menu-item, .mat-menu-item .mat-icon  {
 
-.end{
-  position: absolute;
-  right: 2rem;
-  top: 1rem;
+  color: #f7a30bfa;
+}
+
 }

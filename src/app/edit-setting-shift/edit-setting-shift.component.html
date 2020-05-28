@@ -7,7 +7,7 @@
     </div> 
     <br>
 
-	<mat-card>
+	<mat-card class="shifts">
 		<mat-card-content *ngIf="shifts">
 			<form [formGroup]="shiftForm"  >
 		      <div class="diagWrapper"  formArrayName="items" *ngIf="shiftForm.get('items')['controls']?.length>0">

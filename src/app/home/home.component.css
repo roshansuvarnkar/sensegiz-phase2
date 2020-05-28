@@ -112,6 +112,7 @@ span.rec {
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
+ 
   .main-home {
       display: block;
       margin: 1rem;
@@ -136,6 +137,12 @@ span.rec {
   .four{
     margin: 1rem 0 2rem 0;
   }
+  span.tab-btn {
+    margin-left: 1rem;
+}
+span.emp-pad{
+    margin-left: 0rem;
+}
 }
 /* mat-card.mat-card.mat-focus-indicator.card-1 {
     width: 80%;
@@ -162,11 +169,7 @@ mat-card.mat-card.mat-focus-indicator.card-inner {
     padding: 3px;
     margin-top: -1rem;
 }
-button.mat-focus-indicator.btn.mat-raised-button.mat-button-base {
-    border: 1px solid #ef6c00;
-    color: #ef6c00;
-    width: 8rem
-}
+
 mat-card-title.mat-card-title.card-head {
     display: flex;
 }

@@ -16,3 +16,9 @@ mat-card-title{
   font-family: serif;
   line-height: 2rem;
 }
+@media only screen and (max-width: 768px){
+  .setting {
+    margin-left: 2rem;
+  }
+}
+   
