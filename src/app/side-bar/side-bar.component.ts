@@ -20,6 +20,7 @@ export class SideBarComponent implements OnInit {
   checkUrl:any
   dataSource:any
   displayedColumns: string[] = ['i','deviceName'];
+  deviceClickStatus:boolean
 
   constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
 
@@ -41,7 +42,7 @@ export class SideBarComponent implements OnInit {
     this.api.getAssignedDevices(data).then((res:any)=>{
       console.log("find data side bar ======",res);
       if(res.status){
-        this.findData=res.success
+        this.findData=res.success 
         this.findDataTemp=res.success
         this.dataSource = new MatTableDataSource(res.success);
         setTimeout(() => {
@@ -83,6 +84,7 @@ checkPage(){
     })
   }
   else{
+
     this.dataSource = new MatTableDataSource(this.findDataTemp);
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
@@ -90,7 +92,9 @@ checkPage(){
     })
   }
 }
-
+openMenu(){
+  this.deviceClickStatus=this.deviceClickStatus==true?false:true
+}
 
 
 }

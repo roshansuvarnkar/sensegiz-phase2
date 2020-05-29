@@ -16,15 +16,15 @@ import {MatSort} from '@angular/material/sort';
 })
 export class OrderContactComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
-  	@ViewChild(MatPaginator) paginator: MatPaginator;
-  	displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
 	order:any=0
-  	dataSource:any
+  dataSource:any
 	dataSet:any=[]
 	from:Date
-  	to:Date
-  	orderShow:any
-  	orderType:any=[
+  to:Date
+  orderShow:any
+  orderType:any=[
   		{
   			id:2,
   			name:"Second lever order"

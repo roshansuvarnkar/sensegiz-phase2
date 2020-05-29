@@ -32,6 +32,7 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminAddBleIdComponent } from './admin-add-ble-id/admin-add-ble-id.component';
 import { OrderContactComponent } from './order-contact/order-contact.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 
 
@@ -70,6 +71,7 @@ import { OrderContactComponent } from './order-contact/order-contact.component';
     HttpClientModule,
     NgCircleProgressModule.forRoot({}),
     MDBBootstrapModule.forRoot(),
+    DeviceDetectorModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthGuard],

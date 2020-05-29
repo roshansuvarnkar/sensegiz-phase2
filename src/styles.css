@@ -53,14 +53,14 @@ tr {
   
  }
 @media only screen and (max-width: 768px) {
-  .container-fluid {
+  /* .container-fluid {
     width: 110%;
     margin-left: -2rem;
-  }
-  .col-10 {
+  } */
+  /* .col-10 {
     max-width: 100% !important;
     flex: auto !important;
-}
+} */
  
 
 .cdk-overlay-pane{
@@ -71,9 +71,9 @@ tr {
 .mat-menu-panel{
   margin-top: -3.3rem !important;
 }
-mat-tab-header.mat-tab-header.mat-tab-header-pagination-controls-enabled {
+/* mat-tab-header.mat-tab-header.mat-tab-header-pagination-controls-enabled {
   padding-left: 1rem !important;
-}
+} */
 .table {
   width: 100%;
   margin-bottom: 1rem;
@@ -84,5 +84,6 @@ mat-tab-header.mat-tab-header.mat-tab-header-pagination-controls-enabled {
   vertical-align: middle !important;
   
  }
+
 }
 /* "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css" */

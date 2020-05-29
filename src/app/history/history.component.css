@@ -37,7 +37,7 @@ mat-radio-group.mat-radio-group.ng-untouched.ng-pristine.ng-valid {
 }
 
 @media only screen and (max-width: 768px) {
-    .history{
+    /* .history{
         margin-left: 2rem;
-    }
+    } */
 }
