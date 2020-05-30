@@ -15,7 +15,13 @@
   font-size: 0.9rem;
   color: #ef6c00;
 }
-
+.center {
+    margin-top: 1rem;
+    text-align: center;
+}
+hr {
+    width: 58%;
+}
 
 @media only screen and (max-width: 768px) {
     .title{
@@ -32,5 +38,5 @@
     font-size: 0.9rem;
     color: #ef6c00;
   }
-  
+
 }

@@ -48,6 +48,13 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
     this.refreshData(this.count)
   }
 
+  nextDayData(){
+    this.count = this.count - 1;
+    console.log("count==",this.count);
+
+    this.refreshData(this.count)
+  }
+
 
 
 
