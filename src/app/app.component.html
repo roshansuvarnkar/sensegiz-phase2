@@ -18,11 +18,11 @@
   <span class="flex">
     <img src="./assets/logo.png" alt="Sensegiz">
     <span class="end">
-      <span class="flex" *ngIf="loginStatus">
+      <span class="flex title" *ngIf="loginStatus">
         <span>
           <mat-icon >person</mat-icon>
         </span>
-        <p>{{title | uppercase }}</p>&emsp;&nbsp;&emsp;
+        <p >{{title | uppercase }}</p>&emsp;&nbsp;&emsp;
         <span  (click)="logout()">
           <mat-icon >exit_to_app</mat-icon>
         </span>
@@ -30,6 +30,7 @@
     </span>
   </span>
   </mat-toolbar>
+
 
 
 
@@ -42,32 +43,51 @@
     <span routerLink="/settings">Setting</span>
   </mat-toolbar>
 
+<div *ngIf="isDesktopDevice">
 
-<div class="container-fluid">
+  <div class="container-fluid">
 
 
-  <div class="row">
-    <div class="col-2">
-      <app-side-bar></app-side-bar>
-    </div>
-    <div class="devices">
-
-      <div class="" *ngIf="deviceStatus">
+    <div class="row">
+      <div class="col-2">
         <app-side-bar></app-side-bar>
       </div>
-  </div>
-    <div class="col-10">
-      hello
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+      <div class="devices">
 
-  </div>
+        <div class="" *ngIf="deviceStatus">
+          <app-side-bar></app-side-bar>
+        </div>
+    </div>
+      <div class="col-10">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    </div>
+</div>
+
+<div *ngIf="isMobile || isTablet">
+  <mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="over" >
+   <app-side-bar></app-side-bar>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content >
+     <p class="content" (click)="sidenav.toggle()"> click To get Devices list</p>
+     <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+</div >
 </div>
 
 
+
+
+
+
 <div *ngIf="!loginData">
-  hi
   <router-outlet></router-outlet>
 
 </div>

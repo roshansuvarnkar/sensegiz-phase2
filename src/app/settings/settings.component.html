@@ -44,15 +44,23 @@
       Define Minimum Distance
     </mat-card-title>
     <mat-card-subtitle>
-      Enter minimum distance for user in feet
+      Enter minimum distance for user in meter
     </mat-card-subtitle><br>
     <mat-card-content>
       <form [formGroup]="distanceForm" (ngSubmit)="onSubmitDistanceForm(distanceForm.value)">
         <mat-form-field>
-          <input type='number' matInput placeholder="Distance" formControlName="distance" required>
-          <mat-error>
-            Please provide a valid distance
-          </mat-error>
+          <mat-label>Select distance</mat-label>
+          <mat-select formControlName="distance" required>
+            <mat-option value="1">
+              1 meter
+            </mat-option>
+            <mat-option value="2">
+              2 meter
+            </mat-option>
+            <mat-option value="3">
+              3 meter
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <br><br>
         <button mat-raised-button [disabled]="!distanceForm.valid" color="primary">Submit</button>

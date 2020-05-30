@@ -10,7 +10,10 @@ img.mat-card-image {
 }
 .sidebar {
     margin-top: 1rem;
+    margin-left: 1rem;
+    
 }
+
 mat-form-field {
     width: 100% !important;
 }
@@ -39,9 +42,18 @@ td.mat-cell.cdk-cell.cdk-column-deviceName.mat-column-deviceName.ng-star-inserte
     letter-spacing: 1px;
     cursor: pointer;
 }
-
+.mobilemenu{
+    display: none;
+}
 @media only screen and (max-width: 768px) {
   .sidebar{
     display: none;
   }
+  .mobilemenu{
+    display: block;
+  }
+  mat-sidenav.mat-drawer.mat-sidenav.ng-tns-c276-1.ng-trigger.ng-trigger-transform.mat-drawer-over.ng-star-inserted.mat-drawer-opened {
+    height : fit-content !important;
+  
+}
 }

@@ -17,8 +17,8 @@ mat-card-title{
   line-height: 2rem;
 }
 @media only screen and (max-width: 768px){
-  .setting {
+  /* .setting {
     margin-left: 2rem;
-  }
+  } */
 }
    

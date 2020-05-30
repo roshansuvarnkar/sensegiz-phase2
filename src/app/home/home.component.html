@@ -93,7 +93,7 @@
             <mat-card >
               <mat-card-content class="setting" routerLink="/settings">
                 <mat-label>  Minimum social distance</mat-label>
-                <mat-label>  {{setting?.distance}} feet</mat-label>
+                <mat-label>  {{setting?.distance}} meter</mat-label>
                 <mat-icon >keyboard_arrow_right</mat-icon>
               </mat-card-content>
             </mat-card><br>
@@ -126,7 +126,7 @@
                   <span class="emp-pad">{{data.deviceName}}</span>
                   <span class="emp-pad">{{data.totalCount}}</span>
                 </span>
-                
+
               </span>
               <span class="tab-btn">
                 <button mat-raised-button class="btn" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
