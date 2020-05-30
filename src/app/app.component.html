@@ -52,12 +52,8 @@
       <div class="col-2">
         <app-side-bar></app-side-bar>
       </div>
-      <div class="devices">
-  
-        <div class="" *ngIf="deviceStatus">
-          <app-side-bar></app-side-bar>
-        </div>
-    </div>
+     
+    
       <div class="col-10">
         <router-outlet></router-outlet>
       </div>
@@ -66,26 +62,21 @@
     </div>
 </div>
 
-<div *ngIf="isMobile || isTablet">
+<div *ngIf="isMobile || isTablet" >
   <mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="over" >
+  <mat-sidenav #sidenav mode="over"  >
    <app-side-bar></app-side-bar>
 
   </mat-sidenav>
 
   <mat-sidenav-content >
-     <p class="content" (click)="sidenav.toggle()"> click To get Devices list</p>
+ <p class="content" (click)="sidenav.toggle()">&nbsp;&nbsp;  Devices list <mat-icon color="primary">keyboard_arrow_right</mat-icon></p>
      <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
 </div >
 </div>
-
-
-    
-
- 
 
 <div *ngIf="!loginData">
   <router-outlet></router-outlet>
