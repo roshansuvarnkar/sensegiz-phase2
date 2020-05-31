@@ -1,13 +1,15 @@
 
 
 
-	
-  <div  class="sidebar">
+
+<div  class="sidebar">
+	<span class="head">Registered Users</span>
+	<hr>
   <mat-form-field class="search">
 		<input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
 		<mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
-  
+
     <table mat-table [dataSource]="dataSource" >
        <div >
           <ng-container matColumnDef="i">
@@ -30,8 +32,3 @@
 
     <mat-paginator class="sidebarPage" pageSize=10 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
-
-
-
-
-

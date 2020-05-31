@@ -10,8 +10,11 @@ img.mat-card-image {
 }
 .sidebar {
     margin-top: 1rem;
-    margin-left: 1rem;
-    
+    padding: 0 1rem;
+}
+span.head {
+    font-size: 1.2rem;
+    text-align: center;
 }
 
 mat-form-field {
@@ -44,7 +47,7 @@ td.mat-cell.cdk-cell.cdk-column-deviceName.mat-column-deviceName.ng-star-inserte
 }
 
 @media only screen and (max-width: 768px) {
- 
+
   mat-sidenav.mat-drawer.mat-sidenav.ng-tns-c276-1.ng-trigger.ng-trigger-transform.mat-drawer-over.ng-star-inserted.mat-drawer-opened {
     height : fit-content !important;
     width:75% !important;

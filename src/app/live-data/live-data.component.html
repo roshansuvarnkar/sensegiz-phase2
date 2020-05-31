@@ -3,8 +3,9 @@
   <p>Live Data</p>
   <hr>
 </div>
-<div (click)="prevDayData()">
-  <span class="prev" > <mat-icon>keyboard_arrow_left</mat-icon>   Previous Day Data</span>
+<div class="day">
+  <span class="prev" (click)="prevDayData()"> <mat-icon>keyboard_arrow_left</mat-icon>   Previous Day Data</span>
+  <span class="prev" *ngIf="count != 0" (click)="nextDayData()"> Next Day Data <mat-icon>keyboard_arrow_right</mat-icon></span>
 </div>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort >

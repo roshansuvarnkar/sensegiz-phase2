@@ -20,6 +20,10 @@ table.mat-table {
   letter-spacing: 2px;
   font-weight: 500;
 }
+.day {
+    display: flex;
+    justify-content: space-between;
+}
 hr{
   width: 29rem;
 }
@@ -28,7 +32,8 @@ mat-icon{
 }
 .prev{
   margin-left: 1rem;
+  cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
-    
+
 }
