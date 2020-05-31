@@ -20,7 +20,7 @@
         <div class="row">
           <div class="first-cont">
             <div class="regi" >
-              Active User <br><br>
+              Active Users <br><br>
               <circle-progress (click)="activeUser()"
                 [percent]="activeEmp"
                 [showUnits]="false"
@@ -40,7 +40,7 @@
               ></circle-progress>
             </div>
             <div class="infe">
-              Infected User <br><br>
+              Infected Users <br><br>
               <circle-progress (click)="infectedUser()"
                 [percent]="infectedEmp"
                 [showUnits]="false"
@@ -59,7 +59,7 @@
                 [responsive]="false"
               ></circle-progress>
             </div>
-            <div class="count">
+            <!-- <div class="count">
               Normal User <br><br>
               <circle-progress (click)="normalUser()"
                 [percent]="normalEmp"
@@ -78,7 +78,7 @@
                 [startFromZero]="true"
                 [responsive]="false"
               ></circle-progress><br><br>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -100,7 +100,7 @@
             <mat-card >
               <mat-card-content class="setting" routerLink="/settings">
                 <mat-label>Automatic alert</mat-label>
-                <mat-label>{{setting?.threshold}}</mat-label>
+                <mat-label class="tab-set">{{setting?.threshold}}</mat-label>
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </mat-card-content>
             </mat-card>

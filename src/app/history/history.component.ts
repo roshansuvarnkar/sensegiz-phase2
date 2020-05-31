@@ -54,7 +54,6 @@ radioStatus2:boolean=false
       toDate: ['', Validators.required]
     });
 
-
     this.refreshFinds()
 
   }
@@ -128,8 +127,6 @@ onclickFindName(data){
       toDate:tot
   })
 }
-
-
 
   refreshFinds(){
     var data={
@@ -243,6 +240,7 @@ onclickFindName(data){
   }
 
 
+ 
 
 
 }

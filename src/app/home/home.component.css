@@ -110,6 +110,9 @@ span.rec {
     justify-content: space-between;
     width: 100%;
 }
+mat-label.tab-set {
+    margin-left: 2rem;
+}
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
  
