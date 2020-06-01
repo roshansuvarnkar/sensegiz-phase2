@@ -58,6 +58,9 @@ tr {
   vertical-align: middle !important;
   
  }
+ a.canvasjs-chart-credit {
+  display: none !important;
+}
 @media only screen and (max-width: 768px) {
   /* .container-fluid {
     width: 110%;
@@ -67,7 +70,9 @@ tr {
     max-width: 100% !important;
     flex: auto !important;
 } */
- 
+a.canvasjs-chart-credit {
+  display: none !important;
+}
 
 .cdk-overlay-pane{
   max-width: 95vw !important;

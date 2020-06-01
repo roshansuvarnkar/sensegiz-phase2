@@ -85,10 +85,10 @@
   <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
-        Report based on Find Name
+        Report based on User Name
       </mat-card-title>
       <mat-card-subtitle>
-        Enter Find Name and From to To date
+        Enter User Name and From to To date
       </mat-card-subtitle>
     </span>
     <mat-card-content>
@@ -98,7 +98,7 @@
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
 
         <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="Find Name" formControlName="deviceName" required>
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" required>
           <mat-error>
             Please provide a valid device name
           </mat-error>

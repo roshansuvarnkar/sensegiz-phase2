@@ -58,6 +58,7 @@ export class HistoryReportComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
 
     })
+    this.liveData=[]
   }
 
 
