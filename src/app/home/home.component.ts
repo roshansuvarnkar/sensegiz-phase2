@@ -50,7 +50,7 @@ dataPoints:any=[]
     this.repeatedContacts()
     this.numOfcontactPerDay()
 
-
+    setInterval(()=>{this.refresh()},60*1000)
 
 }
 
@@ -189,7 +189,15 @@ normalUser(){
 }
 
 
+refresh(){
+  this.refreshCount()
+  this.refreshSetting()
+  this.maximumContactTime()
+  this.repeatedContacts()
+  this.numOfcontactPerDay()
+  this.refreshFinds()
 
+}
 
 
 refreshCount(){

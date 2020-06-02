@@ -29,11 +29,11 @@ export class SideBarComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     //this.checkPage()
-
+    setInterval(()=>{this.refreshFinds()},60*1000)
 
   }
 
-
+  
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
@@ -92,9 +92,7 @@ checkPage(){
     })
   }
 }
-openMenu(){
-  this.deviceClickStatus=this.deviceClickStatus==true?false:true
-}
+
 
 
 }

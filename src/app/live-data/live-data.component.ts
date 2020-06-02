@@ -38,9 +38,13 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
     this.refreshData(this.count)
     console.log("count",this.count)
     // this.dataSource.paginator = this.paginator;
-
+    setInterval(()=>{this.refresh()},60*1000)
   }
-
+refresh(){
+  this.prevDayData()
+  this.nextDayData()
+  this.refreshData(this.count)
+}
   prevDayData(){
     this.count = this.count + 1;
     console.log("count==",this.count);
@@ -80,6 +84,7 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
       }
     })
    }
+
 
 
 }

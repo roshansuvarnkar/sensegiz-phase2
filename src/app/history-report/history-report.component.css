@@ -20,6 +20,7 @@ p.center{
   font-weight: 500;
   font-family: serif;
   margin: 0 auto;
+  padding-left: 4rem;
  
 }
 .content {
@@ -27,7 +28,9 @@ p.center{
   justify-content: space-between;
 
 }
-
+td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inserted {
+  cursor: pointer;
+}
 .mat-dialog-title {
   text-align: center;
   font-size: 1rem;
@@ -39,20 +42,24 @@ p.center{
   }
   table.mat-table.cdk-table.mat-sort {
     width: max-content !important;
+    margin-left: -1rem !important;
   }
   p.center {
     color: #ef6c00;
     font-size:x-large;
     font-family: serif;
-    margin-left: 0rem !important;
+    margin-left: -3rem !important;
   }
   mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color {
     vertical-align: top;
   }
-  .mat-dialog-title {
-    text-align: left;
-    font-size: 1rem;
-    font-family: serif;
+.mat-dialog-title {
+  text-align: center;
+  font-size: large !important;
+  font-family: serif;
 }
-
+.mat-paginator {
+  display: block;
+  margin-left: -1rem !important;
+}
 }

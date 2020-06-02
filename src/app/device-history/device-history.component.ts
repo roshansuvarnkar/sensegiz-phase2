@@ -14,7 +14,7 @@ import {MatPaginator} from '@angular/material/paginator';
 export class DeviceHistoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  info:any
   deviceData:any=[]
   finds:any
   findData:any=[]
@@ -35,6 +35,7 @@ export class DeviceHistoryComponent implements OnInit {
         console.log("records=",this.deviceData )
         this.refreshFinds(this.deviceData)
     })
+    setInterval(()=>{this.refreshFinds(this.info)},60*1000)
   }
 
 
