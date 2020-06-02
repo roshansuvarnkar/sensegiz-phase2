@@ -244,7 +244,7 @@ maximumContactTime(){
   this.api.getMaxTimeContact(data).then((res:any)=>{
     console.log("max contact time ======",res);
     if(res.status){
-
+      this.contactTimeMax = []
       for(var i=0;i<res.success.length;i++){
         var hms = res.success[i].totTime
         var a = hms.split(':')
@@ -260,7 +260,7 @@ maximumContactTime(){
 
       }
     }
-  }) 
+  })
 
 }
 
@@ -292,6 +292,7 @@ numOfcontactPerDay(){
   this.api.getPerDayCount(data).then((res:any)=>{
     console.log("repeated contacts data ======",res);
     if(res.status){
+      this.dataPoints=[]
       this.countPerday = res.success.reverse()
 
       for (let i = 0; i < this.countPerday.length; i++) {
