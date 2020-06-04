@@ -25,7 +25,7 @@ export class HistoryReportComponent implements OnInit {
   to:Date
   selectedValue:any
   deviceName:any
-  displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
+  displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
 
 
     constructor(
@@ -49,16 +49,14 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-
     // basedOnDate
-
     this.dataSource = new MatTableDataSource(this.liveData);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-
     })
     this.liveData=[]
+
   }
 
 
@@ -79,6 +77,23 @@ export class HistoryReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+
+  convertDate(a){
+    console.log("a===",a)
+    var timeArr = a.split(':')
+    var date = ''
+    if(timeArr[0]!='00'){
+      date += timeArr[0] + ' hour '
+    }
+    else if(timeArr[1]!='00'){
+      date += timeArr[1] + ' minute '
+    }
+    else if(timeArr[2]!='00'){
+      date += timeArr[2] + ' second '
+    }
+    return date
   }
 
 }
