@@ -32,7 +32,7 @@ export class SideBarComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     //this.checkPage()
-    this.changeColor()
+
     setInterval(()=>{this.refreshFinds()},60*1000)
 
   }
@@ -60,9 +60,10 @@ export class SideBarComponent implements OnInit {
           var a=tottime.split(':')
           this.systime = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
         
-          console.log("min",this.systime)
+          // console.log("min",this.systime)
 
-
+            // updatedOn
+            
           var dateObj=new Date(res.success[i].updatedOn)
           var h=dateObj.getUTCHours()
           var m=dateObj.getUTCMinutes()
@@ -84,17 +85,17 @@ export class SideBarComponent implements OnInit {
             }
              else if(this.totmin>=this.systime && this.totmin<= 3*this.systime){
               this.color="yellow"
-              console.log(this.color)
+              // console.log(this.color)
             }
             else{
               this.color="red"
-              console.log(this.color)
+              // console.log(this.color)
             }
           }
          
          
-          console.log("tot time==",this.totmin)
-          console.log("time==",this.time)
+          // console.log("tot time==",this.totmin)
+          // console.log("time==",this.time)
           this.findData.push({
             i:i,
             deviceName:res.success[i].deviceName,
@@ -154,27 +155,6 @@ checkPage(){
 
     })
   }
-}
-
-changeColor(){
-  var data={
-    userId:this.loginData.userId,
-  }
-  this.api.getAssignedDevices(data).then((res:any)=>{
-    console.log("max contact time ======",res);
-    if(res.status){
-      
-    }
-    for(let i=0;i<res.success.length;i++){
-      var dateObj=new Date(res.success[i].updatedOn)
-      var hour=dateObj.getUTCHours()
-      var min=dateObj.getUTCMinutes()
-      var sec=dateObj.getUTCSeconds()
-      this.time= hour + ":"+min+":"+sec
-      console.log("time==",this.time)
-
-    }
-  }) 
 }
 
 

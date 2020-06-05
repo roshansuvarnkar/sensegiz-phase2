@@ -20,6 +20,7 @@ findData:any=[]
 loginData:any
 type:any
 data:any
+load:any
 deviceName:any
 dataSource:any
 displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];

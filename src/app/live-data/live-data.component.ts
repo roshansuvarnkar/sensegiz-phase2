@@ -6,6 +6,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Timestamp } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Timestamp } from 'rxjs';
 export class LiveDataComponent implements OnInit {
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+index:any
 liveData:any=[]
 dataSource:any
 loginData:any
@@ -50,6 +51,7 @@ refresh(){
     console.log("count==",this.count);
 
     this.refreshData(this.count)
+    
   }
 
   nextDayData(){
@@ -57,6 +59,7 @@ refresh(){
     console.log("count==",this.count);
 
     this.refreshData(this.count)
+    
   }
 
 
@@ -86,5 +89,12 @@ refresh(){
    }
 
 
+loadData(value){
+  for(let i=0;i<value.pageSize;i++){
+     this.index=value.pageIndex == 0 ? i : i + value.pageIndex*value.pageSize
+     console.log("index==",this.index)
+  }
+
+}
 
 }

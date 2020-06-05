@@ -19,6 +19,7 @@ export class HistoryReportComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   type:any
   liveData:any=[]
+  liveDataTemp:any=[]
   dataSource:any
   loginData:any
   from:Date
@@ -39,6 +40,7 @@ export class HistoryReportComponent implements OnInit {
       this.type=data.type
       console.log("type==",this.type)
       this.liveData = data.data
+      this.liveDataTemp = data.data
       this.from = data.fromDate
       this.to = data.toDate
       this.selectedValue=data.valueSelected
@@ -49,7 +51,7 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-    // basedOnDate
+    
     this.dataSource = new MatTableDataSource(this.liveData);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
