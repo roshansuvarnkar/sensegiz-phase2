@@ -4,7 +4,7 @@
 		<span>
 			<button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
 		</span>
-    </div> 
+    </div>
     <br>
 
 	<mat-card class="shifts">
@@ -38,6 +38,8 @@
 					</mat-form-field>
 
 					<button type="button" mat-raised-button color="primary" (click)="submit(item.value)">Submit</button>
+
+					<td><mat-icon matListIcon (click)="delete(item.value)">delete</mat-icon></td>
 
 		          </ng-container>
 		        </div>

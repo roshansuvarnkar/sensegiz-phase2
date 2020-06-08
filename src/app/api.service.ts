@@ -396,7 +396,7 @@ showWarning(data){
        resolve(res);
      })
    });
- }  
+ }
 
 
  getAdminData(){
@@ -410,7 +410,7 @@ showWarning(data){
        resolve(res);
      })
    });
- } 
+ }
 
 
  createUser(data){
@@ -423,7 +423,7 @@ showWarning(data){
        resolve(res);
      })
    });
- } 
+ }
 
 
  deleteAdminUser(data){
@@ -436,7 +436,7 @@ showWarning(data){
        resolve(res);
      })
    });
- } 
+ }
 
 
  updateBleMac(data){
@@ -444,6 +444,47 @@ showWarning(data){
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
    };
    let url = this.host+'/updateMacId';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ }
+
+
+
+ addTxPower(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   let url = this.host+'/setTxPower';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ }
+
+
+ deleteShift(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   let url = this.host+'/deleteDeviceShift';
+   return new Promise((resolve,reject)=>{
+     this.http.post(url,data,httpOptions).subscribe(res=>{
+       resolve(res);
+     })
+   });
+ }
+
+
+
+ getLiveDataTotalCount(data){
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   let url = this.host+'/getRowCount';
    return new Promise((resolve,reject)=>{
      this.http.post(url,data,httpOptions).subscribe(res=>{
        resolve(res);
