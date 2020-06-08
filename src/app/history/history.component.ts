@@ -19,9 +19,7 @@ findNameForm:FormGroup
 dateForm:FormGroup
 finds:any=[]
 prevDate:any
-radioStatus0:boolean=false
-radioStatus1:boolean=false
-radioStatus2:boolean=false
+
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
               private api:ApiService,
@@ -63,44 +61,44 @@ radioStatus2:boolean=false
     console.log("data==",data)
 
     var date = new Date();
-    this.prevDate=date.setDate(date.getDate() - 1);
+    var toDate = new Date();
+    var prevDate = date.setDate(date.getDate() - data);
 
-    this.radioStatus0= this.radioStatus0==true?false:true
-    
-    var date = new Date(this.prevDate);
+    var date = new Date(prevDate);
     var year = date.getFullYear();
     var month = ("0" + (date.getMonth() + 1)).slice(-2);
     var day = ("0" + date.getDate()).slice(-2);
 
     var tot = year + '-' + month + '-'  + day
 
+    var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
     this.dateForm.patchValue({
       fromDate:tot,
-      toDate:tot
+      toDate:todayDate
     })
   }
-
-
 
 
 onclickFindId(data){
   console.log("data==",data)
 
   var date = new Date();
-  this.prevDate=date.setDate(date.getDate() - 1);
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
 
-  this.radioStatus1= this.radioStatus1==true?false:true
-
-  var date = new Date(this.prevDate);
+  var date = new Date(prevDate);
   var year = date.getFullYear();
   var month = ("0" + (date.getMonth() + 1)).slice(-2);
   var day = ("0" + date.getDate()).slice(-2);
 
   var tot = year + '-' + month + '-'  + day
 
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
    this.findIdForm.patchValue({
       fromDate:tot,
-      toDate:tot
+      toDate:todayDate
     })
 }
 
@@ -111,20 +109,21 @@ onclickFindName(data){
   console.log("data==",data)
 
   var date = new Date();
-  this.prevDate=date.setDate(date.getDate() - 1);
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
 
-  this.radioStatus2= this.radioStatus2==true?false:true
-
-  var date = new Date(this.prevDate);
+  var date = new Date(prevDate);
   var year = date.getFullYear();
   var month = ("0" + (date.getMonth() + 1)).slice(-2);
   var day = ("0" + date.getDate()).slice(-2);
 
   var tot = year + '-' + month + '-'  + day
 
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
   this.findNameForm.patchValue({
       fromDate:tot,
-      toDate:tot
+      toDate:todayDate
   })
 }
 
@@ -240,7 +239,7 @@ onclickFindName(data){
   }
 
 
- 
+
 
 
 }
