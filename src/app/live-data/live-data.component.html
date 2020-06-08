@@ -39,11 +39,11 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
     </table>
-    
-   
-        <mat-paginator pageSize=10 [length]="currentLength"  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="getCount($event)" ></mat-paginator>
-    
- 
-
+    <mat-paginator  (page)="getUpdate($event)"
+                  [length] = "currentPageSize"
+                  [pageSize]="currentPageLength"
+                  [pageSizeOptions] = "[5, 10, 25, 100]"
+                  >
+    </mat-paginator>
 </div>
  

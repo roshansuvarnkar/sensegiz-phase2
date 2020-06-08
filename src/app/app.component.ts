@@ -10,9 +10,11 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class AppComponent {
   title = 'sensegiz';
+  statusMessage = 'sensegiz';
   loginData:boolean=false
   loginMobData:boolean=false
   loginStatus:boolean=false
+  loginDataInfo:any
   checkUrl:any
   statusHome:boolean
   statusNotHome:boolean
@@ -27,14 +29,20 @@ export class AppComponent {
     private route:ActivatedRoute,
     private deviceService: DeviceDetectorService){
     this.loginData = this.login.loginStatus()
+    this.loginDataInfo = this.login.loginData()
     this.login.loginCred.subscribe(res=>{
       console.log("login data===",res)
       this.loginData = res
       this.loginMobData=res
+      this.loginDataInfo = this.login.loginData()
     })
+    this.loginDataInfo = this.login.loginData()
+  //  console.log("loginDataInfo===",this.loginDataInfo);
+
     this.login.loginCheckStatus.subscribe(res=>{
       console.log("login data===",res)
       this.loginStatus = res
+      this.loginDataInfo = this.login.loginData()
     })
 
   }

@@ -82,4 +82,19 @@ export class EditSettingShiftComponent implements OnInit {
       })
 	}
 
+
+  delete(a){
+    console.log("delete===",a);
+    if(confirm("Are you sure you want to delete the shift")){
+      this.api.deleteShift(a).then((res:any)=>{
+        console.log("shift delete==",res)
+        if(res.status){
+          var msg = 'Shift deleted Successfully'
+          this.general.openSnackBar(msg,'')
+        }
+        this.refreshShift()
+      })
+    }
+  }
+
 }

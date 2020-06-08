@@ -29,6 +29,17 @@ export class LoginCheckService {
   }
 
 
+  loginData(){
+    var status = localStorage.getItem('sensegizlogin')
+    if(status){
+      return JSON.parse(status)
+    }
+    else{
+      return false
+    }
+  }
+
+
   loginStatusMenu(){
     var status = localStorage.getItem('sensegizlogin')
     var route = window.location.pathname

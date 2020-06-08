@@ -17,9 +17,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class ManageFindsComponent implements OnInit {
 loginData:any
 findData:any=[]
-icon1:string='report'
-icon2:string='report_off'
-icon4:string='keyboard_arrow_up'
+
 elements: any = [];
 headElements = ['id','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
 shift = new FormControl('');

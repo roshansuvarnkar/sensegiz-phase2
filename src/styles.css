@@ -56,10 +56,23 @@ tr {
 }
 .table thead th{
   vertical-align: middle !important;
-  
+
  }
  a.canvasjs-chart-credit {
   display: none !important;
+}
+
+
+.statusFreeze{
+  position:absolute;
+  z-index:10000;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  width:100vw;
+  height:100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
 }
 @media only screen and (max-width: 768px) {
   /* .container-fluid {
@@ -91,7 +104,7 @@ a.canvasjs-chart-credit {
 }
 .table thead th{
   vertical-align: middle !important;
-  
+
  }
 
 }

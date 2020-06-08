@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   workingForm:FormGroup
   distanceForm:FormGroup
   maxContactForm:FormGroup
+  txPowerForm:FormGroup
   loginData:any
 
   constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
@@ -40,6 +41,11 @@ export class SettingsComponent implements OnInit {
     this.maxContactForm = this.fb.group({
       threshold: ['', Validators.required],
     });
+
+
+    this.txPowerForm = this.fb.group({
+      txPower: ['', Validators.required],
+    });
   }
 
 
@@ -53,7 +59,6 @@ export class SettingsComponent implements OnInit {
            if(res.status){
              var msg = 'Shift time updated Successfully'
              this.general.openSnackBar(msg,'')
-             this.workingForm.reset()
            }
          })
        } catch (err) {
@@ -73,7 +78,6 @@ export class SettingsComponent implements OnInit {
            if(res.status){
              var msg = 'Minimum distance updated Successfully'
              this.general.openSnackBar(msg,'')
-             this.workingForm.reset()
            }
          })
        } catch (err) {
@@ -92,7 +96,25 @@ export class SettingsComponent implements OnInit {
            if(res.status){
              var msg = 'Max contact threshold updated Successfully'
              this.general.openSnackBar(msg,'')
-             this.maxContactForm.reset()
+           }
+         })
+       } catch (err) {
+       }
+     }
+   }
+
+
+
+  onSubmittxPowerForm(data) {
+     if (this.txPowerForm.valid) {
+       try {
+         console.log("threshold ===",data)
+         data.userId = this.loginData.userId
+         this.api.addTxPower(data).then((res:any)=>{
+           console.log("tx power updated",res)
+           if(res.status){
+             var msg = 'Transmission power updated Successfully'
+             this.general.openSnackBar(msg,'')
            }
          })
        } catch (err) {

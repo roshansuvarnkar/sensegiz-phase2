@@ -82,8 +82,10 @@
           </mat-form-field>
         </td>
         <td>
-          <mat-icon *ngIf="el.infected==0" color="primary" matListIcon (click)="infected(el)">{{icon1}}</mat-icon>
-          <mat-icon *ngIf="el.infected==1" color="primary" matListIcon (click)="infected(el)">{{icon2}}</mat-icon>
+    
+          <mat-slide-toggle *ngIf="el.infected==0" color="primary"  (click)="infected(el)"></mat-slide-toggle>
+          <!-- <mat-icon *ngIf="el.infected==1" color="primary" matListIcon (click)="infected(el)"></mat-icon> -->
+          <mat-slide-toggle *ngIf="el.infected==1" color="primary"  (click)="infected(el)"></mat-slide-toggle>
 
         </td>
         <td><mat-icon matListIcon (click)="edit(el)">{{el.edit}}</mat-icon></td>

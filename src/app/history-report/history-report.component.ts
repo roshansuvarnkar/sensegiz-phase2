@@ -29,6 +29,8 @@ export class HistoryReportComponent implements OnInit {
   index:any
   selectedValue:any
   deviceName:any
+  currentPageLength:any=10
+  currentPageSize:any=7
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
 
 
@@ -54,63 +56,110 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-    
-   this.loadData()
+    this.getTotalCount()
+    this.loadData()
     
 
   }
 
-loadData(){
-  for(let i=0;i<this.paginator.pageSize;i++){
-    this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
-    console.log("index==",this.index,"page index==",this.paginator.pageIndex)
- }
-  if(this.type=='basedOnDate'){
-    var data={
-      userId:this.loginData.userId,
-      fromDate: this.from,
-      toDate:this.to,
-        // limit:this.index,
- // offset:this.paginator.pageIndex
-    }
-    this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-      console.log("find data ======",res);
-      if(res.status){
-        this.liveData=res.success
-        this.dataSource = new MatTableDataSource(this.liveData);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        })
+  getTotalCount(){
+    if(this.type=='basedOnDate'){
+      var data={
+        userId:this.loginData.userId,
+        fromDate: this.from,
+        toDate:this.to,
       }
-     
-    })
-    this.liveData=[]
-  }
+    
+      this.api.getHistoryDateReportTotalCount(data).then((res:any)=>{
+        console.log("length of report on date ======",res);
+        if(res.status){
+          console.log('\nTotal response: ',res.success[0].count);
+          this.currentPageLength = parseInt(res.success[0].count);
+    
+        }
+      })
+  
+    }
   if(this.type=='basedOnFindName'){
     var data1={
       userId:this.loginData.userId,
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
-        // limit:this.index,
- // offset:this.paginator.pageIndex
     }
-    this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
-      console.log("find data ======",res);
+  
+    this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
+      console.log("length of report on device name ======",res);
       if(res.status){
-        this.liveData=res.success
-
-        this.dataSource = new MatTableDataSource(this.liveData);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        })
+        console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength = parseInt(res.success[0].count);
+  
       }
     })
+  
   }
-  this.liveData=[]
+  }
+
+  loadData(limit=10,offset=0){
+
+      if(this.type=='basedOnDate'){
+        var data={
+          userId:this.loginData.userId,
+          fromDate: this.from,
+          toDate:this.to,
+          limit:limit,
+          offset:offset
+        }
+        this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
+          console.log("find data ======",res);
+          if(res.status){
+            this.liveData=res.success
+            this.dataSource = new MatTableDataSource(this.liveData);
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+              this.paginator.length = this.currentPageLength
+            })
+          }
+        
+        })
+        this.liveData=[]
+      }
+      if(this.type=='basedOnFindName'){
+        var data1={
+          userId:this.loginData.userId,
+          deviceName:this.deviceName,
+          fromDate: this.from,
+          toDate:this.to,
+          limit:limit,
+          offset:offset
+        }
+        this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
+          console.log("find data ======",res);
+          if(res.status){
+            this.liveData=res.success
+
+            this.dataSource = new MatTableDataSource(this.liveData);
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+              this.paginator.length = this.currentPageLength
+            })
+          }
+        })
+      }
+      this.liveData=[]
 }
+
+
+getUpdate(event) {
+  console.log("paginator event",event);
+  console.log("paginator event length", this.currentPageLength);
+  var limit = event.pageSize
+  var offset = event.pageIndex*event.pageSize
+  console.log("limit==",limit,"offset==",offset)
+  this.loadData(offset,limit)
+}
+
+
   orderContactOpen(a){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -131,7 +180,7 @@ loadData(){
 
 
   convertDate(a){
-    console.log("a===",a)
+    // console.log("a===",a)
     var timeArr = a.split(':')
     var date = ''
     if(timeArr[0]!='00'){
