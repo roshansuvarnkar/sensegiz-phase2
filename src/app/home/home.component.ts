@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import {Router} from '@angular/router'
@@ -14,6 +14,7 @@ import { HomeCountViewComponent } from '../home-count-view/home-count-view.compo
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
 findData:any=[]
 loginData:any
 findLen:any
@@ -30,7 +31,9 @@ dates:any=[]
 month:any=[]
 day:any=[]
 totmin:any
-
+index:any
+pageIndex:any
+pageSize:any
 dataPoints:any=[]
   constructor(private api: ApiService,
   private login:LoginCheckService,
@@ -43,6 +46,7 @@ dataPoints:any=[]
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     // this.checkUrl = this.router.url
+
     this.refreshFinds()
     this.refreshCount()
     this.refreshSetting()
@@ -53,13 +57,17 @@ dataPoints:any=[]
     setInterval(()=>{this.refresh()},60*1000)
 
 }
+// ngAfterViewInit() {
+
+// }
 
 sendWarning(id,value){
   console.log("value==",id,value)
   var data={
     userId:this.loginData.userId,
     id:id,
-    totalCount:value
+    totalCount:value,
+    
   }
   // var msg="This feature is not avilable"
   // this.general.openSnackBar(msg,'')
@@ -96,30 +104,21 @@ refreshFinds(){
 
 
 activeUser(){
-  var data={
-    userId:this.loginData.userId,
-    type:'active'
+  console.log("Active users===",this.activeEmp)
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.height = '90vh';
+  dialogConfig.width = '75vw';
+  dialogConfig.data = {
+    type:"activeUserData"
   }
-  this.api.getHomeCountData(data).then((res:any)=>{
-        if(res.status){
-           console.log("Active users===",this.activeEmp)
-           const dialogConfig = new MatDialogConfig();
-           dialogConfig.disableClose = true;
-           dialogConfig.autoFocus = true;
-           dialogConfig.height = '90vh';
-           dialogConfig.width = '75vw';
-           dialogConfig.data = {
-             type:"activeUserData",
-             data:res.success
-           }
-           const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+  const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
 
-           dialogRef.afterClosed().subscribe(result => {
-             this.refreshFinds()
-           });
+  dialogRef.afterClosed().subscribe(result => {
+    this.refreshFinds()
+  });
 
-    }
-  })
 
 }
 
@@ -127,13 +126,8 @@ activeUser(){
 
 
 infectedUser(){
-  var data={
-    userId:this.loginData.userId,
-    type:'infected'
-  }
-  this.api.getHomeCountData(data).then((res:any)=>{
-    console.log("count data ======",res);
-    if(res.status){
+ 
+
       console.log("Infected users===",this.infectedEmp)
        const dialogConfig = new MatDialogConfig();
        dialogConfig.disableClose = true;
@@ -142,16 +136,13 @@ infectedUser(){
        dialogConfig.width = '75vw';
        dialogConfig.data = {
          type:"infectedUserData",
-         data:res.success
+        
        }
        const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
 
        dialogRef.afterClosed().subscribe(result => {
          this.refreshFinds()
        });
-
-    }
-  })
 
 }
 

@@ -14,7 +14,7 @@ import {MatPaginator} from '@angular/material/paginator';
 export class DeviceHistoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  index:any
   deviceData:any=[]
   finds:any=[]
   findData:any=[]
@@ -33,13 +33,24 @@ export class DeviceHistoryComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
         this.deviceData = JSON.parse(params.record) ;
         console.log("records=",this.deviceData )
-        this.refreshFinds(this.deviceData)
+        this.refreshFinds()
     })
-    setInterval(()=>{this.refreshFinds(this.deviceData)},60*1000)
+    setInterval(()=>{this.refreshFinds()},60*1000)
   }
 
 
-  refreshFinds(data){
+  refreshFinds(){
+    
+    for(let i=0;i<this.paginator.pageSize;i++){
+      this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
+      console.log("index==",this.index,"page index==",this.paginator.pageIndex)
+    
+   }
+   var data={
+     devicedata:this.deviceData,
+  // limit:this.index,
+  // offset:this.paginator.pageIndex
+   }
     this.api.getDeviceData(data).then((res:any)=>{
       console.log("find data ======",res);
       if(res.status){
@@ -65,6 +76,6 @@ export class DeviceHistoryComponent implements OnInit {
     
     })
   }
-  
+
 
 }

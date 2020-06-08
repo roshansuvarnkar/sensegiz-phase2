@@ -18,12 +18,15 @@ export class HistoryReportComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   type:any
+  dateBased:any
+  findNameBased:any
   liveData:any=[]
   liveDataTemp:any=[]
   dataSource:any
   loginData:any
   from:Date
   to:Date
+  index:any
   selectedValue:any
   deviceName:any
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
@@ -52,17 +55,62 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
 
     
-    this.dataSource = new MatTableDataSource(this.liveData);
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
-    this.liveData=[]
+   this.loadData()
+    
 
   }
 
+loadData(){
+  for(let i=0;i<this.paginator.pageSize;i++){
+    this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
+    console.log("index==",this.index,"page index==",this.paginator.pageIndex)
+ }
+  if(this.type=='basedOnDate'){
+    var data={
+      userId:this.loginData.userId,
+      fromDate: this.from,
+      toDate:this.to,
+        // limit:this.index,
+ // offset:this.paginator.pageIndex
+    }
+    this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
+      console.log("find data ======",res);
+      if(res.status){
+        this.liveData=res.success
+        this.dataSource = new MatTableDataSource(this.liveData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        })
+      }
+     
+    })
+    this.liveData=[]
+  }
+  if(this.type=='basedOnFindName'){
+    var data1={
+      userId:this.loginData.userId,
+      deviceName:this.deviceName,
+      fromDate: this.from,
+      toDate:this.to,
+        // limit:this.index,
+ // offset:this.paginator.pageIndex
+    }
+    this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
+      console.log("find data ======",res);
+      if(res.status){
+        this.liveData=res.success
 
-
+        this.dataSource = new MatTableDataSource(this.liveData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        })
+      }
+    })
+  }
+  this.liveData=[]
+}
   orderContactOpen(a){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

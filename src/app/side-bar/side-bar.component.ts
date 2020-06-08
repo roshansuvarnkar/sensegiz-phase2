@@ -25,6 +25,9 @@ export class SideBarComponent implements OnInit {
   color:any
   time:any
   systime:any
+  date2:any
+  date1:any
+  index:any
   constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
 
   ngOnInit(): void {
@@ -32,106 +35,39 @@ export class SideBarComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     //this.checkPage()
-
     setInterval(()=>{this.refreshFinds()},60*1000)
 
   }
 
-  
+
   refreshFinds(){
+    // for(let i=0;i<this.paginator.pageSize;i++){
+    //   this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
+    //   console.log("index==",this.index,"page index==",this.paginator.pageIndex)
+    // }
     var data={
       userId:this.loginData.userId,
+   // limit:this.index,
+   // offset:this.paginator.pageIndex
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
       console.log("find data side bar ======",res);
       if(res.status){
         this.findData=[]
-        for(let i=0;i<res.success.length;i++){
 
-          //systime in minutes
-          var date = new Date();
-          var hh = date.getHours();
-          var mm = date.getMinutes();
-          var ss = date.getSeconds()
-        
-      
-          var tottime= hh + ':' + mm + ':' + ss;
-          var a=tottime.split(':')
-          this.systime = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
-        
-          // console.log("min",this.systime)
-
-            // updatedOn
-            
-          var dateObj=new Date(res.success[i].updatedOn)
-          var h=dateObj.getUTCHours()
-          var m=dateObj.getUTCMinutes()
-          var s=dateObj.getUTCSeconds()
-          var hour = h < 10 ? '0'+h : h; 
-          var min = m < 10 ? '0'+m : m;
-          var sec = s<10? '0'+s :s;
-          this.time= hour + ":" + min + ":" + sec
-          var b=this.time.split(':')
-          this.totmin  = Math.round((+b[0]*60) + (+b[1] ) + ((+b[2])/60) )
-          
-          if(isNaN(h || h || s)){
-            this.time='00:00:00'
-          }else{
-            this.time= hour + ":" + min + ":" + sec
-            if(this.totmin<this.systime || isNaN(h || m || s) ){
-            this.color="green"
-
-            }
-             else if(this.totmin>=this.systime && this.totmin<= 3*this.systime){
-              this.color="yellow"
-              // console.log(this.color)
-            }
-            else{
-              this.color="red"
-              // console.log(this.color)
-            }
-          }
-         
-         
-          // console.log("tot time==",this.totmin)
-          // console.log("time==",this.time)
-          this.findData.push({
-            i:i,
-            deviceName:res.success[i].deviceName,
-            time:this.time,
-            
-          })
-
-        }
-        // this.findData=res.success 
+        this.findData=res.success
         this.findDataTemp=res.success
-        // this.dataSource = new MatTableDataSource(res.success);
         this.dataSource = new MatTableDataSource(this.findData)
         setTimeout(() => {
           this.dataSource.paginator = this.paginator;
-
         })
       }
-
-      this.dataSource = new MatTableDataSource(this.findData);
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-
-      });
-      
     })
   }
 
-checkPage(){
-
-    console.log(window.location.pathname)  // array of states
-  this.checkUrl=window.location.pathname
-
-}
 
   clickDevice(data){
-
     console.log("data====",data)
     this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
   }
@@ -148,14 +84,39 @@ checkPage(){
     })
   }
   else{
-
     this.dataSource = new MatTableDataSource(this.findDataTemp);
     setTimeout(() => {
       this.dataSource.paginator = this.paginator;
-
     })
   }
 }
+
+
+getColorIcon(a){
+  if(a != '0000-00-00 00:00:00'){
+    this.date1 = new Date()
+    this.date2 = new Date(a)
+    const diffTime = Math.abs(this.date2 - this.date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60));
+    if(diffDays <= 1440){
+      this.color = 'green'
+    }
+    else if(diffDays > 1440 && diffDays <= 2880){
+      this.color = 'yellow'
+    }
+    else{
+      this.color = '#ef6c00'
+    }
+    return this.color
+  }
+  else{
+    this.color = "#ef6c00"
+    return this.color
+  }
+
+}
+
+
 
 
 }

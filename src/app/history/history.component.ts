@@ -143,14 +143,7 @@ onclickFindName(data){
 
   onSubmitDateForm(data){
     console.log("data====",data)
-       var value={
-      userId:this.loginData.userId,
-      fromDate:data.fromDate,
-      toDate:data.toDate,
-    }
-    this.api.getDeviceHistoryBasedOnDate(value).then((res:any)=>{
-      console.log("find data ======",res);
-      if(res.status){
+
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -158,7 +151,6 @@ onclickFindName(data){
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnDate",
-          data:res.success,
           fromDate:data.fromDate,
           toDate:data.toDate,
         }
@@ -167,22 +159,13 @@ onclickFindName(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-      }
-    })
+  
   }
 
 
   onSubmitFindId(data){
     console.log("data====",data)
-    var value={
-      userId:this.loginData.userId,
-      deviceId:data.selectedValue,
-      fromDate:data.fromDate,
-      toDate:data.toDate,
-    }
-    this.api.getDeviceHistoryBasedOnDate(value).then((res:any)=>{
-      console.log("find data ======",res);
-      if(res.status){
+ 
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -190,7 +173,6 @@ onclickFindName(data){
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnFindId",
-          data:res.success,
           valueSelected:data.selectedValue,
           fromDate:data.fromDate,
           toDate:data.toDate,
@@ -200,24 +182,14 @@ onclickFindName(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-      }
-    })
+   
   }
 
 
 
   onSubmitFindName(data){
     console.log("data====",data)
-    var value={
-      userId:this.loginData.userId,
-      deviceName:data.deviceName,
-      fromDate:data.fromDate,
-      toDate:data.toDate,
-
-    }
-    this.api.getDeviceHistoryBasedOnDeviceName(value).then((res:any)=>{
-      console.log("find data ======",res);
-      if(res.status){
+   
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -225,7 +197,6 @@ onclickFindName(data){
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnFindName",
-          data:res.success,
           deviceName:data.deviceName,
           fromDate:data.fromDate,
           toDate:data.toDate,
@@ -235,8 +206,7 @@ onclickFindName(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-      }
-    })
+  
   }
 
 

@@ -20,9 +20,13 @@ findData:any=[]
 loginData:any
 type:any
 data:any
-load:any
+activeData:any
+infectedData:any
 deviceName:any
 dataSource:any
+index:any
+pageIndex:any
+pagesize:any
 displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
   constructor(private api: ApiService,
     private login:LoginCheckService,
@@ -30,21 +34,70 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
        @Inject(MAT_DIALOG_DATA)  data,) {
         this.type=data.type
         console.log("type==",this.type)
-        this.data=data.data
+        
+        
         }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     // this.checkUrl = this.router.url
-    this.dataSource = new MatTableDataSource(this.data);
-
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-
-
-        })
+    this.loadData()
+  
+       
   }
+loadData(){
+  for(let i=0;i<this.paginator.pageSize;i++){
 
+    this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
+    console.log("index==",this.index,"page index==",this.paginator.pageIndex)
+  }
+  if(this.type=='activeUserData'){
+    
+  var data={
+    userId:this.loginData.userId,
+    type:'active',
+     // limit:this.index,
+ // offset:this.paginator.pageIndex
+  }
+  this.api.getHomeCountData(data).then((res:any)=>{
+        if(res.status){
+          this.activeData=res.success
+          this.dataSource = new MatTableDataSource(this.activeData);
+
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;          
+  
+          })
+
+    }
+  })
+
+  }
+      
+  if(this.type == 'infectedUserData'){
+    var data={
+      userId:this.loginData.userId,
+      type:'infected',
+       // limit:this.index,
+   // offset:this.paginator.pageIndex
+    }
+    this.api.getHomeCountData(data).then((res:any)=>{
+          if(res.status){
+            this.infectedData=res.success
+            this.dataSource = new MatTableDataSource(this.infectedData);
+  
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;          
+    
+            })
+  
+      }
+    })
+    
+  }
+ 
+}
 }

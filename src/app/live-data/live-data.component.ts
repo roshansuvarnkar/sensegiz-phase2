@@ -22,6 +22,7 @@ index:any
 liveData:any=[]
 dataSource:any
 loginData:any
+currentLength:any
 count= 0
 displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
 
@@ -36,65 +37,84 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.count=0
+   
+    
     this.refreshData(this.count)
     console.log("count",this.count)
     // this.dataSource.paginator = this.paginator;
     setInterval(()=>{this.refresh()},60*1000)
   }
 refresh(){
-  this.prevDayData()
-  this.nextDayData()
   this.refreshData(this.count)
 }
   prevDayData(){
+    var limit=this.paginator.pageSize
+    var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count + 1;
     console.log("count==",this.count);
-
-    this.refreshData(this.count)
+    // this.refreshData1(this.count)
+    this.refreshData(this.count,limit,offset)
     
   }
 
   nextDayData(){
+    var limit=this.paginator.pageSize
+    var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count - 1;
     console.log("count==",this.count);
-
-    this.refreshData(this.count)
+    // this.refreshData1(this.count)
+    this.refreshData(this.count,limit,offset)
     
   }
 
 
 
 
+  refreshData(value,limit=10,offset=0){
 
-  refreshData(value){
     var data={
       userId:this.loginData.userId,
       tblName:'deviceData',
-      count:value
+      count:value,
+      limit:limit,
+      offset:offset
     }
+    console.log("data===",data)
+    this.api.getTotalRowCount(data).then((resp:any)=>{
+      console.log("get row count==",resp)
+      if(resp.status){
+        this.api.getLiveData(data).then((res:any)=>{
+          console.log("live data ======",res);
+      
+          if(res.status){
+         
+            this.liveData=res.success
+            this.dataSource = new MatTableDataSource(this.liveData);
 
-    this.api.getLiveData(data).then((res:any)=>{
-      console.log("live data ======",res);
-      if(res.status){
-        this.liveData=res.success
-
-        this.dataSource = new MatTableDataSource(this.liveData);
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator 
+              this.currentLength = resp.success[0].count
+              console.log("length====",this.currentLength)
+              
+            })
+          }
         })
       }
     })
-   }
+ 
+ }
+
+ 
 
 
-loadData(value){
-  for(let i=0;i<value.pageSize;i++){
-     this.index=value.pageIndex == 0 ? i : i + value.pageIndex*value.pageSize
-     console.log("index==",this.index)
-  }
 
-}
+    getCount(a){
+      console.log("event==",a)
+      
+      var offset = a.pageIndex*a.pageSize
+      var limit = a.pageSize
+          this.refreshData( 0,limit,offset)
+    }
 
 }

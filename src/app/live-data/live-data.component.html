@@ -1,6 +1,6 @@
 
 <div class="center">
-  <p>Live Data</p>
+  <p>Live Data </p>
   <hr>
 </div>
 <div class="day">
@@ -41,8 +41,9 @@
     </table>
     
    
-        <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="loadData($event)" ></mat-paginator>
+        <mat-paginator pageSize=10 [length]="currentLength"  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons (page)="getCount($event)" ></mat-paginator>
     
  
 
 </div>
+ 
