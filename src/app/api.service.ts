@@ -136,7 +136,18 @@ export class ApiService {
   }
 
 
+  getDeviceDataCount(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
+    let url = this.host+'/getDeviceDataCount';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
 
   setTime(data){
     const httpOptions = {
@@ -527,4 +538,15 @@ getHistoryNameReportTotalCount(data){
   });
 }
 
+getSummaryReport(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  let url = this.host+'/infectedDeviceName';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+}
 }

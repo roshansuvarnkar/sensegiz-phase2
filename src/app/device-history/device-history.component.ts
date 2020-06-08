@@ -20,6 +20,8 @@ export class DeviceHistoryComponent implements OnInit {
   findData:any=[]
   loginData:any
   dataSource:any
+  currentPageLength:any=10
+  currentPageSize:any=7
   displayedColumns: string[] = ['i','deviceName', 'contactDeviceName', 'updatedOn'];
 
   constructor(private api: ApiService,private login:LoginCheckService,private route: ActivatedRoute) { }
@@ -33,23 +35,20 @@ export class DeviceHistoryComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
         this.deviceData = JSON.parse(params.record) ;
         console.log("records=",this.deviceData )
+        this.getTotalCount()
         this.refreshFinds()
     })
     setInterval(()=>{this.refreshFinds()},60*1000)
   }
 
 
-  refreshFinds(){
-    
-    for(let i=0;i<this.paginator.pageSize;i++){
-      this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
-      console.log("index==",this.index,"page index==",this.paginator.pageIndex)
-    
-   }
+  refreshFinds(limit=10,offset=0){
+  
    var data={
-     devicedata:this.deviceData,
-  // limit:this.index,
-  // offset:this.paginator.pageIndex
+    userId:this.loginData.userId,
+     deviceName:this.deviceData.deviceName,
+      limit:limit,
+      offset:offset
    }
     this.api.getDeviceData(data).then((res:any)=>{
       console.log("find data ======",res);
@@ -69,13 +68,39 @@ export class DeviceHistoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.findData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          // this.dataSource.paginator = this.paginator;
     
         });
       }
     
     })
   }
+  
+getTotalCount(){
+  console.log("device name==",this.deviceData.deviceName)
+  var data={
+    userId:this.loginData.userId,
+    deviceName:this.deviceData.deviceName
+    
+    
+  }
 
+  this.api.getDeviceDataCount(data).then((res:any)=>{
+    console.log("device history data ======",res);
+    if(res.status){
+      console.log('\nTotal response: ',res.success[0].count);
+      this.currentPageLength = parseInt(res.success[0].count);
+
+    }
+  })
+}
+getUpdate(event) {
+  console.log("paginator event",event);
+  console.log("paginator event length", this.currentPageLength);
+  var limit = event.pageSize 
+  var offset = event.pageIndex*event.pageSize
+  console.log("limit==",limit,"offset==",offset)
+  this.refreshFinds(limit,offset)
+}
 
 }

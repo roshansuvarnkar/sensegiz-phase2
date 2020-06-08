@@ -8,7 +8,7 @@
   <mat-form-field class="full-width-input search">
     <input matInput placeholder="Search device" autocomplete="off" matInput (input)="search($event.target.value)">
     <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field> 
+  </mat-form-field>
 </div>
 <!--
 <div class="table">
@@ -82,10 +82,14 @@
           </mat-form-field>
         </td>
         <td>
-    
-          <mat-slide-toggle *ngIf="el.infected==0" color="primary"  (click)="infected(el)"></mat-slide-toggle>
-          <!-- <mat-icon *ngIf="el.infected==1" color="primary" matListIcon (click)="infected(el)"></mat-icon> -->
-          <mat-slide-toggle *ngIf="el.infected==1" color="primary"  (click)="infected(el)"></mat-slide-toggle>
+          <span *ngIf="el.infected==0">
+            <mat-slide-toggle color="primary" [checked]="false" (change)="infected(el)"></mat-slide-toggle>
+          </span>
+          <span *ngIf="el.infected==1">
+            <mat-slide-toggle color="primary" [checked]="true" (change)="infected(el)"></mat-slide-toggle>
+          </span>
+          <!-- <mat-icon *ngIf="el.infected==0" color="primary" matListIcon (click)="infected(el)">{{icon1}}</mat-icon>
+          <mat-icon *ngIf="el.infected==1" color="primary" matListIcon (click)="infected(el)">{{icon2}}</mat-icon> -->
 
         </td>
         <td><mat-icon matListIcon (click)="edit(el)">{{el.edit}}</mat-icon></td>

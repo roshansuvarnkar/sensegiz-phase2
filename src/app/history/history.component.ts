@@ -16,12 +16,11 @@ export class HistoryComponent implements OnInit {
 loginData:any
 findIdForm:FormGroup
 findNameForm:FormGroup
+summaryReportForm:FormGroup
 dateForm:FormGroup
 finds:any=[]
 prevDate:any
-radioStatus0:boolean=false
-radioStatus1:boolean=false
-radioStatus2:boolean=false
+
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
               private api:ApiService,
@@ -53,7 +52,13 @@ radioStatus2:boolean=false
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
-
+    
+    this.summaryReportForm = this.fb.group({
+      deviceName: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    });
+    
     this.refreshFinds()
 
   }
@@ -63,44 +68,44 @@ radioStatus2:boolean=false
     console.log("data==",data)
 
     var date = new Date();
-    this.prevDate=date.setDate(date.getDate() - 1);
+    var toDate = new Date();
+    var prevDate = date.setDate(date.getDate() - data);
 
-    this.radioStatus0= this.radioStatus0==true?false:true
-    
-    var date = new Date(this.prevDate);
+    var date = new Date(prevDate);
     var year = date.getFullYear();
     var month = ("0" + (date.getMonth() + 1)).slice(-2);
     var day = ("0" + date.getDate()).slice(-2);
 
     var tot = year + '-' + month + '-'  + day
 
+    var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
     this.dateForm.patchValue({
       fromDate:tot,
-      toDate:tot
+      toDate:todayDate
     })
   }
-
-
 
 
 onclickFindId(data){
   console.log("data==",data)
 
   var date = new Date();
-  this.prevDate=date.setDate(date.getDate() - 1);
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
 
-  this.radioStatus1= this.radioStatus1==true?false:true
-
-  var date = new Date(this.prevDate);
+  var date = new Date(prevDate);
   var year = date.getFullYear();
   var month = ("0" + (date.getMonth() + 1)).slice(-2);
   var day = ("0" + date.getDate()).slice(-2);
 
   var tot = year + '-' + month + '-'  + day
 
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
    this.findIdForm.patchValue({
       fromDate:tot,
-      toDate:tot
+      toDate:todayDate
     })
 }
 
@@ -111,21 +116,45 @@ onclickFindName(data){
   console.log("data==",data)
 
   var date = new Date();
-  this.prevDate=date.setDate(date.getDate() - 1);
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
 
-  this.radioStatus2= this.radioStatus2==true?false:true
-
-  var date = new Date(this.prevDate);
+  var date = new Date(prevDate);
   var year = date.getFullYear();
   var month = ("0" + (date.getMonth() + 1)).slice(-2);
   var day = ("0" + date.getDate()).slice(-2);
 
   var tot = year + '-' + month + '-'  + day
 
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
   this.findNameForm.patchValue({
       fromDate:tot,
-      toDate:tot
+      toDate:todayDate
   })
+
+}
+
+onclickSummaryReport(data){
+  console.log("data==",data)
+
+  var date = new Date();
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
+
+  var date = new Date(prevDate);
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+
+  var tot = year + '-' + month + '-'  + day
+
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
+   this.summaryReportForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
 }
 
   refreshFinds(){
@@ -163,27 +192,27 @@ onclickFindName(data){
   }
 
 
-  onSubmitFindId(data){
-    console.log("data====",data)
+  // onSubmitFindId(data){
+  //   console.log("data====",data)
  
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.height = '90vh';
-        dialogConfig.width = '75vw';
-        dialogConfig.data = {
-          type:"basedOnFindId",
-          valueSelected:data.selectedValue,
-          fromDate:data.fromDate,
-          toDate:data.toDate,
-        }
-        const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+  //       const dialogConfig = new MatDialogConfig();
+  //       dialogConfig.disableClose = true;
+  //       dialogConfig.autoFocus = true;
+  //       dialogConfig.height = '90vh';
+  //       dialogConfig.width = '75vw';
+  //       dialogConfig.data = {
+  //         type:"basedOnFindId",
+  //         valueSelected:data.selectedValue,
+  //         fromDate:data.fromDate,
+  //         toDate:data.toDate,
+  //       }
+  //       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
-        dialogRef.afterClosed().subscribe(result => {
-          this.refreshFinds()
-        });
+  //       dialogRef.afterClosed().subscribe(result => {
+  //         this.refreshFinds()
+  //       });
    
-  }
+  // }
 
 
 
@@ -210,7 +239,27 @@ onclickFindName(data){
   }
 
 
- 
+  onSubmitSummaryReport(data){
+    console.log("data====",data)
+   
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.height = '90vh';
+        dialogConfig.width = '75vw';
+        dialogConfig.data = {
+          type:"summaryReport",
+          deviceName:data.deviceName,
+          fromDate:data.fromDate,
+          toDate:data.toDate,
+        }
+        const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.refreshFinds()
+        });
+  
+  }
 
 
 }

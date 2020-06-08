@@ -32,6 +32,7 @@ export class HistoryReportComponent implements OnInit {
   currentPageLength:any=10
   currentPageSize:any=7
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
+  displayedColumns1: string[] = ['i','contactName', 'updatedOn'];
 
 
     constructor(
@@ -111,18 +112,18 @@ export class HistoryReportComponent implements OnInit {
           offset:offset
         }
         this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-          console.log("find data ======",res);
+          console.log("find data based on date ======",res);
           if(res.status){
             this.liveData=res.success
             this.dataSource = new MatTableDataSource(this.liveData);
             setTimeout(() => {
               this.dataSource.sort = this.sort;
-              this.paginator.length = this.currentPageLength
+              // this.paginator.length = this.currentPageLength
             })
           }
         
         })
-        this.liveData=[]
+        
       }
       if(this.type=='basedOnFindName'){
         var data1={
@@ -130,22 +131,53 @@ export class HistoryReportComponent implements OnInit {
           deviceName:this.deviceName,
           fromDate: this.from,
           toDate:this.to,
-          limit:limit,
-          offset:offset
+          offset:offset,
+          limit:limit
+          
         }
         this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
-          console.log("find data ======",res);
+          console.log("find data based on name ======",res);
           if(res.status){
             this.liveData=res.success
 
             this.dataSource = new MatTableDataSource(this.liveData);
             setTimeout(() => {
               this.dataSource.sort = this.sort;
-              this.paginator.length = this.currentPageLength
+              // this.paginator.length = this.currentPageLength
             })
           }
         })
       }
+      if(this.type=='summaryReport'){
+        var data2={
+          userId:this.loginData.userId,
+          deviceName:this.deviceName,
+          fromDate: this.from,
+          toDate:this.to,
+          // limit:limit,
+          // offset:offset
+        }
+        this.api.getSummaryReport(data2).then((res:any)=>{
+          console.log("summary report ======",res);
+          if(res.status){
+            for(let i=0;i<res.success.lenght;i++){
+              this.liveData.push({
+                i:i+1,
+                contactName:res.success[i].contactName,
+                updatedOn:res.success[i].updatedOn
+              })
+            }
+
+            
+           this.dataSource = new MatTableDataSource(this.liveData);
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+          
+            })
+          }
+        })
+
+      } 
       this.liveData=[]
 }
 
@@ -154,9 +186,9 @@ getUpdate(event) {
   console.log("paginator event",event);
   console.log("paginator event length", this.currentPageLength);
   var limit = event.pageSize
-  var offset = event.pageIndex*event.pageSize
+  var offset = event.pageIndex*event.pageSize 
   console.log("limit==",limit,"offset==",offset)
-  this.loadData(offset,limit)
+  this.loadData(limit,offset)
 }
 
 

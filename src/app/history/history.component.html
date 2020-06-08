@@ -9,8 +9,9 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-      <mat-radio-group (click)="onclickDate($event)" color="primary">
-        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button>
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (click)="onclickDate(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (click)="onclickDate(14)">Last two week</mat-radio-button>
       </mat-radio-group><br>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
 
@@ -45,9 +46,9 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-      <mat-radio-group (change)="onclickFindId($event)" color="primary">
-        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button>
-        <p *ngIf="radioStatus1==true" class="text" >{{prevDate | date}}</p>
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickFindId(7)">Previous Day</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickFindId(14)">Previous Day</mat-radio-button>
       </mat-radio-group><br>
       <form [formGroup]="findIdForm" (ngSubmit)="onSubmitFindId(findIdForm.value)">
 
@@ -92,8 +93,9 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-      <mat-radio-group (change)="onclickFindName($event)" color="primary">
-        <mat-radio-button [value]="1" name="small" >Previous Day</mat-radio-button>
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickFindName(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickFindName(14)">Last two week</mat-radio-button>
       </mat-radio-group><br>
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
 
@@ -123,6 +125,48 @@
     </mat-card-content>
   </mat-card>
 
+  <!-- summary from -->
 
+  <!-- <mat-card >
+    <span class="card-head">
+      <mat-card-title color="primary">
+        Summary Report 
+      </mat-card-title>
+      <mat-card-subtitle>
+        Enter User Name and From to To date
+      </mat-card-subtitle>
+    </span>
+    <mat-card-content>
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickSummaryReport(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickSummaryReport(14)">Last two week</mat-radio-button>
+      </mat-radio-group><br>
+      <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
+
+        <mat-form-field class="full-width-input">
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" required>
+          <mat-error>
+            Please provide a valid user name
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid from date
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+          <input  type='date' matInput  placeholder="To date" formControlName="toDate" required >
+          <mat-icon matPrefix >calendar_today</mat-icon>
+          <mat-error>
+            Please provide a valid to date
+          </mat-error>
+        </mat-form-field><br>
+        <button mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card> -->
 
 </div>
