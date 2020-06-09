@@ -129,12 +129,12 @@ delete(a){
 
 search(a){
   if(a.length>0){
-    this.elements = this.elementsTemp.filter(obj=>{
+    this.gatewayData = this.elementsTemp.filter(obj=>{
       return ((obj.gatewayId.toString().toLowerCase().indexOf(a)>-1) || (obj.gatewayName.toString().toLowerCase().indexOf(a)>-1))
     })
   }
   else{
-    this.elements = this.elementsTemp
+    this.gatewayData = this.elementsTemp
   }
 }
 

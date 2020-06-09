@@ -73,7 +73,7 @@ export class ManageUsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.userData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          //this.dataSource.paginator = this.paginator;
+          this.dataSource.paginator = this.paginator;
           // this.paginator.length = this.currentPageSize
         })
         

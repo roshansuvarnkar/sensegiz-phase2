@@ -22,7 +22,7 @@ export class ManageFindsComponent implements OnInit {
 @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 loginData:any
 findData:any=[]
-
+findDataTemp:any
 dataSource: any = [];
 displayedColumns = ['i','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
 shift = new FormControl('');
@@ -66,8 +66,9 @@ refreshFinds(){
 
   this.api.getData(data).then((res:any)=>{
     console.log("find device data ======",res);
+  
     if(res.status){
-      this.findData=[]
+     
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
           { 
@@ -87,9 +88,10 @@ refreshFinds(){
         // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.findData
+      console.log("elements temp===",this.elementsTemp)
     }
   })
-  
+  // this.findData=[]
 }
 
 
@@ -190,13 +192,17 @@ onShiftSelection(a){
 
 
 search(a){
+  console.log("a==",a)
   if(a.length>0){
     this.findData = this.elementsTemp.filter(obj=>{
       return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
     })
+    console.log("search data==",this.findData)
+  
   }
   else{
-    this.findData = this.elementsTemp
+    this.findData= this.elementsTemp
+
   }
 }
 
