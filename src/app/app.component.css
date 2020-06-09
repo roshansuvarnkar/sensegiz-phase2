@@ -58,21 +58,22 @@ span.end {
   display: block;
 }
 img {
-  width: 35%;
+  width: 30%;
 }
 .menu{
   margin-left: -2rem;
 }
 span.flex.title{
     margin-top: 1rem;
-
+    font-size: large;
 }
 button.mat-menu-item, .mat-menu-item .mat-icon  {
 
   color: #f7a30bfa;
 }
-mat-sidenav.mat-drawer.mat-sidenav.ng-tns-c276-1.ng-trigger.ng-trigger-transform.mat-drawer-over.ng-star-inserted.mat-drawer-opened {
-  width: 75% !important;
-  height:fit-content !important;
+.flex {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly !important;
 }
 }

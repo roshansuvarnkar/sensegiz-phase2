@@ -83,7 +83,7 @@ refreshFinds(){
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
-        //this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator;
         // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.findData

@@ -77,7 +77,7 @@ refreshGateway(){
       this.dataSource = new MatTableDataSource(this.gatewayData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
-        //this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator = this.paginator;
         // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.gatewayData

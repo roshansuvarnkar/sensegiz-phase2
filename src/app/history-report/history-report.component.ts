@@ -21,6 +21,7 @@ export class HistoryReportComponent implements OnInit {
   dateBased:any
   findNameBased:any
   liveData:any=[]
+  summaryData:any=[]
   liveDataTemp:any=[]
   dataSource:any
   loginData:any
@@ -30,9 +31,9 @@ export class HistoryReportComponent implements OnInit {
   selectedValue:any
   deviceName:any
   currentPageLength:any=10
-  currentPageSize:any=7
+  currentPageSize:any=10
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
-  displayedColumns1: string[] = ['i','contactName', 'updatedOn'];
+  displayedColumns1: string[] = ['contactDeviceName','updatedOn'];
 
 
     constructor(
@@ -113,6 +114,7 @@ export class HistoryReportComponent implements OnInit {
         }
         this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
           console.log("find data based on date ======",res);
+          this.liveData=[]
           if(res.status){
             this.liveData=res.success
             this.dataSource = new MatTableDataSource(this.liveData);
@@ -137,6 +139,7 @@ export class HistoryReportComponent implements OnInit {
         }
         this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
           console.log("find data based on name ======",res);
+          
           if(res.status){
             this.liveData=res.success
 
@@ -159,27 +162,44 @@ export class HistoryReportComponent implements OnInit {
         }
         this.api.getSummaryReport(data2).then((res:any)=>{
           console.log("summary report ======",res);
+      
+          this.liveData=[]
           if(res.status){
-            for(let i=0;i<res.success.lenght;i++){
-              this.liveData.push({
-                i:i+1,
-                contactName:res.success[i].contactName,
-                updatedOn:res.success[i].updatedOn
-              })
-            }
 
-            
-           this.dataSource = new MatTableDataSource(this.liveData);
-            setTimeout(() => {
-              this.dataSource.sort = this.sort;
-          
+            var groupDate = this.dataDateReduce(res.success)
+            console.log("groupDate===",groupDate)
+            this.liveData = Object.keys(groupDate).map((data)=>{
+              return {
+                date : data,
+                data : groupDate[data]
+              }
             })
+            console.log("this live data===",this.liveData)
+            // this.dataSource = new MatTableDataSource(this.liveData);
+            // setTimeout(() => {
+            //   this.dataSource.sort = this.sort;
+          
+            // })
           }
         })
 
       } 
-      this.liveData=[]
+   
 }
+
+
+dataDateReduce(data){
+  return data.reduce((group,obj)=>{
+    const date = obj.updatedOn.split('T')[0]
+    if(!group[date]){
+      group[date]=[]
+    }
+    group[date].push(obj)
+    return group
+  },{})
+}
+
+
 
 
 getUpdate(event) {

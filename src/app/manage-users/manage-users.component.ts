@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { AddFindComponent } from '../add-find/add-find.component';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { EditDeviceComponent } from '../edit-device/edit-device.component';
 import { GeneralMaterialsService } from '../general-materials.service';
-
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-manage-users',
@@ -13,10 +16,12 @@ import { GeneralMaterialsService } from '../general-materials.service';
   styleUrls: ['./manage-users.component.css']
 })
 export class ManageUsersComponent implements OnInit {
-
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
   userData:any=[]
-
+  dataSource: any = [];
+  displayedColumns = ['i','mobileNum','emailId','edit',	'delete'];
 
   constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
 
@@ -54,7 +59,25 @@ export class ManageUsersComponent implements OnInit {
     this.api.getData(data).then((res:any)=>{
       console.log("user data ======",res);
       if(res.status){
-          this.userData=res.success
+        this.userData=[]
+  
+        for (let i = 0; i <res.success.length; i++) {
+          this.userData.push(
+            {   i:i+1,
+                mobileNum: res.success[i].mobileNum,
+                emailId: res.success[i].emailId,
+                edit:'edit',
+                delete:'delete'
+            });
+        }
+        this.dataSource = new MatTableDataSource(this.userData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          //this.dataSource.paginator = this.paginator;
+          // this.paginator.length = this.currentPageSize
+        })
+        
+  
       }
     })
   }

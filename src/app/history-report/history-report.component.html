@@ -187,52 +187,37 @@
 
 <!-- summary report -->
 <div *ngIf="type =='summaryReport'">
-  <div class="content">
-    <p class="center">  SUMMARY REPORT</p>
-            <span class="icon">
+    <div class="content">
+      <p class="center">  SUMMARY REPORT</p>
+      <span class="icon">
 
-            <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
-          </span>
+        <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+      </span>
     </div> <br>
-      <p class="center-head" mat-dialog-title>Based on User Name {{deviceName | titlecase}}</p>
-
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort >
-
-
-       <div >
-          <ng-container matColumnDef="i">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
-              <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
-            </ng-container>
-
-
-
-            <ng-container matColumnDef="contactName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
-              <td mat-cell *matCellDef="let live " > {{live.contactName}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="updatedOn">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
-              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'IST'}} </td>
-            </ng-container>
-
-
-       </div>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-        </table> 
-        <mat-paginator
-                  (page)="getUpdate($event)"
-                  [length] = "currentPageLength"
-                  [pageSize]="currentPageSize"
-                  [pageSizeOptions] = "[5, 10, 25, 100]"
-                  showFirstLastButtons 
-         ></mat-paginator>
-
+    <p class="center-head" mat-dialog-title>Based on User Name {{deviceName | titlecase}}</p>
+    
+    <div class="tab-align">
+      <table class="table table-borderless">
+     <thead>
+      <tr>
+        <th>Sl no.</th>
+        <th>Date</th>
+        <th>Contact users</th>
+      </tr>
+     </thead>
+        <tr *ngFor = "let a of liveData;let i=index">
+          <td>{{i+1}} </td>
+          <td>{{a.date}}</td>
+          <td>
+            <span *ngFor = 'let b of a.data;let j=index'>
+              {{b.contactDeviceName}},
+            </span>
+          </td>
+  
+        </tr>
+      </table>
     </div>
+
 </div>
 
 </div>
