@@ -13,7 +13,7 @@
 
 
 
-<!-- 
+<!--
 <div class="table">
   <table  mdbTable class="table table-hover z-depth-1" mdbTable >
     <thead>
@@ -49,7 +49,7 @@
           <span *ngIf="el.infected==1">
             <mat-slide-toggle color="primary" [checked]="true" (change)="infected(el)"></mat-slide-toggle>
           </span>
-         
+
 
         </td>
         <td><mat-icon matListIcon (click)="edit(el)">{{el.edit}}</mat-icon></td>
@@ -72,7 +72,7 @@
    <div  >
       <ng-container matColumnDef="i"  >
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
-          <td mat-cell *matCellDef="let live" > {{live.i}} </td>
+          <td mat-cell *matCellDef="let i=index" > {{i+1}} </td>
         </ng-container>
 
 
@@ -89,7 +89,7 @@
 
         <ng-container matColumnDef="shift">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Shift </th>
-          <td mat-cell *matCellDef="let live"> 
+          <td mat-cell *matCellDef="let live">
             <mat-form-field>
              <mat-label>Shift</mat-label>
               <mat-select  [(value)]="live.shift" (selectionChange)="onShiftSelection(live)">
@@ -97,7 +97,7 @@
                   {{b.shiftName}}
                 </mat-option>
               </mat-select>
-            </mat-form-field> 
+            </mat-form-field>
             <!-- {{live.shift}} -->
 
           </td>
@@ -105,7 +105,7 @@
 
         <ng-container matColumnDef="infected">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Infected </th>
-          <td mat-cell *matCellDef="let live"> 
+          <td mat-cell *matCellDef="let live">
              <span *ngIf="live.infected==0">
             <mat-slide-toggle color="primary" [checked]="false" (change)="infected(live)"></mat-slide-toggle>
           </span>
@@ -124,16 +124,12 @@
           <td mat-cell *matCellDef="let live"><mat-icon>{{live.delete}}</mat-icon> </td>
         </ng-container>
 
-   </div>
+      </div>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
     </table>
-    <!-- <mat-paginator  (page)="getUpdate($event)"
-                  [length] = "currentPageSize"
-                  [pageSize]="currentPageLength"
-                  [pageSizeOptions] = "[5, 10, 25, 100]"
-                  >
-    </mat-paginator> -->
-</div>
+    <mat-paginator   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons ></mat-paginator>
+
+  </div>
  </div>

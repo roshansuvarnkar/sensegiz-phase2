@@ -70,7 +70,7 @@ refreshFinds(){
       this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
-          { 
+          {
               i: i+1,
               deviceId: res.success[i].deviceId,
               deviceName: res.success[i].deviceName,
@@ -89,7 +89,7 @@ refreshFinds(){
       this.elementsTemp = this.findData
     }
   })
-  
+
 }
 
 
@@ -198,6 +198,11 @@ search(a){
   else{
     this.findData = this.elementsTemp
   }
+  this.dataSource = new MatTableDataSource(this.findData);
+  setTimeout(() => {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  })
 }
 
 }

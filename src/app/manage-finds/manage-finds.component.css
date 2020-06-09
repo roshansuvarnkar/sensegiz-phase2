@@ -24,7 +24,6 @@ table.mat-table {
   text-align: center;
   font-size: 1.6rem;
   margin: 1.2rem 0 2rem 0;
-  letter-spacing: 2px;
   font-weight: 500;
 }
 .search{
@@ -38,14 +37,14 @@ table.mat-table {
         cursor: pointer;
         font-size: smaller;
     }
-    
+
     .search{
         width: 120px;
-       
+
     }
     button.mat-focus-indicator.button.mat-flat-button.mat-button-base.mat-primary {
         margin-left: 1.2rem;
-        
+
     }
-    
+
 }

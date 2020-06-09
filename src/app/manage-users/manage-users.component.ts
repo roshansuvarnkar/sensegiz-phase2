@@ -60,7 +60,7 @@ export class ManageUsersComponent implements OnInit {
       console.log("user data ======",res);
       if(res.status){
         this.userData=[]
-  
+
         for (let i = 0; i <res.success.length; i++) {
           this.userData.push(
             {   i:i+1,
@@ -73,11 +73,10 @@ export class ManageUsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.userData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          //this.dataSource.paginator = this.paginator;
-          // this.paginator.length = this.currentPageSize
+          this.dataSource.paginator = this.paginator;
         })
-        
-  
+
+
       }
     })
   }

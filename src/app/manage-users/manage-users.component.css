@@ -20,7 +20,6 @@ table.mat-table {
   text-align: center;
   font-size: 1.6rem;
   margin: 1.2rem 0 2rem 0;
-  letter-spacing: 2px;
   font-weight: 500;
 }
 @media only screen and (max-width: 768px) {
