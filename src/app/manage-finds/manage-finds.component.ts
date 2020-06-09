@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { AddFindComponent } from '../add-find/add-find.component';
 import { ApiService } from '../api.service';
@@ -6,7 +6,10 @@ import { LoginCheckService } from '../login-check.service';
 import { EditDeviceComponent } from '../edit-device/edit-device.component';
 import { GeneralMaterialsService } from '../general-materials.service';
 import {FormControl, Validators} from '@angular/forms';
-
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { Timestamp } from 'rxjs';
 
 
 @Component({
@@ -15,11 +18,13 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./manage-finds.component.css']
 })
 export class ManageFindsComponent implements OnInit {
+@ViewChild(MatSort) sort: MatSort;
+@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 loginData:any
 findData:any=[]
 
-elements: any = [];
-headElements = ['id','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
+dataSource: any = [];
+displayedColumns = ['i','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -62,23 +67,29 @@ refreshFinds(){
   this.api.getData(data).then((res:any)=>{
     console.log("find device data ======",res);
     if(res.status){
-      this.findData=res.success
-      this.elements=[]
-      for (let i = 0; i <this.findData.length; i++) {
-        this.elements.push(
+      this.findData=[]
+      for (let i = 0; i <res.success.length; i++) {
+        this.findData.push(
           { 
-              id: this.findData[i].id,
-              deviceId: this.findData[i].deviceId,
-              deviceName: this.findData[i].deviceName,
-              shift: this.findData[i].shiftName ,
-              infected: this.findData[i].infected,
+              i: i+1,
+              deviceId: res.success[i].deviceId,
+              deviceName: res.success[i].deviceName,
+              shift: res.success[i].shiftName ,
+              infected: res.success[i].infected,
               edit:'edit',
               delete:'delete',
           });
       }
-      this.elementsTemp = this.elements
+      this.dataSource = new MatTableDataSource(this.findData);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        // this.paginator.length = this.currentPageSize
+      })
+      this.elementsTemp = this.findData
     }
   })
+  
 }
 
 
@@ -180,12 +191,12 @@ onShiftSelection(a){
 
 search(a){
   if(a.length>0){
-    this.elements = this.elementsTemp.filter(obj=>{
+    this.findData = this.elementsTemp.filter(obj=>{
       return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
     })
   }
   else{
-    this.elements = this.elementsTemp
+    this.findData = this.elementsTemp
   }
 }
 

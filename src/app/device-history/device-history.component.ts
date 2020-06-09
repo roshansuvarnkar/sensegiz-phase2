@@ -21,7 +21,7 @@ export class DeviceHistoryComponent implements OnInit {
   loginData:any
   dataSource:any
   currentPageLength:any=10
-  currentPageSize:any=7
+  currentPageSize:any=10
   displayedColumns: string[] = ['i','deviceName', 'contactDeviceName', 'updatedOn'];
 
   constructor(private api: ApiService,private login:LoginCheckService,private route: ActivatedRoute) { }

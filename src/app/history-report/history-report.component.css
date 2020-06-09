@@ -5,6 +5,14 @@ table.mat-table {
     margin-top: 1rem;
     /* text-align: center; */
 }
+thead {
+  border-bottom: 1px solid #80808029;
+  
+}
+.tab-align {
+  border: 1px solid #8080800a;
+  box-shadow: 1px 1px 1px 1px #8080802e;
+}
 
 ::ng-deep .mat-sort-header-container {
   display:flex;

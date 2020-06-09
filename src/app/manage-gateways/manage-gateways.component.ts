@@ -1,13 +1,14 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { AddFindComponent } from '../add-find/add-find.component';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { EditDeviceComponent } from '../edit-device/edit-device.component';
 import { GeneralMaterialsService } from '../general-materials.service';
-
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-manage-gateways',
@@ -15,13 +16,15 @@ import { GeneralMaterialsService } from '../general-materials.service';
   styleUrls: ['./manage-gateways.component.css']
 })
 export class ManageGatewaysComponent implements OnInit {
-
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
   gatewayData:any=[]
   elements: any = [];
-  elementsTemp: any = [];
-  headElements = ['id','gatewayId','gatewayName',	'edit',	'delete'];
-  constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) { }
+  elementsTemp:any=[]
+  dataSource: any = [];
+  displayedColumns = ['i','gatewayId','gatewayName','edit',	'delete'];
+  constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
 
 
@@ -60,18 +63,24 @@ refreshGateway(){
   this.api.getData(data).then((res:any)=>{
     console.log("gateway data ======",res);
     if(res.status){
-      this.gatewayData=res.success
-      this.elements=[]
-      for (let i = 0; i <this.gatewayData.length; i++) {
-        this.elements.push(
-          {   id: this.gatewayData[i].id,
-              gatewayId: this.gatewayData[i].gatewayId,
-              gatewayName: this.gatewayData[i].gatewayName,
+      this.gatewayData=[]
+
+      for (let i = 0; i <res.success.length; i++) {
+        this.gatewayData.push(
+          {   i:i+1,
+              gatewayId: res.success[i].gatewayId,
+              gatewayName: res.success[i].gatewayName,
               edit:'edit',
               delete:'delete'
           });
       }
-      this.elementsTemp = this.elements
+      this.dataSource = new MatTableDataSource(this.gatewayData);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        // this.paginator.length = this.currentPageSize
+      })
+      this.elementsTemp = this.gatewayData
 
     }
 
