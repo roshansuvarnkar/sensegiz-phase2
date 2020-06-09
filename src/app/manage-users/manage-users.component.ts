@@ -64,6 +64,7 @@ export class ManageUsersComponent implements OnInit {
         for (let i = 0; i <res.success.length; i++) {
           this.userData.push(
             {   i:i+1,
+                id: res.success[i].id,
                 mobileNum: res.success[i].mobileNum,
                 emailId: res.success[i].emailId,
                 edit:'edit',

@@ -67,6 +67,7 @@ refreshGateway(){
       for (let i = 0; i <res.success.length; i++) {
         this.gatewayData.push(
           {   i:i+1,
+              id: res.success[i].id,
               gatewayId: res.success[i].gatewayId,
               gatewayName: res.success[i].gatewayName,
               edit:'edit',
