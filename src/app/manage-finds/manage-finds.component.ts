@@ -71,7 +71,7 @@ refreshFinds(){
      
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
-          { 
+          {
               i: i+1,
               deviceId: res.success[i].deviceId,
               deviceName: res.success[i].deviceName,
@@ -88,10 +88,9 @@ refreshFinds(){
         // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.findData
-      console.log("elements temp===",this.elementsTemp)
+   
     }
   })
-  // this.findData=[]
 }
 
 
@@ -197,13 +196,18 @@ search(a){
     this.findData = this.elementsTemp.filter(obj=>{
       return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
     })
-    console.log("search data==",this.findData)
+ 
   
   }
   else{
     this.findData= this.elementsTemp
 
   }
+  this.dataSource = new MatTableDataSource(this.findData);
+  setTimeout(() => {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  })
 }
 
 }

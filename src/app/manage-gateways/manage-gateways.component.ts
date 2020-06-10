@@ -20,7 +20,6 @@ export class ManageGatewaysComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
   gatewayData:any=[]
-  elements: any = [];
   elementsTemp:any=[]
   dataSource: any = [];
   displayedColumns = ['i','gatewayId','gatewayName','edit',	'delete'];
@@ -78,7 +77,6 @@ refreshGateway(){
       setTimeout(() => {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.gatewayData
 
@@ -136,6 +134,11 @@ search(a){
   else{
     this.gatewayData = this.elementsTemp
   }
+  this.dataSource = new MatTableDataSource(this.gatewayData);
+  setTimeout(() => {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  })
 }
 
 

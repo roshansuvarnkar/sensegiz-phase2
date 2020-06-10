@@ -60,7 +60,7 @@ export class HistoryReportComponent implements OnInit {
 
     this.getTotalCount()
     this.loadData()
-    
+
 
   }
 
@@ -71,16 +71,16 @@ export class HistoryReportComponent implements OnInit {
         fromDate: this.from,
         toDate:this.to,
       }
-    
+
       this.api.getHistoryDateReportTotalCount(data).then((res:any)=>{
         console.log("length of report on date ======",res);
         if(res.status){
           console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
-    
+
         }
       })
-  
+
     }
   if(this.type=='basedOnFindName'){
     var data1={
@@ -89,16 +89,16 @@ export class HistoryReportComponent implements OnInit {
       fromDate: this.from,
       toDate:this.to,
     }
-  
+
     this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
       console.log("length of report on device name ======",res);
       if(res.status){
         console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
-  
+
       }
     })
-  
+
   }
   }
 
@@ -123,9 +123,9 @@ export class HistoryReportComponent implements OnInit {
               // this.paginator.length = this.currentPageLength
             })
           }
-        
+
         })
-        
+
       }
       if(this.type=='basedOnFindName'){
         var data1={
@@ -135,11 +135,11 @@ export class HistoryReportComponent implements OnInit {
           toDate:this.to,
           offset:offset,
           limit:limit
-          
+
         }
         this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
           console.log("find data based on name ======",res);
-          
+
           if(res.status){
             this.liveData=res.success
 
@@ -162,7 +162,7 @@ export class HistoryReportComponent implements OnInit {
         }
         this.api.getSummaryReport(data2).then((res:any)=>{
           console.log("summary report ======",res);
-      
+
           this.liveData=[]
           if(res.status){
 
@@ -178,13 +178,13 @@ export class HistoryReportComponent implements OnInit {
             // this.dataSource = new MatTableDataSource(this.liveData);
             // setTimeout(() => {
             //   this.dataSource.sort = this.sort;
-          
-            // })
+
+            // }) 
           }
         })
 
-      } 
-   
+      }
+
 }
 
 
@@ -206,7 +206,7 @@ getUpdate(event) {
   console.log("paginator event",event);
   console.log("paginator event length", this.currentPageLength);
   var limit = event.pageSize
-  var offset = event.pageIndex*event.pageSize 
+  var offset = event.pageIndex*event.pageSize
   console.log("limit==",limit,"offset==",offset)
   this.loadData(limit,offset)
 }

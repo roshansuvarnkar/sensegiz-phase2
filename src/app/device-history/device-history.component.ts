@@ -38,12 +38,12 @@ export class DeviceHistoryComponent implements OnInit {
         this.getTotalCount()
         this.refreshFinds()
     })
-    setInterval(()=>{this.refreshFinds()},60*1000)
+    //setInterval(()=>{this.refreshFinds()},60*1000)
   }
 
 
   refreshFinds(limit=10,offset=0){
-  
+
    var data={
     userId:this.loginData.userId,
      deviceName:this.deviceData.deviceName,
@@ -62,27 +62,27 @@ export class DeviceHistoryComponent implements OnInit {
             contactDeviceName:res.success[i].contactDeviceName,
             updatedOn:res.success[i].updatedOn
            })
-           
+
         }
-        
+
         this.dataSource = new MatTableDataSource(this.findData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           // this.dataSource.paginator = this.paginator;
-    
+
         });
       }
-    
+
     })
   }
-  
+
 getTotalCount(){
   console.log("device name==",this.deviceData.deviceName)
   var data={
     userId:this.loginData.userId,
     deviceName:this.deviceData.deviceName
-    
-    
+
+
   }
 
   this.api.getDeviceDataCount(data).then((res:any)=>{
@@ -97,7 +97,7 @@ getTotalCount(){
 getUpdate(event) {
   console.log("paginator event",event);
   console.log("paginator event length", this.currentPageLength);
-  var limit = event.pageSize 
+  var limit = event.pageSize
   var offset = event.pageIndex*event.pageSize
   console.log("limit==",limit,"offset==",offset)
   this.refreshFinds(limit,offset)

@@ -88,7 +88,7 @@ getTotalCount(val){
 
   refreshData(value,limit=10,offset=0){
 
- 
+
     var data={
       userId:this.loginData.userId,
       tblName:'deviceData',
@@ -110,10 +110,10 @@ getTotalCount(val){
         })
       }
     })
- 
+
  }
 
- 
+
 
 
 
@@ -122,7 +122,7 @@ getTotalCount(val){
       console.log("paginator event length", this.currentPageLength);
       var limit = event.pageSize
       var offset = event.pageIndex*event.pageSize
-      this.refreshData(this.count,offset,limit)
+      this.refreshData(this.count,limit,offset)
     }
 
 
