@@ -73,6 +73,7 @@ refreshFinds(){
         this.findData.push(
           {
               i: i+1,
+              id: res.success[i].id,
               deviceId: res.success[i].deviceId,
               deviceName: res.success[i].deviceName,
               shift: res.success[i].shiftName ,

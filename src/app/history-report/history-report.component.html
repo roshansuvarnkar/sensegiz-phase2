@@ -1,7 +1,12 @@
+<div>
+  <button mat-raised-button (click)="openExcel()"><mat-icon> cloud_download</mat-icon>Export</button>
+</div>
+
+
 <div class="main">
 
 <!-- based on date -->
-<div *ngIf="type =='basedOnDate'">
+<div *ngIf="type =='basedOnDate'" id="excel-table">
 
 
   <div class="content">
@@ -62,7 +67,7 @@
 </div>
 
 <!-- based On FindId -->
-
+<!-- 
 <div *ngIf="type =='basedOnFindId'">
   <div class="content">
     <p class="center">REPORT</p>
@@ -120,13 +125,13 @@
         ></mat-paginator>
 
     </div>
-</div>
+</div> -->
 
 
 <!-- based On FindName -->
 
 
-<div *ngIf="type =='basedOnFindName'">
+<div *ngIf="type =='basedOnFindName'" id="excel-table">
   <div class="content">
     <p class="center">REPORT</p>
             <span class="icon">
@@ -186,7 +191,7 @@
 
 
 <!-- summary report -->
-<div *ngIf="type =='summaryReport'">
+<div *ngIf="type =='summaryReport'" id="excel-table">
     <div class="content">
       <p class="center">  SUMMARY REPORT</p>
       <span class="icon">

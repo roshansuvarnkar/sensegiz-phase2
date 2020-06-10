@@ -8,7 +8,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import { OrderContactComponent } from '../order-contact/order-contact.component';
-
+import * as XLSX from 'xlsx'; 
 @Component({
   selector: 'app-history-report',
   templateUrl: './history-report.component.html',
@@ -34,7 +34,7 @@ export class HistoryReportComponent implements OnInit {
   currentPageSize:any=10
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
   displayedColumns1: string[] = ['contactDeviceName','updatedOn'];
-
+  fileName:any
 
     constructor(
       public dialog: MatDialog,
@@ -157,8 +157,7 @@ export class HistoryReportComponent implements OnInit {
           deviceName:this.deviceName,
           fromDate: this.from,
           toDate:this.to,
-          // limit:limit,
-          // offset:offset
+         
         }
         this.api.getSummaryReport(data2).then((res:any)=>{
           console.log("summary report ======",res);
@@ -245,6 +244,32 @@ getUpdate(event) {
       date += timeArr[2] + ' second '
     }
     return date
+  }
+
+
+
+  openExcel(){
+
+    if(this.type=='basedOnDate'){
+      this.fileName='ReportBasedOnDate.xlsx'
+    }
+    if(this.type=='basedOnFindName'){
+      this.fileName='ReportBasedOnFindName.xlsx'
+    }
+    if(this.type=='summaryReport'){
+      this.fileName='summaryReport.xlsx'
+    }
+      /* table id is passed over here */   
+      let element = document.getElementById('excel-table'); 
+      const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+      /* generate workbook and add the worksheet */
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+      /* save to file */
+      XLSX.writeFile(wb, this.fileName);
+
   }
 
 }
