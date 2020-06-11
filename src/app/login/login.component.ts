@@ -49,6 +49,9 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/home'])
             }
           }
+          else{
+            this.loginInvalid = true;
+          }
         })
       } catch (err) {
         this.loginInvalid = true;

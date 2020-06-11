@@ -37,7 +37,7 @@
 
             <ng-container matColumnDef="updatedOn">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
-              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'IST'}} </td>
+              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="totaltime">
@@ -56,7 +56,7 @@
     [length] = "currentPageLength"
     [pageSize]="currentPageSize"
     [pageSizeOptions] = "[5, 10, 25, 100]"
-    showFirstLastButtons 
+    showFirstLastButtons
 ></mat-paginator>
   </div>
 </div>
@@ -98,7 +98,7 @@
 
             <ng-container matColumnDef="updatedOn">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
-              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'IST'}} </td>
+              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="totaltime">
@@ -116,7 +116,7 @@
               [length] = "currentPageLength"
               [pageSize]="currentPageSize"
               [pageSizeOptions] = "[5, 10, 25, 100]"
-              showFirstLastButtons 
+              showFirstLastButtons
         ></mat-paginator>
 
     </div>
@@ -160,7 +160,7 @@
 
             <ng-container matColumnDef="updatedOn">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Time </th>
-              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium' : 'IST'}} </td>
+              <td mat-cell *matCellDef="let live"> {{live.updatedOn | date : 'medium'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="totaltime">
@@ -178,7 +178,7 @@
                   [length] = "currentPageLength"
                   [pageSize]="currentPageSize"
                   [pageSizeOptions] = "[5, 10, 25, 100]"
-                  showFirstLastButtons 
+                  showFirstLastButtons
          ></mat-paginator>
 
     </div>
@@ -195,7 +195,7 @@
       </span>
     </div> <br>
     <p class="center-head" mat-dialog-title>Based on User Name {{deviceName | titlecase}}</p>
-    
+
     <div class="tab-align">
       <table class="table table-borderless">
      <thead>
@@ -213,7 +213,7 @@
               {{b.contactDeviceName}},
             </span>
           </td>
-  
+
         </tr>
       </table>
     </div>

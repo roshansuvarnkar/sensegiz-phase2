@@ -5,6 +5,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class GeneralMaterialsService {
+  _timezone: any = null;
+  _timeZoneAbbr: any
 
   constructor(private _snackBar: MatSnackBar) {}
 

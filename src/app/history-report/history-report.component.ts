@@ -179,7 +179,7 @@ export class HistoryReportComponent implements OnInit {
             // setTimeout(() => {
             //   this.dataSource.sort = this.sort;
 
-            // }) 
+            // })
           }
         })
 
@@ -238,11 +238,14 @@ getUpdate(event) {
     if(timeArr[0]!='00'){
       date += timeArr[0] + ' hour '
     }
-    else if(timeArr[1]!='00'){
+    if(timeArr[1]!='00'){
       date += timeArr[1] + ' minute '
     }
-    else if(timeArr[2]!='00'){
+    if(timeArr[2]!='00'){
       date += timeArr[2] + ' second '
+    }
+    if(date==''){
+      date = '-'
     }
     return date
   }
