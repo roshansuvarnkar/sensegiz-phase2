@@ -82,7 +82,7 @@
     <mat-card-content>
       <form [formGroup]="maxContactForm" (ngSubmit)="onSubmitmaxContactForm(maxContactForm.value)">
         <mat-form-field>
-          <input type='number' matInput placeholder="Threshold" formControlName="threshold" matAutocomplete=false required>
+          <input type='number' min="0" matInput placeholder="Threshold" formControlName="threshold" matAutocomplete=false required>
           <mat-error>
             Please provide a valid threshold
           </mat-error>
