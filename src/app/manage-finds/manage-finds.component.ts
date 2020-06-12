@@ -24,7 +24,7 @@ loginData:any
 findData:any=[]
 
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName',	'shift',	'infected',	'edit',	'delete'];
+displayedColumns = ['i','deviceId','deviceName',	'shift',	'infected','battery',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -79,6 +79,7 @@ refreshFinds(){
               infected: res.success[i].infected,
               edit:'edit',
               delete:'delete',
+              batteryStatus:res.success[i].batteryStatus
           });
       }
       this.dataSource = new MatTableDataSource(this.findData);
@@ -205,5 +206,35 @@ search(a){
     this.dataSource.paginator = this.paginator;
   })
 }
+
+
+
+getBatteryStatus(value){
+  if(value == 1){
+    var a = {
+      'background-color':'green',
+      'width':'31px'
+    }
+    return a
+  }
+  else if(value == 2){
+    var a = {
+      'background-color':'green',
+      'width':'18px'
+    }
+    return a
+  }
+  else if(value == 3){
+    var a = {
+      'background-color':'red',
+      'width':'10px'
+    }
+    return a
+  }
+  else{
+    return {}
+  }
+}
+
 
 }

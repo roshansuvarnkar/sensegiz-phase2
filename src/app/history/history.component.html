@@ -15,20 +15,27 @@
       </mat-radio-group><br>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
 
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
-          <mat-icon matPrefix >calendar_today</mat-icon>
+        <mat-form-field>
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker1" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker1></mat-datepicker>
           <mat-error>
             Please provide a valid from date
           </mat-error>
-        </mat-form-field><br>
-        <mat-form-field class="full-width-input">
-          <input  type='date' matInput  placeholder="To date" formControlName="toDate" required >
-          <mat-icon matPrefix >calendar_today</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker2" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker2></mat-datepicker>
           <mat-error>
             Please provide a valid to date
           </mat-error>
-        </mat-form-field><br><br>
+        </mat-form-field>
+  <br>
+  <br>
         <button mat-raised-button [disabled]="!dateForm.valid" color="primary" >Submit</button>
       </form>
     </mat-card-content>
@@ -106,20 +113,26 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width-input">
-          <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
-          <mat-icon matPrefix >calendar_today</mat-icon>
+        <mat-form-field>
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker5" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker5"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker5></mat-datepicker>
           <mat-error>
             Please provide a valid from date
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input  type='date' matInput  placeholder="To date" formControlName="toDate" required >
-          <mat-icon matPrefix >calendar_today</mat-icon>
+
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker6" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker6"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker6></mat-datepicker>
           <mat-error>
             Please provide a valid to date
           </mat-error>
-        </mat-form-field><br>
+        </mat-form-field>
+  <br>
         <button mat-raised-button [disabled]="!findNameForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
@@ -150,20 +163,34 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width-input">
+        <!-- <mat-form-field class="full-width-input">
           <input type='date' matInput placeholder="From date" formControlName="fromDate" required>
           <mat-icon matPrefix >calendar_today</mat-icon>
           <mat-error>
             Please provide a valid from date
           </mat-error>
+        </mat-form-field> -->
+
+        <mat-form-field>
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker7" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker7"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker7></mat-datepicker>
+          <mat-error>
+            Please provide a valid from date
+          </mat-error>
         </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input  type='date' matInput  placeholder="To date" formControlName="toDate" required >
-          <mat-icon matPrefix >calendar_today</mat-icon>
+
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker8" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker8"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker8></mat-datepicker>
           <mat-error>
             Please provide a valid to date
           </mat-error>
-        </mat-form-field><br>
+        </mat-form-field>
+  <br>
         <button mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
