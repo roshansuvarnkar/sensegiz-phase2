@@ -44,6 +44,11 @@ td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inser
   font-size: 1rem;
   font-family: serif;
 }
+mat-spinner.mat-spinner.mat-progress-spinner.mat-primary.mat-progress-spinner-indeterminate-animation.ng-star-inserted {
+  margin-left: 45% !important;
+  margin-top: 45% !important;
+  /* position: absolute !important; */
+}
 @media only screen and (max-width: 768px) {
   .main{
     display: block;
