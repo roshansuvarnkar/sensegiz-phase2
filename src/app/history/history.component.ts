@@ -52,13 +52,13 @@ prevDate:any
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
-    
+
     this.summaryReportForm = this.fb.group({
       deviceName: ['', Validators.required],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
-    
+
     this.refreshFinds()
 
   }
@@ -188,13 +188,13 @@ onclickSummaryReport(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-  
+
   }
 
 
   // onSubmitFindId(data){
   //   console.log("data====",data)
- 
+
   //       const dialogConfig = new MatDialogConfig();
   //       dialogConfig.disableClose = true;
   //       dialogConfig.autoFocus = true;
@@ -211,14 +211,14 @@ onclickSummaryReport(data){
   //       dialogRef.afterClosed().subscribe(result => {
   //         this.refreshFinds()
   //       });
-   
+
   // }
 
 
 
   onSubmitFindName(data){
     console.log("data====",data)
-   
+
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -235,13 +235,13 @@ onclickSummaryReport(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-  
+
   }
 
 
   onSubmitSummaryReport(data){
     console.log("data====",data)
-   
+
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -258,8 +258,11 @@ onclickSummaryReport(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-  
+
   }
+
+
+
 
 
 }

@@ -5,6 +5,8 @@ import * as XLSX from 'xlsx';
   providedIn: 'root'
 })
 export class GeneralMaterialsService {
+  _timezone: any = null;
+  _timeZoneAbbr: any
 
   constructor(private _snackBar: MatSnackBar) {}
 

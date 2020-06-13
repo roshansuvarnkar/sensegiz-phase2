@@ -19,11 +19,11 @@
 
           <ng-container matColumnDef="deviceName">
             <th mat-header-cell *matHeaderCellDef ></th>
-            <td mat-cell *matCellDef="let live"    (click)="clickDevice(live)"><span *ngIf="live.updatedOn!='0000-00-00 00:00:00'" matTooltip="last synced time: {{live.updatedOn | date : 'medium' : 'IST'}}">{{live.deviceName}}</span> <span *ngIf="live.updatedOn=='0000-00-00 00:00:00'">{{live.deviceName}}</span> </td>
+            <td mat-cell *matCellDef="let live"    (click)="clickDevice(live)"><span *ngIf="live.updatedOn!='0000-00-00 00:00:00'" matTooltip="last synced time: {{live.updatedOn | date : 'medium'}}">{{live.deviceName}}</span> <span *ngIf="live.updatedOn=='0000-00-00 00:00:00'">{{live.deviceName}}</span> </td>
           </ng-container>
 
        </div>
- 
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

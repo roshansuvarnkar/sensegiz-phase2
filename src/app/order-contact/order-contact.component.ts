@@ -24,6 +24,8 @@ export class OrderContactComponent implements OnInit {
 	from:Date
   to:Date
   orderShow:any
+  currentPageLength:any=10
+  currentPageSize:any=10
   orderType:any=[
   		{
   			id:2,
@@ -75,6 +77,7 @@ export class OrderContactComponent implements OnInit {
       this.orderShow = this.orderType.filter(obj=>{
       	return obj.id==this.order
       })
+      this.getTotalLength()
       this.onSubmitFindName()
     }
 
@@ -82,13 +85,34 @@ export class OrderContactComponent implements OnInit {
   }
 
 
-   onSubmitFindName(){
+  getTotalLength(){
+    var data={
+      userId:this.dataSet.userId,
+      deviceName:this.dataSet.contactName,
+      fromDate:this.from,
+      toDate:this.to,
+    }
+
+    this.api.getHistoryNameReportTotalCount(data).then((res:any)=>{
+      console.log("length of report on device name ======",res);
+      if(res.status){
+        console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength = parseInt(res.success[0].count);
+
+      }
+    })
+  }
+
+
+   onSubmitFindName(limit=10,offset=0){
     console.log("data====",this.dataSet)
     var value={
       userId:this.dataSet.userId,
       deviceName:this.dataSet.contactName,
       fromDate:this.from,
       toDate:this.to,
+      limit:limit,
+      offset:offset
     }
       console.log("value data ======",value);
 
@@ -98,7 +122,7 @@ export class OrderContactComponent implements OnInit {
       	this.dataSource = new MatTableDataSource(res.success);
 	    setTimeout(() => {
 	      this.dataSource.sort = this.sort;
-	      this.dataSource.paginator = this.paginator;
+	      //this.dataSource.paginator = this.paginator;
 
 	    })
       }
@@ -124,6 +148,15 @@ export class OrderContactComponent implements OnInit {
     });
   }
 
+
+  getUpdate(event) {
+    console.log("paginator event",event);
+    console.log("paginator event length", this.currentPageLength);
+    var limit = event.pageSize
+    var offset = event.pageIndex*event.pageSize
+    console.log("limit==",limit,"offset==",offset)
+    this.onSubmitFindName(limit,offset)
+  }
 
 
 }

@@ -9,7 +9,7 @@
     <mat-card-content>
       <form [formGroup]="workingForm" (ngSubmit)="onSubmitWorkForm(workingForm.value)">
         <mat-form-field>
-          <input type='text' matInput placeholder="Shift name" formControlName="shift" required>
+          <input type='text' matInput placeholder="Shift name" formControlName="shift" matAutocomplete=false required>
           <mat-error>
             Please provide a valid shift name
           </mat-error>
@@ -82,7 +82,7 @@
     <mat-card-content>
       <form [formGroup]="maxContactForm" (ngSubmit)="onSubmitmaxContactForm(maxContactForm.value)">
         <mat-form-field>
-          <input type='number' matInput placeholder="Threshold" formControlName="threshold" required>
+          <input type='number' min="0" matInput placeholder="Threshold" formControlName="threshold" matAutocomplete=false required>
           <mat-error>
             Please provide a valid threshold
           </mat-error>
