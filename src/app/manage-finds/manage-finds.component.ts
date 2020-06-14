@@ -224,7 +224,7 @@ getBatteryStatus(value){
   }
   else if(value == 2){
     var a = {
-      'background-color':'green',
+      'background-color':'#ffc107',
       'width':'18px'
     }
     return a

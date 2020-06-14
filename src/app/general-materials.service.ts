@@ -39,8 +39,7 @@ exportAsExcelFile(json: any[], excelFileName: string,header: string){
    
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
       console.log("wb===",wb)
-      if(!wb.Props) wb.Props = {};
-      wb.Props.Title = header;
+                           
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         XLSX.read(header)
         

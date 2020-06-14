@@ -16,8 +16,10 @@ export class SettingsComponent implements OnInit {
   distanceForm:FormGroup
   maxContactForm:FormGroup
   txPowerForm:FormGroup
+  inactivityStatusForm:FormGroup
+  bufferForm:FormGroup
   loginData:any
-
+ 
   constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -46,6 +48,13 @@ export class SettingsComponent implements OnInit {
     this.txPowerForm = this.fb.group({
       txPower: ['', Validators.required],
     });
+
+    this.inactivityStatusForm = this.fb.group({
+      inactivity: ['',Validators.required]
+    });
+    this.bufferForm = this.fb.group({
+      buffer: ['',Validators.required]
+    })
   }
 
 
@@ -123,8 +132,54 @@ export class SettingsComponent implements OnInit {
    }
 
 
+   onSubmitInactivityStatusForm(value){
+   
+    if (this.bufferForm.valid) {
+      try {
+        console.log("inactivity data==",value)
+        var data={
+        userId : this.loginData.userId,
+        inactivity : value.inactivity
 
+        }
+        
+        this.api.getInactivityDeviceSetting(data).then((res:any)=>{
+          console.log("Inactivity response===",res)
+          // if(res.status){
+          //   var msg = 'Transmission power updated Successfully'
+          //   this.general.openSnackBar(msg,'')
+          // }
+        })
+      } catch (err) {
+      }
+    }
+  
 
+   }
+  
+
+   onSubmitBufferForm(value){
+    
+    if (this.bufferForm.valid) {
+      try {
+        console.log("buffer data==",value)
+        var data={
+        userId : this.loginData.userId,
+        buffer : value.buffer
+
+        }
+        
+        this.api.getBufferDeviceSetting(data).then((res:any)=>{
+          console.log("Buffer response===",res)
+          // if(res.status){
+          //   var msg = 'Transmission power updated Successfully'
+          //   this.general.openSnackBar(msg,'')
+          // }
+        })
+      } catch (err) {
+      }
+    }
+   }
 
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();

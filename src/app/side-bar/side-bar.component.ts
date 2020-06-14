@@ -41,14 +41,10 @@ export class SideBarComponent implements OnInit {
 
 
   refreshFinds(){
-    // for(let i=0;i<this.paginator.pageSize;i++){
-    //   this.index=this.paginator.pageIndex == 0 ? i : i + this.paginator.pageIndex*this.paginator.pageSize
-    //   console.log("index==",this.index,"page index==",this.paginator.pageIndex)
-    // }
+  
     var data={
       userId:this.loginData.userId,
-   // limit:this.index,
-   // offset:this.paginator.pageIndex
+
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
