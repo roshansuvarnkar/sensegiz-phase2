@@ -46,7 +46,7 @@ export class EditSettingShiftComponent implements OnInit {
 	  }
 
 	  this.api.getData(data).then((res:any)=>{
-	    console.log("shift  data ======",res);
+	    // console.log("shift  data ======",res);
 	    if(res.status){
 	      this.shifts=res.success
 
@@ -63,7 +63,7 @@ export class EditSettingShiftComponent implements OnInit {
 				  }
 				))
 			}
-  		  console.log("controls=",control)
+  		//   console.log("controls=",control)
 	    }
 	  })
 	}
@@ -71,9 +71,9 @@ export class EditSettingShiftComponent implements OnInit {
 
 
 	submit(a){
-		console.log("a===",a)
+		// console.log("a===",a)
 		this.api.editSettingShift(a).then((res:any)=>{
-        console.log("shift edit==",res)
+        // console.log("shift edit==",res)
         if(res.status){
           var msg = 'Shift updated Successfully'
           this.general.openSnackBar(msg,'')
@@ -84,10 +84,10 @@ export class EditSettingShiftComponent implements OnInit {
 
 
   delete(a){
-    console.log("delete===",a);
+    // console.log("delete===",a);
     if(confirm("Are you sure you want to delete the shift")){
       this.api.deleteShift(a).then((res:any)=>{
-        console.log("shift delete==",res)
+        // console.log("shift delete==",res)
         if(res.status){
           var msg = 'Shift deleted Successfully'
           this.general.openSnackBar(msg,'')

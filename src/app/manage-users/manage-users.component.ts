@@ -57,7 +57,7 @@ export class ManageUsersComponent implements OnInit {
       }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("user data ======",res);
+      // console.log("user data ======",res);
       if(res.status){
         this.userData=[]
 
@@ -104,14 +104,14 @@ export class ManageUsersComponent implements OnInit {
 
   delete(a){
     if(confirm('Are you sure you want to delete the user')){
-      console.log("yes",a)
+      // console.log("yes",a)
     }
     var data = {
       id:a.id,
       tblName:'userDetails'
     }
     this.api.deletedeviceandUser(data).then((res:any)=>{
-      console.log("find data ======",res);
+      // console.log("find data ======",res);
       if(res.status){
         this.refreshUsers()
         var msg = 'Contact Deleted Successfully'

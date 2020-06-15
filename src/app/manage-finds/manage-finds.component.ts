@@ -65,7 +65,7 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("find device data ======",res);
+    // console.log("find device data ======",res);
   
     if(res.status){
      
@@ -133,14 +133,14 @@ edit(data){
 
 delete(a){
   if(confirm('Are you sure you want to delete the device')){
-    console.log("yes",a)
+    // console.log("yes",a)
   }
   var data = {
     id:a.id,
     tblName:'deviceRegistration'
   }
   this.api.deletedeviceandUser(data).then((res:any)=>{
-    console.log("find data ======",res);
+    // console.log("find data ======",res);
     if(res.status){
       this.refreshFinds()
       var msg = 'Device Deleted Successfully'
@@ -153,7 +153,7 @@ delete(a){
 
 infected(a){
   if(confirm('Are you sure to do this operation')){
-    console.log("yes",a)
+    // console.log("yes",a)
   }
 
   var inf = a.infected == 0 ? 1 :0
@@ -163,7 +163,7 @@ infected(a){
     infected:inf
   }
   this.api.editInfectedPerson(data).then((res:any)=>{
-    console.log("infected data ======",res);
+    // console.log("infected data ======",res);
     if(res.status){
       this.refreshFinds()
       var msg = 'Employee updated Successfully'
@@ -174,14 +174,14 @@ infected(a){
 
 
 onShiftSelection(a){
-  console.log("a===",a)
+  // console.log("a===",a)
     var data = {
     shiftId:a.shift,
     userId:this.loginData.userId,
     deviceId:a.deviceId
   }
   this.api.editShift(data).then((res:any)=>{
-    console.log("shift update data ======",res);
+    // console.log("shift update data ======",res);
     if(res.status){
       this.refreshFinds()
       var msg = 'Employee Shift updated Successfully'
@@ -193,7 +193,7 @@ onShiftSelection(a){
 
 
 search(a){
-  console.log("a==",a)
+  // console.log("a==",a)
   if(a.length>0){
     this.findData = this.elementsTemp.filter(obj=>{
       return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))

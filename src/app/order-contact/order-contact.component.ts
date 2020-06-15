@@ -72,8 +72,8 @@ export class OrderContactComponent implements OnInit {
       this.dataSet=data.data
       this.from = data.fromDate
       this.to = data.toDate
-      console.log("data from===",data)
-      console.log("data set===",this.dataSet)
+      // console.log("data from===",data)
+      // console.log("data set===",this.dataSet)
       this.orderShow = this.orderType.filter(obj=>{
       	return obj.id==this.order
       })
@@ -94,9 +94,9 @@ export class OrderContactComponent implements OnInit {
     }
 
     this.api.getHistoryNameReportTotalCount(data).then((res:any)=>{
-      console.log("length of report on device name ======",res);
+      // console.log("length of report on device name ======",res);
       if(res.status){
-        console.log('\nTotal response: ',res.success[0].count);
+        // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
 
       }
@@ -105,7 +105,7 @@ export class OrderContactComponent implements OnInit {
 
 
    onSubmitFindName(limit=10,offset=0){
-    console.log("data====",this.dataSet)
+    // console.log("data====",this.dataSet)
     var value={
       userId:this.dataSet.userId,
       deviceName:this.dataSet.contactName,
@@ -114,10 +114,10 @@ export class OrderContactComponent implements OnInit {
       limit:limit,
       offset:offset
     }
-      console.log("value data ======",value);
+      // console.log("value data ======",value);
 
     this.api.getDeviceHistoryBasedOnDeviceName(value).then((res:any)=>{
-      console.log("order data ======",res);
+      // console.log("order data ======",res);
       if(res.status){
       	this.dataSource = new MatTableDataSource(res.success);
 	    setTimeout(() => {
@@ -150,11 +150,11 @@ export class OrderContactComponent implements OnInit {
 
 
   getUpdate(event) {
-    console.log("paginator event",event);
-    console.log("paginator event length", this.currentPageLength);
+    // console.log("paginator event",event);
+    // console.log("paginator event length", this.currentPageLength);
     var limit = event.pageSize
     var offset = event.pageIndex*event.pageSize
-    console.log("limit==",limit,"offset==",offset)
+    // console.log("limit==",limit,"offset==",offset)
     this.onSubmitFindName(limit,offset)
   }
 

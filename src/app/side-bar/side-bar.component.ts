@@ -48,7 +48,7 @@ export class SideBarComponent implements OnInit {
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
-      console.log("find data side bar ======",res);
+      // console.log("find data side bar ======",res);
       if(res.status){
         this.findData=[]
 
@@ -64,7 +64,7 @@ export class SideBarComponent implements OnInit {
 
 
   clickDevice(data){
-    console.log("data====",data)
+    // console.log("data====",data)
     this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
   }
 
@@ -98,7 +98,7 @@ getColorIcon(a){
       this.color = 'green'
     }
     else if(diffDays > 1440 && diffDays <= 2880){
-      this.color = 'yellow'
+      this.color = '#ffc107'
     }
     else{
       this.color = '#ef6c00'

@@ -41,7 +41,7 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
     this.loginData = JSON.parse(this.loginData)
     this.count=0
     this.refresh()
-    console.log("count",this.count)
+    // console.log("count",this.count)
     // setInterval(()=>{this.refresh()},60*1000)
   }
   refresh(){
@@ -52,7 +52,7 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
     // var limit=this.paginator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count + 1;
-    console.log("count==",this.count);
+    // console.log("count==",this.count);
 
     this.getTotalCount(this.count)
     this.refreshData(this.count)
@@ -62,7 +62,7 @@ displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
     // var limit=this.paginator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count - 1;
-    console.log("count==",this.count);
+    // console.log("count==",this.count);
 
     this.getTotalCount(this.count)
     this.refreshData(this.count)
@@ -76,9 +76,9 @@ getTotalCount(val){
   }
 
   this.api.getLiveDataTotalCount(data).then((res:any)=>{
-    console.log("live data ======",res);
+    // console.log("live data ======",res);
     if(res.status){
-      console.log('\nTotal response: ',res.success[0].count);
+      // console.log('\nTotal response: ',res.success[0].count);
       this.currentPageSize= parseInt(res.success[0].count);
 
     }
@@ -98,7 +98,7 @@ getTotalCount(val){
     }
 
     this.api.getLiveData(data).then((res:any)=>{
-      console.log("live data ======",res);
+      // console.log("live data ======",res);
       if(res.status){
         this.liveData=res.success
         this.currentPageLength = res.success.length;
@@ -118,8 +118,8 @@ getTotalCount(val){
 
 
      getUpdate(event) {
-      console.log("paginator event",event);
-      console.log("paginator event length", this.currentPageLength);
+      // console.log("paginator event",event);
+      // console.log("paginator event length", this.currentPageLength);
       var limit = event.pageSize
       var offset = event.pageIndex*event.pageSize
       this.refreshData(this.count,limit,offset)

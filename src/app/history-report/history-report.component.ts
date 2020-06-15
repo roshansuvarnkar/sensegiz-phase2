@@ -53,7 +53,7 @@ export class HistoryReportComponent implements OnInit {
        @Inject(MAT_DIALOG_DATA)  data,
     ) {
       this.type=data.type
-      console.log("type==",this.type)
+      // console.log("type==",this.type)
       this.liveData = data.data
 
       this.from = data.fromDate
@@ -82,9 +82,9 @@ export class HistoryReportComponent implements OnInit {
       }
 
       this.api.getHistoryDateReportTotalCount(data).then((res:any)=>{
-        console.log("length of report on date ======",res);
+        // console.log("length of report on date ======",res);
         if(res.status){
-          console.log('\nTotal response: ',res.success[0].count);
+          // console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
 
         }
@@ -100,9 +100,9 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
-      console.log("length of report on device name ======",res);
+      // console.log("length of report on device name ======",res);
       if(res.status){
-        console.log('\nTotal response: ',res.success[0].count);
+        // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
         // this.tempLen=this.currentPageLength
       }
@@ -123,7 +123,7 @@ export class HistoryReportComponent implements OnInit {
           offset:offset
         }
         this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-          console.log("find data based on date ======",res);
+          // console.log("find data based on date ======",res);
           this.liveData=[]
           if(res.status){
             if(type==0){
@@ -153,7 +153,7 @@ export class HistoryReportComponent implements OnInit {
 
         }
         this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
-          console.log("find data based on name ======",res);
+          // console.log("find data based on name ======",res);
 
           if(res.status){
             if(type==0){
@@ -180,20 +180,20 @@ export class HistoryReportComponent implements OnInit {
 
         }
         this.api.getSummaryReport(data2).then((res:any)=>{
-          console.log("summary report ======",res);
+          // console.log("summary report ======",res);
 
           this.liveData=[]
           if(res.status){
 
             var groupDate = this.dataDateReduce(res.success)
-            console.log("groupDate===",groupDate)
+            // console.log("groupDate===",groupDate)
             this.liveData = Object.keys(groupDate).map((data)=>{
               return {
                 date : data,
                 data : groupDate[data]
               }
             })
-            console.log("this live data===",this.liveData)
+            // console.log("this live data===",this.liveData)
             // this.dataSource = new MatTableDataSource(this.liveData);
             // setTimeout(() => {
             //   this.dataSource.sort = this.sort;
@@ -222,11 +222,11 @@ dataDateReduce(data){
 
 
 getUpdate(event) {
-  console.log("paginator event",event);
-  console.log("paginator event length", this.currentPageLength);
+  // console.log("paginator event",event);
+  // console.log("paginator event length", this.currentPageLength);
   var limit = event.pageSize
   var offset = event.pageIndex*event.pageSize
-  console.log("limit==",limit,"offset==",offset)
+  // console.log("limit==",limit,"offset==",offset)
   this.loadData(limit,offset)
 }
 
@@ -235,7 +235,7 @@ getUpdate(event) {
 getPages() {
 
   var tempLen=this.currentPageLength
-  console.log("paginator event length",this.currentPageLength);
+  // console.log("paginator event length",this.currentPageLength);
   this.loadData(tempLen,0,1)
   var msg = 'Downloading'
   this.general.openSnackBar(msg,'')
@@ -304,7 +304,7 @@ this.showSpinner=true
           this.fileName='summaryReport.xlsx'
           this.title = 'Summary Report of Find Name'+this.deviceName;
           let element = document.getElementById('htmlData');
-          console.log("element===",element)
+          // console.log("element===",element)
           this.general.exportToExcel(element,this.fileName, this.title)
 
         }
@@ -322,7 +322,7 @@ this.showSpinner=true
             this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
 
           }
-        console.log("excel data===",this.excelData)
+        // console.log("excel data===",this.excelData)
 
       }
 

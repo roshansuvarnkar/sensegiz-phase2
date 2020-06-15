@@ -60,7 +60,7 @@ refreshGateway(){
     }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("gateway data ======",res);
+    // console.log("gateway data ======",res);
     if(res.status){
       this.gatewayData=[]
 
@@ -108,14 +108,14 @@ edit(data){
 
 delete(a){
   if(confirm('Are you sure you want to delete the gateway')){
-    console.log("yes",a)
+    // console.log("yes",a)
   }
   var data = {
     id:a.id,
     tblName:'gatewayRegistration'
   }
   this.api.deletedeviceandUser(data).then((res:any)=>{
-    console.log("gateway data ======",res);
+    // console.log("gateway data ======",res);
     if(res.status){
       this.refreshGateway()
       var msg = 'Gateway Deleted Successfully'

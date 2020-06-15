@@ -34,7 +34,7 @@ export class DeviceHistoryComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
         this.deviceData = JSON.parse(params.record) ;
-        console.log("records=",this.deviceData )
+        // console.log("records=",this.deviceData )
         this.getTotalCount()
         this.refreshFinds()
     })
@@ -51,7 +51,7 @@ export class DeviceHistoryComponent implements OnInit {
       offset:offset
    }
     this.api.getDeviceData(data).then((res:any)=>{
-      console.log("find data ======",res);
+      // console.log("find data ======",res);
       if(res.status){
         this.finds=res.success
         this.findData=[]
@@ -77,7 +77,7 @@ export class DeviceHistoryComponent implements OnInit {
   }
 
 getTotalCount(){
-  console.log("device name==",this.deviceData.deviceName)
+  // console.log("device name==",this.deviceData.deviceName)
   var data={
     userId:this.loginData.userId,
     deviceName:this.deviceData.deviceName
@@ -86,20 +86,20 @@ getTotalCount(){
   }
 
   this.api.getDeviceDataCount(data).then((res:any)=>{
-    console.log("device history data ======",res);
+    // console.log("device history data ======",res);
     if(res.status){
-      console.log('\nTotal response: ',res.success[0].count);
+      // console.log('\nTotal response: ',res.success[0].count);
       this.currentPageLength = parseInt(res.success[0].count);
 
     }
   })
 }
 getUpdate(event) {
-  console.log("paginator event",event);
-  console.log("paginator event length", this.currentPageLength);
+  // console.log("paginator event",event);
+  // console.log("paginator event length", this.currentPageLength);
   var limit = event.pageSize
   var offset = event.pageIndex*event.pageSize
-  console.log("limit==",limit,"offset==",offset)
+  // console.log("limit==",limit,"offset==",offset)
   this.refreshFinds(limit,offset)
 }
 

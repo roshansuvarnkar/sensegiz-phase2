@@ -27,7 +27,7 @@ export class AdminAddBleIdComponent implements OnInit {
   ) {
       this.type = data.type
       this.dataGet = data.data
-      console.log("type==",data)
+    //   console.log("type==",data)
   }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class AdminAddBleIdComponent implements OnInit {
 	}
 
   	this.api.getData(data).then((res:any)=>{
-    	console.log("data===",res)
+    	// console.log("data===",res)
 		if(res.status){
 			const control = <FormArray>this.bleIdForm.controls.items;
 			control.controls = [];
@@ -69,7 +69,7 @@ export class AdminAddBleIdComponent implements OnInit {
 
   submit(data){
 	this.api.updateBleMac(data).then((res:any)=>{
-		console.log("add ble res===",res)
+		// console.log("add ble res===",res)
 		if(res.status){
 			var msg = "MAC id updated successfully"
 			this.general.openSnackBar(msg,'')

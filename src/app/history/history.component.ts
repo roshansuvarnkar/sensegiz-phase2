@@ -65,7 +65,7 @@ prevDate:any
 
 
   onclickDate(data){
-    console.log("data==",data)
+    // console.log("data==",data)
 
     var date = new Date();
     var toDate = new Date();
@@ -88,7 +88,7 @@ prevDate:any
 
 
 onclickFindId(data){
-  console.log("data==",data)
+  // console.log("data==",data)
 
   var date = new Date();
   var toDate = new Date();
@@ -107,13 +107,13 @@ onclickFindId(data){
       fromDate:tot,
       toDate:todayDate
     })
-}
+ }
 
 
 
 
 onclickFindName(data){
-  console.log("data==",data)
+  // console.log("data==",data)
 
   var date = new Date();
   var toDate = new Date();
@@ -136,7 +136,7 @@ onclickFindName(data){
 }
 
 onclickSummaryReport(data){
-  console.log("data==",data)
+  // console.log("data==",data)
 
   var date = new Date();
   var toDate = new Date();
@@ -163,7 +163,7 @@ onclickSummaryReport(data){
       tblName:'deviceRegistration'
     }
     this.api.getData(data).then((res:any)=>{
-      console.log("find data ======",res);
+      // console.log("find data ======",res);
       if(res.status){
         this.finds=res.success
       }
@@ -171,7 +171,7 @@ onclickSummaryReport(data){
   }
 
   onSubmitDateForm(data){
-    console.log("data====",data)
+    // console.log("data====",data)
 
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
@@ -217,7 +217,7 @@ onclickSummaryReport(data){
 
 
   onSubmitFindName(data){
-    console.log("data====",data)
+    // console.log("data====",data)
 
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
@@ -240,7 +240,7 @@ onclickSummaryReport(data){
 
 
   onSubmitSummaryReport(data){
-    console.log("data====",data)
+    // console.log("data====",data)
 
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;

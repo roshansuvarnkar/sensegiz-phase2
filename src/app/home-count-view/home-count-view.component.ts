@@ -34,7 +34,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
     public dialogRef: MatDialogRef<HomeCountViewComponent>,
     @Inject(MAT_DIALOG_DATA)  data,) {
         this.type=data.type
-        console.log("type==",this.type)
+        // console.log("type==",this.type)
   }
 
   ngOnInit(): void {

@@ -43,7 +43,7 @@ export class LoginCheckService {
   loginStatusMenu(){
     var status = localStorage.getItem('sensegizlogin')
     var route = window.location.pathname
-    console.log("route==",route)
+    // console.log("route==",route)
     if(route !='/login' && route!='/admin-login'){
       this.loginCred.next(true)
     }

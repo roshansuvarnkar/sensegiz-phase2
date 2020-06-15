@@ -45,7 +45,7 @@ export class AdminDashboardComponent implements OnInit {
     if (this.adminAddUserform.valid) {
       try {
         this.api.createUser(data).then((res:any)=>{
-        	console.log("created==",res)
+        	// console.log("created==",res)
 			if(res.status){
 				var msg = "User Created successfully"
 				this.general.openSnackBar(msg,'')
@@ -61,7 +61,7 @@ export class AdminDashboardComponent implements OnInit {
 
 refreshAdminData(){
     this.api.getAdminData().then((res:any)=>{
-    	console.log("data===",res)
+    	// console.log("data===",res)
 		if(res.status){
 			this.adminData=res.success
 		}
@@ -94,14 +94,14 @@ refreshAdminData(){
 
 
  delete(a){
- 	console.log("delete==",a)
+ 	// console.log("delete==",a)
  	var data={
  		userId : a.userId,
  		isDeleted : a.isDeleted == 'Y' ? 'N' : 'Y'
  	}
 
  	this.api.deleteAdminUser(data).then((res:any)=>{
-    	console.log("data===",res)
+    	// console.log("data===",res)
 		if(res.status){
 			var msg = "User updated successfully"
 			this.general.openSnackBar(msg,'')

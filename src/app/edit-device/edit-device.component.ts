@@ -24,7 +24,7 @@ userform:FormGroup
     private login:LoginCheckService,
     private general:GeneralMaterialsService
   ) {
-    console.log("data===",data)
+    // console.log("data===",data)
     this.type=data.type
     this.deviceData=data.data
   }
@@ -77,12 +77,12 @@ userform:FormGroup
   Findsubmit(data){
     if (this.Findform.valid) {
       try {
-        console.log("find edit===",data)
+        // console.log("find edit===",data)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
         data.userId=this.deviceData.userId
         this.api.editDeviceRegister(data).then((res:any)=>{
-          console.log("find submit====",res);
+          // console.log("find submit====",res);
           if(res.status){
             var msg = 'Device Updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -110,7 +110,7 @@ userform:FormGroup
         data.id=this.deviceData.id
         data.userId=this.deviceData.userId
         this.api.editDeviceRegister(data).then((res:any)=>{
-          console.log("gateway submit==",res)
+          // console.log("gateway submit==",res)
           if(res.status){
             var msg = 'Gateway Registered Successfully'
             this.general.openSnackBar(msg,'')
@@ -132,7 +132,7 @@ userform:FormGroup
       try {
         data.id=this.deviceData.id
         this.api.EditUserRegister(data).then((res:any)=>{
-          console.log("user submit==",res)
+          // console.log("user submit==",res)
           if(res.status){
             var msg = 'User Registered Successfully'
             this.general.openSnackBar(msg,'')

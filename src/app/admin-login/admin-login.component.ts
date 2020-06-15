@@ -41,7 +41,7 @@ export class AdminLoginComponent implements OnInit {
     if (this.adminLoginform.valid) {
       try {
         this.api.adminLogin(data).then((res:any)=>{
-        	console.log("admin res===",res)
+        	// console.log("admin res===",res)
           if(res.status){
           	res.success.role='admin'
             if(this.login.login(JSON.stringify(res.success))){

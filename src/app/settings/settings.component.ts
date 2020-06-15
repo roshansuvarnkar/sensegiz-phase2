@@ -108,10 +108,10 @@ export class SettingsComponent implements OnInit {
   onSubmitWorkForm(data) {
      if (this.workingForm.valid) {
        try {
-         console.log("time data===",data)
+        //  console.log("time data===",data)
          data.userId = this.loginData.userId
          this.api.setTime(data).then((res:any)=>{
-           console.log("time insrted or updated",res)
+          //  console.log("time insrted or updated",res)
            if(res.status){
              var msg = 'Shift time updated Successfully'
              this.general.openSnackBar(msg,'')
@@ -127,10 +127,10 @@ export class SettingsComponent implements OnInit {
   onSubmitDistanceForm(data) {
      if (this.distanceForm.valid) {
        try {
-         console.log("distance ===",data)
+        //  console.log("distance ===",data)
          data.userId = this.loginData.userId
          this.api.addDistance(data).then((res:any)=>{
-           console.log("distance insrted or updated",res)
+          //  console.log("distance insrted or updated",res)
            if(res.status){
              this.refreshSetting()
              var msg = 'Minimum distance updated Successfully'
@@ -146,10 +146,10 @@ export class SettingsComponent implements OnInit {
   onSubmitmaxContactForm(data) {
      if (this.maxContactForm.valid) {
        try {
-         console.log("threshold ===",data)
+        //  console.log("threshold ===",data)
          data.userId = this.loginData.userId
          this.api.addMaxContactThreshold(data).then((res:any)=>{
-           console.log("contact threshold insrted or updated",res)
+          //  console.log("contact threshold insrted or updated",res)
            if(res.status){
              this.refreshSetting()
              var msg = 'Max contact threshold updated Successfully'
@@ -166,10 +166,10 @@ export class SettingsComponent implements OnInit {
   onSubmittxPowerForm(data) {
      if (this.txPowerForm.valid) {
        try {
-         console.log("threshold ===",data)
+        //  console.log("threshold ===",data)
          data.userId = this.loginData.userId
          this.api.addTxPower(data).then((res:any)=>{
-           console.log("tx power updated",res)
+          //  console.log("tx power updated",res)
            if(res.status){
              this.refreshSetting()
              var msg = 'Transmission power updated Successfully'
@@ -186,7 +186,7 @@ export class SettingsComponent implements OnInit {
 
     if (this.inactivityForm.valid) {
       try {
-        console.log("inactivity data==",value)
+        // console.log("inactivity data==",value)
         var data={
         userId : this.loginData.userId,
         inactivity : value.inactivity
@@ -194,7 +194,7 @@ export class SettingsComponent implements OnInit {
         }
 
         this.api.getInactivityDeviceSetting(data).then((res:any)=>{
-          console.log("Inactivity response===",res)
+          // console.log("Inactivity response===",res)
           if(res.status){
             this.refreshSetting()
             var msg = 'Inactivity updated Successfully'
@@ -213,7 +213,7 @@ export class SettingsComponent implements OnInit {
 
     if (this.bufferForm.valid) {
       try {
-        console.log("buffer data==",value)
+        // console.log("buffer data==",value)
         var data={
         userId : this.loginData.userId,
         buffer : value.buffer
@@ -221,14 +221,14 @@ export class SettingsComponent implements OnInit {
         }
 
         this.api.getBufferDeviceSetting(data).then((res:any)=>{
-          console.log("Buffer response===",res)
+          // console.log("Buffer response===",res)
           if(res.status){
             this.refreshSetting()
             var msg = 'Buffer updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
-          console.log("err===",err);
+          // console.log("err===",err);
         })
       } catch (err) {
       }
@@ -241,7 +241,7 @@ export class SettingsComponent implements OnInit {
    }
 
    changeDistance(event){
-     console.log("event===",event.value)
+    //  console.log("event===",event.value)
      if(event.value == 1){
        this.distanceForm.patchValue({
          rssi:'B9'
@@ -266,7 +266,7 @@ export class SettingsComponent implements OnInit {
        userId : this.loginData.userId,
        status : checked
      }
-     console.log("data====",data)
+    //  console.log("data====",data)
      this.api.updateInactivityStatus(data).then((res:any)=>{
        if(res.status){
          this.refreshSetting()
@@ -274,7 +274,7 @@ export class SettingsComponent implements OnInit {
          this.general.openSnackBar(msg,'')
        }
      }).catch(err=>{
-       console.log("err===",err);
+      //  console.log("err===",err);
      })
    }
 

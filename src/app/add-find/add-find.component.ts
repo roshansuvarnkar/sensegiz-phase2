@@ -68,7 +68,7 @@ Findsubmit(data){
       data.tblName ='deviceRegistration'
       data.userId=this.loginData.userId
       this.api.deviceRegister(data).then((res:any)=>{
-        console.log("find submit====",res);
+        // console.log("find submit====",res);
         if(res.status){
           var msg = 'Find Registered Successfully'
           this.general.openSnackBar(msg,'')
@@ -91,7 +91,7 @@ Gatewaysubmit(data){
       data.tblName='gatewayRegistration'
       data.userId=this.loginData.userId
       this.api.deviceRegister(data).then((res:any)=>{
-        console.log("gateway submit==",res)
+        // console.log("gateway submit==",res)
         if(res.status){
           var msg = 'Gateway Registered Successfully'
           this.general.openSnackBar(msg,'')
@@ -113,7 +113,7 @@ Usersubmit(data){
     try {
       data.userId=this.loginData.userId
       this.api.UserRegister(data).then((res:any)=>{
-        console.log("user submit==",res)
+        // console.log("user submit==",res)
         if(res.status){
           var msg = 'User Registered Successfully'
           this.general.openSnackBar(msg,'')

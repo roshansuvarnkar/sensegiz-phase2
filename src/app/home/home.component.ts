@@ -62,7 +62,7 @@ dataPoints:any=[]
 // }
 
 sendWarning(id,value){
-  console.log("value==",id,value)
+  // console.log("value==",id,value)
   var data={
     userId:this.loginData.userId,
     id:id,
@@ -72,7 +72,7 @@ sendWarning(id,value){
   // var msg="This feature is not avilable"
   // this.general.openSnackBar(msg,'')
   this.api.showWarning(data).then((res:any)=>{
-    console.log("warning ======",res);
+    // console.log("warning ======",res);
     if(res.status){
       var msg = 'Warning sent Successfully'
       this.general.openSnackBar(msg,'')
@@ -91,7 +91,7 @@ refreshFinds(){
   }
 
   this.api.getAssignedDevices(data).then((res:any)=>{
-    console.log("find data ======",res);
+    // console.log("find data ======",res);
     if(res.status){
       this.findData=res.success
         this.findLen=this.findData.length
@@ -104,7 +104,7 @@ refreshFinds(){
 
 
 activeUser(){
-  console.log("Active users===",this.activeEmp)
+  // console.log("Active users===",this.activeEmp)
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
@@ -128,7 +128,7 @@ activeUser(){
 infectedUser(){
  
 
-      console.log("Infected users===",this.infectedEmp)
+      // console.log("Infected users===",this.infectedEmp)
        const dialogConfig = new MatDialogConfig();
        dialogConfig.disableClose = true;
        dialogConfig.autoFocus = true;
@@ -156,9 +156,9 @@ normalUser(){
     type:'normal'
   }
   this.api.getHomeCountData(data).then((res:any)=>{
-    console.log("count data ======",res);
+    // console.log("count data ======",res);
     if(res.status){
-       console.log("Normal users===",this.normalEmp)
+      //  console.log("Normal users===",this.normalEmp)
        const dialogConfig = new MatDialogConfig();
        dialogConfig.disableClose = true;
        dialogConfig.autoFocus = true;
@@ -196,7 +196,7 @@ refreshCount(){
     userId:this.loginData.userId,
   }
   this.api.getCountData(data).then((res:any)=>{
-    console.log("count data ======",res);
+    // console.log("count data ======",res);
     if(res.status){
       this.totalEmp = res.success[0].totalEmp
       this.infectedEmp = res.success[1].inectedEmp
@@ -216,7 +216,7 @@ refreshSetting(){
     tblName:'deviceSetting'
   }
   this.api.getData(data).then((res:any)=>{
-    console.log("setting data ======",res);
+    // console.log("setting data ======",res);
     if(res.status){
       this.setting = res.success[0]
     }
@@ -233,7 +233,7 @@ maximumContactTime(){
     userId:this.loginData.userId,
   }
   this.api.getMaxTimeContact(data).then((res:any)=>{
-    console.log("max contact time ======",res);
+    // console.log("max contact time ======",res);
     if(res.status){
       this.contactTimeMax = []
       for(var i=0;i<res.success.length;i++){
@@ -264,7 +264,7 @@ repeatedContacts(){
     userId:this.loginData.userId,
   }
   this.api.getMaxContactDevice(data).then((res:any)=>{
-    console.log("max contact devices data ======",res);
+    // console.log("max contact devices data ======",res);
     if(res.status){
       this.contactDeviceMax = res.success
 
@@ -281,7 +281,7 @@ numOfcontactPerDay(){
     userId:this.loginData.userId,
   }
   this.api.getPerDayCount(data).then((res:any)=>{
-    console.log("repeated contacts data ======",res);
+    // console.log("repeated contacts data ======",res);
     if(res.status){
       this.dataPoints=[]
       this.countPerday = res.success.reverse()
