@@ -576,4 +576,20 @@ getBufferDeviceSetting(data){
     })
   });
 }
+
+
+
+updateInactivityStatus(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  let url = this.host+'/inactivityStatus';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+} 
+
+
 }
