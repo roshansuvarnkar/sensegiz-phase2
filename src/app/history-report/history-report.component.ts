@@ -9,8 +9,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import { OrderContactComponent } from '../order-contact/order-contact.component';
-import * as XLSX from 'xlsx'; 
-import * as jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-history-report',
@@ -20,7 +19,7 @@ import * as jsPDF from 'jspdf';
 export class HistoryReportComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
- 
+
   @ViewChild('htmlData') htmlData:ElementRef;
 
   type:any
@@ -43,7 +42,7 @@ export class HistoryReportComponent implements OnInit {
   fileName:any
   showSpinner:boolean=false
   title:any
-  
+
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -56,7 +55,7 @@ export class HistoryReportComponent implements OnInit {
       this.type=data.type
       console.log("type==",this.type)
       this.liveData = data.data
-     
+
       this.from = data.fromDate
       this.to = data.toDate
       this.selectedValue=data.valueSelected
@@ -68,9 +67,9 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
 
     this.getTotalCount()
-    
+
     this.loadData()
-    
+
 
   }
 
@@ -87,10 +86,10 @@ export class HistoryReportComponent implements OnInit {
         if(res.status){
           console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
-         
+
         }
       })
- 
+
     }
   if(this.type=='basedOnFindName'){
     var data1={
@@ -115,7 +114,7 @@ export class HistoryReportComponent implements OnInit {
   loadData(limit=10,offset=0,type=0){
 
       if(this.type=='basedOnDate'){
-        
+
         var data={
           userId:this.loginData.userId,
           fromDate: this.from,
@@ -178,7 +177,7 @@ export class HistoryReportComponent implements OnInit {
           deviceName:this.deviceName,
           fromDate: this.from,
           toDate:this.to,
-         
+
         }
         this.api.getSummaryReport(data2).then((res:any)=>{
           console.log("summary report ======",res);
@@ -248,7 +247,7 @@ this.showSpinner=true
   setTimeout(()=>{
     this.showSpinner=false
     this.openExcel()
-   
+
   },5000);
 
   setTimeout(()=>{
@@ -300,76 +299,40 @@ this.showSpinner=true
 
 
   openExcel(){
-   
+
       if(this.type=='summaryReport'){
           this.fileName='summaryReport.xlsx'
           this.title = 'Summary Report of Find Name'+this.deviceName;
-          let element = document.getElementById('htmlData'); 
+          let element = document.getElementById('htmlData');
           console.log("element===",element)
           this.general.exportToExcel(element,this.fileName, this.title)
-        
+
         }
         else{
-        
+
           if(this.type=='basedOnDate'){
             this.fileName='ReportBasedOnDate.xlsx'
             this.title = 'Based on date'+this.from+" "+this.to;
             this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
-            
+
           }
           if(this.type=='basedOnFindName'){
             this.fileName='ReportBasedOnFindName.xlsx'
             this.title = 'Based on Find Name'+this.deviceName;
             this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
-            
+
           }
         console.log("excel data===",this.excelData)
-      
+
       }
-   
-  }
 
-
-
-  downloadPDF(){
-
-   console.log("hiiii")
-    if(this.type=='basedOnDate'){
-      this.fileName='ReportBasedOnDate.pdf'
-     
-      
-    }
-    if(this.type=='basedOnFindName'){
-      this.fileName='ReportBasedOnFindName.pdf'
-      
-    }
-    if(this.type=='summaryReport'){
-      this.fileName='summaryReport.pdf'
-     
-    }
-
-    let DATA = this.htmlData.nativeElement;
-    let doc = new jsPDF('landscape','pt', 'a4');
-    doc.setFontSize(20);
-    
-    let handleElement = {
-      '#editor':function(element,renderer){
-        return true;
-      }
-    };
- 
-    doc.fromHTML(DATA.innerHTML,15,15,{
-      'width': 300,
-      'elementHandlers': handleElement
-    });
-
-    doc.save(this.fileName);
-    
   }
 
 
 
 
 
- 
+
+
+
 }
