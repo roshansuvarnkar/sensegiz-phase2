@@ -49,10 +49,22 @@ mat-spinner.mat-spinner.mat-progress-spinner.mat-primary.mat-progress-spinner-in
   margin-top: 45% !important;
   /* position: absolute !important; */
 }
+.download2{
+  display: none;
+}
 @media only screen and (max-width: 768px) {
-  .main{
+  .main,.download2{
     display: block;
   }
+  .download1{
+    display: none;
+  }
+  .download2{
+    color: #ef6c00;
+  }
+  span.icon {
+    display: flex;
+}
   table.mat-table.cdk-table.mat-sort {
     width: max-content !important;
     margin-left: -1rem !important;
