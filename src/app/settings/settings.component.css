@@ -17,12 +17,11 @@ mat-card-title{
   line-height: 2rem;
 }
 .warning {
-  border: 1px solid #ffc107;
-  color: #ffc107;
+  border: 1px solid red;
+  color: red;
 }
 @media only screen and (max-width: 768px){
   /* .setting {
     margin-left: 2rem;
   } */
 }
-   

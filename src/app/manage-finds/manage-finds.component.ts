@@ -66,9 +66,9 @@ refreshFinds(){
 
   this.api.getData(data).then((res:any)=>{
     // console.log("find device data ======",res);
-  
+
     if(res.status){
-     
+     this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
           {
@@ -90,7 +90,7 @@ refreshFinds(){
         // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.findData
-   
+
     }
   })
 }
@@ -134,19 +134,19 @@ edit(data){
 delete(a){
   if(confirm('Are you sure you want to delete the device')){
     // console.log("yes",a)
-  }
-  var data = {
-    id:a.id,
-    tblName:'deviceRegistration'
-  }
-  this.api.deletedeviceandUser(data).then((res:any)=>{
-    // console.log("find data ======",res);
-    if(res.status){
-      this.refreshFinds()
-      var msg = 'Device Deleted Successfully'
-      this.general.openSnackBar(msg,'')
+    var data = {
+      id:a.id,
+      tblName:'deviceRegistration'
     }
-  })
+    this.api.deletedeviceandUser(data).then((res:any)=>{
+      // console.log("find data ======",res);
+      if(res.status){
+        this.refreshFinds()
+        var msg = 'Device Deleted Successfully'
+        this.general.openSnackBar(msg,'')
+      }
+    })
+  }
 }
 
 
@@ -154,22 +154,22 @@ delete(a){
 infected(a){
   if(confirm('Are you sure to do this operation')){
     // console.log("yes",a)
+    var inf = a.infected == 0 ? 1 :0
+    var data = {
+      deviceId:a.deviceId,
+      userId:this.loginData.userId,
+      infected:inf
+    }
+    this.api.editInfectedPerson(data).then((res:any)=>{
+      // console.log("infected data ======",res);
+      if(res.status){
+        this.refreshFinds()
+        var msg = 'Employee updated Successfully'
+        this.general.openSnackBar(msg,'')
+      }
+    })
   }
 
-  var inf = a.infected == 0 ? 1 :0
-  var data = {
-    deviceId:a.deviceId,
-    userId:this.loginData.userId,
-    infected:inf
-  }
-  this.api.editInfectedPerson(data).then((res:any)=>{
-    // console.log("infected data ======",res);
-    if(res.status){
-      this.refreshFinds()
-      var msg = 'Employee updated Successfully'
-      this.general.openSnackBar(msg,'')
-    }
-  })
 }
 
 
@@ -198,8 +198,8 @@ search(a){
     this.findData = this.elementsTemp.filter(obj=>{
       return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
     })
- 
-  
+
+
   }
   else{
     this.findData= this.elementsTemp
