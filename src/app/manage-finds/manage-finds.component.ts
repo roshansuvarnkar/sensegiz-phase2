@@ -24,7 +24,7 @@ loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName',	'shift',	'infected','battery',	'edit',	'delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift',	'infected','battery','emailId','mobileNum',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -65,8 +65,8 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    // console.log("find device data ======",res);
-  
+    console.log("find device data ======",res);
+      this.findData=[]
     if(res.status){
      
       for (let i = 0; i <res.success.length; i++) {
@@ -80,7 +80,10 @@ refreshFinds(){
               infected: res.success[i].infected,
               edit:'edit',
               delete:'delete',
-              batteryStatus:res.success[i].batteryStatus
+              batteryStatus:res.success[i].batteryStatus,
+              emailId:res.success[i].emailId,
+              mobileNum:res.success[i].mobNum,
+              empId:res.success[i].empId
           });
       }
       this.dataSource = new MatTableDataSource(this.findData);
@@ -196,7 +199,8 @@ search(a){
   // console.log("a==",a)
   if(a.length>0){
     this.findData = this.elementsTemp.filter(obj=>{
-      return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1))
+      return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)
+        || (obj.emailId.toString().toLowerCase().indexOf(a)>-1) || (obj.empId.toString().toLowerCase().indexOf(a)>-1))
     })
  
   

@@ -39,7 +39,10 @@ userStatus:boolean=false
 
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', Validators.required]
+      deviceId: ['', Validators.required],
+      employeeId: ['', Validators.required],
+      mobileNum: ['', Validators.required],
+      emailId: ['', Validators.required]
     });
 
 
@@ -56,6 +59,9 @@ userStatus:boolean=false
       emailId: ['', Validators.required]
     });
 
+
+
+ 
   }
 
 onNoClick(): void {
@@ -68,7 +74,7 @@ Findsubmit(data){
       data.tblName ='deviceRegistration'
       data.userId=this.loginData.userId
       this.api.deviceRegister(data).then((res:any)=>{
-        // console.log("find submit====",res);
+        console.log("find submit====",res);
         if(res.status){
           var msg = 'Find Registered Successfully'
           this.general.openSnackBar(msg,'')
@@ -128,5 +134,25 @@ Usersubmit(data){
   }
 }
 
+employeeIdsubmit(data){
+  if (this.userform.valid) {
+    try {
+      data.userId=this.loginData.userId
+      this.api.UserRegister(data).then((res:any)=>{
+        // console.log("user submit==",res)
+        if(res.status){
+          var msg = 'Email Id Registered Successfully'
+          this.general.openSnackBar(msg,'')
+        }
+        else if(!res.status && res.alreadyExisted){
+          var msg = 'EmailId Already exists, try with different email Id'
+          this.general.openSnackBar(msg,'')
+        }
+      })
+    } catch (err) {
+    }
+  }
+
+}
 
 }
