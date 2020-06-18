@@ -48,7 +48,7 @@
     </mat-card-subtitle>
     <mat-card-content>
       <mat-slide-toggle color="primary" [checked]="statusCustomise" (change)="customise()">Customize</mat-slide-toggle>
-      <br>
+      <br><br>
       <form [formGroup]="distanceForm" (ngSubmit)="onSubmitDistanceForm(distanceForm.value)">
         <mat-form-field>
           <mat-label>Select distance</mat-label>
@@ -63,7 +63,7 @@
               3 meter
             </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field><br>
         <div *ngIf="statusCustomise">
           <mat-form-field>
             <input matInput placeholder="RSSI" formControlName="rssi"  required>
