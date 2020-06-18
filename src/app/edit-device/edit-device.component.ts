@@ -87,7 +87,7 @@ userform:FormGroup
         data.id=this.deviceData.id
         data.userId=this.deviceData.userId
         this.api.editDeviceRegister(data).then((res:any)=>{
-          console.log("find submit====",res);
+          // console.log("find submit====",res);
           if(res.status){
             var msg = 'Device Updated Successfully'
             this.general.openSnackBar(msg,'')

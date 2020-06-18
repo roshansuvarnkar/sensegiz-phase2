@@ -65,7 +65,7 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("find device data ======",res);
+    // console.log("find device data ======",res);
       this.findData=[]
     if(res.status){
      
@@ -108,7 +108,7 @@ refreshShift(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("shift  data ======",res);
+    // console.log("shift  data ======",res);
     if(res.status){
       this.shifts=res.success
     }
