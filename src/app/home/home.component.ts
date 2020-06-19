@@ -69,12 +69,15 @@ sendWarning(id,value){
     totalCount:value,
     
   }
-  // var msg="This feature is not avilable"
-  // this.general.openSnackBar(msg,'')
+
   this.api.showWarning(data).then((res:any)=>{
     // console.log("warning ======",res);
     if(res.status){
       var msg = 'Warning sent Successfully'
+      this.general.openSnackBar(msg,'')
+    }
+    else{
+      var msg = 'EmailId or Mobile number is not registered'
       this.general.openSnackBar(msg,'')
     }
   })

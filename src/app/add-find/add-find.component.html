@@ -30,6 +30,43 @@
             <button mat-button matStepperNext>Next</button>
           </div>
       </mat-step>
+      <mat-step >
+        <ng-template matStepLabel>Fill out your Employee Id</ng-template>
+        <mat-form-field>
+          <mat-label>Employee Id</mat-label>
+          <input type="text" matInput formControlName="employeeId" placeholder="Ex. 1" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step >
+      <ng-template matStepLabel>Fill out your Email Id</ng-template>
+      <mat-form-field>
+        <mat-label>Email Id</mat-label>
+        <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com" required>
+       
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+  </mat-step>
+  <mat-step >
+    <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
+    <mat-form-field>
+      <mat-label>Mobile Number</mat-label>
+      <input type="tel" matInput formControlName="mobileNum" placeholder="Mobile Number" required>
+     
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+</mat-step>
+
+
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
@@ -138,4 +175,7 @@
     </form>
   </mat-horizontal-stepper>
 
+
 </div>
+
+
