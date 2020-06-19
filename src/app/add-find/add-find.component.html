@@ -139,3 +139,69 @@
   </mat-horizontal-stepper>
 
 </div>
+
+
+
+<div *ngIf="type=='coins'">
+  <div class="flexWrap space-between">
+    <h2 mat-dialog-title>Add Coin Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+  </div>
+
+
+
+  <mat-horizontal-stepper  #stepper  >
+    <form [formGroup]="coinForm" >
+      <mat-step >
+          <ng-template matStepLabel class="stepper">Fill out your name</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="User Name" formControlName="deviceName" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </mat-step>
+      <mat-step >
+          <ng-template matStepLabel>Fill out your Coin Id</ng-template>
+          <mat-form-field>
+            <mat-label>Find Id</mat-label>
+            <input type="number" matInput formControlName="deviceId" placeholder="Ex. 1" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </mat-step>
+      <mat-step >
+        <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
+        <mat-form-field>
+       
+          <mat-form-field>
+             <mat-label>Gateway Id</mat-label>
+             <mat-select>
+               <mat-option *ngFor=" let b of gateway" [value]="b.gatewayId">
+                 {{b.gatewayId}}
+               </mat-option>
+             </mat-select>
+           </mat-form-field> 
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+
+    </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button [disabled]="!Findform.valid" (click)="Findsubmit(Findform.value)" >Done</button>
+        </div>
+      </mat-step>
+    </form>
+  </mat-horizontal-stepper>
+
+
+</div>

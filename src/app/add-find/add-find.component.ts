@@ -14,6 +14,8 @@ export class AddFindComponent implements OnInit {
 Findform:FormGroup
 gatewayform:FormGroup
 userform:FormGroup
+coinForm:FormGroup
+gateway:any=[]
 type:any
 loginData:any
 findStatus:boolean=false
@@ -54,6 +56,13 @@ userStatus:boolean=false
     this.userform = this.fb.group({
       mobileNum: ['', Validators.required],
       emailId: ['', Validators.required]
+    });
+
+    this.coinForm =
+    this.fb.group({
+      coinName: ['', Validators.required],
+      coinId: ['', Validators.required],
+      gatewayId:['', Validators.required]
     });
 
   }
@@ -128,5 +137,21 @@ Usersubmit(data){
   }
 }
 
+
+refreshGateway(){
+  var data={
+      userId:this.loginData.userId,
+      tblName:'gatewayRegistration'
+    }
+
+  this.api.getData(data).then((res:any)=>{
+    // console.log("gateway data ======",res);
+    if(res.status){
+      this.gateway=res
+
+    }
+
+  })
+}
 
 }
