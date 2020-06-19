@@ -34,7 +34,6 @@ import { AdminAddBleIdComponent } from './admin-add-ble-id/admin-add-ble-id.comp
 import { OrderContactComponent } from './order-contact/order-contact.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { ManageCoinsComponent } from './manage-coins/manage-coins.component';
-import { AddCoinComponent } from './add-coin/add-coin.component';
 
 
 
@@ -62,7 +61,6 @@ import { AddCoinComponent } from './add-coin/add-coin.component';
     AdminAddBleIdComponent,
     OrderContactComponent,
     ManageCoinsComponent,
-    AddCoinComponent,
   ],
   imports: [
     BrowserModule,
