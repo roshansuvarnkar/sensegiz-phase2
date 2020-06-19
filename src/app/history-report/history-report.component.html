@@ -1,8 +1,8 @@
-<div class="download1">
+<!-- <div class="download1">
   <button mat-raised-button (click)="getPages()" color="primary"><mat-icon> cloud_download &nbsp;&nbsp;</mat-icon> Download</button>
-</div>
+</div> -->
 <div>
-  
+
 </div>
 <!-- <mat-spinner *ngIf="showSpinner"></mat-spinner> -->
 <div class="main">
@@ -14,18 +14,18 @@
   <div class="content">
     <p class="center">REPORT</p>
             <span  class="icon">
-              <mat-icon class="download2">cloud_download</mat-icon>
+              <!-- <mat-icon class="download2">cloud_download</mat-icon> -->
             <button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
           </span>
   </div> <br>
   <div>
   <p  mat-dialog-title> Based on date from {{from}} to {{to}} </p>
     <div class="mat-elevation-z8">
-    
-      
+
+
       <table mat-table [dataSource]="dataSource" matSort >
 
-       
+
        <div >
             <ng-container matColumnDef="i">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
@@ -69,11 +69,11 @@
     [pageSizeOptions] = "[5, 10, 25, 100]"
     showFirstLastButtons
 ></mat-paginator>
- 
+
 </div>
 
 <!-- based On FindId -->
-<!-- 
+<!--
 <div *ngIf="type =='basedOnFindId'">
   <div class="content">
     <p class="center">REPORT</p>
@@ -210,7 +210,7 @@
     <div class="tab-align">
       <table class="table table-borderless">
      <thead>
-      
+
       <tr>
         <th>Sl no.</th>
         <th>Date</th>
