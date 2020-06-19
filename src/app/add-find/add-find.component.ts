@@ -137,7 +137,26 @@ Usersubmit(data){
   }
 }
 
+coinSubmit(data){
+  if (this.userform.valid) {
+    try {
+      data.userId=this.loginData.userId
+      this.api.UserRegister(data).then((res:any)=>{
+        console.log("coin submit==",res)
+        if(res.status){
+          var msg = 'User Registered Successfully'
+          this.general.openSnackBar(msg,'')
+        }
+        else if(!res.status && res.alreadyExisted){
+          var msg = 'Device Already exists, try different device'
+          this.general.openSnackBar(msg,'')
+        }
+      })
+    } catch (err) {
+    }
+  }
 
+}
 refreshGateway(){
   var data={
       userId:this.loginData.userId,
@@ -145,7 +164,7 @@ refreshGateway(){
     }
 
   this.api.getData(data).then((res:any)=>{
-    // console.log("gateway data ======",res);
+    console.log("gateway data ======",res);
     if(res.status){
       this.gateway=res
 

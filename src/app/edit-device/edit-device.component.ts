@@ -32,7 +32,10 @@ userform:FormGroup
   ngOnInit(): void {
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: [{value: '', disabled: true}, Validators.required]
+      deviceId: [{value: '', disabled: true}, Validators.required],
+      mobileNum:[{value: '', disabled: true}, Validators.required],
+      emailId:[{value: '', disabled: true}, Validators.required],
+
     });
 
 
@@ -53,7 +56,9 @@ userform:FormGroup
     if(this.type=='finds'){
       this.Findform.patchValue({
         deviceName: this.deviceData.deviceName,
-        deviceId: this.deviceData.deviceId
+        deviceId: this.deviceData.deviceId,
+        mobileNum:this.deviceData.mobNum,
+        emailId:this.deviceData.emailId
       });
     }
 
@@ -93,6 +98,14 @@ userform:FormGroup
           }
           else if(!res.status && res.alreadyExisted){
             var msg = 'Device Name or Device Id Already exists, try different device'
+            this.general.openSnackBar(msg,'')
+          }
+          else if(!res.status && res.alreadyExisted){
+            var msg = 'Mobile number Already exists, try with different Mobile number'
+            this.general.openSnackBar(msg,'')
+          }
+          else if(!res.status && res.alreadyExisted){
+            var msg = 'Email Id Already exists, try with different emailId'
             this.general.openSnackBar(msg,'')
           }
         })
