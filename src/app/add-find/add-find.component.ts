@@ -21,6 +21,7 @@ loginData:any
 findStatus:boolean=false
 gatewayStatus:boolean=false
 userStatus:boolean=false
+
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddFindComponent>,
@@ -41,7 +42,10 @@ userStatus:boolean=false
 
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', Validators.required]
+      deviceId: ['', Validators.required],
+      employeeId: [''],
+      mobileNum: [''],
+      emailId: ['']
     });
 
 
@@ -58,12 +62,13 @@ userStatus:boolean=false
       emailId: ['', Validators.required]
     });
 
-    this.coinForm =
-    this.fb.group({
+    this.coinForm =this.fb.group({
       coinName: ['', Validators.required],
       coinId: ['', Validators.required],
       gatewayId:['', Validators.required]
     });
+
+    this.refreshGateway()
 
   }
 
@@ -138,17 +143,19 @@ Usersubmit(data){
 }
 
 coinSubmit(data){
-  if (this.userform.valid) {
+  console.log("data======",data)
+  if (this.coinForm.valid) {
     try {
       data.userId=this.loginData.userId
-      this.api.UserRegister(data).then((res:any)=>{
+      console.log("data======",data)
+      this.api.coinRegister(data).then((res:any)=>{
         console.log("coin submit==",res)
         if(res.status){
-          var msg = 'User Registered Successfully'
+          var msg = 'Coin Registered Successfully'
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'Device Already exists, try different device'
+          var msg = 'Coin Already exists, try different coin'
           this.general.openSnackBar(msg,'')
         }
       })
@@ -166,7 +173,8 @@ refreshGateway(){
   this.api.getData(data).then((res:any)=>{
     console.log("gateway data ======",res);
     if(res.status){
-      this.gateway=res
+      this.gateway=res.success
+
 
     }
 
