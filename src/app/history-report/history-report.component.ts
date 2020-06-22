@@ -226,7 +226,10 @@ export class HistoryReportComponent implements OnInit {
             this.coinData=[]
             if(type==0){
             for(let i=0;i<res.success.length;i++){
-          
+           
+              
+  
+              
               this.coinData.push({
                 i:i+1,
                 deviceName:res.success[i].deviceName,
