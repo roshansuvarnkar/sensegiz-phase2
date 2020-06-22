@@ -226,40 +226,7 @@ export class HistoryReportComponent implements OnInit {
             this.coinData=[]
             if(type==0){
             for(let i=0;i<res.success.length;i++){
-              this.date1 = new Date(res.success[i].inTime)
-              this.date2 = new Date(res.success[i].outTime)
-              if(  this.date1[i] != '0000-00-00 00:00:00' &&   this.date2[i] != '0000-00-00 00:00:00'){
-                const diffTime = Math.abs(this.date2 - this.date1);
-                 console.log(diffTime)
-                 var date=new Date(diffTime)
-                var s=0,m=0,h=0
-             
-                s =Math.round(diffTime/1000)
-                m =s>60?Math.round((diffTime/1000)/60): 0
-                h=m>60?Math.round((((diffTime/1000)/60)/60)-1):0
-                console.log(h+" "+m+" "+s)
-                if(s<60){
-                  this.time=s+"seconds"
-                }else if(s>60 && m<60){
-                  this.time=m+"minutes"
-                }
-                else if(s>60 && m>60){
-                  this.time=h+'hours'
-                }
-                 console.log(this.time)
-                //  const diffDays = Math.ceil((diffTime / 1000)/ 3600);
-                //  console.log(diffDays)
-              }
-              else if(  this.date1[i] != '0000-00-00 00:00:00' &&   this.date2[i] == '0000-00-00 00:00:00'){
-                var dateObj=new Date()
-                console.log(dateObj)
-                this.date2=dateObj
-                const diffTime = Math.abs(this.date2 - this.date1);
-                console.log(diffTime)
-                
-              }else{
-
-              }
+        
               
   
               
