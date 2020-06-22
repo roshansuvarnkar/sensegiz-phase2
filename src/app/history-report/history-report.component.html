@@ -272,7 +272,7 @@
           </ng-container>
           <ng-container matColumnDef="totTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Time</th>
-            <td mat-cell *matCellDef="let coin"> {{coin.totTime}} </td>
+            <td mat-cell *matCellDef="let coin"> {{convertTime(coin.totTime)}} </td>
           </ng-container>
         </div>
       
