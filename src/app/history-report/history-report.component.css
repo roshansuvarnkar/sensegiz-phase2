@@ -44,11 +44,7 @@ td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inser
   font-size: 1rem;
   font-family: serif;
 }
-mat-spinner.mat-spinner.mat-progress-spinner.mat-primary.mat-progress-spinner-indeterminate-animation.ng-star-inserted {
-  margin-left: 45% !important;
-  margin-top: 45% !important;
-  /* position: absolute !important; */
-}
+
 .download2{
   display: none;
 }
@@ -80,11 +76,23 @@ mat-spinner.mat-spinner.mat-progress-spinner.mat-primary.mat-progress-spinner-in
   }
 .mat-dialog-title {
   text-align: center;
-  font-size: large !important;
+  font-size: larger !important;
   font-family: serif;
 }
 .mat-paginator {
   display: block;
   margin-left: -1rem !important;
 }
+
+element.style {
+  transform-origin: 50% 188.5px 0px;
+  font-size: 14px;
+  opacity: 1;
+  min-width: calc(100% + 32px);
+  transform: scaleY(1);
+}
+.mat-select-panel {
+  max-width: fit-content;
+  margin: auto;
+} 
 }
