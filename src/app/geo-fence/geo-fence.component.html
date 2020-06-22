@@ -1,0 +1,22 @@
+<div  class="selectDevice">
+    
+    <div >
+        <form [formGroup]="deviceSelectForm" (ngSubmit)="submit(deviceSelectForm.value)">
+            <mat-form-field >
+                <mat-label>Select Device</mat-label>
+                <mat-select  multiple formControlName="findSelect">
+                  <mat-option *ngFor="let find of findData" [value]="find.deviceId"  >{{find.deviceName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="flex1">
+                <mat-label>Select Coin</mat-label>
+                <mat-select  multiple formControlName="coinSelect">
+                  <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+                </mat-select>
+              </mat-form-field> &nbsp;&nbsp;&nbsp;&nbsp;
+              <button mat-raised-button color="primary">Submit</button>
+        </form>
+
+    </div>
+
+</div>

@@ -18,16 +18,19 @@ export class SettingsComponent implements OnInit {
   txPowerForm:FormGroup
   inactivityForm:FormGroup
   bufferForm:FormGroup
+  overCrowedForm:FormGroup
   loginData:any
   setting:any
   statusCustomise:boolean=false
   inactivityStatusValue:any=[]
+  coinData:any=[]
+  coin:any=[]
   constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-
+    this.refreshCoins()
     this.refreshSetting()
 
     this.workingForm = this.fb.group({
@@ -60,8 +63,27 @@ export class SettingsComponent implements OnInit {
       buffer: ['',[Validators.required, Validators.min(0)]]
     })
 
-  }
+    this.overCrowedForm=this.fb.group({
+      coinSelect:['',Validators.required],
+      maxLimit:['',Validators.required]
 
+    })
+
+  }
+  refreshCoins(){
+    var data={
+      userId:this.loginData.userId,
+      tblName:'coinRegistration'
+    }
+  
+    this.api.getData(data).then((res:any)=>{
+      console.log("coin data ======",res);
+      if(res.status){
+        this.coinData=res.success
+  
+      }
+    })
+  }
 
   refreshSetting(){
     var data={
@@ -235,6 +257,55 @@ export class SettingsComponent implements OnInit {
     }
    }
 
+   coinValues(event){
+   
+   
+    if (event.source.selected === true) {
+      var data=this.coinData.filter((obj)=>{
+        return obj.coinId===event.source.value 
+      })
+      if(data.length>0){
+        this.coin.push({
+          locationId:event.source.value,
+          // coinName:data[0].coinName
+        })
+        console.log("coin==",this.coin)
+      }
+    } 
+    else if(event.source.selected === false){
+      this.coin.splice(this.coin.indexOf(event.source.value))
+      console.log("coin==",this.coin)
+        
+    }    
+     
+ }
+
+ 
+   onSubmitoverCrowedForm(value){
+      console.log("value==",value)
+    if (this.overCrowedForm.valid) {
+      try {
+       
+        var data={
+          userId:this.loginData.userId,
+          coinId:this.coin,
+          maxLimit:value.maxLimit
+        }
+
+        this.api.maxLimit(data).then((res:any)=>{
+          console.log("limit response===",res)
+          if(res.status){
+            this.refreshSetting()
+          
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+
+   }
 
    customise(){
      this.statusCustomise = this.statusCustomise == true ? false : true

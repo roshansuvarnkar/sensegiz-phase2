@@ -1,0 +1,14 @@
+
+.selectDevice {
+    position: absolute;
+    top: 1rem;
+}
+mat-form-field.mat-form-field.flex1.mat-primary.mat-form-field-type-mat-select.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-has-label.mat-form-field-hide-placeholder {
+    margin-left: 5rem;
+}
+button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary {
+    height: 2rem;
+}
+mat-form-field.mat-form-field.flex1.mat-primary.mat-form-field-type-mat-select.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-has-label.ng-valid.ng-touched.mat-form-field-should-float.ng-dirty {
+    margin-left: 5rem;
+}

@@ -17,8 +17,11 @@ loginData:any
 findIdForm:FormGroup
 findNameForm:FormGroup
 summaryReportForm:FormGroup
+locationForm:FormGroup
 dateForm:FormGroup
 finds:any=[]
+coinData:any=[]
+coin:any
 prevDate:any
 
   constructor(public dialog: MatDialog,
@@ -32,7 +35,7 @@ prevDate:any
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-
+ 
 
     this.dateForm = this.fb.group({
       fromDate: ['', Validators.required],
@@ -58,9 +61,14 @@ prevDate:any
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
+    this.locationForm = this.fb.group({
+      coinSelect: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    });
 
     this.refreshFinds()
-
+    this.refreshCoins()
   }
 
 
@@ -156,7 +164,26 @@ onclickSummaryReport(data){
       toDate:todayDate
     })
 }
+onclickLocation(data){
+  var date = new Date();
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
 
+  var date = new Date(prevDate);
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+
+  var tot = year + '-' + month + '-'  + day
+
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
+   this.locationForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
+
+}
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
@@ -166,6 +193,21 @@ onclickSummaryReport(data){
       // console.log("find data ======",res);
       if(res.status){
         this.finds=res.success
+      }
+    })
+  }
+  
+  refreshCoins(){
+    var data={
+      userId:this.loginData.userId,
+      tblName:'coinRegistration'
+    }
+  
+    this.api.getData(data).then((res:any)=>{
+      console.log("coin data ======",res);
+      if(res.status){
+        this.coinData=res.success
+  
       }
     })
   }
@@ -262,7 +304,34 @@ onclickSummaryReport(data){
   }
 
 
+  onSubmitLocationForm(data){
+    console.log("data====",data)
+    var value=this.coinData.filter((element)=>{
+      return data.coinSelect==element.coinId
+    });
+    console.log("value==",value)
+    if(value.length>0){
+      this.coin=value[0].coinName
+    }
 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      type:"locationReport",
+      locationName:this.coin,
+      locationId:data.coinSelect,
+      fromDate:data.fromDate,
+      toDate:data.toDate,
+    }
+    const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshCoins()
+    });
+  }
 
 
 }

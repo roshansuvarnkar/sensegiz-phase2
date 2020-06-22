@@ -117,9 +117,9 @@
 
         <mat-form-field>
           <mat-label>From date</mat-label>
-          <input matInput [matDatepicker]="myDatepicker5" formControlName="fromDate" required>
-          <mat-datepicker-toggle matSuffix [for]="myDatepicker5"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker5></mat-datepicker>
+          <input matInput [matDatepicker]="myDatepicker3" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker3></mat-datepicker>
           <mat-error>
             Please provide a valid from date
           </mat-error>
@@ -127,9 +127,9 @@
 
         <mat-form-field>
           <mat-label>To date</mat-label>
-          <input matInput [matDatepicker]="myDatepicker6" formControlName="toDate" required>
-          <mat-datepicker-toggle matSuffix [for]="myDatepicker6"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker6></mat-datepicker>
+          <input matInput [matDatepicker]="myDatepicker4" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker4></mat-datepicker>
           <mat-error>
             Please provide a valid to date
           </mat-error>
@@ -175,6 +175,55 @@
 
         <mat-form-field>
           <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker5" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker5"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker5></mat-datepicker>
+          <mat-error>
+            Please provide a valid from date
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker6" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker6"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker6></mat-datepicker>
+          <mat-error>
+            Please provide a valid to date
+          </mat-error>
+        </mat-form-field>
+  <br>
+        <button mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card >
+    <span class="card-head">
+      <mat-card-title color="primary">
+        Report based on Location
+      </mat-card-title>
+      <mat-card-subtitle>
+        Enter location name and From to To date
+      </mat-card-subtitle>
+    </span>
+    <mat-card-content>
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickLocation(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickLocation(14)">Last two week</mat-radio-button>
+      </mat-radio-group><br>
+      <form [formGroup]="locationForm" (ngSubmit)="onSubmitLocationForm(locationForm.value)">
+
+        <mat-form-field class="full-width-input">
+          <mat-label>Select Location Name</mat-label>
+          <mat-select  formControlName="coinSelect">
+            <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>From date</mat-label>
           <input matInput [matDatepicker]="myDatepicker7" formControlName="fromDate" required>
           <mat-datepicker-toggle matSuffix [for]="myDatepicker7"></mat-datepicker-toggle>
           <mat-datepicker #myDatepicker7></mat-datepicker>
@@ -193,7 +242,7 @@
           </mat-error>
         </mat-form-field>
   <br>
-        <button mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
+        <button mat-raised-button [disabled]="!locationForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
   </mat-card>

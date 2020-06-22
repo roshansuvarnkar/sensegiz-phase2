@@ -39,10 +39,15 @@ export class HistoryReportComponent implements OnInit {
   currentPageSize:any=10
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
   displayedColumns1: string[] = ['contactDeviceName','updatedOn'];
+  displayedColumns2: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
   fileName:any
-  showSpinner:boolean=false
+  locationName:any
+  locationId:any
   title:any
-
+  time:any
+  date1:any
+  date2:any
+  coinData:any=[]
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -60,6 +65,9 @@ export class HistoryReportComponent implements OnInit {
       this.to = data.toDate
       this.selectedValue=data.valueSelected
       this.deviceName=data.deviceName
+      this.locationName=data.locationName
+      this.locationId=data.locationId
+
      }
 
   ngOnInit(): void {
@@ -113,7 +121,7 @@ export class HistoryReportComponent implements OnInit {
 
   loadData(limit=10,offset=0,type=0){
 
-      if(this.type=='basedOnDate'){
+      if(this.type == 'basedOnDate'){
 
         var data={
           userId:this.loginData.userId,
@@ -142,7 +150,7 @@ export class HistoryReportComponent implements OnInit {
         })
 
       }
-      if(this.type=='basedOnFindName'){
+      if(this.type == 'basedOnFindName'){
         var data1={
           userId:this.loginData.userId,
           deviceName:this.deviceName,
@@ -171,7 +179,7 @@ export class HistoryReportComponent implements OnInit {
           }
         })
       }
-      if(this.type=='summaryReport'){
+      if(this.type == 'summaryReport'){
         var data2={
           userId:this.loginData.userId,
           deviceName:this.deviceName,
@@ -193,15 +201,55 @@ export class HistoryReportComponent implements OnInit {
                 data : groupDate[data]
               }
             })
-            // console.log("this live data===",this.liveData)
-            // this.dataSource = new MatTableDataSource(this.liveData);
-            // setTimeout(() => {
-            //   this.dataSource.sort = this.sort;
-
-            // })
+         
           }
         })
 
+      }
+      if(this.type == 'locationReport'){
+        var data3={
+          userId:this.loginData.userId,
+          coinId:this.locationId,
+          fromDate: this.from,
+          toDate:this.to,
+          // offset:offset,
+          // limit:limit
+
+        }
+        console.log("data3==",data3)
+        this.api.getLocationHistory(data3).then((res:any)=>{
+          console.log("Location history======",res);
+
+          if(res.status){
+          
+            
+            this.coinData=[]
+            if(type==0){
+            for(let i=0;i<res.success.length;i++){
+          
+              this.coinData.push({
+                i:i+1,
+                deviceName:res.success[i].deviceName,
+                inTime:res.success[i].inTime,
+                outTime:res.success[i].outTime,
+                totTime:'-'
+                // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
+                // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
+                
+              });
+            }
+            }
+            else{
+              this.excelData=res.success
+            }
+
+            this.dataSource = new MatTableDataSource(this.coinData);
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+              this.paginator.length = this.currentPageLength
+            })
+          }
+        })
       }
 
 }
@@ -242,10 +290,9 @@ getPages() {
 //  setTimeout(()=>{
 //     this.downloadPDF()
 //   },5000);
-this.showSpinner=true
 
   setTimeout(()=>{
-    this.showSpinner=false
+   
     this.openExcel()
 
   },5000);
