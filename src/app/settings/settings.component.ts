@@ -257,28 +257,6 @@ export class SettingsComponent implements OnInit {
     }
    }
 
-   coinValues(event){
-   
-   
-    if (event.source.selected === true) {
-      var data=this.coinData.filter((obj)=>{
-        return obj.coinId===event.source.value 
-      })
-      if(data.length>0){
-        this.coin.push({
-          locationId:event.source.value,
-          // coinName:data[0].coinName
-        })
-        console.log("coin==",this.coin)
-      }
-    } 
-    else if(event.source.selected === false){
-      this.coin.splice(this.coin.indexOf(event.source.value))
-      console.log("coin==",this.coin)
-        
-    }    
-     
- }
 
  
    onSubmitoverCrowedForm(value){
@@ -288,7 +266,7 @@ export class SettingsComponent implements OnInit {
        
         var data={
           userId:this.loginData.userId,
-          coinId:this.coin,
+          coinId:value.coinSelect,
           maxLimit:value.maxLimit
         }
 
@@ -296,7 +274,8 @@ export class SettingsComponent implements OnInit {
           console.log("limit response===",res)
           if(res.status){
             this.refreshSetting()
-          
+            var msg='Max imit updated Successfully'
+            this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
           console.log("err===",err);
