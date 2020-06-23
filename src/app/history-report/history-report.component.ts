@@ -201,7 +201,7 @@ export class HistoryReportComponent implements OnInit {
                 data : groupDate[data]
               }
             })
-         
+
           }
         })
 
@@ -221,15 +221,15 @@ export class HistoryReportComponent implements OnInit {
           console.log("Location history======",res);
 
           if(res.status){
-          
-            
+
+
             this.coinData=[]
             if(type==0){
             for(let i=0;i<res.success.length;i++){
         
-              
-  
-              
+
+
+
               this.coinData.push({
                 i:i+1,
                 deviceName:res.success[i].deviceName,
@@ -238,7 +238,7 @@ export class HistoryReportComponent implements OnInit {
                 totTime:this.time
                 // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
                 // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
-                
+
               });
             }
             }
@@ -295,7 +295,7 @@ getPages() {
 //   },5000);
 
   setTimeout(()=>{
-   
+
     this.openExcel()
 
   },5000);
