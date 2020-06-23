@@ -246,7 +246,7 @@
   </div> <br>
   <p class="center-head" mat-dialog-title>Based on Location Name {{locationName | titlecase}}</p>
 
-    <div class="mat-elevation-z8">  
+    <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort >
         <div>
           <ng-container matColumnDef="i">
@@ -265,17 +265,17 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Enter Time</th>
             <td mat-cell *matCellDef="let coin" > {{coin.inTime | date : 'medium' : 'IST'}} </td>
           </ng-container>
-          
+
           <ng-container matColumnDef="outTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Exit Time</th>
             <td mat-cell *matCellDef="let coin" > {{coin.outTime | date : 'medium' : 'IST'}} </td>
           </ng-container>
           <ng-container matColumnDef="totTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Time</th>
-            <td mat-cell *matCellDef="let coin"> {{coin.totTime}} </td>
+            <td mat-cell *matCellDef="let coin"> {{convertDate(coin.totTime)}} </td>
           </ng-container>
         </div>
-      
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
       </table>
