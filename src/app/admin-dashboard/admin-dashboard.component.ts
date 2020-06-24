@@ -92,7 +92,7 @@ refreshAdminData(){
  }
 
  openSetting(data){
-  this.router.navigate(['/admin-settings'], { queryParams: { userId: JSON.stringify(data) } });
+  this.router.navigate(['/admin-settings'], { queryParams: { record: JSON.stringify(data) } });
  }
 
 
