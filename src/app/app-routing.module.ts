@@ -10,9 +10,14 @@ import { HomeComponent } from './home/home.component';
 import { LiveDataComponent } from './live-data/live-data.component';
 import { HistoryReportComponent } from './history-report/history-report.component';
 import { HomeCountViewComponent } from './home-count-view/home-count-view.component';
+
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+
 import { GeoFenceComponent } from './geo-fence/geo-fence.component';
+import { UserGuideComponent } from './user-guide/user-guide.component';
+
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'login' , component:LoginComponent},
@@ -25,11 +30,11 @@ const routes: Routes = [
   {path:'history-report' , component:HistoryReportComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'home-count-view' , component:HomeCountViewComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'geo-fence' , component:GeoFenceComponent, canActivate: [AuthGuard], data:{role:['user']}},
-
+  {path:'user-guide' , component:UserGuideComponent, canActivate: [AuthGuard], data:{role:['user']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},
-
+  {path:'admin-settings' , component:AdminSettingsComponent, canActivate: [AuthGuard], data:{role:['admin']}},
 ];
 
 @NgModule({

@@ -35,7 +35,8 @@ import { OrderContactComponent } from './order-contact/order-contact.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { ManageCoinsComponent } from './manage-coins/manage-coins.component';
 import { GeoFenceComponent } from './geo-fence/geo-fence.component';
-
+import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { UserGuideComponent } from './user-guide/user-guide.component';
 
 
 @NgModule({
@@ -63,7 +64,9 @@ import { GeoFenceComponent } from './geo-fence/geo-fence.component';
     OrderContactComponent,
     ManageCoinsComponent,
     GeoFenceComponent,
-   
+    AdminSettingsComponent,
+    UserGuideComponent,
+    
   ],
   imports: [
     BrowserModule,

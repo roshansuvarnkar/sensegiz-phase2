@@ -10,7 +10,7 @@
     <button mat-menu-item routerLink="/live-data"> <mat-icon>person_pin_circle</mat-icon>Social Distancing</button>
     <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>History</button>
     <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>Settings</button>
-
+    <!-- <button mat-menu-item routerLink="/user-guide"> <mat-icon>settings</mat-icon>User Guide</button> -->
   </mat-menu>
 
   </div>
@@ -28,7 +28,7 @@
         </span>
       </span>
     </span>
-  </span>
+  </span><br>
   </mat-toolbar>
 
 
@@ -41,6 +41,7 @@
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/history">History</span>
     <span routerLink="/settings">Settings</span>
+    
   </mat-toolbar>
 
 <div *ngIf="isDesktopDevice">
@@ -55,6 +56,7 @@
 
 
       <div class="col-10">
+        <button mat-raised-button color="primary" class="guide"><span routerLink="/user-guide">User Guide</span></button>
         <router-outlet></router-outlet>
       </div>
     </div>

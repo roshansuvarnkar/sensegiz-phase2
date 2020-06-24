@@ -93,17 +93,17 @@ export class SettingsComponent implements OnInit {
     this.api.getData(data).then((res:any)=>{
       //console.log("setting data page ======",res);
       if(res.status){
-        this.setting = res.success[0]
-        this.distanceForm.patchValue({
-          distance: res.success[0].distance.toString(),
-          rssi: res.success[0].rssi
-        })
+        // this.setting = res.success[0]
+        // this.distanceForm.patchValue({
+        //   distance: res.success[0].distance.toString(),
+        //   rssi: res.success[0].rssi
+        // })
         this.maxContactForm.patchValue({
           threshold: res.success[0].threshold,
         })
-        this.txPowerForm.patchValue({
-          txPower: res.success[0].txPower,
-        })
+        // this.txPowerForm.patchValue({
+        //   txPower: res.success[0].txPower,
+        // })
         this.inactivityForm.patchValue({
           inactivity: res.success[0].inactivity,
         })
@@ -146,23 +146,23 @@ export class SettingsComponent implements OnInit {
 
 
 
-  onSubmitDistanceForm(data) {
-     if (this.distanceForm.valid) {
-       try {
-        //  console.log("distance ===",data)
-         data.userId = this.loginData.userId
-         this.api.addDistance(data).then((res:any)=>{
-          //  console.log("distance insrted or updated",res)
-           if(res.status){
-             this.refreshSetting()
-             var msg = 'Minimum distance updated Successfully'
-             this.general.openSnackBar(msg,'')
-           }
-         })
-       } catch (err) {
-       }
-     }
-   }
+  // onSubmitDistanceForm(data) {
+  //    if (this.distanceForm.valid) {
+  //      try {
+  //        console.log("distance ===",data)
+  //        data.userId = this.loginData.userId
+  //        this.api.addDistance(data).then((res:any)=>{
+  //          console.log("distance insrted or updated",res)
+  //          if(res.status){
+  //            this.refreshSetting()
+  //            var msg = 'Minimum distance updated Successfully'
+  //            this.general.openSnackBar(msg,'')
+  //          }
+  //        })
+  //      } catch (err) {
+  //      }
+  //    }
+  //  }
 
 
   onSubmitmaxContactForm(data) {
@@ -185,23 +185,23 @@ export class SettingsComponent implements OnInit {
 
 
 
-  onSubmittxPowerForm(data) {
-     if (this.txPowerForm.valid) {
-       try {
-        //  console.log("threshold ===",data)
-         data.userId = this.loginData.userId
-         this.api.addTxPower(data).then((res:any)=>{
-          //  console.log("tx power updated",res)
-           if(res.status){
-             this.refreshSetting()
-             var msg = 'Transmission power updated Successfully'
-             this.general.openSnackBar(msg,'')
-           }
-         })
-       } catch (err) {
-       }
-     }
-   }
+  // onSubmittxPowerForm(data) {
+  //    if (this.txPowerForm.valid) {
+  //      try {
+  //        console.log("threshold ===",data)
+  //        data.userId = this.loginData.userId
+  //        this.api.addTxPower(data).then((res:any)=>{
+  //          console.log("tx power updated",res)
+  //          if(res.status){
+  //            this.refreshSetting()
+  //            var msg = 'Transmission power updated Successfully'
+  //            this.general.openSnackBar(msg,'')
+  //          }
+  //        })
+  //      } catch (err) {
+  //      }
+  //    }
+  //  }
 
 
    onSubmitInactivityForm(value){
@@ -286,9 +286,9 @@ export class SettingsComponent implements OnInit {
 
    }
 
-   customise(){
-     this.statusCustomise = this.statusCustomise == true ? false : true
-   }
+  //  customise(){
+  //    this.statusCustomise = this.statusCustomise == true ? false : true
+  //  }
 
    changeDistance(event){
     //  console.log("event===",event.value)

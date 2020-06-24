@@ -121,170 +121,187 @@ export class HistoryReportComponent implements OnInit {
   }
   }
 
-  
 
-  loadData(limit=10,offset=0,type=0){
-
-      if(this.type == 'basedOnDate'){
-
-        var data={
-          userId:this.loginData.userId,
-          fromDate: this.from,
-          toDate:this.to,
-          limit:limit,
-          offset:offset
+  basedOnDate(limit=10,offset=0,type=0){
+    console.log(limit,offset)
+    var data={
+      userId:this.loginData.userId,
+      fromDate: this.from,
+      toDate:this.to,
+      limit:limit,
+      offset:offset
+    }
+    this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
+      // console.log("find data based on date ======",res);
+      this.liveData=[]
+      if(res.status){
+        if(type==0){
+          this.liveData=res.success
         }
-        this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-          // console.log("find data based on date ======",res);
-          this.liveData=[]
-          if(res.status){
-            if(type==0){
-              this.liveData=res.success
-            }
-            else{
-              this.excelData=res.success
-            }
-            this.dataSource = new MatTableDataSource(this.liveData);
-            setTimeout(() => {
-              this.dataSource.sort = this.sort;
-              // this.paginator.length = this.currentPageLength
-            })
-          }
-
+        else{
+          this.excelData=res.success
+        }
+        this.dataSource = new MatTableDataSource(this.liveData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          // this.paginator.length = this.currentPageLength
         })
+      }
+
+    })
+
+  }
+  basedOnFindName(limit=10,offset=0,type=0){
+    var data={
+      userId:this.loginData.userId,
+      deviceName:this.deviceName,
+      fromDate: this.from,
+      toDate:this.to,
+      offset:offset,
+      limit:limit
+
+    }
+    this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
+      // console.log("find data based on name ======",res);
+
+      if(res.status){
+        if(type==0){
+          this.liveData=res.success
+        }
+        else{
+          this.excelData=res.success
+        }
+
+        this.dataSource = new MatTableDataSource(this.liveData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          // this.paginator.length = this.currentPageLength
+        })
+      }
+    })
+
+  }
+
+  summaryReport(){
+    var data={
+      userId:this.loginData.userId,
+      deviceName:this.deviceName,
+      fromDate: this.from,
+      toDate:this.to,
+
+    }
+    this.api.getSummaryReport(data).then((res:any)=>{
+      // console.log("summary report ======",res);
+
+      this.liveData=[]
+      if(res.status){
+
+        var groupDate = this.dataDateReduce(res.success)
+        // console.log("groupDate===",groupDate)
+        this.liveData = Object.keys(groupDate).map((data)=>{
+          return {
+            date : data,
+            data : groupDate[data]
+          }
+        })
+     
+      }
+    })
+
+  }
+  locationReport(limit=10,offset=0,type=0){
+    var data3={
+      userId:this.loginData.userId,
+      coinId:this.locationId,
+      fromDate: this.from,
+      toDate:this.to,
+      // offset:offset,
+      // limit:limit
+  
+    }
+    console.log("data3==",data3)
+    this.api.getLocationHistory(data3).then((res:any)=>{
+      console.log("Location history======",res);
+  
+      if(res.status){
+        this.coinData=[]
+        if(type==0){
+        for(let i=0;i<res.success.length;i++){
+    
+          this.date1  = new Date(res.success[i].inTime)
+          this.date2=new Date(res.success[i].outTime)
+          var date=new Date()
+         
+          if(this.date1 !="Invalid Date"){
+            
+            if(this.date2!="Invalid Date"){
+              var diff = Math.abs(this.date2 - this.date1)
+            }
+             
+            else{
+              this.date2=date
+              diff= Math.abs(this.date2 - this.date1)
+            }
+         
+  
+            let ms = diff % 1000;
+            diff = (diff - ms) / 1000;
+            let s = diff % 60;
+            diff = (diff - s) / 60;
+            let m = diff % 60;
+            diff = (diff - m) / 60;
+            let h = diff
+  
+            let ss = s <= 9 && s >= 0 ? "0"+s : s;
+            let mm = m <= 9 && m >= 0 ? "0"+m : m;
+            let hh = h <= 9 && h >= 0 ? "0"+h : h;
+          
+           this.time = hh +':' + mm + ':' +ss
+          }
+      
+          this.coinData.push({
+            i:i+1,
+            deviceName:res.success[i].deviceName,
+            inTime:res.success[i].inTime,
+            outTime:res.success[i].outTime,
+            totTime:this.time
+            // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
+            // status:res.success[i].status == 'Y'?'Geo fence configured':'-'
+            
+          });
+        }
+        }
+        else{
+          this.excelData=res.success
+        }
+  
+        this.dataSource = new MatTableDataSource(this.coinData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator
+        })
+      }
+    })
+  }
+  
+ 
+  loadData(limit=10,offset=0,type=0){
+    
+      if(this.type == 'basedOnDate'){
+        this.basedOnDate(limit=limit,offset=offset,type=type)
+
 
       }
       if(this.type == 'basedOnFindName'){
-        var data1={
-          userId:this.loginData.userId,
-          deviceName:this.deviceName,
-          fromDate: this.from,
-          toDate:this.to,
-          offset:offset,
-          limit:limit
-
-        }
-        this.api.getDeviceHistoryBasedOnDeviceName(data1).then((res:any)=>{
-          // console.log("find data based on name ======",res);
-
-          if(res.status){
-            if(type==0){
-              this.liveData=res.success
-            }
-            else{
-              this.excelData=res.success
-            }
-
-            this.dataSource = new MatTableDataSource(this.liveData);
-            setTimeout(() => {
-              this.dataSource.sort = this.sort;
-              // this.paginator.length = this.currentPageLength
-            })
-          }
-        })
+        this.basedOnFindName(limit=limit,offset=offset,type=type)
       }
       if(this.type == 'summaryReport'){
-        var data2={
-          userId:this.loginData.userId,
-          deviceName:this.deviceName,
-          fromDate: this.from,
-          toDate:this.to,
-
-        }
-        this.api.getSummaryReport(data2).then((res:any)=>{
-          // console.log("summary report ======",res);
-
-          this.liveData=[]
-          if(res.status){
-
-            var groupDate = this.dataDateReduce(res.success)
-            // console.log("groupDate===",groupDate)
-            this.liveData = Object.keys(groupDate).map((data)=>{
-              return {
-                date : data,
-                data : groupDate[data]
-              }
-            })
-         
-          }
-        })
+        this.summaryReport()
 
       }
       if(this.type == 'locationReport'){
-        var data3={
-          userId:this.loginData.userId,
-          coinId:this.locationId,
-          fromDate: this.from,
-          toDate:this.to,
-          // offset:offset,
-          // limit:limit
-
-        }
-        console.log("data3==",data3)
-        this.api.getLocationHistory(data3).then((res:any)=>{
-          console.log("Location history======",res);
-
-          if(res.status){
-            this.coinData=[]
-            if(type==0){
-            for(let i=0;i<res.success.length;i++){
-        
-              this.date1  = new Date(res.success[i].inTime)
-              this.date2=new Date(res.success[i].outTime)
-              var date=new Date()
-             
-              if(this.date1 !="Invalid Date"){
-                
-                if(this.date2!="Invalid Date"){
-                  var diff = Math.abs(this.date2 - this.date1)
-                }
-                 
-                else{
-                  this.date2=date
-                  diff= Math.abs(this.date2 - this.date1)
-                }
-             
-
-                let ms = diff % 1000;
-                diff = (diff - ms) / 1000;
-                let s = diff % 60;
-                diff = (diff - s) / 60;
-                let m = diff % 60;
-                diff = (diff - m) / 60;
-                let h = diff
-
-                let ss = s <= 9 && s >= 0 ? "0"+s : s;
-                let mm = m <= 9 && m >= 0 ? "0"+m : m;
-                let hh = h <= 9 && h >= 0 ? "0"+h : h;
-              
-               this.time = hh +':' + mm + ':' +ss
-              }
-          
-              this.coinData.push({
-                i:i+1,
-                deviceName:res.success[i].deviceName,
-                inTime:res.success[i].inTime,
-                outTime:res.success[i].outTime,
-                totTime:this.time
-                // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
-                // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
-                
-              });
-            }
-            }
-            else{
-              this.excelData=res.success
-            }
-
-            this.dataSource = new MatTableDataSource(this.coinData);
-            setTimeout(() => {
-              this.dataSource.sort = this.sort;
-              this.dataSource.paginator = this.paginator
-            })
-          }
-        })
+        this.locationReport(limit=limit,offset=offset,type=type)
       }
-
 }
 
 convertTime(a){
