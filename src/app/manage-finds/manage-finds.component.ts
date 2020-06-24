@@ -97,7 +97,7 @@ refreshFinds(){
   })
 }
 
- 
+
 
 
 refreshShift(){
@@ -170,6 +170,10 @@ infected(a){
         this.general.openSnackBar(msg,'')
       }
     })
+  }
+  else{
+    this.refreshFinds()
+    
   }
 
 }
