@@ -37,6 +37,7 @@ import { ManageCoinsComponent } from './manage-coins/manage-coins.component';
 import { GeoFenceComponent } from './geo-fence/geo-fence.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
+import { ExceptionComponent } from './exception/exception.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { UserGuideComponent } from './user-guide/user-guide.component';
     GeoFenceComponent,
     AdminSettingsComponent,
     UserGuideComponent,
+    ExceptionComponent,
     
   ],
   imports: [

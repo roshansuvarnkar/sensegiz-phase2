@@ -264,6 +264,20 @@ export class ApiService {
     });
   }
 
+  
+  getExceptionData(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/exceptionDashBoard';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+
 
   getDeviceHistoryBasedOnDate(data){
     const httpOptions = {

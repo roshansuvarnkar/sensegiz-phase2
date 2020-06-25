@@ -39,9 +39,10 @@ export class HistoryReportComponent implements OnInit {
   deviceName:any
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn', 'totaltime'];
-  displayedColumns1: string[] = ['contactDeviceName','updatedOn'];
-  displayedColumns2: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
+  displayedColumns: string[] = ['i','baseName','contactName', 'updatedOn', 'totaltime'];
+  displayedColumns1: string[] = ['i','contactName', 'updatedOn', 'totaltime'];
+  displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
+  displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
   fileName:any
   locationName:any
   locationId:any
@@ -155,7 +156,7 @@ export class HistoryReportComponent implements OnInit {
   basedOnFindName(limit=10,offset=0,type=0){
     var data={
       userId:this.loginData.userId,
-      deviceName:this.deviceName,
+      // deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
       offset:offset,

@@ -74,14 +74,9 @@ export class GeoFenceComponent implements OnInit {
     })
   }
   
-  
    
      
- 
-
-
- 
-
+  
   refreshGeoFence(){
     var data={
       userId:this.loginData.userId

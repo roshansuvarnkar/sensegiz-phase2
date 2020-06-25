@@ -8,9 +8,11 @@
     <button mat-menu-item routerLink="/home"> <mat-icon>home</mat-icon>Home</button>
     <button mat-menu-item routerLink="/dashboard"> <mat-icon>people</mat-icon>Manage People</button>
     <button mat-menu-item routerLink="/live-data"> <mat-icon>person_pin_circle</mat-icon>Social Distancing</button>
+    <button mat-menu-item routerLink="/exception"> <mat-icon>settings</mat-icon>Exception</button>
     <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>History</button>
     <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>Settings</button>
-    <!-- <button mat-menu-item routerLink="/user-guide"> <mat-icon>settings</mat-icon>User Guide</button> -->
+    <button mat-menu-item routerLink="/geo-fence"> <mat-icon>settings</mat-icon>geo</button>
+    
   </mat-menu>
 
   </div>
@@ -39,8 +41,10 @@
     <span routerLink="/home">Home</span>
     <span routerLink="/dashboard">Manage People</span>
     <span routerLink="/live-data">Social Distancing</span>
+    <span routerLink="/exception">Exception</span>
     <span routerLink="/history">History</span>
     <span routerLink="/settings">Settings</span>
+    
     
   </mat-toolbar>
 
@@ -72,6 +76,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content >
+    <button mat-raised-button color="primary" class="guide"><span routerLink="/user-guide">User Guide</span></button>
  <p class="content" (click)="sidenav.toggle()">&nbsp;&nbsp;  Devices list <mat-icon color="primary">keyboard_arrow_right</mat-icon></p>
      <router-outlet></router-outlet>
   </mat-sidenav-content>
