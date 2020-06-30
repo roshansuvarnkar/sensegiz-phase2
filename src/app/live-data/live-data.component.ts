@@ -98,7 +98,7 @@ getTotalCount(val){
     }
 
     this.api.getLiveData(data).then((res:any)=>{
-      console.log("live data ======",res);
+      // console.log("live data ======",res);
       if(res.status){
         this.liveData=res.success
         this.currentPageLength = res.success.length;

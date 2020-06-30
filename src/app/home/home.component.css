@@ -2,20 +2,30 @@
     display: flex;
     justify-content: space-between;
 }
+
 .main-home {
     display: flex;
     margin: 1rem;
 }
 .settingcard{
   cursor: pointer;
+  /* background-color: #189ae6 !important; */
+  /* background-color: #58a0fb !important; */
 }
 .home {
     width: 48%;
     margin: 0 1rem 0 1rem;
 }
+
 .rowhome {
     width: 48%;
     margin: 0 1rem 0 1rem;
+}
+.panel{
+  /* background-color: #58a0fb !important; */
+}
+.first-card{
+    /* background-color:lightgreen */
 }
 /* .home {
     display: flex;
@@ -48,8 +58,9 @@ span.emp-pad {
     margin-left: 1rem;
 }
 button.mat-focus-indicator.btn.mat-raised-button.mat-button-base {
-    border: 1px solid #ef6c00;
-    color: #ef6c00;
+    border: 1px solid #e7bf0d;
+    background-color: #e7bf0d;
+    /* color: #ef6c00; */
 }
 /* mat-card-title.mat-card-title {
     color: #ef6c00;

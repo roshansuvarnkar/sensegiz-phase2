@@ -3,7 +3,7 @@
 
 <div class="home">
   <div class="first">
-    <mat-card>
+    <mat-card class="first-card">
       <mat-card-content>
         <div class="row tot-head">
           <span class="tot">
@@ -22,10 +22,11 @@
             <div class="regi" >
               Active Users <br><br>
               <circle-progress (click)="activeUser()"
+                class="circle1"
                 [percent]="activeEmp"
                 [showUnits]="false"
                 [showBackground] = "true"
-                [backgroundColor]= "'#ef6c00'"
+                [backgroundColor]= "'#56a956'"
                 [outerStrokeColor] = "'#ffffff'"
                 [outerStrokeWidth] = 6
                 [showInnerStroke] = false
@@ -42,10 +43,11 @@
             <div class="infe">
               Infected Users <br><br>
               <circle-progress (click)="infectedUser()"
+                class="circle2"
                 [percent]="infectedEmp"
                 [showUnits]="false"
                 [showBackground] = "true"
-                [backgroundColor]= "'#ef6c00'"
+                [backgroundColor]= "'#f14f13'"
                 [outerStrokeColor] = "'#ffffff'"
                 [outerStrokeWidth] = 6
                 [showInnerStroke] = false
@@ -86,7 +88,7 @@
       </mat-card-content>
     </mat-card>
     <br>
-    <mat-card>
+    <mat-card class="panel">
       <mat-card-content>
         <mat-icon >settings</mat-icon><br>
 
@@ -133,7 +135,7 @@
 
               </span>
               <span class="tab-btn">
-                <button mat-raised-button class="btn" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
+                <button mat-raised-button class="btn btn-warning" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
               </span>
             </div>
           </mat-card-content>
@@ -171,7 +173,7 @@
               <div class="col-md-6">
                 <span class="max-prg">
                   <mat-label>Time : {{data.totTime}} hrs / {{data.totmin}} mins</mat-label>
-                  <mat-progress-bar mode="determinate" [value]="data.totmin"></mat-progress-bar>
+                  <mat-progress-bar mode="determinate" [value]="data.totmin" class="progress"></mat-progress-bar>
                 </span>
               </div>
             </div>

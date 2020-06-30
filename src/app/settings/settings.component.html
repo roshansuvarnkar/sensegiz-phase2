@@ -234,4 +234,40 @@
     </mat-card-content>
   </mat-card>
 
+
+  <mat-card>
+    <mat-card-title>
+      Maximum time threshold
+    </mat-card-title>
+    <mat-card-subtitle>
+      Enter Time 
+    </mat-card-subtitle><br>
+    <mat-card-content>
+     
+      <form [formGroup]="timeForm" (ngSubmit)="onSubmitTimeForm(timeForm.value)" >
+        <mat-form-field  >
+            <mat-label>In minutes</mat-label>
+            <mat-select  formControlName="minutes" (selectionChange)="getMin($event)" required>
+              <mat-option *ngFor="let a of min" [value]="a">{{a}}</mat-option>
+            </mat-select>
+            <mat-error>
+              Please select minimum minutes as 0
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field  >
+          <mat-label>In seconds</mat-label>
+        <mat-select  formControlName="seconds" required >
+          <mat-option *ngFor="let b of sec;let i=index" [disabled]="minStatus" [value]="b">{{b}}</mat-option>
+        </mat-select>
+        <mat-error>
+          Please select minimum second as 0
+        </mat-error>
+    </mat-form-field>
+        
+        <br><br>
+        <button mat-raised-button [disabled]="!timeForm.valid"  color="primary">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
 </div>

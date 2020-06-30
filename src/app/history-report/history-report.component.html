@@ -223,7 +223,7 @@
           <td>{{a.date}}</td>
           <td>
             <span *ngFor = 'let b of a.data;let j=index'>
-              {{b.contactDeviceName}},
+              {{getDevicename(b.contactDeviceName)}} 
             </span>
           </td>
 

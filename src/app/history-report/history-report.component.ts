@@ -212,7 +212,20 @@ export class HistoryReportComponent implements OnInit {
       })
     }
   
-  
+  getDevicename(data){
+    console.log("conatct device name==",data)
+
+  }
+dataDateReduce(data){
+  return data.reduce((group,obj)=>{
+    const date = obj.updatedOn.split('T')[0]
+    if(!group[date]){
+      group[date]=[]
+    }
+    group[date].push(obj)
+    return group
+  },{})
+}
   
 locationReport(limit=10,offset=0,type=0){
   
@@ -334,16 +347,6 @@ locationReport(limit=10,offset=0,type=0){
 // }
 
 
-dataDateReduce(data){
-  return data.reduce((group,obj)=>{
-    const date = obj.updatedOn.split('T')[0]
-    if(!group[date]){
-      group[date]=[]
-    }
-    group[date].push(obj)
-    return group
-  },{})
-}
 
 
 
