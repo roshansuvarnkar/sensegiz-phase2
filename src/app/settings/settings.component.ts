@@ -29,6 +29,7 @@ export class SettingsComponent implements OnInit {
   min:any=[0,1,2,3,4,5,6,7,8,9,10]
   sec:any=[0,5,10,15,20,25,30,35,40,45,50,55]
   minStatus:boolean=false
+  duration:any
   constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -101,9 +102,16 @@ export class SettingsComponent implements OnInit {
       tblName:'deviceSetting'
     }
     this.api.getData(data).then((res:any)=>{
-      //console.log("setting data page ======",res);
+      console.log("setting data page ======",res);
       if(res.status){
         this.setting = res.success[0]
+     
+        this.duration=res.success[0].durationThreshold
+        var minutes = Math.round(this.duration/60);
+        var seconds = this.duration%60;
+
+        console.log("min",minutes, seconds)
+
         this.distanceForm.patchValue({
           distance: res.success[0].distance.toString(),
           rssi: res.success[0].rssi
@@ -120,10 +128,10 @@ export class SettingsComponent implements OnInit {
         this.bufferForm.patchValue({
           buffer: res.success[0].buffer,
         })
-        // this.timeForm.patchValue({
-        //   minutes: res.success[0].minutes,
-        //   seconds:res.success[0].seconds
-        // })
+        this.timeForm.patchValue({
+          minutes:minutes,
+          seconds:seconds
+        })
 
         if( res.success[0].inactivityStatus == 1){
           this.inactivityStatusValue = {
