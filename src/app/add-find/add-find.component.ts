@@ -52,7 +52,7 @@ userStatus:boolean=false
 
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', Validators.required]
+      deviceId: ['', [Validators.required,Validators.minLength(12), Validators.maxLength(12)]]
     });
 
 

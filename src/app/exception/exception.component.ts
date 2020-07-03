@@ -50,7 +50,7 @@ export class ExceptionComponent implements OnInit {
               userName:res.success[i].userName,
               coinName:res.success[i].coinName,
               updatedOn:res.success[i].updatedOn,
-              alertType:res.success[i].alertType == 1? 'Over crowded' :'-'
+              alertType:res.success[i].alertType == 0? 'Over crowded' :'-'
             })
           }
           this.dataSource = new MatTableDataSource(this.exception);

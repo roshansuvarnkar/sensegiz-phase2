@@ -13,9 +13,9 @@ import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-sh
 })
 export class SettingsComponent implements OnInit {
   workingForm:FormGroup
-  // distanceForm:FormGroup
+  distanceForm:FormGroup
   maxContactForm:FormGroup
-  // txPowerForm:FormGroup
+  txPowerForm:FormGroup
   inactivityForm:FormGroup
   bufferForm:FormGroup
   overCrowedForm:FormGroup
@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
-  timeForm:any=[]
+  timeForm:FormGroup
   min:any=[0,1,2,3,4,5,6,7,8,9,10]
   sec:any=[0,5,10,15,20,25,30,35,40,45,50,55]
   minStatus:boolean=false
@@ -44,10 +44,10 @@ export class SettingsComponent implements OnInit {
     });
 
 
-    // this.distanceForm = this.fb.group({
-    //   distance: ['', Validators.required],
-    //   rssi: ['', Validators.required],
-    // });
+    this.distanceForm = this.fb.group({
+      distance: ['', Validators.required],
+      rssi: [{value:'',disabled: true}, Validators.required],
+    });
 
 
     this.maxContactForm = this.fb.group({
@@ -55,9 +55,9 @@ export class SettingsComponent implements OnInit {
     });
 
 
-    // this.txPowerForm = this.fb.group({
-    //   txPower: ['', Validators.required],
-    // });
+    this.txPowerForm = this.fb.group({
+      txPower: [{value:'',disabled: true}, Validators.required],
+    });
 
     this.inactivityForm = this.fb.group({
       inactivity: ['',[Validators.required,Validators.max(120), Validators.min(0)]]
@@ -103,17 +103,17 @@ export class SettingsComponent implements OnInit {
     this.api.getData(data).then((res:any)=>{
       //console.log("setting data page ======",res);
       if(res.status){
-        // this.setting = res.success[0]
-        // this.distanceForm.patchValue({
-        //   distance: res.success[0].distance.toString(),
-        //   rssi: res.success[0].rssi
-        // })
+        this.setting = res.success[0]
+        this.distanceForm.patchValue({
+          distance: res.success[0].distance.toString(),
+          rssi: res.success[0].rssi
+        })
         this.maxContactForm.patchValue({
           threshold: res.success[0].threshold,
         })
-        // this.txPowerForm.patchValue({
-        //   txPower: res.success[0].txPower,
-        // })
+        this.txPowerForm.patchValue({
+          txPower: res.success[0].txPower,
+        })
         this.inactivityForm.patchValue({
           inactivity: res.success[0].inactivity,
         })
@@ -160,23 +160,23 @@ export class SettingsComponent implements OnInit {
 
 
 
-  // onSubmitDistanceForm(data) {
-  //    if (this.distanceForm.valid) {
-  //      try {
-  //        console.log("distance ===",data)
-  //        data.userId = this.loginData.userId
-  //        this.api.addDistance(data).then((res:any)=>{
-  //          console.log("distance insrted or updated",res)
-  //          if(res.status){
-  //            this.refreshSetting()
-  //            var msg = 'Minimum distance updated Successfully'
-  //            this.general.openSnackBar(msg,'')
-  //          }
-  //        })
-  //      } catch (err) {
-  //      }
-  //    }
-  //  }
+  onSubmitDistanceForm(data) {
+     if (this.distanceForm.valid) {
+       try {
+         console.log("distance ===",data)
+         data.userId = this.loginData.userId
+         this.api.addDistance(data).then((res:any)=>{
+           console.log("distance insrted or updated",res)
+           if(res.status){
+             this.refreshSetting()
+             var msg = 'Minimum distance updated Successfully'
+             this.general.openSnackBar(msg,'')
+           }
+         })
+       } catch (err) {
+       }
+     }
+   }
 
 
   onSubmitmaxContactForm(data) {
@@ -199,23 +199,23 @@ export class SettingsComponent implements OnInit {
 
 
 
-  // onSubmittxPowerForm(data) {
-  //    if (this.txPowerForm.valid) {
-  //      try {
-  //        console.log("threshold ===",data)
-  //        data.userId = this.loginData.userId
-  //        this.api.addTxPower(data).then((res:any)=>{
-  //          console.log("tx power updated",res)
-  //          if(res.status){
-  //            this.refreshSetting()
-  //            var msg = 'Transmission power updated Successfully'
-  //            this.general.openSnackBar(msg,'')
-  //          }
-  //        })
-  //      } catch (err) {
-  //      }
-  //    }
-  //  }
+  onSubmittxPowerForm(data) {
+     if (this.txPowerForm.valid) {
+       try {
+         console.log("threshold ===",data)
+         data.userId = this.loginData.userId
+         this.api.addTxPower(data).then((res:any)=>{
+           console.log("tx power updated",res)
+           if(res.status){
+             this.refreshSetting()
+             var msg = 'Transmission power updated Successfully'
+             this.general.openSnackBar(msg,'')
+           }
+         })
+       } catch (err) {
+       }
+     }
+   }
 
 
    onSubmitInactivityForm(value){
@@ -347,24 +347,24 @@ export class SettingsComponent implements OnInit {
   }
 
 
-  //  changeDistance(event){
-  //   //  console.log("event===",event.value)
-  //    if(event.value == 1){
-  //      this.distanceForm.patchValue({
-  //        rssi:'B9'
-  //      })
-  //    }
-  //    else if(event.value == 2){
-  //      this.distanceForm.patchValue({
-  //        rssi:'B5'
-  //      })
-  //    }
-  //    else if(event.value == 3){
-  //      this.distanceForm.patchValue({
-  //        rssi:'AE'
-  //      })
-  //    }
-  //  }
+   changeDistance(event){
+    //  console.log("event===",event.value)
+     if(event.value == 1){
+       this.distanceForm.patchValue({
+         rssi:'B9'
+       })
+     }
+     else if(event.value == 2){
+       this.distanceForm.patchValue({
+         rssi:'B5'
+       })
+     }
+     else if(event.value == 3){
+       this.distanceForm.patchValue({
+         rssi:'AE'
+       })
+     }
+   }
 
    inactivityChange(event){
      var checked = event.checked == true ? 1 : 2

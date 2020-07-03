@@ -11,7 +11,8 @@
     <button mat-menu-item routerLink="/exception"> <mat-icon>settings</mat-icon>Exception</button>
     <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>History</button>
     <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>Settings</button>
-    
+    <button mat-raised-button class="guide"><span routerLink="/user-guide">User Guide</span></button>
+
   </mat-menu>
 
   </div>
@@ -43,7 +44,8 @@
     <span routerLink="/exception">Exception</span>
     <span routerLink="/history">History</span>
     <span routerLink="/settings">Settings</span>
-    
+   <span routerLink="/user-guide">User Guide</span>
+
     
   </mat-toolbar>
 
@@ -59,7 +61,7 @@
 
 
       <div class="col-10">
-        <button mat-raised-button color="primary" class="guide"><span routerLink="/user-guide">User Guide</span></button>
+        <!-- <button mat-raised-button color="primary" class="guide"><span routerLink="/user-guide">User Guide</span></button> -->
         <router-outlet></router-outlet>
       </div>
     </div>

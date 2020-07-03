@@ -131,7 +131,7 @@ export class GeoFenceComponent implements OnInit {
      console.log("data1==",data1)
      this.api.setGeofenceData(data1).then((res:any)=>{
       console.log("Geo fence device set data ======",res);
-      if(res.status){
+      if(res.success){
         this.geoFenceStatus=true
         this.refreshGeoFence()
       }

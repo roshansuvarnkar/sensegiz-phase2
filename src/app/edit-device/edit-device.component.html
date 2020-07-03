@@ -32,10 +32,22 @@
       </mat-step>
 
       <mat-step >
+        <ng-template matStepLabel>Fill out your Employee Id</ng-template>
+        <mat-form-field>
+          <mat-label>Employee Id</mat-label>
+          <input type="text" matInput formControlName="empId" placeholder="Employee Id" >
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+
+      <mat-step >
         <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
         <mat-form-field>
           <mat-label>Mobile Number</mat-label>
-          <input type="tel" matInput formControlName="mobileNum" placeholder="Mobile Number" disabled >
+          <input type="text" matInput formControlName="mobileNum" placeholder="Mobile Number">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -47,7 +59,7 @@
         <ng-template matStepLabel>Fill out your Email Id</ng-template>
         <mat-form-field>
           <mat-label>Email Id</mat-label>
-          <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com" disabled >
+          <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -158,6 +170,71 @@
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button [disabled]="!userform.valid" (click)="Usersubmit(userform.value)" >Done</button>
+        </div>
+      </mat-step>
+    </form>
+  </mat-horizontal-stepper>
+
+</div>
+
+
+
+<div *ngIf="type=='coins'">
+  <div class="flexWrap space-between">
+    <h2 mat-dialog-title>Edit coin Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+  </div>
+
+
+
+  <mat-horizontal-stepper  #stepper >
+    <form [formGroup]="coinform" >
+      <mat-step >
+        <ng-template matStepLabel>Fill out coin Name</ng-template>
+        <mat-form-field>
+          <mat-label>Coin Name</mat-label>
+          <input matInput type='text' placeholder="Coin Name" formControlName="coinName" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step >
+          <ng-template matStepLabel>Fill out coin Id</ng-template>
+          <mat-form-field>
+            <mat-label> Coin Id</mat-label>
+            <input matInput  placeholder="coin Id" formControlName="coinId" disabled required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+      </mat-step>
+      
+      <mat-step >
+        <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
+    
+       
+          <mat-form-field>
+             <mat-label>Gateway Id</mat-label>
+             <mat-select   formControlName="gatewayId">
+               <mat-option *ngFor="let b of gateway" [(value)]="b.gatewayId">
+                 {{b.gatewayId}}
+               </mat-option>
+             </mat-select>
+           </mat-form-field> 
+        
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+
+    </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button [disabled]="!coinform.valid" (click)="coinsubmit(coinform.value)" >Done</button>
         </div>
       </mat-step>
     </form>

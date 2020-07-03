@@ -16,6 +16,9 @@ deviceData:any
 Findform:FormGroup
 gatewayform:FormGroup
 userform:FormGroup
+coinform:FormGroup
+loginData:any
+gateway:any=[]
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditDeviceComponent>,
@@ -30,9 +33,14 @@ userform:FormGroup
   }
 
   ngOnInit(): void {
+
+    
+    this.loginData = this.login.Getlogin()
+    this.loginData = JSON.parse(this.loginData)
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
       deviceId: [{value: '', disabled: true}, Validators.required],
+      empId:[''],
       mobileNum:[''],
       emailId:[''],
 
@@ -52,12 +60,18 @@ userform:FormGroup
       emailId: ['', Validators.required]
     });
 
+    this.coinform=this.fb.group({
+      coinId: [{value: '', disabled: true}, Validators.required],
+      coinName: ['', Validators.required],
+      gatewayId:['', Validators.required],
+    });
 
     if(this.type=='finds'){
       this.Findform.patchValue({
         deviceName: this.deviceData.deviceName,
         deviceId: this.deviceData.deviceId,
-        mobileNum:this.deviceData.mobNum,
+        empId:this.deviceData.empId,
+        mobileNum:this.deviceData.mobileNum,
         emailId:this.deviceData.emailId
       });
     }
@@ -75,7 +89,15 @@ userform:FormGroup
         emailId: this.deviceData.emailId
       });
     }
+    else if(this.type=='coins'){
+      this.coinform.patchValue({
+        coinId: this.deviceData.coinId,
+        coinName: this.deviceData.coinName,
+        gatewayId:this.deviceData.gatewayId,
+      });
+    }
 
+    this.refreshGateway()
   }
 
 
@@ -97,7 +119,11 @@ userform:FormGroup
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Name or Device Id Already exists, try different device'
+            var msg = 'Device Name or Device Id Already exists, try different Device'
+            this.general.openSnackBar(msg,'')
+          }
+          else if(!res.status && res.alreadyExisted){
+            var msg = 'The Employee ID already exist'
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
@@ -105,7 +131,7 @@ userform:FormGroup
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Email Id Already exists, try with different emailId'
+            var msg = 'Email Id Already exists, try with different Email Id'
             this.general.openSnackBar(msg,'')
           }
         })
@@ -161,5 +187,41 @@ userform:FormGroup
   }
 
 
+  coinsubmit(data){
+    if (this.coinform.valid) {
+      try {
+        data.id=this.deviceData.id
+        this.api.editCoinRegister(data).then((res:any)=>{
+          console.log("coin submit==",res)
+          if(res.status){
+            var msg = 'coin Registered Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+          else if(!res.status && res.alreadyExisted){
+            var msg = 'Coin Already exists, try different Coin'
+            this.general.openSnackBar(msg,'')
+          }
+        })
+      } catch (err) {
+      }
+    }
+
+  }
+  refreshGateway(){
+    var data={
+        userId:this.loginData.userId,
+        tblName:'gatewayRegistration'
+      }
+  
+    this.api.getData(data).then((res:any)=>{
+      console.log("gateway data ======",res);
+      if(res.status){
+        this.gateway=res.success
+  
+  
+      }
+  
+    })
+  }
 
 }

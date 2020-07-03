@@ -74,7 +74,7 @@ constructor(public dialog: MatDialog,
               id:res.success[i].id,
               coinId: res.success[i].coinId,
               coinName: res.success[i].coinName,
-              gatewayId:res.success[i].gatewayId,
+              gatewayId:res.success[i].gatewayId==''?'-':res.success[i].gatewayId,
               edit:'edit',
               delete:'delete',
               
@@ -93,7 +93,20 @@ constructor(public dialog: MatDialog,
     })
   }
 edit(data){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.height = '50vh';
+  dialogConfig.width = '50vw';
+  dialogConfig.data = {
+    type:"coins",
+    data:data
+  }
+  const dialogRef = this.dialog.open(EditDeviceComponent, dialogConfig);
 
+  dialogRef.afterClosed().subscribe(result => {
+    this.refreshCoins()
+  });
 }
 
 delete(value){

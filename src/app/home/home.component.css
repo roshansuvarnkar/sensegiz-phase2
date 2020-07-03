@@ -58,9 +58,9 @@ span.emp-pad {
     margin-left: 1rem;
 }
 button.mat-focus-indicator.btn.mat-raised-button.mat-button-base {
-    border: 1px solid #e7bf0d;
-    background-color: #e7bf0d;
-    /* color: #ef6c00; */
+    border: 1px solid #ef6c00;
+    /* background-color: #e7bf0d; */
+    color: #ef6c00;
 }
 /* mat-card-title.mat-card-title {
     color: #ef6c00;
