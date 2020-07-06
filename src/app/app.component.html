@@ -43,7 +43,13 @@
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/exception">Exception</span>
     <span routerLink="/history">History</span>
-    <span routerLink="/settings">Settings</span>
+     <span>
+      <span [matMenuTriggerFor]="belowMenu" class="menu">Settings</span>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon> General settings</button>
+        <button mat-menu-item routerLink="/geo-fence"> <mat-icon>settings</mat-icon>Geofence settings</button>
+        </mat-menu>
+     </span>
    <span routerLink="/user-guide">User Guide</span>
 
     

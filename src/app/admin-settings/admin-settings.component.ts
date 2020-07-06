@@ -122,7 +122,7 @@ export class AdminSettingsComponent implements OnInit {
 
   changeDistance(event){
     
-    if(this.setting.type==0){
+    // if(this.setting.type==0){
       if(event.value == 1 ){
         this.distanceForm.patchValue({
           rssi:'B9'
@@ -138,23 +138,23 @@ export class AdminSettingsComponent implements OnInit {
           rssi:'AE'
         })
       }
-    }
-    else if(this.setting.type==1){
-      if(event.value == 1 ){
-        this.distanceForm.patchValue({
-          rssi:'A1'
-        })
-      }
-      else if(event.value == 2){
-        this.distanceForm.patchValue({
-          rssi:'A2'
-        })
-      }
-      else if(event.value == 3){
-        this.distanceForm.patchValue({
-          rssi:'A3'
-        })
-      }
-    }
+    // }
+    // else if(this.setting.type==1){
+    //   if(event.value == 1 ){
+    //     this.distanceForm.patchValue({
+    //       rssi:'A1'
+    //     })
+    //   }
+    //   else if(event.value == 2){
+    //     this.distanceForm.patchValue({
+    //       rssi:'A2'
+    //     })
+    //   }
+    //   else if(event.value == 3){
+    //     this.distanceForm.patchValue({
+    //       rssi:'A3'
+    //     })
+    //   }
+    // }
   }
 }
