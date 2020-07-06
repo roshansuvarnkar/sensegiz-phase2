@@ -26,7 +26,7 @@ export class GeoFenceComponent implements OnInit {
   geofenceData:any=[]
   geoFenceStatus:boolean=false
   dataSource: any = [];
-  displayedColumns = ['i','deviceName','coinId','coinName'];
+  displayedColumns = ['i','deviceName','coinName'];
   constructor(private fb: FormBuilder,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class GeoFenceComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     this.refreshCoins()
-    // this.refreshGeoFence() 
+    this.refreshGeoFence() 
 
     this.deviceSelectForm=this.fb.group({
       findSelect:['',Validators.required],
@@ -84,23 +84,26 @@ export class GeoFenceComponent implements OnInit {
     }
     this.api.getGeofenceData(data).then((res:any)=>{
       console.log("Geo fence device get data ======",res);
-      // if(res.status){
-      //    for(let i=0;i<res.success.length;i++){
-      //      this.geofenceData.push({
-      //        i:i+1,
-      //        deviceName:res.success[i].deviceName,
-      //        coinId:res.success[i].coinId,
-      //        coinName:res.success[i].coinName
+      if(res.status && res.data.length>=0){
+        this.geofenceData=[]
+         for(let i=0;i<res.data.length;i++){
+           this.geofenceData.push({
+             i:i+1,
+             deviceName:res.data[i].deviceName,
+             coinName:res.data[i].coinName
 
-      //      })
-      //    }
-      //    this.dataSource = new MatTableDataSource(this.geofenceData);
-      //    setTimeout(() => {
-      //      this.dataSource.sort = this.sort;
-      //      this.dataSource.paginator = this.paginator;
-      //     //  this.paginator.length = this.currentPageSize
-      //    })
-      // }
+           })
+         }
+         this.dataSource = new MatTableDataSource(this.geofenceData);
+         setTimeout(() => {
+           this.dataSource.sort = this.sort;
+           this.dataSource.paginator = this.paginator;
+          //  this.paginator.length = this.currentPageSize
+         })
+      }
+      else{
+        this.geoFenceStatus=true
+      }
     })
   }
 
@@ -108,7 +111,7 @@ export class GeoFenceComponent implements OnInit {
 
   submit(data){
     console.log("data====",data)
-
+   
     
     var value=this.coinData.filter((element)=>{
       return data.coinSelect.includes(element.coinId)
@@ -131,11 +134,11 @@ export class GeoFenceComponent implements OnInit {
      console.log("data1==",data1)
      this.api.setGeofenceData(data1).then((res:any)=>{
       console.log("Geo fence device set data ======",res);
-      if(res.success){
-        this.geoFenceStatus=true
+      if(res.status){
+        
         this.refreshGeoFence()
       }
-  
+     
     })
     
   

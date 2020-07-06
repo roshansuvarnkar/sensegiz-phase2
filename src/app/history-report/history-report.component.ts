@@ -63,7 +63,7 @@ export class HistoryReportComponent implements OnInit {
       this.type=data.type
       // console.log("type==",this.type)
       this.liveData = data.data
-
+      console.log("data==",data)
       this.from = data.fromDate
       this.to = data.toDate
       this.selectedValue=data.valueSelected
@@ -156,7 +156,7 @@ export class HistoryReportComponent implements OnInit {
   basedOnFindName(limit=10,offset=0,type=0){
     var data={
       userId:this.loginData.userId,
-      // deviceName:this.deviceName,
+      deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
       offset:offset,
@@ -164,7 +164,7 @@ export class HistoryReportComponent implements OnInit {
 
     }
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
-      // console.log("find data based on name ======",res);
+      console.log("find data based on name ======",res);
 
       if(res.status){
         if(type==0){
@@ -194,7 +194,7 @@ export class HistoryReportComponent implements OnInit {
 
       }
       this.api.getSummaryReport(data).then((res:any)=>{
-        // console.log("summary report ======",res);
+        console.log("summary report ======",res);
 
         this.liveData=[]
         if(res.status){
@@ -212,10 +212,7 @@ export class HistoryReportComponent implements OnInit {
       })
     }
   
-  getDevicename(data){
-    console.log("conatct device name==",data)
-
-  }
+ 
 dataDateReduce(data){
   return data.reduce((group,obj)=>{
     const date = obj.updatedOn.split('T')[0]
@@ -240,7 +237,7 @@ locationReport(limit=10,offset=0,type=0){
     }
     // console.log("data3==",data3)
     this.api.getLocationHistory(data).then((res:any)=>{
-      // console.log("Location history======",res);
+      console.log("Location history======",res);
 
       if(res.status){
         

@@ -15,6 +15,9 @@ export class AdminSettingsComponent implements OnInit {
   setting:any=[]
   dataGet:any
   statusCustomise:boolean=false
+  selectedValue:boolean=false
+  selectStatus1:boolean=false
+  selectStatus2:boolean=false
   constructor(private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -39,14 +42,23 @@ export class AdminSettingsComponent implements OnInit {
       userId:this.dataGet.userId,
       tblName:'deviceSetting'
     }
+    console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-      // console.log("setting data page ======",res);
+      console.log("setting data page ======",res);
       if(res.status){
         this.setting = res.success[0]
         this.distanceForm.patchValue({
           distance: res.success[0].distance.toString(),
           rssi: res.success[0].rssi
         })
+        if(this.setting.type==0){
+          this.selectStatus1=true
+         
+        }
+        else{
+          this.selectStatus2=true
+       
+        }
        
         this.txPowerForm.patchValue({
           txPower: res.success[0].txPower,
@@ -98,23 +110,51 @@ export class AdminSettingsComponent implements OnInit {
   customise(){
     this.statusCustomise = this.statusCustomise == true ? false : true
   }
+  onclick(event){
+    this.distanceForm.reset()
+    this.selectedValue=event.value==1?false:true
+    // if(event.value==1){
+
+    // }
+   
+  
+  }
 
   changeDistance(event){
-   //  console.log("event===",event.value)
-    if(event.value == 1){
-      this.distanceForm.patchValue({
-        rssi:'B9'
-      })
+    
+    if(this.setting.type==0){
+      if(event.value == 1 ){
+        this.distanceForm.patchValue({
+          rssi:'B9'
+        })
+      }
+      else if(event.value == 2){
+        this.distanceForm.patchValue({
+          rssi:'B5'
+        })
+      }
+      else if(event.value == 3){
+        this.distanceForm.patchValue({
+          rssi:'AE'
+        })
+      }
     }
-    else if(event.value == 2){
-      this.distanceForm.patchValue({
-        rssi:'B5'
-      })
-    }
-    else if(event.value == 3){
-      this.distanceForm.patchValue({
-        rssi:'AE'
-      })
+    else if(this.setting.type==1){
+      if(event.value == 1 ){
+        this.distanceForm.patchValue({
+          rssi:'A1'
+        })
+      }
+      else if(event.value == 2){
+        this.distanceForm.patchValue({
+          rssi:'A2'
+        })
+      }
+      else if(event.value == 3){
+        this.distanceForm.patchValue({
+          rssi:'A3'
+        })
+      }
     }
   }
 }

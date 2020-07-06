@@ -213,8 +213,18 @@ onclickLocation(data){
   }
 
   onSubmitDateForm(data){
-    // console.log("data====",data)
-
+    console.log("data====",data)
+        var date1=new Date(data.fromDate)
+        var date2=new Date(data.toDate)
+        var year = date1.getFullYear();
+        var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+        var day = ("0" + date1.getDate()).slice(-2);
+        var from = day + '-' + month + '-'  + year
+        var year1 = date2.getFullYear();
+        var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+        var day1 = ("0" + date2.getDate()).slice(-2);
+        var to = day1 + '-' + month1 + '-'  + year1
+ 
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -222,8 +232,8 @@ onclickLocation(data){
         dialogConfig.width = '75vw';
         dialogConfig.data = {
           type:"basedOnDate",
-          fromDate:data.fromDate,
-          toDate:data.toDate,
+          fromDate:from,
+          toDate:to,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 

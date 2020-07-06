@@ -52,26 +52,29 @@
       <form [formGroup]="distanceForm" (ngSubmit)="onSubmitDistanceForm(distanceForm.value)">
         <mat-form-field>
           <mat-label>Select distance</mat-label>
-          <mat-select formControlName="distance" (selectionChange)="changeDistance($event)" required>
-            <mat-option value="1">
-              1 meter
-            </mat-option>
-            <mat-option value="2">
-              2 meter
-            </mat-option>
-            <mat-option value="3">
-              3 meter
-            </mat-option>
-          </mat-select>
+    
+            <mat-select formControlName="distance" required>
+              <mat-option value="1">
+                1 meter
+              </mat-option>
+              <mat-option value="2">
+                2 meter
+              </mat-option>
+              <mat-option value="3">
+                3 meter
+              </mat-option>
+            </mat-select>
+              
+      
         </mat-form-field><br>
-        <!-- <div *ngIf="statusCustomise"> -->
+        <!-- <div *ngIf="statusCustomise">
           <mat-form-field>
             <input matInput placeholder="RSSI" formControlName="rssi"  disabled required>
             <mat-error>
               Please provide a valid RSSI
             </mat-error>
           </mat-form-field>
-        <!-- </div> -->
+        </div> -->
         <br><br>
         <button mat-raised-button [disabled]="!distanceForm.valid" color="primary">Submit</button>
       </form>
@@ -104,7 +107,7 @@
   </mat-card>
 
 
-
+<!-- 
   <mat-card>
     <mat-card-title>
       Define transmission power
@@ -158,7 +161,7 @@
 
     </mat-card-content>
   </mat-card>
-
+ -->
 
   <mat-card>
     <mat-card-title>
@@ -269,5 +272,35 @@
       </form>
     </mat-card-content>
   </mat-card>
+
+  
+<!-- <mat-card>
+  <mat-card-title>
+   Wearable
+  </mat-card-title>
+  <mat-card-subtitle>
+    Enter wearable
+  </mat-card-subtitle><br>
+  <mat-card-content>
+   
+    <form [formGroup]="wearableForm" (ngSubmit)="onSubmitwearableForm(wearableForm.value)" >
+      <mat-form-field  >
+          <mat-label>Wearbale is as </mat-label>
+          <mat-select formControlName="wearable" >
+            <mat-option  value="0">Pendant</mat-option>
+            <mat-option value="1">Band</mat-option>
+          </mat-select>
+         
+          <mat-error>
+            Please select wearable
+          </mat-error>
+      </mat-form-field>
+  
+      
+      <br><br>
+      <button mat-raised-button [disabled]="!wearableForm.valid"  color="primary">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card> -->
 
 </div>

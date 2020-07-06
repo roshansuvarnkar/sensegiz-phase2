@@ -19,6 +19,7 @@ export class SettingsComponent implements OnInit {
   inactivityForm:FormGroup
   bufferForm:FormGroup
   overCrowedForm:FormGroup
+  wearableForm:FormGroup
   loginData:any
   setting:any
   statusCustomise:boolean=false
@@ -30,6 +31,8 @@ export class SettingsComponent implements OnInit {
   sec:any=[0,5,10,15,20,25,30,35,40,45,50,55]
   minStatus:boolean=false
   duration:any
+  selectedValue:boolean=false
+  wearableType:any
   constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -77,7 +80,13 @@ export class SettingsComponent implements OnInit {
     this.timeForm=this.fb.group({
       minutes:['',Validators.required],
       seconds:[{value:'',disabled: false},Validators.required]
+    })
 
+    this.wearableForm=this.fb.group({
+      wearable:['',Validators.required]
+    })
+    this.wearableForm.patchValue({
+      wearable:"0"
     })
 
   }
@@ -169,10 +178,13 @@ export class SettingsComponent implements OnInit {
 
 
   onSubmitDistanceForm(data) {
+    
+  
      if (this.distanceForm.valid) {
        try {
-         console.log("distance ===",data)
+         
          data.userId = this.loginData.userId
+         console.log("distance ===",data)
          this.api.addDistance(data).then((res:any)=>{
            console.log("distance insrted or updated",res)
            if(res.status){
@@ -333,6 +345,35 @@ export class SettingsComponent implements OnInit {
     })
 
    } 
+
+
+   onSubmitwearableForm(data){
+
+     this.wearableType=data.wearable
+     console.log("data===",data.wearable)
+     if (this.wearableForm.valid) {
+      try {
+       
+        var value={
+          userId:this.loginData.userId,
+          wearable:data.wearable,
+        }
+
+        this.api.updateWearableType(value).then((res:any)=>{
+          console.log("wearable type===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg='Wearable type updated Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+
+   }
     //  customise(){
   //    this.statusCustomise = this.statusCustomise == true ? false : true
   //  }
@@ -357,21 +398,44 @@ export class SettingsComponent implements OnInit {
 
    changeDistance(event){
     //  console.log("event===",event.value)
-     if(event.value == 1){
-       this.distanceForm.patchValue({
-         rssi:'B9'
-       })
-     }
-     else if(event.value == 2){
-       this.distanceForm.patchValue({
-         rssi:'B5'
-       })
-     }
-     else if(event.value == 3){
-       this.distanceForm.patchValue({
-         rssi:'AE'
-       })
-     }
+      this.refreshSetting()
+      console.log("hii")
+      if(this.wearableType==0){
+        if(event.value == 1){
+          this.distanceForm.patchValue({
+            rssi:'B9'
+          })
+        }
+        else if(event.value == 2){
+          this.distanceForm.patchValue({
+            rssi:'B5'
+          })
+        }
+        else if(event.value == 3){
+          this.distanceForm.patchValue({
+            rssi:'AE'
+          })
+        }
+      }
+      if(this.wearableType==1){
+        if(event.value == 1){
+          this.distanceForm.patchValue({
+            rssi:'A1'
+          })
+        }
+        else if(event.value == 2){
+          this.distanceForm.patchValue({
+            rssi:'A2'
+          })
+        }
+        else if(event.value == 3){
+          this.distanceForm.patchValue({
+            rssi:'A3'
+          })
+        }
+      }
+  
+
    }
 
    inactivityChange(event){

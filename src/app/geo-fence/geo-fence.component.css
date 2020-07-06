@@ -1,4 +1,26 @@
 
+table.mat-table {
+
+    width: 100%;
+    margin-top: 1rem;
+    /* text-align: center; */
+}
+
+::ng-deep .mat-sort-header-container {
+  display:flex;
+  justify-content:center;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #ef6c00;
+}
+.center {
+  text-align: center;
+  font-size: 1.6rem;
+  margin: 1.2rem 0 2rem 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
 .selectDevice {
   margin-top:1rem
 }

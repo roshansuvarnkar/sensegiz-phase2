@@ -70,9 +70,9 @@ gateway:any=[]
       this.Findform.patchValue({
         deviceName: this.deviceData.deviceName,
         deviceId: this.deviceData.deviceId,
-        empId:this.deviceData.empId,
-        mobileNum:this.deviceData.mobileNum,
-        emailId:this.deviceData.emailId
+        empId:this.deviceData.empId=='-'?'':this.deviceData.empId,
+        mobileNum:this.deviceData.mobileNum=='-'?'':this.deviceData.mobileNum,
+        emailId:this.deviceData.emailId=='-'?'':this.deviceData.emailId
       });
     }
 
