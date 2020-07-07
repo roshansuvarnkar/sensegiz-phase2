@@ -1,0 +1,15 @@
+input#primaryPhoneInput {
+    border: none !important;
+    border-bottom: 1px solid black !important;
+}
+.arrow-down {
+    display: inline-block;
+    vertical-align: text-top;
+    margin-top: 9px;
+    margin-left: 5px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #444;
+}

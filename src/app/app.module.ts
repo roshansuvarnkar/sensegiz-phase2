@@ -38,8 +38,8 @@ import { GeoFenceComponent } from './geo-fence/geo-fence.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
-
-
+import { InternationalPhoneNumber2Module  } from 'ngx-international-phone-number2';
+import { LocationComponent } from './location/location.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +68,7 @@ import { ExceptionComponent } from './exception/exception.component';
     AdminSettingsComponent,
     UserGuideComponent,
     ExceptionComponent,
+    LocationComponent,
     
   ],
   imports: [
@@ -79,6 +80,7 @@ import { ExceptionComponent } from './exception/exception.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
+    InternationalPhoneNumber2Module,
     NgCircleProgressModule.forRoot({}),
     MDBBootstrapModule.forRoot(),
     DeviceDetectorModule.forRoot(),

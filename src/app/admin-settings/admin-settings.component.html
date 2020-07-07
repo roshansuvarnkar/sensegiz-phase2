@@ -17,7 +17,7 @@
             <mat-form-field>
               <mat-label>Select distance</mat-label>
              
-               <!-- <div *ngIf="selectedValue==false"> -->
+               <div *ngIf="selectedValue==false">
                 <mat-select formControlName="distance" (selectionChange)="changeDistance($event)" required>
                   <mat-option value="1">
                     1 meter
@@ -29,7 +29,7 @@
                     3 meter
                   </mat-option>
                 </mat-select>
-               <!-- </div>
+               </div>
                <div *ngIf="selectedValue==true">
                 <mat-select formControlName="distance" (selectionChange)="changeDistance($event)" required>
                   <mat-option value="1">
@@ -42,7 +42,7 @@
                     3 meter
                   </mat-option>
                 </mat-select>
-               </div> -->
+               </div>
       
         
             </mat-form-field><br>

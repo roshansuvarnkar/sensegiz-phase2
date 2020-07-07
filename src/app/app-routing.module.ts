@@ -18,6 +18,7 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
 import { GeoFenceComponent } from './geo-fence/geo-fence.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
+import { LocationComponent } from './location/location.component';
 
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
@@ -33,6 +34,8 @@ const routes: Routes = [
   {path:'geo-fence' , component:GeoFenceComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'user-guide' , component:UserGuideComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'exception' , component:ExceptionComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'location' , component:LocationComponent, canActivate: [AuthGuard], data:{role:['user']}},
+
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},

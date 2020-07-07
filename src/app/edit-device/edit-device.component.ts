@@ -19,6 +19,9 @@ userform:FormGroup
 coinform:FormGroup
 loginData:any
 gateway:any=[]
+model: any = {}
+    
+
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditDeviceComponent>,
@@ -102,9 +105,13 @@ gateway:any=[]
 
 
   Findsubmit(data){
+    console.log("find edit===",data)
+    var mobNum=data.mobileNum.replace(/\s/g,'')
+    console.log("mon num==",mobNum)
+    data.mobileNum=mobNum
     if (this.Findform.valid) {
       try {
-        // console.log("find edit===",data)
+        console.log("find edit===",data)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
         data.userId=this.deviceData.userId
@@ -119,21 +126,11 @@ gateway:any=[]
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Name or Device Id Already exists, try different Device'
+            var msg = 'Device Name, Device Id or Employee Id Already exists, try different Device'
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'The Employee ID already exist'
-            this.general.openSnackBar(msg,'')
-          }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Mobile number Already exists, try with different Mobile number'
-            this.general.openSnackBar(msg,'')
-          }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Email Id Already exists, try with different Email Id'
-            this.general.openSnackBar(msg,'')
-          }
+         
+         
         })
       } catch (err) {
       }
@@ -224,4 +221,14 @@ gateway:any=[]
     })
   }
 
+  getNumber(event){
+    console.log(" get number event==",event)
+  }
+  telInputObject(event){
+    console.log(" tel obj event==",event)
+
+  }
+  onCountryChange(event){
+    console.log("country==",event)
+  }
 }

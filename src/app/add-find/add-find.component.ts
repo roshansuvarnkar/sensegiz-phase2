@@ -21,7 +21,7 @@ loginData:any
 findStatus:boolean=false
 gatewayStatus:boolean=false
 userStatus:boolean=false
-
+model: any = {}
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddFindComponent>,
@@ -79,6 +79,7 @@ onNoClick(): void {
 Findsubmit(data){
   if (this.Findform.valid) {
     try {
+      console.log("find submit====",data)
       data.tblName ='deviceRegistration'
       data.userId=this.loginData.userId
       this.api.deviceRegister(data).then((res:any)=>{
