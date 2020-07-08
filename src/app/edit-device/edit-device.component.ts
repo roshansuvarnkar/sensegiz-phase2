@@ -49,7 +49,7 @@ model: any = {}
 
     });
 
-
+ 
 
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
