@@ -35,7 +35,7 @@ prevDate:any
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
- 
+
 
     this.dateForm = this.fb.group({
       fromDate: ['', Validators.required],
@@ -196,35 +196,36 @@ onclickLocation(data){
       }
     })
   }
-  
+
   refreshCoins(){
     var data={
       userId:this.loginData.userId,
       tblName:'coinRegistration'
     }
-  
+
     this.api.getData(data).then((res:any)=>{
       console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
-  
+
       }
     })
   }
 
   onSubmitDateForm(data){
-    console.log("data====",data)
+    //console.log("data====",data)
         var date1=new Date(data.fromDate)
         var date2=new Date(data.toDate)
         var year = date1.getFullYear();
         var month = ("0" + (date1.getMonth() + 1)).slice(-2);
         var day = ("0" + date1.getDate()).slice(-2);
-        var from = day + '-' + month + '-'  + year
+        var from = year + '-' + month + '-'  + day
+
         var year1 = date2.getFullYear();
         var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
         var day1 = ("0" + date2.getDate()).slice(-2);
-        var to = day1 + '-' + month1 + '-'  + year1
- 
+        var to = year1 + '-' + month1 + '-'  + day1
+
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -271,6 +272,18 @@ onclickLocation(data){
   onSubmitFindName(data){
     // console.log("data====",data)
 
+        var date1=new Date(data.fromDate)
+        var date2=new Date(data.toDate)
+        var year = date1.getFullYear();
+        var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+        var day = ("0" + date1.getDate()).slice(-2);
+        var from = year + '-' + month + '-'  + day
+
+        var year1 = date2.getFullYear();
+        var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+        var day1 = ("0" + date2.getDate()).slice(-2);
+        var to = year1 + '-' + month1 + '-'  + day1
+
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -279,8 +292,8 @@ onclickLocation(data){
         dialogConfig.data = {
           type:"basedOnFindName",
           deviceName:data.deviceName,
-          fromDate:data.fromDate,
-          toDate:data.toDate,
+          fromDate:from,
+          toDate:to,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -294,6 +307,18 @@ onclickLocation(data){
   onSubmitSummaryReport(data){
     // console.log("data====",data)
 
+        var date1=new Date(data.fromDate)
+        var date2=new Date(data.toDate)
+        var year = date1.getFullYear();
+        var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+        var day = ("0" + date1.getDate()).slice(-2);
+        var from = year + '-' + month + '-'  + day
+
+        var year1 = date2.getFullYear();
+        var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+        var day1 = ("0" + date2.getDate()).slice(-2);
+        var to = year1 + '-' + month1 + '-'  + day1
+
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -302,8 +327,8 @@ onclickLocation(data){
         dialogConfig.data = {
           type:"summaryReport",
           deviceName:data.deviceName,
-          fromDate:data.fromDate,
-          toDate:data.toDate,
+          fromDate:from,
+          toDate:to,
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -315,6 +340,18 @@ onclickLocation(data){
 
 
   onSubmitLocationForm(data){
+    var date1=new Date(data.fromDate)
+    var date2=new Date(data.toDate)
+    var year = date1.getFullYear();
+    var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+    var day = ("0" + date1.getDate()).slice(-2);
+    var from = year + '-' + month + '-'  + day
+
+    var year1 = date2.getFullYear();
+    var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+    var day1 = ("0" + date2.getDate()).slice(-2);
+    var to = year1 + '-' + month1 + '-'  + day1
+
     console.log("data====",data)
     var value=this.coinData.filter((element)=>{
       return data.coinSelect==element.coinId
@@ -333,8 +370,8 @@ onclickLocation(data){
       type:"locationReport",
       locationName:this.coin,
       locationId:data.coinSelect,
-      fromDate:data.fromDate,
-      toDate:data.toDate,
+      fromDate:from,
+      toDate:to,
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 

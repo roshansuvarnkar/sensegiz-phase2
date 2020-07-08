@@ -20,7 +20,7 @@ coinform:FormGroup
 loginData:any
 gateway:any=[]
 model: any = {}
-    
+
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +37,7 @@ model: any = {}
 
   ngOnInit(): void {
 
-    
+
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.Findform = this.fb.group({
@@ -73,9 +73,9 @@ model: any = {}
       this.Findform.patchValue({
         deviceName: this.deviceData.deviceName,
         deviceId: this.deviceData.deviceId,
-        empId:this.deviceData.empId=='-'?'':this.deviceData.empId,
-        mobileNum:this.deviceData.mobileNum=='-'?'':this.deviceData.mobileNum,
-        emailId:this.deviceData.emailId=='-'?'':this.deviceData.emailId
+        mobileNum:this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobNum==undefined ? '-' : this.deviceData.mobNum,
+        emailId:this.deviceData.emailId=='' ? '-' : this.deviceData.emailId==undefined ? '-' : this.deviceData.emailId,
+        empId:this.deviceData.empId=='' ? '-' : this.deviceData.empId==undefined ? '-' : this.deviceData.empId
       });
     }
 
@@ -88,7 +88,7 @@ model: any = {}
 
     else if(this.type=='users'){
       this.userform.patchValue({
-        mobileNum: this.deviceData.mobileNum,
+        mobileNum: this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobNum==undefined ? '-' : this.deviceData.mobNum,
         emailId: this.deviceData.emailId
       });
     }
@@ -129,8 +129,8 @@ model: any = {}
             var msg = 'Device Name, Device Id or Employee Id Already exists, try different Device'
             this.general.openSnackBar(msg,'')
           }
-         
-         
+
+
         })
       } catch (err) {
       }
@@ -209,15 +209,15 @@ model: any = {}
         userId:this.loginData.userId,
         tblName:'gatewayRegistration'
       }
-  
+
     this.api.getData(data).then((res:any)=>{
       console.log("gateway data ======",res);
       if(res.status){
         this.gateway=res.success
-  
-  
+
+
       }
-  
+
     })
   }
 
