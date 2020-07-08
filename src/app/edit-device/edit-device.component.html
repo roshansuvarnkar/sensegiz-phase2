@@ -47,7 +47,7 @@
         <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
         <mat-form-field>
           <mat-label>Mobile Number</mat-label>
-          <input type="text" matInput formControlName="mobileNum" required>
+          <input type="text" matInput formControlName="mobileNum" >
 
           <!-- <international-phone-number2  [(ngModel)]="model.phone_number" placeholder="Enter phone number" [defaultCountry]="'in'"
            [required]="true"  formControlName="mobileNum" >
@@ -70,7 +70,7 @@
           <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
- 
+
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
@@ -213,11 +213,11 @@
             <button mat-button matStepperNext>Next</button>
           </div>
       </mat-step>
-      
+
       <mat-step >
         <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
-    
-       
+
+
           <mat-form-field>
              <mat-label>Gateway Id</mat-label>
              <mat-select   formControlName="gatewayId">
@@ -225,8 +225,8 @@
                  {{b.gatewayId}}
                </mat-option>
              </mat-select>
-           </mat-form-field> 
-        
+           </mat-form-field>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
