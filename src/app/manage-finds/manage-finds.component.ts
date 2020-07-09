@@ -80,9 +80,9 @@ refreshFinds(){
               edit:'edit',
               delete:'delete',
               batteryStatus:res.success[i].batteryStatus,
-              emailId:res.success[i].emailId == 'NULL' ? '-' : res.success[i].emailId,
-              mobileNum:res.success[i].mobNum == 'NULL' ? '-' : res.success[i].mobNum,
-              empId:res.success[i].empId == '' ? '-' : res.success[i].empId
+              emailId:res.success[i].emailId == '' || res.success[i].emailId == 'NULL' ? '-' : res.success[i].emailId,
+              mobileNum:res.success[i].mobNum == '' ||res.success[i].mobNum == 'NULL' ? '-' : res.success[i].mobNum,
+              empId:res.success[i].empId == ''||res.success[i].empId == 'NULL' ? '-' : res.success[i].empId
           });
       }
       this.dataSource = new MatTableDataSource(this.findData);
@@ -173,7 +173,7 @@ infected(a){
   }
   else{
     this.refreshFinds()
-    
+
   }
 
 }

@@ -20,20 +20,24 @@ export class SettingsComponent implements OnInit {
   bufferForm:FormGroup
   overCrowedForm:FormGroup
   wearableForm:FormGroup
+  timeForm:FormGroup
+  buzzerTimeForm:FormGroup
+  buzzerConfigForm:FormGroup
   loginData:any
   setting:any
+  duration:any
+  wearableType:any
   statusCustomise:boolean=false
+  minStatus:boolean=false
+  selectedValue:boolean=false
+  buzzerConfigStatus:boolean=false
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
-  timeForm:FormGroup
-  someForm:FormGroup
   min:any=[0,1,2,3,4,5,6,7,8,9,10]
   sec:any=[0,5,10,15,20,25,30,35,40,45,50,55]
-  minStatus:boolean=false
-  duration:any
-  selectedValue:boolean=false
-  wearableType:any
+  // buzzerValue:any=[1,2,3,4,5]
+
   someValue:any=[]
   constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
@@ -42,7 +46,7 @@ export class SettingsComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshCoins()
     this.refreshSetting()
-    this.somevalue()
+
     this.workingForm = this.fb.group({
       shift: ['', Validators.required],
       fromTime: ['', Validators.required],
@@ -87,40 +91,30 @@ export class SettingsComponent implements OnInit {
     this.wearableForm=this.fb.group({
       wearable:['',Validators.required]
     })
-   
-    this.someForm=this.fb.group({
-      someval:['',Validators.required]
+
+    this.buzzerTimeForm=this.fb.group({
+      buzzerTime:['',[Validators.required,Validators.max(255), Validators.min(1)]]
+    })
+
+    this.buzzerConfigForm=this.fb.group({
+      buzzerConfig:['',Validators.required],
+      durationSec:['',[Validators.max(255), Validators.min(10),Validators.pattern(/^\d*[05]$/)]]
     })
 
   }
 
-  somevalue(){
-    for(let i=0;i<=120;i++){
-      if(i==0){
-        this.someValue.push({
-          value:i+1
-        })
-      }else{
-        var values=i*5
-        this.someValue.push({
-          value:values
-        })
-      }
-     
-    }
-    console.log("some value==",this.someValue)
-  }
+
   refreshCoins(){
     var data={
       userId:this.loginData.userId,
       tblName:'coinRegistration'
     }
-  
+
     this.api.getData(data).then((res:any)=>{
       console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
-  
+
       }
     })
   }
@@ -134,7 +128,7 @@ export class SettingsComponent implements OnInit {
       console.log("setting data page ======",res);
       if(res.status){
         this.setting = res.success[0]
-     
+
         this.duration=res.success[0].durationThreshold
         var minutes = Math.round(this.duration/60);
         var seconds = this.duration%60;
@@ -161,11 +155,26 @@ export class SettingsComponent implements OnInit {
           minutes:minutes,
           seconds:seconds
         })
-        
-          this.wearableForm.patchValue({
-            wearable:res.success[0].type.toString()
+        this.buzzerTimeForm.patchValue({
+          buzzerTime:res.success[0].buzzerTime
+        })
+        this.wearableForm.patchValue({
+          wearable:res.success[0].type.toString()
+        })
+        if(res.success[0].buzzerConfig==5){
+          this.buzzerConfigStatus=true
+          this.buzzerConfigForm.patchValue({
+            buzzerConfig:res.success[0].buzzerConfig.toString(),
+            durationSec:res.success[0].buzzerConfigSec
           })
-         
+        }
+        else{
+          this.buzzerConfigStatus=false
+          this.buzzerConfigForm.patchValue({
+            buzzerConfig:res.success[0].buzzerConfig.toString(),
+
+          })
+        }
 
         if( res.success[0].inactivityStatus == 1){
           this.inactivityStatusValue = {
@@ -204,7 +213,7 @@ export class SettingsComponent implements OnInit {
 
   onSubmitDistanceForm(data) {
     console.log("data=",data)
-  
+
      if (this.distanceForm.valid) {
        try {
         if(this.setting.type==0){
@@ -213,7 +222,7 @@ export class SettingsComponent implements OnInit {
           }
           else if(data.distance  == "2" ){
            data.rssi='B5'
-          
+
           }
           else if(data.distance  == "3"){
             data.rssi='AE'
@@ -339,12 +348,12 @@ export class SettingsComponent implements OnInit {
    }
 
 
- 
+
    onSubmitoverCrowedForm(value){
       console.log("value==",value)
     if (this.overCrowedForm.valid) {
       try {
-       
+
         var data={
           userId:this.loginData.userId,
           coinId:value.coinSelect,
@@ -355,7 +364,7 @@ export class SettingsComponent implements OnInit {
           console.log("limit response===",res)
           if(res.status){
             this.refreshSetting()
-            var msg='Max imit updated Successfully'
+            var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
@@ -370,17 +379,17 @@ export class SettingsComponent implements OnInit {
 
    onSubmitTimeForm(value){
      console.log(" time data===",value);
-  
+
      var minute=value.minutes <=9 && value.minutes >= 0 ?"0"+value.minutes:value.minutes
      var second=value.seconds <=9 && value.seconds >= 0 ?"0"+value.seconds:value.seconds
 
      var data={
        userId:this.loginData.userId,
        minute:minute.toString(),
-       second:second.toString() 
+       second:second.toString()
       }
      console.log("data==",data)
-     
+
      this.api.getDurationThreshold(data).then((res:any)=>{
        console.log("duration==",res)
       if(res.status){
@@ -391,7 +400,7 @@ export class SettingsComponent implements OnInit {
       }
     })
 
-   } 
+   }
 
 
    onSubmitwearableForm(data){
@@ -406,7 +415,7 @@ export class SettingsComponent implements OnInit {
           }
           else if(this.setting.distance  == 2){
            data.rssi='B5'
-          
+
           }
           else if(this.setting.distance  ==3){
             data.rssi='AE'
@@ -423,10 +432,10 @@ export class SettingsComponent implements OnInit {
             data.rssi='A3'
           }
         }
-       
-      
+
+
           data.userId=this.loginData.userId,
-        
+
         console.log("data=====",data)
         this.api.updateWearableType(data).then((res:any)=>{
           console.log("wearable type===",res)
@@ -444,13 +453,35 @@ export class SettingsComponent implements OnInit {
     }
 
    }
-   onSubmitsomeForm(data){
-     console.log("data==",data)
-     if(data.someval==1){
-       data.someval=121
-       console.log("data===",data)
-     }
-   }
+
+  onSubmitbuzzerConfigForm(data){
+    console.log("data==",data)
+    data.durationSec=data.buzzerConfig>0 && data.buzzerConfig<=4?0:data.durationSec
+    console.log("data==",data)
+
+    if (this.buzzerConfigForm.valid) {
+      try {
+        data.userId=this.loginData.userId
+        this.api.updateBuzzerConfig(data).then((res:any)=>{
+          console.log("buzzer congig===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg='Buzzer configured Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+  }
+
+  getBuzzerValue(event){
+    console.log("event==",event)
+    this.buzzerConfigStatus=event.value==5?true:false
+
+  }
      customise(){
      this.statusCustomise = this.statusCustomise == true ? false : true
    }
@@ -461,59 +492,60 @@ export class SettingsComponent implements OnInit {
         this.minStatus=true
         this.timeForm.patchValue({
           seconds:0
-        }) 
+        })
       }else{
         this.minStatus=false
       }
-      // this.minStatus=event.value==10?true:false
-      // this.timeForm.patchValue({
-      //   seconds:0
-      // }) 
-  
+
   }
 
 
-   changeDistance(event){
-    //  console.log("event===",event.value)
-      this.refreshSetting()
-      console.log("hii")
-      if(this.setting.type==0){
-        if(event.value == 1){
-          this.distanceForm.patchValue({
-            rssi:'B9'
-          })
-        }
-        else if(event.value == 2){
-          this.distanceForm.patchValue({
-            rssi:'B5'
-          })
-        }
-        else if(event.value == 3){
-          this.distanceForm.patchValue({
-            rssi:'AE'
-          })
-        }
-      }
-      if(this.setting.type==1){
-        if(event.value == 1){
-          this.distanceForm.patchValue({
-            rssi:'A1'
-          })
-        }
-        else if(event.value == 2){
-          this.distanceForm.patchValue({
-            rssi:'A2'
-          })
-        }
-        else if(event.value == 3){
-          this.distanceForm.patchValue({
-            rssi:'A3'
-          })
-        }
-      }
-  
 
-   }
+
+
+
+
+   // changeDistance(event){
+   //  //  console.log("event===",event.value)
+   //    this.refreshSetting()
+   //    console.log("hii")
+   //    if(this.setting.type==0){
+   //      if(event.value == 1){
+   //        this.distanceForm.patchValue({
+   //          rssi:'B9'
+   //        })
+   //      }
+   //      else if(event.value == 2){
+   //        this.distanceForm.patchValue({
+   //          rssi:'B5'
+   //        })
+   //      }
+   //      else if(event.value == 3){
+   //        this.distanceForm.patchValue({
+   //          rssi:'AE'
+   //        })
+   //      }
+   //    }
+   //    if(this.setting.type==1){
+   //      if(event.value == 1){
+   //        this.distanceForm.patchValue({
+   //          rssi:'A1'
+   //        })
+   //      }
+   //      else if(event.value == 2){
+   //        this.distanceForm.patchValue({
+   //          rssi:'A2'
+   //        })
+   //      }
+   //      else if(event.value == 3){
+   //        this.distanceForm.patchValue({
+   //          rssi:'A3'
+   //        })
+   //      }
+   //    }
+   //
+   //
+   // }
 
    inactivityChange(event){
      var checked = event.checked == true ? 1 : 2

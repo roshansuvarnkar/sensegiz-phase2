@@ -171,7 +171,14 @@ export class HistoryReportComponent implements OnInit {
           this.liveData=res.success
         }
         else{
-          this.excelData=res.success
+          this.excelData=[]
+          // for(let i=0;i<res.success.length:i++){
+          //   this.excelData.push({
+          //     i:i+1
+          //
+          //   })
+          // }
+
         }
 
         this.dataSource = new MatTableDataSource(this.liveData);
@@ -185,7 +192,7 @@ export class HistoryReportComponent implements OnInit {
   }
 
   summaryReport(){
-    
+
       var data={
         userId:this.loginData.userId,
         deviceName:this.deviceName,
@@ -207,12 +214,12 @@ export class HistoryReportComponent implements OnInit {
               data : groupDate[data]
             }
           })
-     
+
         }
       })
     }
-  
- 
+
+
 dataDateReduce(data){
   return data.reduce((group,obj)=>{
     const date = obj.updatedOn.split('T')[0]
@@ -223,9 +230,9 @@ dataDateReduce(data){
     return group
   },{})
 }
-  
+
 locationReport(limit=10,offset=0,type=0){
-  
+
     var data={
       userId:this.loginData.userId,
       coinId:this.locationId,
@@ -240,7 +247,7 @@ locationReport(limit=10,offset=0,type=0){
       console.log("Location history======",res);
 
       if(res.status){
-        
+
         if(type==0){
           this.coinData=[]
         for(let i=0;i<res.success.length;i++){
@@ -292,8 +299,8 @@ locationReport(limit=10,offset=0,type=0){
           });
         }
         }
-         
- 
+
+
     else{
       this.excelData=res.success
     }
@@ -308,7 +315,7 @@ locationReport(limit=10,offset=0,type=0){
 }
 
   loadData(limit=10,offset=0,type=0){
-    
+
       if(this.type == 'basedOnDate'){
         this.basedOnDate(limit=limit,offset=offset,type=type)
 

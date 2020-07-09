@@ -19,7 +19,7 @@ userform:FormGroup
 coinform:FormGroup
 loginData:any
 gateway:any=[]
-model: any = {}
+
 
 
   constructor(
@@ -49,7 +49,7 @@ model: any = {}
 
     });
 
- 
+
 
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
@@ -73,9 +73,9 @@ model: any = {}
       this.Findform.patchValue({
         deviceName: this.deviceData.deviceName,
         deviceId: this.deviceData.deviceId,
-        mobileNum:this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobNum==undefined ? '-' : this.deviceData.mobNum,
-        emailId:this.deviceData.emailId=='' ? '-' : this.deviceData.emailId==undefined ? '-' : this.deviceData.emailId,
-        empId:this.deviceData.empId=='' ? '-' : this.deviceData.empId==undefined ? '-' : this.deviceData.empId
+        mobileNum:this.deviceData.mobileNum=='-' ? '' : this.deviceData.mobileNum==undefined ? '-' : this.deviceData.mobileNum,
+        emailId:this.deviceData.emailId=='-' ? '' : this.deviceData.emailId==undefined ? '-' : this.deviceData.emailId,
+        empId:this.deviceData.empId=='-' ? '' : this.deviceData.empId==undefined ? '-' : this.deviceData.empId
       });
     }
 
@@ -88,7 +88,7 @@ model: any = {}
 
     else if(this.type=='users'){
       this.userform.patchValue({
-        mobileNum: this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobNum==undefined ? '-' : this.deviceData.mobNum,
+        mobileNum: this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobileNum==undefined ? '-' : this.deviceData.mobileNum,
         emailId: this.deviceData.emailId
       });
     }
@@ -108,7 +108,7 @@ model: any = {}
     console.log("find edit===",data)
     var mobNum=data.mobileNum.replace(/\s/g,'')
     console.log("mon num==",mobNum)
-    data.mobileNum=mobNum
+    data.mobileNum=mobNum==''?'-':mobNum=='+91'?mobNum.substring(3):mobNum
     if (this.Findform.valid) {
       try {
         console.log("find edit===",data)
@@ -123,10 +123,6 @@ model: any = {}
           }
           else if(!res.status && res.alreadyExisted){
             var msg = 'Device Name Already exists, try different Name'
-            this.general.openSnackBar(msg,'')
-          }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Name, Device Id or Employee Id Already exists, try different Device'
             this.general.openSnackBar(msg,'')
           }
 

@@ -9,11 +9,11 @@
     <button mat-menu-item routerLink="/dashboard"> <mat-icon>people</mat-icon>Manage People</button>
     <button mat-menu-item routerLink="/live-data"> <mat-icon>person_pin_circle</mat-icon>Social Distancing</button>
     <button mat-menu-item routerLink="/exception"> <mat-icon>settings</mat-icon>Exception</button>
-    <!-- <button mat-menu-item routerLink="/location"> <mat-icon>place</mat-icon>Location</button> -->
+    <button mat-menu-item routerLink="/location"> <mat-icon>place</mat-icon>Location</button>
 
     <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>History</button>
     <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>Settings</button>
-    <button mat-raised-button class="guide"><span routerLink="/user-guide">User Guide</span></button>
+    <!-- <button mat-raised-button class="guide"><span routerLink="/user-guide">User Guide</span></button> -->
 
   </mat-menu>
 
@@ -44,18 +44,18 @@
     <span routerLink="/dashboard">Manage People</span>
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/exception">Exception</span>
-    <!-- <span routerLink="/location">Location</span> -->
+    <span routerLink="/location">Location</span>
     <span routerLink="/history">History</span>
      <span>
       <span [matMenuTriggerFor]="belowMenu" class="menu">Settings</span>
       <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>General settings</button>
-        <button mat-menu-item routerLink="/geo-fence"> <mat-icon>settings</mat-icon>Geofence settings</button>
+        <button mat-menu-item routerLink="/settings">General settings</button>
+        <button mat-menu-item routerLink="/geo-fence">Geofence settings</button>
         </mat-menu>
      </span>
    <span routerLink="/user-guide">User Guide</span>
 
-    
+
   </mat-toolbar>
 
 <div *ngIf="isDesktopDevice">

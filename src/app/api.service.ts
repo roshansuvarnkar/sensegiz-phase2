@@ -140,7 +140,7 @@ export class ApiService {
       })
     });
 
-    
+
   }
 
 
@@ -275,7 +275,7 @@ export class ApiService {
     });
   }
 
-  
+
   getExceptionData(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -598,7 +598,28 @@ getSummaryReport(data){
     })
   });
 }
-
+// updateBuzzerControl(data){
+//   const httpOptions = {
+//     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+//   };
+//   let url = this.host+'/setBuzzerControl';
+//   return new Promise((resolve,reject)=>{
+//     this.http.post(url,data,httpOptions).subscribe(res=>{
+//       resolve(res);
+//     })
+//   });
+// }
+updateBuzzerConfig(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  let url = this.host+'/setBuzzerConfiguration';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+}
 
 getInactivityDeviceSetting(data){
   const httpOptions = {
@@ -648,7 +669,7 @@ updateInactivityStatus(data){
       resolve(res);
     })
   });
-} 
+}
 
 
 setGeofenceData(data){
@@ -689,23 +710,23 @@ maxLimit(data){
 }
 
 getLocationHistory(data){
-  
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-  
+
     let url = this.host+'/locationHistory';
     return new Promise((resolve,reject)=>{
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
       })
     });
-  
+
 }
 
 
 getDurationThreshold(data){
-  
+
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

@@ -47,7 +47,7 @@
         <mat-form-field>
           <mat-label>Email Id</mat-label>
           <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com" >
-        
+
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -59,8 +59,7 @@
       <mat-form-field>
         <mat-label>Mobile Number</mat-label>
         <input type="tel" matInput formControlName="mobileNum" placeholder="Mobile Number" >
-        <!-- <international-phone-number2  [(ngModel)]="model.phone_number" placeholder="Enter phone number" [defaultCountry]="'in'"
-        [required]="true" formControlName="mobileNum" >
+        <!-- <international-phone-number2   placeholder="Enter Mobile number" [defaultCountry]="'in'" formControlName="mobileNum" >
        </international-phone-number2> -->
       </mat-form-field>
       <div>
@@ -215,8 +214,8 @@
       </mat-step>
       <mat-step >
         <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
-    
-       
+
+
           <mat-form-field>
              <mat-label>Gateway Id</mat-label>
              <mat-select   formControlName="gatewayId">
@@ -224,8 +223,8 @@
                  {{b.gatewayId}}
                </mat-option>
              </mat-select>
-           </mat-form-field> 
-        
+           </mat-form-field>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
