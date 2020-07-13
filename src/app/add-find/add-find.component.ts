@@ -176,7 +176,6 @@ refreshGateway(){
     if(res.status){
       this.gateway=res.success
 
-
     }
 
   })

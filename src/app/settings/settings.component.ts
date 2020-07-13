@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-shift.component';
 
 @Component({
@@ -21,6 +21,7 @@ export class SettingsComponent implements OnInit {
   overCrowedForm:FormGroup
   wearableForm:FormGroup
   timeForm:FormGroup
+  scanningForm:FormGroup
   buzzerTimeForm:FormGroup
   buzzerConfigForm:FormGroup
   loginData:any
@@ -29,13 +30,18 @@ export class SettingsComponent implements OnInit {
   wearableType:any
   statusCustomise:boolean=false
   minStatus:boolean=false
+  secStatus:boolean=false
+  requiredStatus1:boolean=false
+  requiredStatus2:boolean=false
+  timeFormStatus:boolean=true
+  buzzerFormStatus:boolean=false
   selectedValue:boolean=false
   buzzerConfigStatus:boolean=false
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
-  min:any=[0,1,2,3,4,5,6,7,8,9,10]
-  sec:any=[0,5,10,15,20,25,30,35,40,45,50,55]
+  min:any=[]
+  sec:any=[]
   // buzzerValue:any=[1,2,3,4,5]
 
   someValue:any=[]
@@ -46,6 +52,7 @@ export class SettingsComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshCoins()
     this.refreshSetting()
+    this.maxThresholdMinsec()
 
     this.workingForm = this.fb.group({
       shift: ['', Validators.required],
@@ -84,7 +91,7 @@ export class SettingsComponent implements OnInit {
     })
 
     this.timeForm=this.fb.group({
-      minutes:['',Validators.required],
+      minutes:[{value:'',disabled: false},Validators.required],
       seconds:[{value:'',disabled: false},Validators.required]
     })
 
@@ -97,9 +104,14 @@ export class SettingsComponent implements OnInit {
     })
 
     this.buzzerConfigForm=this.fb.group({
-      buzzerConfig:['',Validators.required],
+      buzzerConfig:[''],
       durationSec:['',[Validators.max(255), Validators.min(10),Validators.pattern(/^\d*[05]$/)]]
     })
+    this.scanningForm=this.fb.group({
+      seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
+     
+    })
+    
 
   }
 
@@ -130,10 +142,6 @@ export class SettingsComponent implements OnInit {
         this.setting = res.success[0]
 
         this.duration=res.success[0].durationThreshold
-        var minutes = Math.round(this.duration/60);
-        var seconds = this.duration%60;
-
-        console.log("min",minutes, seconds)
 
         this.distanceForm.patchValue({
           distance: res.success[0].distance.toString(),
@@ -151,21 +159,38 @@ export class SettingsComponent implements OnInit {
         this.bufferForm.patchValue({
           buffer: res.success[0].buffer,
         })
-        this.timeForm.patchValue({
-          minutes:minutes,
-          seconds:seconds
-        })
+        if(res.success[0].durationThreshold<=55){
+          this.minStatus=true
+          this.timeForm.patchValue({
+            minutes:'none',
+            seconds:res.success[0].durationThreshold
+          })
+        }else if(res.success[0].durationThreshold>55){
+          this.secStatus=true
+          this.timeForm.patchValue({
+            seconds:'none',
+            minutes:res.success[0].durationThreshold/60,
+          })
+        }
+       
         this.buzzerTimeForm.patchValue({
           buzzerTime:res.success[0].buzzerTime
         })
         this.wearableForm.patchValue({
           wearable:res.success[0].type.toString()
         })
+       
+
+        this.scanningForm.patchValue({
+          seconds:res.success[0].scanningInterval.toString()
+        })
+
         if(res.success[0].buzzerConfig==5){
           this.buzzerConfigStatus=true
+         
           this.buzzerConfigForm.patchValue({
             buzzerConfig:res.success[0].buzzerConfig.toString(),
-            durationSec:res.success[0].buzzerConfigSec
+            durationSec:res.success[0].buzzerTime
           })
         }
         else{
@@ -192,6 +217,16 @@ export class SettingsComponent implements OnInit {
     })
   }
 
+  maxThresholdMinsec(){
+    for(let i =0;i<=10;i++){
+      var minutes=i==0?'none':i
+      this.min.push(minutes)
+     }
+    for(let i =0;i<=55;i++){
+     var seconds=i==0?'none':i
+     this.sec.push(seconds)
+    }
+  }
   onSubmitWorkForm(data) {
      if (this.workingForm.valid) {
        try {
@@ -377,25 +412,26 @@ export class SettingsComponent implements OnInit {
    }
 
 
-   onSubmitTimeForm(value){
-     console.log(" time data===",value);
+   onSubmitTimeForm(data){
+     console.log(" time data===",data);
+     
+       data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
+    
+    
 
-     var minute=value.minutes <=9 && value.minutes >= 0 ?"0"+value.minutes:value.minutes
-     var second=value.seconds <=9 && value.seconds >= 0 ?"0"+value.seconds:value.seconds
-
-     var data={
+     var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
+     var data1={
        userId:this.loginData.userId,
-       minute:minute.toString(),
-       second:second.toString()
-      }
-     console.log("data==",data)
+       seconds:second
+     }
+     console.log("data1==",data1)
 
-     this.api.getDurationThreshold(data).then((res:any)=>{
+     this.api.getDurationThreshold(data1).then((res:any)=>{
        console.log("duration==",res)
       if(res.status){
 
         this.refreshSetting()
-        var msg = 'Maximum duration threshold updated Successfully'
+        var msg = 'Minimum duration threshold updated Successfully'
         this.general.openSnackBar(msg,'')
       }
     })
@@ -477,26 +513,88 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  onSubmitScanningForm(data){
+    console.log("data==",data)
+    if (this.scanningForm.valid) {
+      try {
+        data.userId=this.loginData.userId
+        this.api.updateScanningInterval(data).then((res:any)=>{
+          console.log("Scanning Interval===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg='Interval second Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+  
+  }
+
   getBuzzerValue(event){
     console.log("event==",event)
-    this.buzzerConfigStatus=event.value==5?true:false
+   if(event.value == 5){
+     this.buzzerConfigStatus=true
+     this.buzzerConfigForm.patchValue({
+      durationSec:10
+    })
+   
+   }else if(event.value !== 5){
+    this.buzzerConfigStatus=false
+   }
+    
 
   }
+ 
      customise(){
      this.statusCustomise = this.statusCustomise == true ? false : true
    }
 
   getMin(event){
-    // console.log("event==",event)
-      if(event.value==10){
-        this.minStatus=true
-        this.timeForm.patchValue({
-          seconds:0
-        })
-      }else{
-        this.minStatus=false
-      }
+    console.log("event==",event)
+    if(event.value=="none"){
+      this.minStatus=true
+      this.secStatus=false
+      this.requiredStatus1=false
+      this.requiredStatus2=true
+      this.timeFormStatus=true
 
+     
+    }
+    else{
+      this.minStatus=false
+      this.secStatus=true
+      this.requiredStatus1=true
+      this.requiredStatus2=false
+      this.timeFormStatus=false
+     
+     
+    }
+   
+  }
+
+  getSec(event){
+    if(event.value=="none"){
+      this.minStatus=false
+      this.secStatus=true
+      this.requiredStatus1=true
+      this.requiredStatus2=false
+      this.timeFormStatus=true
+
+    }
+    else{
+      this.minStatus=true
+      this.secStatus=false
+      this.requiredStatus1=false
+      this.requiredStatus2=true
+      this.timeFormStatus=false
+     
+
+    }
+   
   }
 
 

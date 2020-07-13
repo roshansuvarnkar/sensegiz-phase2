@@ -145,7 +145,7 @@
             <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
           </span>
     </div> <br>
-      <p class="center-head" mat-dialog-title>Based on User Name {{deviceName | titlecase}}</p>
+      <p class="center-head" mat-dialog-title>Social Distancing Violator's Report based on username {{deviceName | titlecase}}</p>
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort >
@@ -283,6 +283,65 @@
     </div>
 
   </div>
+
+  <div *ngIf="type =='geoFenceReport'" id="htmlData">
+    <div class="content">
+      <p class="center"> REPORT OF LOCATION AND GEOFENCE</p>
+      <span class="icon">
+  
+        <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+      </span>
+    </div> <br>
+    <p class="center-head" mat-dialog-title>Based on date from {{from}} to {{to}}</p>
+  
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort >
+          <div>
+            <ng-container matColumnDef="i">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+              <td mat-cell *matCellDef="let coin"> {{coin.i}} </td>
+            </ng-container>
+  
+  
+            <ng-container matColumnDef="coinName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
+              <td mat-cell *matCellDef="let coin"> {{coin.coinName}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="geofenceStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Geofence </th>
+              <td mat-cell *matCellDef="let coin"> {{coin.geofenceStatus}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="inTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Enter Time</th>
+              <td mat-cell *matCellDef="let coin" >
+                <span  *ngIf="coin.inTime!='-'">{{coin.inTime | date : 'medium' }}</span>
+                <span  *ngIf="coin.inTime=='-'">-</span> 
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="outTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Exit Time</th>
+              <td mat-cell *matCellDef="let coin" >
+                <span  *ngIf="coin.outTime!='-'">{{coin.outTime | date : 'medium' }}</span>
+                <span  *ngIf="coin.outTime=='-'">-</span> 
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="totTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Time</th>
+              <td mat-cell *matCellDef="let coin"> {{convertDate(coin.totTime)}} </td>
+            </ng-container>
+          </div>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
+        </table>
+        <mat-paginator pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButton></mat-paginator>
+      </div>
+  
+    </div>
+  
 
 
 </div>

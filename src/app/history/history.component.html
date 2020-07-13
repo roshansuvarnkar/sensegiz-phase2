@@ -95,7 +95,7 @@
   <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
-        Report based on User Name
+        Social Distancing voilators's Report based on username
       </mat-card-title>
       <mat-card-subtitle>
         Enter User Name and From to To date
@@ -246,5 +246,47 @@
       </form>
     </mat-card-content>
   </mat-card>
+
+  <mat-card >
+    <span class="card-head">
+      <mat-card-title color="primary">
+        Report of Location and Geofence based ondate
+      </mat-card-title>
+      <mat-card-subtitle>
+        Enter  From to To date
+      </mat-card-subtitle>
+    </span>
+    <mat-card-content>
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickGeoLocation(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickGeoLocation(14)">Last two week</mat-radio-button>
+      </mat-radio-group><br>
+      <form [formGroup]="geoAndLocForm" (ngSubmit)="onSubmitGeoAndLocForm(geoAndLocForm.value)">
+
+        <mat-form-field>
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker9" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker9"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker9></mat-datepicker>
+          <mat-error>
+            Please provide a valid from date
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker10" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker10"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker10></mat-datepicker>
+          <mat-error>
+            Please provide a valid to date
+          </mat-error>
+        </mat-form-field>
+  <br>
+        <button mat-raised-button [disabled]="!geoAndLocForm.valid" color="primary">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
 
 </div>

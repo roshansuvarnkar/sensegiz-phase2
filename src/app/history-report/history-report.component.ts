@@ -30,6 +30,7 @@ export class HistoryReportComponent implements OnInit {
   liveData:any=[]
   summaryData:any=[]
   excelData:any=[]
+  locGeoData:any=[]
   dataSource:any
   loginData:any
   from:Date
@@ -43,6 +44,7 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns1: string[] = ['i','contactName', 'updatedOn', 'totaltime'];
   displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
   displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
+  displayedColumns4: string[] = ['i','coinName','geofenceStatus','inTime', 'outTime','totTime'];
   fileName:any
   locationName:any
   locationId:any
@@ -314,6 +316,89 @@ locationReport(limit=10,offset=0,type=0){
   })
 }
 
+
+geofenceAndlocationReport(limit=10,offset=0,type=0){
+
+  var data={
+    userId:this.loginData.userId,
+    fromDate: this.from,
+    toDate:this.to,
+    // offset:offset,
+    // limit:limit
+
+  }
+  // console.log("data3==",data3)
+  this.api.getGeofenceReport(data).then((res:any)=>{
+    console.log("Location and geo fence history======",res);
+
+    if(res.status){
+
+      if(type==0){
+        this.locGeoData=[]
+      for(let i=0;i<res.success.length;i++){
+
+        this.date1  = new Date(res.success[i].inTime)
+        this.date2=new Date(res.success[i].outTime)
+        var date=new Date()
+        // console.log("date1==",this.date1,this.date2)
+
+        if(this.date1 !="Invalid Date"){
+
+          if(this.date2!="Invalid Date"){
+            var diff = Math.abs(this.date2 - this.date1)
+          }
+
+          else{
+            this.date2=date
+            diff= Math.abs(this.date2 - this.date1)
+          }
+
+
+          let ms = diff % 1000;
+          diff = (diff - ms) / 1000;
+          let s = diff % 60;
+          diff = (diff - s) / 60;
+          let m = diff % 60;
+          diff = (diff - m) / 60;
+          let h = diff
+
+          let ss = s <= 9 && s >= 0 ? "0"+s : s;
+          let mm = m <= 9 && m >= 0 ? "0"+m : m;
+          let hh = h <= 9 && h >= 0 ? "0"+h : h;
+
+         this.time = hh +':' + mm + ':' +ss
+        }
+        else{
+          this.date2=date
+          diff= Math.abs(this.date2 - this.date1)
+        }
+        // console.log("this.time===",this.time)
+        this.locGeoData.push({
+          i:i+1,
+          coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
+          inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
+          outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
+          totTime:this.time,
+          geofenceStatus:res.success[i].geofenceStatus == null?'Not configured':res.success[i].geofenceStatus == 1?'Entered location':'Exited location',
+
+        });
+      }
+      }
+
+
+  else{
+    this.excelData=res.success
+  }
+
+  this.dataSource = new MatTableDataSource(this.locGeoData);
+  setTimeout(() => {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator
+     })
+   }
+})
+}
+
   loadData(limit=10,offset=0,type=0){
 
       if(this.type == 'basedOnDate'){
@@ -330,6 +415,9 @@ locationReport(limit=10,offset=0,type=0){
       }
       if(this.type == 'locationReport'){
         this.locationReport(limit=limit,offset=offset,type=type)
+      }
+      if(this.type == 'geoFenceReport'){
+        this.geofenceAndlocationReport(limit=limit,offset=offset,type=type)
       }
 }
 
@@ -423,8 +511,9 @@ getPages() {
     if(timeArr[2]!='00'){
       date += timeArr[2] + ' second '
     }
+    
     if(date==''){
-      date = '-'
+      date = '05 second'
     }
     return date
   }

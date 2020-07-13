@@ -19,6 +19,7 @@ findNameForm:FormGroup
 summaryReportForm:FormGroup
 locationForm:FormGroup
 dateForm:FormGroup
+geoAndLocForm:FormGroup
 finds:any=[]
 coinData:any=[]
 coin:any
@@ -63,6 +64,10 @@ prevDate:any
     });
     this.locationForm = this.fb.group({
       coinSelect: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    });
+    this.geoAndLocForm = this.fb.group({
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
@@ -184,6 +189,27 @@ onclickLocation(data){
     })
 
 }
+
+onclickGeoLocation(data){
+  var date = new Date();
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
+
+  var date = new Date(prevDate);
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+
+  var tot = year + '-' + month + '-'  + day
+
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
+   this.geoAndLocForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
+
+}
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
@@ -243,7 +269,7 @@ onclickLocation(data){
         });
 
   }
-
+ 
 
   // onSubmitFindId(data){
   //   console.log("data====",data)
@@ -379,6 +405,39 @@ onclickLocation(data){
       this.refreshCoins()
     });
   }
+  onSubmitGeoAndLocForm(data){
+   
+    var date1=new Date(data.fromDate)
+    var date2=new Date(data.toDate)
+    var year = date1.getFullYear();
+    var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+    var day = ("0" + date1.getDate()).slice(-2);
+    var from = year + '-' + month + '-'  + day
 
+    var year1 = date2.getFullYear();
+    var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+    var day1 = ("0" + date2.getDate()).slice(-2);
+    var to = year1 + '-' + month1 + '-'  + day1
+    
+    
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      type:"geoFenceReport",
+      data:data,
+      fromDate:from,
+      toDate:to,
+    }
+    const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshCoins()
+    });
+
+  }
 
 }

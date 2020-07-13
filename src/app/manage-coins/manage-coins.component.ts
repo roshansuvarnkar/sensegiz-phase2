@@ -34,7 +34,7 @@ constructor(public dialog: MatDialog,
   
 
   ngOnInit(): void {
-    this.loginData = this.login.Getlogin()
+  this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
 
   this.refreshCoins()
@@ -51,7 +51,7 @@ constructor(public dialog: MatDialog,
     const dialogRef = this.dialog.open(AddFindComponent, dialogConfig);
   
     dialogRef.afterClosed().subscribe(result => {
-      
+      this.refreshCoins()
     });
 
     

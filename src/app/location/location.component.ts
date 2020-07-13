@@ -45,7 +45,7 @@ export class LocationComponent implements OnInit {
 
      this.api.getLocationData(data).then((res:any)=>{
        console.log("location data ======",res);
-       // if(res.success){
+       if(res.status){
          this.locationData=[]
         for(let i=0;i<res.success.length;i++){
           var geofencestatus=res.success[i].geofenceStatus
@@ -73,7 +73,7 @@ export class LocationComponent implements OnInit {
            this.dataSource.paginator = this.paginator;
            // this.paginator.length = this.currentPageSize
          })
-       // }
+       }
      })
 
   }
