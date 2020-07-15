@@ -68,6 +68,7 @@ prevDate:any
       toDate: ['', Validators.required]
     });
     this.geoAndLocForm = this.fb.group({
+      deviceName:['', Validators.required],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
@@ -428,7 +429,7 @@ onclickGeoLocation(data){
     dialogConfig.width = '75vw';
     dialogConfig.data = {
       type:"geoFenceReport",
-      data:data,
+      deviceName:data.deviceName,
       fromDate:from,
       toDate:to,
     }

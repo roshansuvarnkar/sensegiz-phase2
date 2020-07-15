@@ -91,6 +91,7 @@ export class HistoryReportComponent implements OnInit {
     if(this.type=='basedOnDate'){
       var data={
         userId:this.loginData.userId,
+      
         fromDate: this.from,
         toDate:this.to,
       }
@@ -145,6 +146,7 @@ export class HistoryReportComponent implements OnInit {
   if(this.type=='geoFenceReport'){
     var data3={
       userId:this.loginData.userId,
+      deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
     }
@@ -358,13 +360,14 @@ geofenceAndlocationReport(limit=10,offset=0,type=0){
 
   var data={
     userId:this.loginData.userId,
+    deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
     offset:offset,
     limit:limit
 
   }
-  // console.log("data3==",data3)
+  console.log("data3==",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
     console.log("Location and geo fence history======",res);
 

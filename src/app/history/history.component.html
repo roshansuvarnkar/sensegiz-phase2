@@ -250,7 +250,7 @@
   <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
-        Report of Location and Geofence based on date
+        Report of Location and Geofence based username
       </mat-card-title>
       <mat-card-subtitle>
         Enter  From to To date
@@ -262,6 +262,12 @@
         <mat-radio-button [value]="2" name="small" (change)="onclickGeoLocation(14)">Last two week</mat-radio-button>
       </mat-radio-group><br>
       <form [formGroup]="geoAndLocForm" (ngSubmit)="onSubmitGeoAndLocForm(geoAndLocForm.value)">
+        <mat-form-field class="full-width-input">
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" required>
+          <mat-error>
+            Please provide a valid user name
+          </mat-error>
+        </mat-form-field>
 
         <mat-form-field>
           <mat-label>From date</mat-label>
