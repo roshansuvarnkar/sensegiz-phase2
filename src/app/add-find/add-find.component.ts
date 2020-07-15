@@ -44,9 +44,9 @@ model: any = {}
       deviceName: ['', Validators.required],
       deviceId: ['', Validators.required],
       employeeId: [''],
-      mobileNum: [''],
+      mobileNum: ['',[Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
-    
+
     });
 
 
@@ -59,7 +59,7 @@ model: any = {}
 
 
     this.userform = this.fb.group({
-      mobileNum: ['', Validators.required],
+      mobileNum: ['',[ Validators.required,Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
     });
 

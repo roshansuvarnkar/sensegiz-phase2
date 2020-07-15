@@ -44,7 +44,7 @@ gateway:any=[]
       deviceName: ['', Validators.required],
       deviceId: [{value: '', disabled: true}, Validators.required],
       empId:[''],
-      mobileNum:[''],
+      mobileNum:['',[Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
 
     });
@@ -59,7 +59,7 @@ gateway:any=[]
 
 
     this.userform = this.fb.group({
-      mobileNum: ['', Validators.required],
+      mobileNum: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
     });
 
