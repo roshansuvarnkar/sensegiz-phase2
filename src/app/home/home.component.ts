@@ -199,7 +199,7 @@ refreshCount(){
     userId:this.loginData.userId,
   }
   this.api.getCountData(data).then((res:any)=>{
-    // console.log("count data ======",res);
+    console.log("count data ======",res);
     if(res.status){
       this.totalEmp = res.success[0].totalEmp
       this.infectedEmp = res.success[1].inectedEmp

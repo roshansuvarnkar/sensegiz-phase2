@@ -35,7 +35,7 @@ export class SideBarComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     //this.checkPage()
-    setInterval(()=>{this.refreshFinds()},60*1000)
+    setInterval(()=>{this.refreshFinds()},30*1000)
 
   }
 
