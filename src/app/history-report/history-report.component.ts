@@ -419,7 +419,7 @@ geofenceAndlocationReport(limit=10,offset=0,type=0){
           inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
           outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
           totTime:this.time,
-          geofenceStatus:res.success[i].geofenceStatus == null?'Not configured':res.success[i].geofenceStatus == 1?'Entered location':'Exited location',
+          geofenceStatus:res.success[i].geofenceStatus == 0?'Not configured':res.success[i].geofenceStatus == 1?'Entered location':'Exited location',
 
         });
       }
