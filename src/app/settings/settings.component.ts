@@ -161,12 +161,14 @@ export class SettingsComponent implements OnInit {
         })
         if(res.success[0].durationThreshold<=55){
           this.minStatus=true
+          this.timeFormStatus=false
           this.timeForm.patchValue({
             minutes:'none',
             seconds:(res.success[0].durationThreshold).toString()
           })
         }else if(res.success[0].durationThreshold>55){
           this.secStatus=true
+          this.timeFormStatus=false
           this.timeForm.patchValue({
             seconds:'none',
             minutes:res.success[0].durationThreshold/60,
@@ -226,15 +228,9 @@ export class SettingsComponent implements OnInit {
      if(i==0){
        var seconds='none'
      }
-     else if(i==1){
-       seconds='0'
-     }
-     else if(i==2 || i==3){
-       continue;
-     }
+  
     else{
       seconds=(i*5).toString()
-
      }
      this.sec.push(seconds)
     }
