@@ -46,6 +46,7 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
   displayedColumns4: string[] = ['i','coinName','geofenceStatus','inTime', 'outTime','totTime'];
   fileName:any
+  locationData:any=[]
   locationName:any
   locationId:any
   title:any
@@ -122,6 +123,44 @@ export class HistoryReportComponent implements OnInit {
     })
 
   }
+
+  if(this.type=='locationReport'){
+    var data2={
+      userId:this.loginData.userId,
+      coinId:this.locationId,
+      fromDate: this.from,
+      toDate:this.to,
+    }
+
+    this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
+      console.log("length of location report on device name ======",res);
+      if(res.status){
+        // console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength = parseInt(res.success[0].count);
+        // this.tempLen=this.currentPageLength
+      }
+    })
+
+  }
+  if(this.type=='geoFenceReport'){
+    var data3={
+      userId:this.loginData.userId,
+      fromDate: this.from,
+      toDate:this.to,
+    }
+
+    this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
+      console.log("length of geo fence report on device name ======",res);
+      if(res.status){
+        // console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength = parseInt(res.success[0].count);
+        // this.tempLen=this.currentPageLength
+      }
+    })
+
+  }
+
+
   }
 
 
@@ -136,7 +175,7 @@ export class HistoryReportComponent implements OnInit {
       offset:offset
     }
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-      console.log("find data based on date ======",res);
+      // console.log("find data based on date ======",res);
       this.liveData=[]
       if(res.status){
         if(type==0){
@@ -166,7 +205,7 @@ export class HistoryReportComponent implements OnInit {
 
     }
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
-      console.log("find data based on name ======",res);
+      // console.log("find data based on name ======",res);
 
       if(res.status){
         if(type==0){
@@ -234,24 +273,22 @@ dataDateReduce(data){
 }
 
 locationReport(limit=10,offset=0,type=0){
-
+  
     var data={
       userId:this.loginData.userId,
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
-      // offset:offset,
-      // limit:limit
+      offset:offset,
+      limit:limit
 
     }
-    // console.log("data3==",data3)
+    console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
-      console.log("Location history======",res);
-
-      if(res.status){
-
+      // console.log("Location history======",res);
+      if(res.status){ 
         if(type==0){
-          this.coinData=[]
+          this.locationData=[]
         for(let i=0;i<res.success.length;i++){
 
           this.date1  = new Date(res.success[i].inTime)
@@ -289,11 +326,11 @@ locationReport(limit=10,offset=0,type=0){
             diff= Math.abs(this.date2 - this.date1)
           }
           // console.log("this.time===",this.time)
-          this.coinData.push({
+          this.locationData.push({
             i:i+1,
             deviceName:res.success[i].deviceName,
-            inTime:res.success[i].inTime,
-            outTime:res.success[i].outTime,
+            inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
+            outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
             totTime:this.time
             // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
             // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
@@ -307,10 +344,10 @@ locationReport(limit=10,offset=0,type=0){
       this.excelData=res.success
     }
 
-    this.dataSource = new MatTableDataSource(this.coinData);
+    this.dataSource = new MatTableDataSource(this.locationData);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator
+      // this.dataSource.paginator = this.paginator
        })
      }
   })
@@ -323,8 +360,8 @@ geofenceAndlocationReport(limit=10,offset=0,type=0){
     userId:this.loginData.userId,
     fromDate: this.from,
     toDate:this.to,
-    // offset:offset,
-    // limit:limit
+    offset:offset,
+    limit:limit
 
   }
   // console.log("data3==",data3)
@@ -393,7 +430,7 @@ geofenceAndlocationReport(limit=10,offset=0,type=0){
   this.dataSource = new MatTableDataSource(this.locGeoData);
   setTimeout(() => {
     this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator
+    // this.dataSource.paginator = this.paginator
      })
    }
 })
@@ -512,7 +549,7 @@ getPages() {
       date += timeArr[2] + ' second '
     }
     
-    if(date==''){
+    if(date=='' || date=='-'){
       date = '05 second'
     }
     return date

@@ -20,6 +20,7 @@ import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
 import { LocationComponent } from './location/location.component';
 
+
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'login' , component:LoginComponent},

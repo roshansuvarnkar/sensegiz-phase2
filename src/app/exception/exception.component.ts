@@ -17,6 +17,8 @@ export class ExceptionComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
+  currentPageLength:any=10
+  currentPageSize:any=10
   exception:any=[]
   dataSource:any=[]
   displayedColumns: string[] = ['i','userName', 'coinName', 'updatedOn','alertType'];
@@ -30,13 +32,32 @@ export class ExceptionComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.refreshException()
+    this.getTotalCount()
   }
   
+  getTotalCount(){
+    
+      var data={
+        userId:this.loginData.userId,
+      }
 
-  refreshException(){
+      this.api.getExceptionDataRowCount(data).then((res:any)=>{
+        console.log("length of exception report on date ======",res);
+        if(res.status){
+          // console.log('\nTotal response: ',res.success[0].count);
+          this.currentPageLength = parseInt(res.success[0].count);
+
+        }
+      })
+
+
+  }
+  refreshException(limit=10,offset=0){
   
       var data={
         userId:this.loginData.userId,
+        limit:limit,
+        offset:offset
         
       }
     
@@ -56,13 +77,24 @@ export class ExceptionComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.exception);
           setTimeout(() => {
             this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
+            // this.dataSource.paginator = this.paginator;
             // this.paginator.length = this.currentPageSize
           })
     
         }
       })
     }
+
+    
+
+getUpdate(event) {
+  // console.log("paginator event",event);
+  // console.log("paginator event length", this.currentPageLength);
+  var limit = event.pageSize
+  var offset = event.pageIndex*event.pageSize
+  // console.log("limit==",limit,"offset==",offset)
+  this.refreshException(limit,offset)
+}
 
   }
 

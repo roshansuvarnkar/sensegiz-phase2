@@ -45,7 +45,7 @@ gateway:any=[]
       deviceId: [{value: '', disabled: true}, Validators.required],
       empId:[''],
       mobileNum:[''],
-      emailId:[''],
+      emailId: ['',[Validators.email]]
 
     });
 
@@ -60,7 +60,7 @@ gateway:any=[]
 
     this.userform = this.fb.group({
       mobileNum: ['', Validators.required],
-      emailId: ['', Validators.required]
+      emailId: ['',[Validators.email]]
     });
 
     this.coinform=this.fb.group({

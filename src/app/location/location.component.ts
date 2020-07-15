@@ -31,15 +31,32 @@ export class LocationComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.refreshData()
+    this.getTotalCount()
   }
 
+  
 
-  refreshData(){
+  getTotalCount(){
+    var data={
+      userId:this.loginData.userId,
+    }
+  
+    this.api.getLocationDashBoardRowCount(data).then((res:any)=>{
+      console.log("location count======",res);
+      if(res.status){
+        // console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength= parseInt(res.success[0].count);
+  
+      }
+    })
+  }
+
+  refreshData(limit=10,offset=0){
 
      var data={
        userId:this.loginData.userId,
-       // limit:limit,
-       // offset:offset
+       limit:limit,
+       offset:offset
 
      }
 
@@ -48,20 +65,12 @@ export class LocationComponent implements OnInit {
        if(res.status){
          this.locationData=[]
         for(let i=0;i<res.success.length;i++){
-          var geofencestatus=res.success[i].geofenceStatus
-          if(geofencestatus==null){
-           geofencestatus="Not configured"
-          }else if(geofencestatus==0){
-           geofencestatus="Entered into Location"
-          }
-          else if(geofencestatus==1){
-           geofencestatus="Exited from Location"
-          }
+        
           this.locationData.push({
             i:i+1,
             deviceName:res.success[i].deviceName,
             coinName:res.success[i].coinName==null?"Not available":res.success[i].coinName,
-            geofenceStatus:geofencestatus,
+            geofenceStatus:res.success[i].geofenceStatus==0?'Not configured':res.success[i].geofenceStatus==1?'Entered into Location':'Exited from Location',
             updatedOn:res.success[i].updatedOn=="0000-00-00 00:00:00"?'-':res.success[i].updatedOn
           })
          //  console.log("location==",this.locationData)
@@ -70,7 +79,7 @@ export class LocationComponent implements OnInit {
          this.dataSource = new MatTableDataSource(this.locationData);
          setTimeout(() => {
            this.dataSource.sort = this.sort;
-           this.dataSource.paginator = this.paginator;
+          //  this.dataSource.paginator = this.paginator;
            // this.paginator.length = this.currentPageSize
          })
        }
@@ -78,14 +87,14 @@ export class LocationComponent implements OnInit {
 
   }
 
-// getUpdate(event) {
-//   // console.log("paginator event",event);
-//   // console.log("paginator event length", this.currentPageLength);
-//   var limit = event.pageSize
-//   var offset = event.pageIndex*event.pageSize
-//   // console.log("limit==",limit,"offset==",offset)
-//   this.refreshData(limit,offset)
-// }
+getUpdate(event) {
+  // console.log("paginator event",event);
+  // console.log("paginator event length", this.currentPageLength);
+  var limit = event.pageSize
+  var offset = event.pageIndex*event.pageSize
+  // console.log("limit==",limit,"offset==",offset)
+  this.refreshData(limit,offset)
+}
 
 
 

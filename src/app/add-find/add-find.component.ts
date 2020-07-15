@@ -45,7 +45,8 @@ model: any = {}
       deviceId: ['', Validators.required],
       employeeId: [''],
       mobileNum: [''],
-      emailId: ['']
+      emailId: ['',[Validators.email]]
+    
     });
 
 
@@ -59,7 +60,7 @@ model: any = {}
 
     this.userform = this.fb.group({
       mobileNum: ['', Validators.required],
-      emailId: ['', Validators.required]
+      emailId: ['',[Validators.email]]
     });
 
     this.coinForm =this.fb.group({

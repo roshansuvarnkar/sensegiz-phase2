@@ -163,7 +163,7 @@ export class SettingsComponent implements OnInit {
           this.minStatus=true
           this.timeForm.patchValue({
             minutes:'none',
-            seconds:res.success[0].durationThreshold
+            seconds:(res.success[0].durationThreshold).toString()
           })
         }else if(res.success[0].durationThreshold>55){
           this.secStatus=true
@@ -222,8 +222,20 @@ export class SettingsComponent implements OnInit {
       var minutes=i==0?'none':i
       this.min.push(minutes)
      }
-    for(let i =0;i<=55;i++){
-     var seconds=i==0?'none':i
+    for(let i =0;i<=11;i++){
+     if(i==0){
+       var seconds='none'
+     }
+     else if(i==1){
+       seconds='0'
+     }
+     else if(i==2 || i==3){
+       continue;
+     }
+    else{
+      seconds=(i*5).toString()
+
+     }
      this.sec.push(seconds)
     }
   }
@@ -672,6 +684,21 @@ export class SettingsComponent implements OnInit {
     dialogConfig.width = '70vw';
     dialogConfig.data = {
       type:"shifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  openOvercrowdDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"overcrowd"
     }
     const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
 
