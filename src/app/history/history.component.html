@@ -109,7 +109,12 @@
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
 
         <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="User Name" formControlName="deviceName" required>
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of username" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-autocomplete>
           <mat-error>
             Please provide a valid user name
           </mat-error>
@@ -142,7 +147,7 @@
 
   <!-- summary from -->
 
-  <mat-card >
+  <mat-card  >
     <span class="card-head">
       <mat-card-title color="primary">
         Summary Report of Infected User
@@ -159,7 +164,13 @@
       <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
 
         <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="User Name" formControlName="deviceName" required>
+          <input type='text' matInput placeholder="User Name"  formControlName="deviceName" [matAutocomplete]="auto" (keyup)="infectedSuggestion($event)" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of username" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-autocomplete>
+  
           <mat-error>
             Please provide a valid user name
           </mat-error>
@@ -247,7 +258,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card >
+  <mat-card>
     <span class="card-head">
       <mat-card-title color="primary">
         Report of Location and Geofence based on username
@@ -263,7 +274,12 @@
       </mat-radio-group><br>
       <form [formGroup]="geoAndLocForm" (ngSubmit)="onSubmitGeoAndLocForm(geoAndLocForm.value)">
         <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="User Name" formControlName="deviceName" required>
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" (keyup)="geofenceuserSuggestion($event)" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of username" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-autocomplete>
           <mat-error>
             Please provide a valid user name
           </mat-error>

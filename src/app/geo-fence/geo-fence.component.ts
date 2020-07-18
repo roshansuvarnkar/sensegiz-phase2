@@ -112,7 +112,8 @@ export class GeoFenceComponent implements OnInit {
   submit(data){
     console.log("data====",data)
    
-    
+    var msg = 'Geofence updated Successfully'
+        this.general.openSnackBar(msg,'')
     var value=this.coinData.filter((element)=>{
       return data.coinSelect.includes(element.coinId)
     });
@@ -135,6 +136,7 @@ export class GeoFenceComponent implements OnInit {
      this.api.setGeofenceData(data1).then((res:any)=>{
       console.log("Geo fence device set data ======",res);
       if(res.status){
+        
         
         this.refreshGeoFence()
       }

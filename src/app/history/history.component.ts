@@ -13,6 +13,7 @@ import { OrderContactComponent } from '../order-contact/order-contact.component'
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
+
 loginData:any
 findIdForm:FormGroup
 findNameForm:FormGroup
@@ -24,6 +25,8 @@ finds:any=[]
 coinData:any=[]
 coin:any
 prevDate:any
+username:any
+
 
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
@@ -438,6 +441,74 @@ onclickGeoLocation(data){
     dialogRef.afterClosed().subscribe(result => {
       this.refreshCoins()
     });
+
+  }
+
+  userSuggestion(event){
+    console.log("data=",event)
+   
+    var data={
+      value:event.target.value,
+      userId:this.loginData.userId,
+      tblName:'deviceData'
+
+    }
+    console.log("data==",data)
+    this.api.getUsernameSuggestion(data).then((res:any)=>{
+      console.log("res==",res)
+      if(res.status){
+        this.username=[]
+       for(let i=0;i<res.success.length;i++){
+        this.username.push(res.success[i].baseDeviceName)
+       }
+       console.log("username==",this.username)
+
+      }
+    })
+    
+  }
+  geofenceuserSuggestion(event){
+
+    console.log("data=",event)
+   
+    var data={
+      value:event.target.value,
+      userId:this.loginData.userId,
+      tblName:'deviceDataPhase2'
+
+    }
+    console.log("data==",data)
+    this.api.getUsernameSuggestion(data).then((res:any)=>{
+      console.log("res==",res)
+      if(res.status){
+        this.username=[]
+       for(let i=0;i<res.success.length;i++){
+        this.username.push(res.success[i].deviceName)
+       }
+       console.log("username==",this.username)
+      }
+    })
+  }
+  infectedSuggestion(event){
+    console.log("data=",event)
+   
+    var data={
+      value:event.target.value.toString(),
+      userId:this.loginData.userId,
+      tblName:'deviceRegistration'
+
+    }
+    console.log("data==",data)
+    this.api.getUsernameSuggestion(data).then((res:any)=>{
+      console.log("res==",res)
+      if(res.status){
+        this.username=[]
+       for(let i=0;i<res.success.length;i++){
+        this.username.push(res.success[i].deviceName)
+       }
+       console.log("username==",this.username)
+      }
+    })
 
   }
 

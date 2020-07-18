@@ -113,7 +113,7 @@ Gatewaysubmit(data){
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'Gateway Already exists, try different gateway'
+          var msg = 'Gateway name or Gateway Id Already exists, try different gateway'
           this.general.openSnackBar(msg,'')
         }
       })
@@ -135,7 +135,7 @@ Usersubmit(data){
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'Device Already exists, try different device'
+          var msg = 'User Already exists, try different user'
           this.general.openSnackBar(msg,'')
         }
       })
