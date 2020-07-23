@@ -40,6 +40,7 @@ import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
 import { InternationalPhoneNumber2Module  } from 'ngx-international-phone-number2';
 import { LocationComponent } from './location/location.component';
+import * as moment from 'moment';
 @NgModule({
   declarations: [
     AppComponent,

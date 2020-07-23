@@ -40,8 +40,8 @@ export class HistoryReportComponent implements OnInit {
   deviceName:any
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns: string[] = ['i','baseName','contactName', 'updatedOn', 'totaltime'];
-  displayedColumns1: string[] = ['i','contactName', 'updatedOn', 'totaltime'];
+  displayedColumns: string[] = ['i','baseName','contactName','location', 'updatedOn', 'totaltime'];
+  displayedColumns1: string[] = ['i','contactName', 'updatedOn','location', 'totaltime'];
   displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
   displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
   displayedColumns4: string[] = ['i','coinName','geofenceStatus','inTime', 'outTime','totTime'];
@@ -134,7 +134,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
-      console.log("length of location report on device name ======",res);
+      // console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -152,7 +152,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
-      console.log("length of geo fence report on device name ======",res);
+      // console.log("length of geo fence report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -244,7 +244,7 @@ export class HistoryReportComponent implements OnInit {
 
       }
       this.api.getSummaryReport(data).then((res:any)=>{
-        console.log("summary report ======",res);
+        // console.log("summary report ======",res);
 
         this.liveData=[]
         if(res.status){
@@ -287,7 +287,7 @@ locationReport(limit=10,offset=0,type=0){
     }
     console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
-      // console.log("Location history======",res);
+      // console.log("LocatSion history======",res);
       if(res.status){ 
         if(type==0){
           this.locationData=[]
@@ -367,9 +367,9 @@ geofenceAndlocationReport(limit=10,offset=0,type=0){
     limit:limit
 
   }
-  console.log("data3==",data)
+  // console.log("data3==",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
-    console.log("Location and geo fence history======",res);
+    // console.log("Location and geo fence history======",res);
 
     if(res.status){
 

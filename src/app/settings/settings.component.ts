@@ -5,6 +5,8 @@ import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-shift.component';
+// import * as moment from 'moment';
+// import { time } from 'console';
 
 @Component({
   selector: 'app-settings',
@@ -123,7 +125,7 @@ export class SettingsComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("coin data ======",res);
+      // console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
 
@@ -137,7 +139,7 @@ export class SettingsComponent implements OnInit {
       tblName:'deviceSetting'
     }
     this.api.getData(data).then((res:any)=>{
-      console.log("setting data page ======",res);
+      // console.log("setting data page ======",res);
       if(res.status){
         this.setting = res.success[0]
 
@@ -235,7 +237,34 @@ export class SettingsComponent implements OnInit {
      this.sec.push(seconds)
     }
   }
+
+
   onSubmitWorkForm(data) {
+    // console.log("time==",data)
+    var dateobj=new Date()
+    var year = dateobj.getFullYear();
+    var month = dateobj.getMonth() + 1
+    var day = dateobj.getDate()
+    var date = month + '/' + day + '/'  + year
+
+    var time1=date+" "+data.fromTime
+    var time2=date+" "+data.toTime
+    time1=new Date(time1).toUTCString()
+    time2=new Date(time2).toUTCString()
+    var h=new Date(time1).getUTCHours()
+    var m=new Date(time1).getUTCMinutes()
+    var h1=new Date(time2).getUTCHours()
+    var m1=new Date(time2).getUTCMinutes()
+     var hh = h <= 9 && h >= 0 ? "0"+h : h;
+     var mm = m <= 9 && m >= 0 ? "0"+m : m;
+     var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
+     var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
+
+    data.fromTime = hh + ':' + mm
+    data.toTime = hh1 + ':' + mm1 
+    // console.log("data====",data)
+       
+
      if (this.workingForm.valid) {
        try {
         //  console.log("time data===",data)
@@ -255,7 +284,7 @@ export class SettingsComponent implements OnInit {
 
 
   onSubmitDistanceForm(data) {
-    console.log("data=",data)
+    // console.log("data=",data)
 
      if (this.distanceForm.valid) {
        try {
@@ -321,7 +350,7 @@ export class SettingsComponent implements OnInit {
   onSubmittxPowerForm(data) {
      if (this.txPowerForm.valid) {
        try {
-         console.log("threshold ===",data)
+        //  console.log("threshold ===",data)
          data.userId = this.loginData.userId
          this.api.addTxPower(data).then((res:any)=>{
            console.log("tx power updated",res)
@@ -404,7 +433,7 @@ export class SettingsComponent implements OnInit {
         }
 
         this.api.maxLimit(data).then((res:any)=>{
-          console.log("limit response===",res)
+          // console.log("limit response===",res)
           if(res.status){
             this.refreshSetting()
             var msg='Max limit updated Successfully'
@@ -421,7 +450,7 @@ export class SettingsComponent implements OnInit {
 
 
    onSubmitTimeForm(data){
-     console.log(" time data===",data);
+    //  console.log(" time data===",data);
      
        data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
     
@@ -450,7 +479,7 @@ export class SettingsComponent implements OnInit {
    onSubmitwearableForm(data){
 
      this.wearableType=data.wearable
-     console.log("data===",data.wearable)
+    //  console.log("data===",data.wearable)
      if (this.wearableForm.valid) {
       try {
         if(this.wearableType==0){
@@ -480,9 +509,9 @@ export class SettingsComponent implements OnInit {
 
           data.userId=this.loginData.userId,
 
-        console.log("data=====",data)
+        // console.log("data=====",data)
         this.api.updateWearableType(data).then((res:any)=>{
-          console.log("wearable type===",res)
+          // console.log("wearable type===",res)
           if(res.status){
             this.refreshSetting()
             var msg='Wearable type updated Successfully'
@@ -499,20 +528,21 @@ export class SettingsComponent implements OnInit {
    }
 
   onSubmitbuzzerConfigForm(data){
-    console.log("data==",data)
+    // console.log("data==",data)
     data.durationSec=data.buzzerConfig>0 && data.buzzerConfig<=4?0:data.durationSec
-    console.log("data==",data)
+    // console.log("data==",data)
 
     if (this.buzzerConfigForm.valid) {
       try {
         data.userId=this.loginData.userId
         this.api.updateBuzzerConfig(data).then((res:any)=>{
-          console.log("buzzer congig===",res)
+          // console.log("buzzer congig===",res)
           if(res.status){
             this.refreshSetting()
             var msg='Buzzer configured Successfully'
             this.general.openSnackBar(msg,'')
           }
+          
         }).catch(err=>{
           console.log("err===",err);
         })
@@ -522,12 +552,12 @@ export class SettingsComponent implements OnInit {
   }
 
   onSubmitScanningForm(data){
-    console.log("data==",data)
+    // console.log("data==",data)
     if (this.scanningForm.valid) {
       try {
         data.userId=this.loginData.userId
         this.api.updateScanningInterval(data).then((res:any)=>{
-          console.log("Scanning Interval===",res)
+          // console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()
             var msg='Interval second Successfully'
@@ -543,7 +573,7 @@ export class SettingsComponent implements OnInit {
   }
 
   getBuzzerValue(event){
-    console.log("event==",event)
+    // console.log("event==",event)
    if(event.value == 5){
      this.buzzerConfigStatus=true
      this.buzzerConfigForm.patchValue({
@@ -562,7 +592,7 @@ export class SettingsComponent implements OnInit {
    }
 
   getMin(event){
-    console.log("event==",event)
+    // console.log("event==",event)
     if(event.value=="none"){
       this.minStatus=true
       this.secStatus=false
@@ -673,6 +703,7 @@ export class SettingsComponent implements OnInit {
    }
 
   openDialog(): void {
+    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

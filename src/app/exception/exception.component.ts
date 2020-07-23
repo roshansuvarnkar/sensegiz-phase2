@@ -60,7 +60,7 @@ export class ExceptionComponent implements OnInit {
         offset:offset
         
       }
-    
+    console.log("data===",data)
       this.api.getExceptionData(data).then((res:any)=>{
         console.log("Exception ======",res);
         if(res.status){
@@ -92,7 +92,7 @@ getUpdate(event) {
   // console.log("paginator event length", this.currentPageLength);
   var limit = event.pageSize
   var offset = event.pageIndex*event.pageSize
-  // console.log("limit==",limit,"offset==",offset)
+  console.log("limit==",limit,"offset==",offset)
   this.refreshException(limit,offset)
 }
 

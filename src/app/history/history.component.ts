@@ -467,28 +467,7 @@ onclickGeoLocation(data){
     })
     
   }
-  geofenceuserSuggestion(event){
 
-    console.log("data=",event)
-   
-    var data={
-      value:event.target.value,
-      userId:this.loginData.userId,
-      tblName:'deviceDataPhase2'
-
-    }
-    console.log("data==",data)
-    this.api.getUsernameSuggestion(data).then((res:any)=>{
-      console.log("res==",res)
-      if(res.status){
-        this.username=[]
-       for(let i=0;i<res.success.length;i++){
-        this.username.push(res.success[i].deviceName)
-       }
-       console.log("username==",this.username)
-      }
-    })
-  }
   infectedSuggestion(event){
     console.log("data=",event)
    
@@ -511,5 +490,28 @@ onclickGeoLocation(data){
     })
 
   }
+  geofenceuserSuggestion(event){
+
+    console.log("data=",event)
+   
+    var data={
+      value:event.target.value,
+      userId:this.loginData.userId,
+      tblName:'deviceDataPhase2'
+
+    }
+    console.log("data==",data)
+    this.api.getUsernameSuggestion(data).then((res:any)=>{
+      console.log("res==",res)
+      if(res.status){
+        this.username=[]
+       for(let i=0;i<res.success.length;i++){
+        this.username.push(res.success[i].deviceName)
+       }
+       console.log("username==",this.username)
+      }
+    })
+  }
+
 
 }

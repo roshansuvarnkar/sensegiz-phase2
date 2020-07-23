@@ -8,6 +8,7 @@ mat-card {
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
+
 mat-card.mat-card.mat-focus-indicator {
     box-shadow: 0 2px 8px 0 #ef6c00;
 }
@@ -19,6 +20,11 @@ mat-card-title{
 .warning {
   border: 1px solid red;
   color: red;
+}
+button.mat-focus-indicator.btn-set.mat-raised-button.mat-button-base.mat-primary {
+  position: absolute;
+  bottom: 1rem;
+  right: 7.5rem;
 }
 @media only screen and (max-width: 768px){
   

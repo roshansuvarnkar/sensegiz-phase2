@@ -62,7 +62,9 @@ tr {
  a.canvasjs-chart-credit {
   display: none !important;
 }
-
+.mat-select-panel{
+  max-width:fit-content !important
+}
 
 .statusFreeze{
   position:absolute;
@@ -97,10 +99,7 @@ a.canvasjs-chart-credit {
 .mat-menu-panel{
   margin-top: -3.3rem !important;
 }
-.mat-select-panel-wrap {
-  flex-basis: 75% !important;
-  margin: auto;
-}
+
 .table {
   width: 100%;
   margin-bottom: 1rem;
