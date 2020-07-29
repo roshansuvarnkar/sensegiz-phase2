@@ -748,49 +748,6 @@ export class SettingsComponent implements OnInit {
 
 
 
-  fileUpload(data){
-    console.log("img===",data)
  
-  //   var folders = {
-  //     images: '../assets'
-  // }
-  // var FileSaver = require('file-saver');
-  // var filesaver = new filesaver({ folders: folders, safenames: true });
-     if(data.target.files.length > 0 && data.target.size<900) 
-    {
-
-      // console.log(data.target.files[0].name);
-      // this.imgName=data.target.value
-      const file = data.srcElement.files[0]; 
-      this.imgName = window.URL.createObjectURL(file); 
-     this.imgStatus=false
-      // this.dataURLtoFile("../../assets",data.target.files[0].name,'jpg')
-   
-    }
-    else{
-     
-       this.imgStatus=true
-    }
-  }
-imgUpload(data){
-  var data1={
-    userId:this.loginData.userId,
-    imgSrc:data
-  }
-  console.log("data==",data)
-  this.api.updateInactivityStatus(data).then((res:any)=>{})
-
-}
-  dataURLtoFile(dataurl, filename, format) {
-    const arr = dataurl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    saveAs(new File([u8arr], filename, {type: format}));
-}
 
 }
