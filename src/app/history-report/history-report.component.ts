@@ -252,11 +252,23 @@ export class HistoryReportComponent implements OnInit {
           var groupDate = this.dataDateReduce(res.success)
           // console.log("groupDate===",groupDate)
           this.liveData = Object.keys(groupDate).map((data)=>{
+           
             return {
               date : data,
               data : groupDate[data]
             }
           })
+       
+          for(let i=0;i<this.liveData.length;i++){
+
+            for(let j=0;j<this.liveData[i].data.length-1;j++){
+              this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
+            }
+         
+            this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
+
+           }
+          
 
         }
       })

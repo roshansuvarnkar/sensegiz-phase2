@@ -91,9 +91,9 @@ export class GeoFenceComponent implements OnInit {
              i:i+1,
              deviceName:res.data[i].deviceName,
              coinName:res.data[i].coinName
-
            })
          }
+       
          this.dataSource = new MatTableDataSource(this.geofenceData);
          setTimeout(() => {
            this.dataSource.sort = this.sort;
