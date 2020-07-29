@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
@@ -50,16 +50,15 @@ export class SettingsComponent implements OnInit {
   coin:any=[]
   min:any=[]
   sec:any=[]
-  imgName:String='../../assets/logo.png'
+
   imgStatus:boolean=false
 
   someValue:any=[]
-  constructor(public dialog: MatDialog,
-    private fb:FormBuilder,
-    private api:ApiService,
-    private login:LoginCheckService,
-    private general:GeneralMaterialsService,
-    public _d: DomSanitizer) { }
+  tempImagePath:any
+  uploadForm: FormGroup;
+    @ViewChild('fileInput') fileInput : ElementRef;
+
+  constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
@@ -123,9 +122,14 @@ export class SettingsComponent implements OnInit {
     })
     this.scanningForm=this.fb.group({
       seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
-     
+
     })
-    
+
+    this.uploadForm = this.fb.group({
+      fileData:null,
+      type:'logo',
+    });
+
 
   }
 
@@ -188,14 +192,14 @@ export class SettingsComponent implements OnInit {
             minutes:res.success[0].durationThreshold/60,
           })
         }
-       
+
         this.buzzerTimeForm.patchValue({
           buzzerTime:res.success[0].buzzerTime
         })
         this.wearableForm.patchValue({
           wearable:res.success[0].type.toString()
         })
-       
+
 
         this.scanningForm.patchValue({
           seconds:res.success[0].scanningInterval.toString()
@@ -203,7 +207,7 @@ export class SettingsComponent implements OnInit {
 
         if(res.success[0].buzzerConfig==5){
           this.buzzerConfigStatus=true
-         
+
           this.buzzerConfigForm.patchValue({
             buzzerConfig:res.success[0].buzzerConfig.toString(),
             durationSec:res.success[0].buzzerTime
@@ -238,11 +242,11 @@ export class SettingsComponent implements OnInit {
       var minutes=i==0?'none':i
       this.min.push(minutes)
      }
-    for(let i =0;i<=11;i++){
-     if(i==0){
+    for(let i =-1;i<=11;i++){
+     if(i==-1){
        var seconds='none'
      }
-  
+
     else{
       seconds=(i*5).toString()
      }
@@ -273,9 +277,9 @@ export class SettingsComponent implements OnInit {
      var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
 
     data.fromTime = hh + ':' + mm
-    data.toTime = hh1 + ':' + mm1 
+    data.toTime = hh1 + ':' + mm1
     // console.log("data====",data)
-       
+
 
      if (this.workingForm.valid) {
        try {
@@ -463,10 +467,10 @@ export class SettingsComponent implements OnInit {
 
    onSubmitTimeForm(data){
     //  console.log(" time data===",data);
-     
+
        data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
-    
-    
+
+
 
      var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
      var data1={
@@ -554,7 +558,7 @@ export class SettingsComponent implements OnInit {
             var msg='Buzzer configured Successfully'
             this.general.openSnackBar(msg,'')
           }
-          
+
         }).catch(err=>{
           console.log("err===",err);
         })
@@ -581,7 +585,7 @@ export class SettingsComponent implements OnInit {
       } catch (err) {
       }
     }
-  
+
   }
 
   getBuzzerValue(event){
@@ -591,14 +595,14 @@ export class SettingsComponent implements OnInit {
      this.buzzerConfigForm.patchValue({
       durationSec:10
     })
-   
+
    }else if(event.value !== 5){
     this.buzzerConfigStatus=false
    }
-    
+
 
   }
- 
+
      customise(){
      this.statusCustomise = this.statusCustomise == true ? false : true
    }
@@ -612,7 +616,7 @@ export class SettingsComponent implements OnInit {
       this.requiredStatus2=true
       this.timeFormStatus=true
 
-     
+
     }
     else{
       this.minStatus=false
@@ -620,10 +624,10 @@ export class SettingsComponent implements OnInit {
       this.requiredStatus1=true
       this.requiredStatus2=false
       this.timeFormStatus=false
-     
-     
+
+
     }
-   
+
   }
 
   getSec(event){
@@ -641,10 +645,10 @@ export class SettingsComponent implements OnInit {
       this.requiredStatus1=false
       this.requiredStatus2=true
       this.timeFormStatus=false
-     
+
 
     }
-   
+
   }
 
 
@@ -715,7 +719,7 @@ export class SettingsComponent implements OnInit {
    }
 
   openDialog(): void {
-    
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -746,8 +750,55 @@ export class SettingsComponent implements OnInit {
   }
 
 
+  fileChange(files){
+
+     // console.log("File Change event",files);
+    let reader = new FileReader();
+    if(files && files.length>0){
+
+      let file = files[0];
+      reader.readAsDataURL(file);
+      console.log("file===",file)
+      reader.onload = ()=>{
+        this.tempImagePath = reader.result;
+        console.log("\nReader result",reader.result);
+
+        this.uploadForm.get('fileData').setValue({
+          filename: file.name ,
+          filetype: file.type,
+          value: this.tempImagePath.split(',')[1],
+        });
 
 
- 
+      }
+    }
+
+  }
+
+  clearFile(){
+   this.uploadForm.get('fileData').setValue(null);
+    this.tempImagePath = '';
+    this.fileInput.nativeElement.value = '';
+
+  }
+
+
+  randomNumber(min=1, max=20) {
+      return Math.random() * (max - min) + min;
+  }
+
+  formSubmit(data){
+    data.userId =  this.loginData.userId
+    data.fileData.filename = this.loginData.userId.toString() + data.fileData.filename + parseInt(this.randomNumber().toString())
+    console.log("file===",data)
+    this.api.uploadLogo(data).then((res:any)=>{
+      console.log("res img===",res)
+      this.general.updateItem('sensegizlogin','logo',data.fileData.filename)
+      this.clearFile()
+      setTimeout(()=>{
+        window.location.reload()
+      },1000)
+    })
+  }
 
 }
