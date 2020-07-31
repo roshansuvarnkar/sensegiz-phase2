@@ -74,19 +74,19 @@ updateItem(key, property, value)
 
  
 
-// public upload(formData) {
+public upload(formData) {
 
-//   return this.httpClient.post<any>(this.SERVER_URL, formData, {  
-//      reportProgress: true,  
-//      observe: 'events'  
-//   });  
-// }
-// postFile(fileToUpload: File){
-//   const endpoint = this.SERVER_URL;
-//   const formData: FormData = new FormData();
-//   formData.append('fileKey', fileToUpload, fileToUpload.name);
-//   return this.httpClient
-//     .post(endpoint, formData, { headers:{'Content-Type': 'application/json' }})
+  return this.httpClient.post<any>(this.SERVER_URL, formData, {  
+     reportProgress: true,  
+     observe: 'events'  
+  });  
+}
+postFile(fileToUpload: File){
+  const endpoint = this.SERVER_URL;
+  const formData: FormData = new FormData();
+  formData.append('fileKey', fileToUpload, fileToUpload.name);
+  return this.httpClient
+    .post(endpoint, formData, { headers:{'Content-Type': fileToUpload.type }})
 
-// }
+}
 }
