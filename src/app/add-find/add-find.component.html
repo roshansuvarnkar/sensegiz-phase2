@@ -1,6 +1,7 @@
 
 
 <div *ngIf="type=='finds'" >
+ 
 
   <div class="flexWrap space-between">
     <h2 mat-dialog-title>Add Find Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
@@ -83,15 +84,18 @@
       </mat-step>
     </form>
   </mat-horizontal-stepper>
-
-
-</div>
-
-
-
-<div *ngIf="type=='gateways'">
-  <div class="flexWrap space-between">
-    <h2 mat-dialog-title>Add Gateway Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+  <div class="upload-file">
+    <p>or upload file with .xlsx/.xls extension only</p>
+    <!-- <form [FormGroup]="uploadForm" (ngSubmit)="formSubmit(uploadForm.value)">
+      <input type="file" class="file-input" #fileInput (change)="uploadedFile($event)" placeholder="Upload file" accept=".xlsx, .xls"> <br><br>
+      <h6>Format: Device Id, Device Name,[optional feilds: Employee ID, Email iD, Mobile Number</h6>
+      <span style="color:red" *ngIf="error">Please select valid file</span><br>
+      <button mat-raised-button [disabled]="error" color="primary">Upload</button>
+     
+   
+    </form> -->
+   
+  
   </div>
 
 

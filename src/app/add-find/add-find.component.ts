@@ -1,27 +1,39 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,Inject,ViewChild,ElementRef  } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
-
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver'; 
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs';  
+import { catchError, map } from 'rxjs/operators'; 
 @Component({
   selector: 'app-add-find',
   templateUrl: './add-find.component.html',
   styleUrls: ['./add-find.component.css']
 })
 export class AddFindComponent implements OnInit {
+  @ViewChild('fileInput') fileInput : ElementRef;
+  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef
 Findform:FormGroup
 gatewayform:FormGroup
 userform:FormGroup
 coinForm:FormGroup
+uploadForm:FormGroup
 gateway:any=[]
 type:any
 loginData:any
 findStatus:boolean=false
 gatewayStatus:boolean=false
 userStatus:boolean=false
-model: any = {}
+error:boolean=false
+storeData: any; 
+fileUploaded: File;  
+worksheet: any; 
+fileToUpload: File = null;
+files:any=[]
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddFindComponent>,
@@ -67,6 +79,10 @@ model: any = {}
       coinName: ['', Validators.required],
       coinId: ['', Validators.required],
       gatewayId:['', Validators.required]
+    });
+    
+    this.uploadForm =this.fb.group({
+      excelFile:null
     });
 
     this.refreshGateway()
@@ -181,5 +197,7 @@ refreshGateway(){
 
   })
 }
+
+
 
 }

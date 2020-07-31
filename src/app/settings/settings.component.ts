@@ -5,9 +5,9 @@ import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-shift.component';
-// import {  FileSaver }from 'angular-file-saver'
+
 import {  saveAs  }from 'file-saver'
-import { DomSanitizer } from '@angular/platform-browser';
+
 
 
 
@@ -800,5 +800,7 @@ export class SettingsComponent implements OnInit {
       },1000)
     })
   }
+
+  
 
 }
