@@ -89,6 +89,9 @@
 </div>
 
 <div *ngIf="type=='gateways'" >
+  <div class="flexWrap space-between">
+    <h2 mat-dialog-title>Add Gateway Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+  </div>
 
   <mat-horizontal-stepper  #stepper  >
     <form [formGroup]="gatewayform" >
