@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from  '@angular/common/http';  
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } from  '@angular/common/http';  
 import { environment } from '../environments/environment'
 import{Observable} from 'rxjs'
 import { map } from  'rxjs/operators';
@@ -11,11 +11,11 @@ import * as XLSX from 'xlsx';
 export class GeneralMaterialsService {
   _timezone: any = null;
   _timeZoneAbbr: any
-  // SERVER_URL: string =  environment.apiHost; 
+  SERVER_URL: string =  environment.apiHost; 
  
-  SERVER_URL:"C:/Users/Namratha N M/Documents"
 
-  constructor(private _snackBar: MatSnackBar,private httpClient: HttpClient) {}
+
+  constructor(private _snackBar: MatSnackBar,private http: HttpClient) {}
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -74,19 +74,4 @@ updateItem(key, property, value)
 
  
 
-public upload(formData) {
-
-  return this.httpClient.post<any>(this.SERVER_URL, formData, {  
-     reportProgress: true,  
-     observe: 'events'  
-  });  
-}
-postFile(fileToUpload: File){
-  const endpoint = this.SERVER_URL;
-  const formData: FormData = new FormData();
-  formData.append('fileKey', fileToUpload, fileToUpload.name);
-  return this.httpClient
-    .post(endpoint, formData, { headers:{'Content-Type': fileToUpload.type }})
-
-}
 }

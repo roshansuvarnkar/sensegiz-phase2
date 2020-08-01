@@ -1,6 +1,11 @@
 button.mat-focus-indicator.button.mat-flat-button.mat-button-base.mat-primary {
-    display: flex;
+    /* display: flex; */
     margin: 1rem auto;
+}
+button.mat-focus-indicator.upload-btn.mat-flat-button.mat-button-base.mat-primary {
+  position: absolute;
+  left: 14rem;
+  height: 2rem;
 }
 table.table thead th {
     font-weight: 600;
@@ -31,7 +36,10 @@ table.mat-table {
     top: 2rem;
     right: 1rem;
 }
-
+.upload {
+   position: absolute;
+   top: 2.3rem;
+}
 
 
 

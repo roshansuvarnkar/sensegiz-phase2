@@ -7,7 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Timestamp } from 'rxjs';
 import { ThrowStmt } from '@angular/compiler';
-
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-live-data',
@@ -27,7 +27,7 @@ count= 0
 currentPageLength:number = 10;
 currentPageSize:number = 10;
 
-displayedColumns: string[] = ['i','baseName','contactName','location', 'updatedOn','totalTime'];
+displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updatedOn','totalTime'];
 
 
   constructor(
@@ -131,11 +131,27 @@ getTotalCount(val){
     date += timeArr[2] + ' second '
   }
   if(date==''){
-    date = '-'
+    date = '05 second'
   }
   return date
 }
+startTime(data1,data2){
+  console.log(data1,data2)
+  var date=new Date(data2)
+  if(data1!="00:00:00" || data1!='-'){
+    var a=data1.split(':')
+    date.setHours(date.getHours() -a[0]);
+    date.setMinutes(date.getMinutes() - a[1]); 
+    date.setSeconds(date.getSeconds() - a[2]); 
+    console.log("new date==",date)
+  }
+  if(data1=="00:00:00" || data1=='-'){
+    date.setSeconds(date.getSeconds() - 5); 
+  }
 
+
+  return date
+}
 
      getUpdate(event) {
       // console.log("paginator event",event);

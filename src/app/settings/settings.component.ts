@@ -50,10 +50,7 @@ export class SettingsComponent implements OnInit {
   coin:any=[]
   min:any=[]
   sec:any=[]
-
-  imgStatus:boolean=false
-
-  someValue:any=[]
+  loading:boolean=false
   tempImagePath:any
   uploadForm: FormGroup;
     @ViewChild('fileInput') fileInput : ElementRef;
@@ -77,6 +74,7 @@ export class SettingsComponent implements OnInit {
     this.distanceForm = this.fb.group({
       distance: ['', Validators.required],
       rssi: [{value:'',disabled: true}, Validators.required],
+      wearable:['',Validators.required]
     });
 
 
@@ -163,7 +161,8 @@ export class SettingsComponent implements OnInit {
 
         this.distanceForm.patchValue({
           distance: res.success[0].distance.toString(),
-          rssi: res.success[0].rssi
+          rssi: res.success[0].rssi,
+          wearable:res.success[0].type.toString()
         })
         this.maxContactForm.patchValue({
           threshold: res.success[0].threshold,
@@ -304,7 +303,7 @@ export class SettingsComponent implements OnInit {
 
      if (this.distanceForm.valid) {
        try {
-        if(this.setting.type==0){
+        if(data.wearable=="0"){
           if(data.distance == "1" ){
             data.rssi='B9'
           }
@@ -316,7 +315,7 @@ export class SettingsComponent implements OnInit {
             data.rssi='AE'
           }
         }
-        if(this.setting.type==1){
+        if(data.wearable=="1"){
           if(data.distance  == "1" ){
             data.rssi='AC'
           }
@@ -333,10 +332,12 @@ export class SettingsComponent implements OnInit {
            console.log("distance insrted or updated",res)
            if(res.status){
              this.refreshSetting()
-             var msg = 'Minimum distance updated Successfully'
+             this.api.updateWearableType(data).then((res:any)=>{
+             var msg = 'Minimum distance and wearable type updated Successfully'
              this.general.openSnackBar(msg,'')
-           }
          })
+        }
+        })
        } catch (err) {
        }
      }
@@ -492,56 +493,56 @@ export class SettingsComponent implements OnInit {
    }
 
 
-   onSubmitwearableForm(data){
+  //  onSubmitwearableForm(data){
 
-     this.wearableType=data.wearable
-    //  console.log("data===",data.wearable)
-     if (this.wearableForm.valid) {
-      try {
-        if(this.wearableType==0){
-          if(this.setting.distance == 1){
-            data.rssi='B9'
-          }
-          else if(this.setting.distance  == 2){
-           data.rssi='B5'
+  //    this.wearableType=data.wearable
+  //   //  console.log("data===",data.wearable)
+  //    if (this.wearableForm.valid) {
+  //     try {
+  //       if(this.wearableType==0){
+  //         if(this.setting.distance == 1){
+  //           data.rssi='B9'
+  //         }
+  //         else if(this.setting.distance  == 2){
+  //          data.rssi='B5'
 
-          }
-          else if(this.setting.distance  ==3){
-            data.rssi='AE'
-          }
-        }
-        if(this.wearableType==1){
-          if(this.setting.distance  == 1){
-            data.rssi='AC'
-          }
-          else if(this.setting.distance  == 2){
-            data.rssi='A9'
-          }
-          else if(this.setting.distance  == 3){
-            data.rssi='A5'
-          }
-        }
+  //         }
+  //         else if(this.setting.distance  ==3){
+  //           data.rssi='AE'
+  //         }
+  //       }
+  //       if(this.wearableType==1){
+  //         if(this.setting.distance  == 1){
+  //           data.rssi='AC'
+  //         }
+  //         else if(this.setting.distance  == 2){
+  //           data.rssi='A9'
+  //         }
+  //         else if(this.setting.distance  == 3){
+  //           data.rssi='A5'
+  //         }
+  //       }
 
 
-          data.userId=this.loginData.userId,
+  //         data.userId=this.loginData.userId,
 
-        // console.log("data=====",data)
-        this.api.updateWearableType(data).then((res:any)=>{
-          // console.log("wearable type===",res)
-          if(res.status){
-            this.refreshSetting()
-            var msg='Wearable type updated Successfully'
-            this.general.openSnackBar(msg,'')
-            this.refreshSetting()
-          }
-        }).catch(err=>{
-          console.log("err===",err);
-        })
-      } catch (err) {
-      }
-    }
+  //       // console.log("data=====",data)
+  //       this.api.updateWearableType(data).then((res:any)=>{
+  //         // console.log("wearable type===",res)
+  //         if(res.status){
+  //           this.refreshSetting()
+  //           var msg='Wearable type updated Successfully'
+  //           this.general.openSnackBar(msg,'')
+  //           this.refreshSetting()
+  //         }
+  //       }).catch(err=>{
+  //         console.log("err===",err);
+  //       })
+  //     } catch (err) {
+  //     }
+  //   }
 
-   }
+  //  }
 
   onSubmitbuzzerConfigForm(data){
     // console.log("data==",data)
@@ -789,8 +790,9 @@ export class SettingsComponent implements OnInit {
 
   formSubmit(data){
     data.userId =  this.loginData.userId
-    data.fileData.filename = this.loginData.userId.toString() + data.fileData.filename + parseInt(this.randomNumber().toString())
+    data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename 
     console.log("file===",data)
+   if(data.fileData.filetype=='image/jpg'||data.fileData.filetype=='image/jpeg'||data.fileData.filetype=='image/png'){
     this.api.uploadLogo(data).then((res:any)=>{
       console.log("res img===",res)
       this.general.updateItem('sensegizlogin','logo',data.fileData.filename)
@@ -799,8 +801,10 @@ export class SettingsComponent implements OnInit {
         window.location.reload()
       },1000)
     })
+   }else{
+     this.loading=true
+
+   }
+
   }
-
-  
-
 }

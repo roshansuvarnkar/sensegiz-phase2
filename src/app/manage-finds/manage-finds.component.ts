@@ -1,16 +1,15 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { AddFindComponent } from '../add-find/add-find.component';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { EditDeviceComponent } from '../edit-device/edit-device.component';
 import { GeneralMaterialsService } from '../general-materials.service';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Timestamp } from 'rxjs';
-
 
 @Component({
   selector: 'app-manage-finds',
@@ -28,8 +27,11 @@ displayedColumns = ['i','deviceId','deviceName','empId','shift',	'infected','bat
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
-
-constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
+tempImagePath:any=''
+fileupload:FormGroup
+loading:boolean=false
+@ViewChild('fileInput') fileInput:ElementRef
+constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private fb:FormBuilder) {}
 
 
 openDialog(): void {
@@ -52,6 +54,11 @@ openDialog(): void {
 ngOnInit(): void {
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
+
+  this.fileupload = this.fb.group({
+    fileData:null,
+    type:'devices'
+  })
   this.refreshFinds()
   this.refreshShift()
 }
@@ -247,6 +254,61 @@ getBatteryStatus(value){
     return {}
   }
 }
+
+
+
+fileChange(files){
+  alert("Format should be: Name, employeeId,deviceid,mobileNumber,emailId strictly")
+
+  // console.log("File Change event",files);
+ let reader = new FileReader();
+ if(files && files.length>0){
+
+   let file = files[0];
+   reader.readAsDataURL(file);
+   console.log("file===",file)
+   reader.onload = ()=>{
+     this.tempImagePath = reader.result;
+     console.log("\nReader result",reader.result);
+
+     this.fileupload.get('fileData').setValue({
+       filename: file.name ,
+       filetype: file.type,
+       value: this.tempImagePath.split(',')[1],
+     });
+
+
+   }
+ }
+
+}
+
+clearFile(){
+this.fileupload.get('fileData').setValue(null);
+ this.tempImagePath = '';
+ this.fileInput.nativeElement.value = '';
+
+}
+
+randomNumber(min=1, max=20) {
+   return Math.random() * (max - min) + min;
+}
+
+fileSubmit(data){
+ if(data.fileData.filetype=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || data.fileData.filetype=="application/vnd.ms-excel" ){
+  data.userId =  this.loginData.userId
+  data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
+    console.log("file===",data)
+  this.api.uploadDeviceFile(data).then((res:any)=>{
+    console.log("res file ===",res)
+    this.clearFile()
+  })
+ }else{
+
+  this.loading=true
+ }
+ }
+
 
 
 }
