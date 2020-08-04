@@ -865,7 +865,7 @@ getMaxDistance(data){
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  let url = this.host+'/setmaxRange';
+  let url = this.host+'/setmaxDistance';
   return new Promise((resolve,reject)=>{
     this.http.post(url,data,httpOptions).subscribe(res=>{
       resolve(res);
