@@ -10,6 +10,8 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Timestamp } from 'rxjs';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-manage-finds',
@@ -28,8 +30,12 @@ shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
 tempImagePath:any=''
+header:any
+worksheet:any
+storeData:any
 fileupload:FormGroup
 loading:boolean=false
+format:boolean=false
 @ViewChild('fileInput') fileInput:ElementRef
 constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private fb:FormBuilder) {}
 
@@ -57,7 +63,8 @@ ngOnInit(): void {
 
   this.fileupload = this.fb.group({
     fileData:null,
-    type:'devices'
+    type:'devices',
+    header:['']
   })
   this.refreshFinds()
   this.refreshShift()
@@ -258,7 +265,9 @@ getBatteryStatus(value){
 
 
 fileChange(files){
-  alert("Format should be: Name, employeeId,deviceid,mobileNumber,emailId strictly")
+  alert("Format should be: Name*, employeeId, deviceid*, mobileNumber, emailId ")
+  this.loading=false
+  this.format=false
 
   // console.log("File Change event",files);
  let reader = new FileReader();
@@ -269,8 +278,7 @@ fileChange(files){
    console.log("file===",file)
    reader.onload = ()=>{
      this.tempImagePath = reader.result;
-     console.log("\nReader result",reader.result);
-
+    //  console.log("\nReader result",reader.result);
      this.fileupload.get('fileData').setValue({
        filename: file.name ,
        filetype: file.type,
@@ -280,8 +288,32 @@ fileChange(files){
 
    }
  }
-
+this.readExcel(files[0])
 }
+
+readExcel(file) {  
+  let readFile = new FileReader();  
+  readFile.onload = (e) => {  
+    this.storeData = readFile.result;  
+    var data = new Uint8Array(this.storeData);  
+    var arr = new Array();  
+    for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);  
+    var bstr = arr.join("");  
+    var workbook = XLSX.read(bstr, { type: "binary" });  
+    var first_sheet_name = workbook.SheetNames[0];  
+    this.worksheet = workbook.Sheets[first_sheet_name];  
+    this.header=XLSX.utils.sheet_to_json(this.worksheet, { header: 1 })
+
+    this.fileupload.patchValue({
+      header:this.header[0]
+    })
+
+     
+  }  
+  readFile.readAsArrayBuffer(file);  
+  
+}
+
 
 clearFile(){
 this.fileupload.get('fileData').setValue(null);
@@ -295,14 +327,33 @@ randomNumber(min=1, max=20) {
 }
 
 fileSubmit(data){
+  console.log(data)
+  
+
  if(data.fileData.filetype=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || data.fileData.filetype=="application/vnd.ms-excel" ){
-  data.userId =  this.loginData.userId
-  data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
-    console.log("file===",data)
-  this.api.uploadDeviceFile(data).then((res:any)=>{
-    console.log("res file ===",res)
-    this.clearFile()
-  })
+  this.loading=false
+  if((data.header[0].toLowerCase()=='name' && data.header[2].toLowerCase()=='deviceid')|| data.header[1].toLowerCase()=="employeeid" || 
+   data.header[3]=="mobilenumber".toLowerCase() || data.header[4]=="emailid".toLowerCase()){
+    this.format=false
+    var msg = 'Please wait..!it takes few minutes to upload'
+    this.general.openSnackBar(msg,'')
+    data.userId =  this.loginData.userId
+    data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
+      console.log("file===",data)
+    this.api.uploadDeviceFile(data).then((res:any)=>{
+      if(res.status){
+        console.log("res file ===",res)
+        this.clearFile()
+        var msg = 'uploaded'
+        this.general.openSnackBar(msg,'')
+       
+      }
+      
+    })
+   }else{
+     this.format=true
+   }
+
  }else{
 
   this.loading=true

@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit {
   scanningForm:FormGroup
   buzzerTimeForm:FormGroup
   buzzerConfigForm:FormGroup
+  maxDistanceForm:FormGroup
   loginData:any
   setting:any
   duration:any
@@ -127,7 +128,10 @@ export class SettingsComponent implements OnInit {
       fileData:null,
       type:'logo',
     });
-
+    this.maxDistanceForm = this.fb.group({
+      maxDistance:['',Validators.required]
+    });
+    
 
   }
 
@@ -202,6 +206,9 @@ export class SettingsComponent implements OnInit {
 
         this.scanningForm.patchValue({
           seconds:res.success[0].scanningInterval.toString()
+        })
+        this.maxDistanceForm.patchValue({
+          maxDistance:res.success[0].maxRange.toString()
         })
 
         if(res.success[0].buzzerConfig==5){
@@ -586,6 +593,26 @@ export class SettingsComponent implements OnInit {
       } catch (err) {
       }
     }
+
+  }
+  onSubmitmaxDistanceForm(data){
+      console.log("data==",data)
+      if (this.maxDistanceForm.valid) {
+        try {
+          data.userId=this.loginData.userId
+          this.api.getMaxDistance(data).then((res:any)=>{
+            // console.log("Scanning Interval===",res)
+            if(res.status){
+              this.refreshSetting()
+              var msg='Maximum distance updated Successfully'
+              this.general.openSnackBar(msg,'')
+            }
+          }).catch(err=>{
+            console.log("err===",err);
+          })
+        } catch (err) {
+        }
+      }
 
   }
 
