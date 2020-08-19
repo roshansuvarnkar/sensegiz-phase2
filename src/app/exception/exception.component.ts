@@ -68,7 +68,7 @@ export class ExceptionComponent implements OnInit {
           for(let i=0;i<res.success.length;i++){
             this.exception.push({
               i:i+1,
-              userName:res.success[i].userName,
+              userName:res.success[i].userName.substring(0,res.success[i].userName.length-1)+'.',
               coinName:res.success[i].coinName,
               updatedOn:res.success[i].updatedOn,
               alertType:res.success[i].alertType == 0? 'Over crowded' :'-'

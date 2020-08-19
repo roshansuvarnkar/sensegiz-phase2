@@ -46,6 +46,7 @@ export class SettingsComponent implements OnInit {
   buzzerFormStatus:boolean=false
   selectedValue:boolean=false
   buzzerConfigStatus:boolean=false
+  measureStatus:boolean=false
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
@@ -208,7 +209,7 @@ export class SettingsComponent implements OnInit {
           seconds:res.success[0].scanningInterval.toString()
         })
         this.maxDistanceForm.patchValue({
-          maxDistance:res.success[0].maxRange.toString()
+          maxDistance:res.success[0].maxDistance.toString()
         })
 
         if(res.success[0].buzzerConfig==5){
@@ -312,14 +313,14 @@ export class SettingsComponent implements OnInit {
        try {
         if(data.wearable=="0"){
           if(data.distance == "1" ){
-            data.rssi='B9'
+            data.rssi='BE'
           }
           else if(data.distance  == "2" ){
-           data.rssi='B5'
+           data.rssi='BC'
 
           }
           else if(data.distance  == "3"){
-            data.rssi='AE'
+            data.rssi='B6'
           }
         }
         if(data.wearable=="1"){
@@ -680,7 +681,11 @@ export class SettingsComponent implements OnInit {
   }
 
 
-
+  measurement(event){
+    console.log("event==",event)
+    this.measureStatus=event.value=='meter'?false:true
+    
+  }
 
 
 

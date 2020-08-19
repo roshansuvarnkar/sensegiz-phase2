@@ -91,5 +91,10 @@ table.mat-table {
         margin-left: 1.2rem;
 
     }
+    .upload{
+      position: absolute;
+      top: 0.3rem;
+      left: 1rem;
+  }
 
 }

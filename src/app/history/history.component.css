@@ -45,7 +45,21 @@ button.mat-focus-indicator.btn-set.mat-raised-button.mat-button-base.mat-primary
   bottom: 1rem;
   right: 7.5rem;
 }
-
+mat-card.mat-card.mat-focus-indicator.geoReport {
+    width: 21rem !important;
+}
+.radio{
+    margin-left: -2rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.radio.radio1 {
+    margin-top: 0.7rem;
+}
+.radio.radio2 {
+    margin-top: 3rem;
+    margin-left: 1rem;
+}
 @media only screen and (max-width: 768px) {
     /* .history{
         margin-left: 2rem;

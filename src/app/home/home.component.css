@@ -21,12 +21,12 @@
     width: 48%;
     margin: 0 1rem 0 1rem;
 }
-.panel{
-  /* background-color: #58a0fb !important; */
+/* .panel{
+  background-color: #58a0fb !important;
 }
 .first-card{
-    /* background-color:lightgreen */
-}
+    background-color:lightgreen
+} */
 /* .home {
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +42,7 @@
   margin: 1rem 0 0rem 0;
 }
 .four{
-  margin: 1rem 0 0rem 0;
+  margin: 1.285rem 0 0rem 0;
 }
 span.tab-emp {
     display: flex;
@@ -125,7 +125,7 @@ span.rec {
     width: 100%;
 }
 mat-label.tab-set {
-    margin-left: 1rem;
+    margin-left: 3rem;
 }
 
 @media only screen and (max-width: 768px) {
@@ -147,7 +147,7 @@ mat-label.tab-set {
     margin: 1rem 0 2rem 0;
   }
   .second{
-    margin: 1rem 0 2rem 0;
+    margin: 1rem 0 1.3rem 0;
   }
   .three{
     margin: 1rem 0 2rem 0;
@@ -157,6 +157,9 @@ mat-label.tab-set {
   }
   span.tab-btn {
     margin-left: 1rem;
+}
+mat-label.tab-set {
+    margin-left: 2rem;
 }
 span.emp-pad{
     margin-left: 0rem;

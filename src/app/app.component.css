@@ -20,6 +20,9 @@ z-index: 2;
 .mobilemenu{
 display: none;
 }
+span.logout {
+  cursor: pointer;
+}
 .devices{ 
 display: none;
 }

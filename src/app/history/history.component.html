@@ -4,17 +4,20 @@
   <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
-        Report based on Date
+         Generic Report 
       </mat-card-title>
       <mat-card-subtitle>
-        Enter From to To date
+        Enter date range
       </mat-card-subtitle>
-    </span>
+    </span> <br>
     <mat-card-content>
-      <mat-radio-group  color="primary">
+    <div class="radio radio1">
+      <mat-radio-group  color="primary" >
         <mat-radio-button [value]="1" name="small" (click)="onclickDate(7)">Last week</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (click)="onclickDate(14)">Last two week</mat-radio-button>
-      </mat-radio-group><br>
+        <mat-radio-button [value]="2" name="small" (click)="onclickDate(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+    </div>
+   <br>
       <form [formGroup]="dateForm" (ngSubmit)="onSubmitDateForm(dateForm.value)">
 
         <mat-form-field>
@@ -95,17 +98,19 @@
   <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
-        Social Distancing voilator's Report based on username
+        Social Distancing Voilator's Report Based On username
       </mat-card-title>
       <mat-card-subtitle>
-        Enter User Name and From to To date
+        Enter username and date range
       </mat-card-subtitle>
     </span>
     <mat-card-content>
+      <div class="radio">
       <mat-radio-group  color="primary">
         <mat-radio-button [value]="1" name="small" (change)="onclickFindName(7)">Last week</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (change)="onclickFindName(14)">Last two week</mat-radio-button>
-      </mat-radio-group><br>
+        <mat-radio-button [value]="2" name="small" (change)="onclickFindName(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+    </div><br>
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
 
         <mat-form-field class="full-width-input">
@@ -153,14 +158,16 @@
         Summary Report of Infected User
       </mat-card-title>
       <mat-card-subtitle>
-        Enter User Name and From to To date
+        Enter infected person name and date range
       </mat-card-subtitle>
     </span>
     <mat-card-content>
+      <div class="radio">
       <mat-radio-group  color="primary">
         <mat-radio-button [value]="1" name="small" (change)="onclickSummaryReport(7)">Last week</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (change)="onclickSummaryReport(14)">Last two week</mat-radio-button>
-      </mat-radio-group><br>
+        <mat-radio-button [value]="2" name="small" (change)="onclickSummaryReport(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+      </div><br>
       <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
 
         <mat-form-field class="full-width-input">
@@ -213,17 +220,19 @@
   <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
-        Report based on Location
+        Report Based On Location
       </mat-card-title>
       <mat-card-subtitle>
-        Enter location name and From to To date
+        Select location and enter date range
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-      <mat-radio-group  color="primary">
+      <div class="radio radio2">
+      <mat-radio-group  color="primary" class="radio">
         <mat-radio-button [value]="1" name="small" (change)="onclickLocation(7)">Last week</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (change)="onclickLocation(14)">Last two week</mat-radio-button>
-      </mat-radio-group><br>
+        <mat-radio-button [value]="2" name="small" (change)="onclickLocation(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+    </div><br>
       <form [formGroup]="locationForm" (ngSubmit)="onSubmitLocationForm(locationForm.value)">
 
         <mat-form-field class="full-width-input">
@@ -258,20 +267,22 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+  <mat-card class="geoReport">
     <span class="card-head">
       <mat-card-title color="primary">
-        Report of Location and Geofence based on username
+        Report of Location and Geofence Based On username
       </mat-card-title>
       <mat-card-subtitle>
-        Enter  From to To date
+        Enter username and date range
       </mat-card-subtitle>
     </span>
     <mat-card-content>
+      <div class="radio">
       <mat-radio-group  color="primary">
         <mat-radio-button [value]="1" name="small" (change)="onclickGeoLocation(7)">Last week</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (change)="onclickGeoLocation(14)">Last two week</mat-radio-button>
-      </mat-radio-group><br>
+        <mat-radio-button [value]="2" name="small" (change)="onclickGeoLocation(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+      </div><br>
       <form [formGroup]="geoAndLocForm" (ngSubmit)="onSubmitGeoAndLocForm(geoAndLocForm.value)">
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" (keyup)="geofenceuserSuggestion($event)" required>

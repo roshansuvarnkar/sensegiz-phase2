@@ -1,14 +1,12 @@
 <!-- <div class="download1">
   <button mat-raised-button (click)="getPages()" color="primary"><mat-icon> cloud_download &nbsp;&nbsp;</mat-icon> Download</button>
 </div> -->
-<div>
 
-</div>
 <!-- <mat-spinner *ngIf="showSpinner"></mat-spinner> -->
 <div class="main">
 
 <!-- based on date -->
-<div *ngIf="type =='basedOnDate'">
+<div *ngIf="type =='basedOnDate'" id="htmlData">
 
 
   <div class="content">
@@ -19,7 +17,7 @@
           </span>
   </div> <br>
   <div>
-  <p  mat-dialog-title> Based on date from {{from}} to {{to}} </p>
+  <p  mat-dialog-title> From {{from}} to {{to}} </p>
     <div class="mat-elevation-z8">
 
 
@@ -142,7 +140,7 @@
 <!-- based On FindName -->
 
 
-<div *ngIf="type =='basedOnFindName'" id="excel-table">
+<div *ngIf="type =='basedOnFindName'" id="htmlData">
   <div class="content">
     <p class="center">REPORT</p>
             <span class="icon">
@@ -150,7 +148,7 @@
             <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
           </span>
     </div> <br>
-      <p class="center-head" mat-dialog-title>Social Distancing Violator's Report based on username {{deviceName | titlecase}}</p>
+      <p class="center-head" mat-dialog-title>Social Distancing Violator's name- {{deviceName | titlecase}}</p>
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort >
@@ -209,22 +207,22 @@
 <!-- summary report -->
 <div *ngIf="type =='summaryReport'" id="htmlData">
     <div class="content">
-      <p class="center">  SUMMARY REPORT</p>
+      <p class="center">  SUMMARY REPORT </p>
       <span class="icon">
 
         <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
       </span>
     </div> <br>
-    <p class="center-head" mat-dialog-title>Based on User Name {{deviceName | titlecase}}</p>
+    <p class="center-head" mat-dialog-title>Infected user-{{deviceName | titlecase}}</p>
 
     <div class="tab-align">
       <table class="table table-borderless">
      <thead>
 
       <tr>
-        <th>Sl no.</th>
-        <th>Date</th>
-        <th>Contact users</th>
+        <th>Sl No.</th>
+        <th>Date Of Incident</th>
+        <th>Contacted Users</th>
       </tr>
      </thead>
 
@@ -255,7 +253,7 @@
       <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
     </span>
   </div> <br>
-  <p class="center-head" mat-dialog-title>Based on Location Name {{locationName}}</p>
+  <p class="center-head" mat-dialog-title>Report of- {{locationName}}</p>
 
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort >
@@ -316,7 +314,7 @@
         <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
       </span>
     </div> <br>
-    <p class="center-head" mat-dialog-title>Based on user name {{deviceName}}</p>
+    <p class="center-head" mat-dialog-title>Report of- {{deviceName}}</p>
   
       <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort >
@@ -328,7 +326,7 @@
   
   
             <ng-container matColumnDef="coinName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Location </th>
               <td mat-cell *matCellDef="let coin"> {{coin.coinName}} </td>
             </ng-container>
   

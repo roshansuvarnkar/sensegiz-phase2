@@ -167,7 +167,7 @@ export class HistoryReportComponent implements OnInit {
 
 
 
-  basedOnDate(limit=10,offset=0,type=0){
+  basedOnDate(limit,offset,type){
     console.log(limit,offset)
     var data={
       userId:this.loginData.userId,
@@ -177,16 +177,18 @@ export class HistoryReportComponent implements OnInit {
       offset:offset
     }
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-      // console.log("find data based on date ======",res);
+      console.log("find data based on date ======",res);
       this.liveData=[]
       if(res.status){
         if(type==0){
           this.liveData=res.success
+          this.dataSource = new MatTableDataSource(this.liveData);
         }
         else{
           this.excelData=res.success
+          this.dataSource = new MatTableDataSource(this.excelData);
         }
-        this.dataSource = new MatTableDataSource(this.liveData);
+  
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           // this.paginator.length = this.currentPageLength
@@ -196,7 +198,7 @@ export class HistoryReportComponent implements OnInit {
     })
 
   }
-  basedOnFindName(limit=10,offset=0,type=0){
+  basedOnFindName(limit,offset,type){
     var data={
       userId:this.loginData.userId,
       deviceName:this.deviceName,
@@ -286,7 +288,7 @@ dataDateReduce(data){
   },{})
 }
 
-locationReport(limit=10,offset=0,type=0){
+locationReport(limit,offset,type){
   
     var data={
       userId:this.loginData.userId,
@@ -368,7 +370,7 @@ locationReport(limit=10,offset=0,type=0){
 }
 
 
-geofenceAndlocationReport(limit=10,offset=0,type=0){
+geofenceAndlocationReport(limit,offset,type){
 
   var data={
     userId:this.loginData.userId,
@@ -587,7 +589,8 @@ getPages() {
           if(this.type=='basedOnDate'){
             this.fileName='ReportBasedOnDate.xlsx'
             this.title = 'Based on date'+this.from+" "+this.to;
-            this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+            let element = document.getElementById('htmlData');
+            this.general.exportToExcel(element,this.fileName, this.title)
 
           }
           if(this.type=='basedOnFindName'){

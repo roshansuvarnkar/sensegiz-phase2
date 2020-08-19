@@ -11,8 +11,9 @@
     <button mat-menu-item routerLink="/exception"> <mat-icon>settings</mat-icon>Exception</button>
     <!-- <button mat-menu-item routerLink="/location"> <mat-icon>place</mat-icon>Location</button> -->
 
-    <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>History</button>
     <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>Settings</button>
+    <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>Reports</button>
+
     <!-- <button mat-raised-button class="guide"><span routerLink="/user-guide">User Guide</span></button> -->
 
   </mat-menu>
@@ -28,7 +29,7 @@
           <mat-icon >person</mat-icon>
         </span>
         <p >{{loginDataInfo.userName}}</p>&emsp;&nbsp;&emsp;
-        <span  (click)="logout()">
+        <span  (click)="logout()" class="logout">
           <mat-icon >exit_to_app</mat-icon>
         </span>
       </span>
@@ -46,7 +47,6 @@
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/exception">Exception</span>
     <!-- <span routerLink="/location">Location</span> -->
-    <span routerLink="/history">History</span>
      <span>
       <span [matMenuTriggerFor]="belowMenu" class="menu">Settings</span>
       <mat-menu #belowMenu="matMenu" yPosition="below">
@@ -54,6 +54,8 @@
         <button mat-menu-item routerLink="/geo-fence">Geofence settings</button>
         </mat-menu>
      </span>
+     <span routerLink="/history">Reports</span>
+
    <span routerLink="/user-guide">User Guide</span>
 
 

@@ -30,13 +30,20 @@ export class AdminDashboardComponent implements OnInit {
     ) {
     }
 
+    // Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/) 	letter,digit,special character
 
   ngOnInit(): void {
     this.adminAddUserform = this.fb.group({
       userName: ['', Validators.email],
-      portalPassword: ['', Validators.required],
-      mobilePassword: ['', Validators.required],
-      userPassword: ['', Validators.required]
+      portalPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]+$/) 	
+      ]],
+      mobilePassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]+$/) 	
+      ]],
+      userPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]+$/) 	
+      ]]
     });
     this.refreshAdminData()
   }

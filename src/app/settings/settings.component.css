@@ -8,7 +8,9 @@ mat-card {
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-
+.maxlimit {
+  margin-top: 0.2rem;
+}
 mat-card.mat-card.mat-focus-indicator {
     box-shadow: 0 2px 8px 0 #ef6c00;
 }
@@ -16,6 +18,9 @@ mat-card-title{
   color: #ef6c00;
   font-family: serif;
   line-height: 2rem;
+}
+mat-card-content.mat-card-content.shift {
+  margin-top: 2rem !important;
 }
 .warning {
   border: 1px solid red;
@@ -25,9 +30,11 @@ button.mat-focus-indicator.btn-set.mat-raised-button.mat-button-base.mat-primary
   position: absolute;
   bottom: 1rem;
   right: 7.5rem;
+  cursor:pointer;
 }
 input.input-file {
   margin-left: 3.5rem;
+  
 }
 .wearable {
   display: flex;
