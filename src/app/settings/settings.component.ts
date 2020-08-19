@@ -245,19 +245,23 @@ export class SettingsComponent implements OnInit {
   }
 
   maxThresholdMinsec(){
+    var seconds=''
     for(let i =0;i<=10;i++){
       var minutes=i==0?'none':i
       this.min.push(minutes)
      }
     for(let i =-1;i<=11;i++){
-     if(i==-1){
-       var seconds='none'
-     }
-
-    else{
-      seconds=(i*5).toString()
-     }
-     this.sec.push(seconds)
+      if(i==1|| i==2 || i==3){
+      }
+      else{
+        if(i==-1){
+          seconds='none'
+        }
+        else{
+         seconds=(i*5).toString()
+        }
+        this.sec.push(seconds)
+      }
     }
   }
 
