@@ -148,7 +148,7 @@ gateway:any=[]
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Gateway Already exists, try different gateway'
+            var msg = 'Gateway Name Already exists, try different gateway'
             this.general.openSnackBar(msg,'')
           }
         })
@@ -170,7 +170,7 @@ gateway:any=[]
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Already exists, try different device'
+            var msg = 'Email id or Mobile Number Already exists, try different device'
             this.general.openSnackBar(msg,'')
           }
         })
@@ -191,7 +191,7 @@ gateway:any=[]
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Coin Already exists, try different Coin'
+            var msg = 'Coin Name Already exists, try different Coin'
             this.general.openSnackBar(msg,'')
           }
         })

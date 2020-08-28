@@ -1,3 +1,8 @@
+<marquee class=" marquee" behavior="" direction="right">Please contact SenseGiz Team before making any changes in settings</marquee>
+
+<!-- <div class="marquee">
+  <p >Please contact SenseGiz Team before making any changes in Settings</p>
+</div> -->
 <div class="setting">
 
   <mat-card>
@@ -6,17 +11,22 @@
     </mat-card-title>
     <mat-card-subtitle>
       Enter buffer value for the wearable
-    </mat-card-subtitle><br>
+    </mat-card-subtitle><br> 
     <mat-card-content>
       <form [formGroup]="bufferForm" (ngSubmit)="onSubmitBufferForm(bufferForm.value)">
         <mat-form-field>
-          <input type='number' min="0"  matInput placeholder="Buffer" formControlName="buffer"  required>
-          <mat-error>
-            Please provide a valid buffer
+          <input type='number' min="0" max="5" matInput placeholder="Buffer" formControlName="buffer" (input)="bufferval($event)"  required>
+          <mat-error >
+            Please provide a valid buffer 
           </mat-error>
+         
         </mat-form-field>
-        <br><br>
-        <button class="btn-set" mat-raised-button [disabled]="!bufferForm.valid" color="primary">Submit</button>
+        <mat-error class="bufferError" *ngIf="bufferValue">
+         Maximum value you can set is 5
+        </mat-error>
+     
+        <br><br><br>
+        <button class="btn-set" mat-raised-button [disabled]="bufferValue" color="primary">Submit</button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -69,7 +79,7 @@
             Please provide a valid threshold
           </mat-error>
         </mat-form-field>
-        <br><br>
+        <br><br> <br> 
         <button class="btn-set" mat-raised-button [disabled]="!maxContactForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
@@ -77,28 +87,6 @@
   
 
 
-  <mat-card>
-    <mat-card-title>
-       Define Inactivity
-    </mat-card-title>
-    <mat-card-subtitle>
-      Enter inactivity in minutes
-    </mat-card-subtitle>
-    <mat-slide-toggle color="primary" [checked]="inactivityStatusValue.value" (change)="inactivityChange($event)">{{inactivityStatusValue.status}}</mat-slide-toggle>
-    <br>
-    <mat-card-content>
-      <form [formGroup]="inactivityForm" (ngSubmit)="onSubmitInactivityForm(inactivityForm.value)">
-        <mat-form-field>
-          <input type='number' min="0" max="120" matInput placeholder="Inactivity in minutes" formControlName="inactivity" required>
-          <mat-error>
-            Please provide a valid inactivity in minutes
-          </mat-error>
-        </mat-form-field>
-        <br><br>
-        <button class="btn-set" mat-raised-button [disabled]="!inactivityForm.valid" color="primary">Submit</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
 
   
 
@@ -160,44 +148,9 @@
  -->
 
  
- <mat-card>
-  <mat-card-title>
-   Alert Configuration
-  </mat-card-title>
-  <mat-card-subtitle>
-    Select alert type and enter duration
-  </mat-card-subtitle><br>
-  <mat-card-content>
-    <form [formGroup]="buzzerConfigForm" (ngSubmit)="onSubmitbuzzerConfigForm(buzzerConfigForm.value)" >
-      <mat-form-field >
-        <mat-label>Configuration Type</mat-label>
-        <mat-select class="select-panel" formControlName="buzzerConfig"  (selectionChange)="getBuzzerValue($event)"  required >
-          <!-- <mat-option *ngFor="let a of buzzerValue"  [value]="a">{{a}}</mat-option> -->
-          <mat-option value="1">Buzzer followed by LED blinking for every new person</mat-option>
-          <mat-option value="2">Only LED</mat-option>
-          <mat-option value="3">Only Buzzer</mat-option>
-          <mat-option value="4">Buzzer followed by LED blinking for  every new violation</mat-option>
-          <mat-option value="5">Repetition of Buzzer followed by LED blinking after set periodic interval</mat-option>
-        </mat-select>
-        <mat-error  >
-          Please enter value
-        </mat-error>
-    </mat-form-field>
-      <div *ngIf="buzzerConfigStatus" >
-        <mat-form-field >
-          <mat-label>Enter seconds in multiple of 5</mat-label>
-            <input type='number' matInput formControlName="durationSec" required >
-            <mat-error  >
-              Please enter valid duration, minimum seconds is 10
-            </mat-error>
-        </mat-form-field>
-      </div>
-      <br><br>
-      <button class="btn-set" mat-raised-button [disabled]="!buzzerConfigForm.valid"   color="primary">Submit</button>
-    </form>
-  </mat-card-content>
-</mat-card>
-<mat-card>
+
+
+<!-- <mat-card>
   <mat-card-title>
     Define Response Time 
   </mat-card-title>
@@ -207,7 +160,7 @@
     <mat-card-content>
 
     <form [formGroup]="timeForm" (ngSubmit)="onSubmitTimeForm(timeForm.value)" >
-      <!-- <div *ngIf="!minStatus"> -->
+
       <mat-form-field  >
 
           <mat-label>Minutes</mat-label>
@@ -219,8 +172,7 @@
           Please select minimum minutes as 1
         </mat-error>
       </mat-form-field>
-    <!-- </div> -->
-    <!-- <div *ngIf="!secStatus"> -->
+  
       <mat-form-field  >
 
         <mat-label>Seconds</mat-label>
@@ -232,12 +184,12 @@
         Please select minimum second as 1
       </mat-error>
   </mat-form-field>
-<!-- </div> -->
+
       <br><br>
       <button class="btn-set" mat-raised-button [disabled]="timeFormStatus"  color="primary">Submit</button>
     </form>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
 
 
 <mat-card>
@@ -439,6 +391,67 @@
       <button  mat-raised-button [disabled]="!workingForm.valid" color="primary">Submit</button> &nbsp;&nbsp;&nbsp;
       <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- <mat-card>
+  <mat-card-title>
+     Define Inactivity
+  </mat-card-title>
+  <mat-card-subtitle>
+    Enter inactivity in minutes
+  </mat-card-subtitle>
+  <mat-slide-toggle color="primary" [checked]="inactivityStatusValue.value" (change)="inactivityChange($event)">{{inactivityStatusValue.status}}</mat-slide-toggle>
+  <br>
+  <mat-card-content>
+    <form [formGroup]="inactivityForm" (ngSubmit)="onSubmitInactivityForm(inactivityForm.value)">
+      <mat-form-field>
+        <input type='number' min="0" max="120" matInput placeholder="Inactivity in minutes" formControlName="inactivity" required>
+        <mat-error>
+          Please provide a valid inactivity in minutes
+        </mat-error>
+      </mat-form-field>
+      <br><br>
+      <button class="btn-set" mat-raised-button [disabled]="!inactivityForm.valid" color="primary">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card> -->
+
+<mat-card>
+  <mat-card-title>
+   Alert Configuration
+  </mat-card-title>
+  <mat-card-subtitle>
+    Select alert type and enter duration
+  </mat-card-subtitle><br>
+  <mat-card-content>
+    <form [formGroup]="buzzerConfigForm" (ngSubmit)="onSubmitbuzzerConfigForm(buzzerConfigForm.value)" >
+      <mat-form-field >
+        <mat-label>Configuration Type</mat-label>
+        <mat-select class="select-panel" formControlName="buzzerConfig"  (selectionChange)="getBuzzerValue($event)"  required >
+          <!-- <mat-option *ngFor="let a of buzzerValue"  [value]="a">{{a}}</mat-option> -->
+          <mat-option value="1">Buzzer followed by LED blinking for every new person</mat-option>
+          <mat-option value="2">Only LED</mat-option>
+          <mat-option value="3">Only Buzzer</mat-option>
+          <mat-option value="4">Buzzer followed by LED blinking for  every new violation</mat-option>
+          <mat-option value="5">Repetition of Buzzer followed by LED blinking after set periodic interval</mat-option>
+        </mat-select>
+        <mat-error  >
+          Please enter value
+        </mat-error>
+    </mat-form-field>
+      <div *ngIf="buzzerConfigStatus" >
+        <mat-form-field >
+          <mat-label>Enter seconds in multiple of 5</mat-label>
+            <input type='number' matInput formControlName="durationSec" required >
+            <mat-error  >
+              Please enter valid duration, minimum seconds is 10
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <br><br> <br>
+      <button class="btn-set" mat-raised-button [disabled]="!buzzerConfigForm.valid"   color="primary">Submit</button>
     </form>
   </mat-card-content>
 </mat-card>

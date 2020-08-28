@@ -46,6 +46,7 @@ export class SettingsComponent implements OnInit {
   buzzerFormStatus:boolean=false
   selectedValue:boolean=false
   buzzerConfigStatus:boolean=false
+  bufferValue:boolean=false
   measureStatus:boolean=false
   inactivityStatusValue:any=[]
   coinData:any=[]
@@ -64,7 +65,7 @@ export class SettingsComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshCoins()
     this.refreshSetting()
-    this.maxThresholdMinsec()
+    // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
       shift: ['', Validators.required],
@@ -103,14 +104,14 @@ export class SettingsComponent implements OnInit {
 
     })
 
-    this.timeForm=this.fb.group({
-      minutes:[{value:'',disabled: false},Validators.required],
-      seconds:[{value:'',disabled: false},Validators.required]
-    })
+    // this.timeForm=this.fb.group({
+    //   minutes:[{value:'',disabled: false},Validators.required],
+    //   seconds:[{value:'',disabled: false},Validators.required]
+    // })
 
-    this.wearableForm=this.fb.group({
-      wearable:['',Validators.required]
-    })
+    // this.wearableForm=this.fb.group({
+    //   wearable:['',Validators.required]
+    // })
 
     this.buzzerTimeForm=this.fb.group({
       buzzerTime:['',[Validators.required,Validators.max(255), Validators.min(1)]]
@@ -181,28 +182,28 @@ export class SettingsComponent implements OnInit {
         this.bufferForm.patchValue({
           buffer: res.success[0].buffer,
         })
-        if(res.success[0].durationThreshold<=55){
-          this.minStatus=true
-          this.timeFormStatus=false
-          this.timeForm.patchValue({
-            minutes:'none',
-            seconds:(res.success[0].durationThreshold).toString()
-          })
-        }else if(res.success[0].durationThreshold>55){
-          this.secStatus=true
-          this.timeFormStatus=false
-          this.timeForm.patchValue({
-            seconds:'none',
-            minutes:res.success[0].durationThreshold/60,
-          })
-        }
+        // if(res.success[0].durationThreshold<=55){
+        //   this.minStatus=true
+        //   this.timeFormStatus=false
+        //   this.timeForm.patchValue({
+        //     minutes:'none',
+        //     seconds:(res.success[0].durationThreshold).toString()
+        //   })
+        // }else if(res.success[0].durationThreshold>55){
+        //   this.secStatus=true
+        //   this.timeFormStatus=false
+        //   this.timeForm.patchValue({
+        //     seconds:'none',
+        //     minutes:res.success[0].durationThreshold/60,
+        //   })
+        // }
 
         this.buzzerTimeForm.patchValue({
           buzzerTime:res.success[0].buzzerTime
         })
-        this.wearableForm.patchValue({
-          wearable:res.success[0].type.toString()
-        })
+        // this.wearableForm.patchValue({
+        //   wearable:res.success[0].type.toString()
+        // })
 
 
         this.scanningForm.patchValue({
@@ -244,26 +245,26 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  maxThresholdMinsec(){
-    var seconds=''
-    for(let i =0;i<=10;i++){
-      var minutes=i==0?'none':i
-      this.min.push(minutes)
-     }
-    for(let i =-1;i<=11;i++){
-      if(i==1|| i==2 || i==3){
-      }
-      else{
-        if(i==-1){
-          seconds='none'
-        }
-        else{
-         seconds=(i*5).toString()
-        }
-        this.sec.push(seconds)
-      }
-    }
-  }
+  // minThresholdMinsec(){
+  //   var seconds=''
+  //   for(let i =0;i<=5;i++){
+  //     var minutes=i==0?'none':i
+  //     this.min.push(minutes)
+  //    }
+  //   for(let i =-1;i<=11;i++){
+  //     if(i==1|| i==2 || i==3){
+  //     }
+  //     else{
+  //       if(i==-1){
+  //         seconds='none'
+  //       }
+  //       else{
+  //        seconds=(i*5).toString()
+  //       }
+  //       this.sec.push(seconds)
+  //     }
+  //   }
+  // }
 
 
   onSubmitWorkForm(data) {
@@ -421,7 +422,7 @@ export class SettingsComponent implements OnInit {
 
    }
 
-
+ 
    onSubmitBufferForm(value){
 
     if (this.bufferForm.valid) {
@@ -433,6 +434,7 @@ export class SettingsComponent implements OnInit {
 
         }
 
+     
         this.api.getBufferDeviceSetting(data).then((res:any)=>{
           // console.log("Buffer response===",res)
           if(res.status){
@@ -443,12 +445,17 @@ export class SettingsComponent implements OnInit {
         }).catch(err=>{
           // console.log("err===",err);
         })
+    
       } catch (err) {
       }
     }
    }
-
-
+   bufferval(event){
+     console.log(event.target.value)
+    
+      this.bufferValue=event.target.value>5?true:false
+    
+   }
 
    onSubmitoverCrowedForm(value){
       console.log("value==",value)
@@ -478,31 +485,31 @@ export class SettingsComponent implements OnInit {
    }
 
 
-   onSubmitTimeForm(data){
-    //  console.log(" time data===",data);
+  //  onSubmitTimeForm(data){
+  //   //  console.log(" time data===",data);
 
-       data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
+  //      data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
 
 
 
-     var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
-     var data1={
-       userId:this.loginData.userId,
-       seconds:second
-     }
-     console.log("data1==",data1)
+  //    var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
+  //    var data1={
+  //      userId:this.loginData.userId,
+  //      seconds:second
+  //    }
+  //    console.log("data1==",data1)
 
-     this.api.getDurationThreshold(data1).then((res:any)=>{
-       console.log("duration==",res)
-      if(res.status){
+  //    this.api.getDurationThreshold(data1).then((res:any)=>{
+  //      console.log("duration==",res)
+  //     if(res.status){
 
-        this.refreshSetting()
-        var msg = 'Minimum duration threshold updated Successfully'
-        this.general.openSnackBar(msg,'')
-      }
-    })
+  //       this.refreshSetting()
+  //       var msg = 'Minimum duration threshold updated Successfully'
+  //       this.general.openSnackBar(msg,'')
+  //     }
+  //   })
 
-   }
+  //  }
 
 
   //  onSubmitwearableForm(data){
@@ -640,49 +647,49 @@ export class SettingsComponent implements OnInit {
      this.statusCustomise = this.statusCustomise == true ? false : true
    }
 
-  getMin(event){
-    // console.log("event==",event)
-    if(event.value=="none"){
-      this.minStatus=true
-      this.secStatus=false
-      this.requiredStatus1=false
-      this.requiredStatus2=true
-      this.timeFormStatus=true
+  // getMin(event){
+  //   // console.log("event==",event)
+  //   if(event.value=="none"){
+  //     this.minStatus=true
+  //     this.secStatus=false
+  //     this.requiredStatus1=false
+  //     this.requiredStatus2=true
+  //     this.timeFormStatus=true
 
 
-    }
-    else{
-      this.minStatus=false
-      this.secStatus=true
-      this.requiredStatus1=true
-      this.requiredStatus2=false
-      this.timeFormStatus=false
+  //   }
+  //   else{
+  //     this.minStatus=false
+  //     this.secStatus=true
+  //     this.requiredStatus1=true
+  //     this.requiredStatus2=false
+  //     this.timeFormStatus=false
 
 
-    }
+  //   }
 
-  }
+  // }
 
-  getSec(event){
-    if(event.value=="none"){
-      this.minStatus=false
-      this.secStatus=true
-      this.requiredStatus1=true
-      this.requiredStatus2=false
-      this.timeFormStatus=true
+  // getSec(event){
+  //   if(event.value=="none"){
+  //     this.minStatus=false
+  //     this.secStatus=true
+  //     this.requiredStatus1=true
+  //     this.requiredStatus2=false
+  //     this.timeFormStatus=true
 
-    }
-    else{
-      this.minStatus=true
-      this.secStatus=false
-      this.requiredStatus1=false
-      this.requiredStatus2=true
-      this.timeFormStatus=false
+  //   }
+  //   else{
+  //     this.minStatus=true
+  //     this.secStatus=false
+  //     this.requiredStatus1=false
+  //     this.requiredStatus2=true
+  //     this.timeFormStatus=false
 
 
-    }
+  //   }
 
-  }
+  // }
 
 
   measurement(event){

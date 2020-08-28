@@ -1,8 +1,9 @@
-<!-- <div class="download1">
+<div class="download1">
   <button mat-raised-button (click)="getPages()" color="primary"><mat-icon> cloud_download &nbsp;&nbsp;</mat-icon> Download</button>
-</div> -->
+</div>
 
 <!-- <mat-spinner *ngIf="showSpinner"></mat-spinner> -->
+
 <div class="main">
 
 <!-- based on date -->
@@ -12,8 +13,8 @@
   <div class="content">
     <p class="center">REPORT</p>
             <span  class="icon">
-              <!-- <mat-icon class="download2">cloud_download</mat-icon> -->
-            <button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+              <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
+              <button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
           </span>
   </div> <br>
   <div>
@@ -144,6 +145,7 @@
   <div class="content">
     <p class="center">REPORT</p>
             <span class="icon">
+              <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
 
             <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
           </span>
@@ -209,6 +211,7 @@
     <div class="content">
       <p class="center">  SUMMARY REPORT </p>
       <span class="icon">
+        <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
 
         <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
       </span>
@@ -225,6 +228,17 @@
         <th>Contacted Users</th>
       </tr>
      </thead>
+     <!-- <tr *ngFor = "let a of liveData;let i=index">
+      <td>{{i+1}} </td>
+      <td>{{a.data}}</td>
+      <td>
+        <span *ngFor = 'let b of a.date'>
+          {{b.updatedOn.split('T')[0]}}
+        </span>
+      </td>
+      <td>{{a.location}}</td>
+
+    </tr>  -->
 
         <tr *ngFor = "let a of liveData;let i=index">
           <td>{{i+1}} </td>
@@ -249,6 +263,7 @@
   <div class="content">
     <p class="center"> REPORT</p>
     <span class="icon">
+      <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
 
       <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
     </span>
@@ -288,7 +303,7 @@
 
           <ng-container matColumnDef="totTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Time</th>
-            <td mat-cell *matCellDef="let coin"> {{convertDate(coin.totTime)}} </td>
+            <td mat-cell *matCellDef="let coin"> {{coin.totTime}} </td>
           </ng-container>
         </div>
 
@@ -310,7 +325,8 @@
     <div class="content">
       <p class="center"> REPORT OF LOCATION AND GEOFENCE</p>
       <span class="icon">
-  
+        <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
+
         <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
       </span>
     </div> <br>
@@ -353,7 +369,7 @@
 
             <ng-container matColumnDef="totTime">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Time</th>
-              <td mat-cell *matCellDef="let coin"> {{convertDate(coin.totTime)}} </td>
+              <td mat-cell *matCellDef="let coin"> {{coin.totTime}} </td>
             </ng-container>
           </div>
   

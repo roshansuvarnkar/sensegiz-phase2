@@ -82,10 +82,10 @@ tr {
     width: 110%;
     margin-left: -2rem;
   } */
-  /* .col-10 {
+  .col-10 {
     max-width: 100% !important;
     flex: auto !important;
-} */
+}
 a.canvasjs-chart-credit {
   display: none !important;
 }
@@ -98,6 +98,7 @@ a.canvasjs-chart-credit {
 }
 .mat-menu-panel{
   margin-top: -3.3rem !important;
+  width:230px !important;
 }
 
 .table {

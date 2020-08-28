@@ -129,7 +129,7 @@ Gatewaysubmit(data){
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'Gateway name or Gateway Id Already exists, try different gateway'
+          var msg = 'Gateway Name or Gateway Id Already exists, try different gateway'
           this.general.openSnackBar(msg,'')
         }
       })
@@ -151,7 +151,7 @@ Usersubmit(data){
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'User Already exists, try different user'
+          var msg = 'Email id or Mobile Number Already exists, try different user'
           this.general.openSnackBar(msg,'')
         }
       })
@@ -173,7 +173,7 @@ coinSubmit(data){
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'Coin Already exists, try different coin'
+          var msg = 'Coin Name or Coin Id Already exists, try different coin'
           this.general.openSnackBar(msg,'')
         }
       })

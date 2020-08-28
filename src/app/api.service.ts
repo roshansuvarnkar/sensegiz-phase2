@@ -22,7 +22,7 @@ export class ApiService {
       this.http.post(url,data,httpOptions).subscribe(res=>{
         resolve(res);
       })
-    });
+    })
   }
 
 

@@ -36,13 +36,13 @@ export class AdminDashboardComponent implements OnInit {
     this.adminAddUserform = this.fb.group({
       userName: ['', Validators.email],
       portalPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]+$/) 	
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
       ]],
       mobilePassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]+$/) 	
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
       ]],
       userPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]+$/) 	
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
       ]]
     });
     this.refreshAdminData()
@@ -68,7 +68,7 @@ export class AdminDashboardComponent implements OnInit {
 
 refreshAdminData(){
     this.api.getAdminData().then((res:any)=>{
-    	// console.log("data===",res)
+    	console.log("data===",res)
 		if(res.status){
 			this.adminData=res.success
 		}

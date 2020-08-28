@@ -12,7 +12,9 @@ export class GeneralMaterialsService {
   _timezone: any = null;
   _timeZoneAbbr: any
   SERVER_URL: string =  environment.apiHost; 
- 
+  date1:any
+  date2:any
+  time:any
 
 
   constructor(private _snackBar: MatSnackBar,private http: HttpClient) {}
@@ -72,6 +74,81 @@ updateItem(key, property, value)
     this.setObject(key, obj);
 }
 
- 
+updatedOnDate(date){
+  
+  var months=['Jan','Feb', 'Mar','Apr','May','Jun','Jul','Aug','sep','Oct','Nov','Dec']
+
+  var dateObj=new Date(date)
+  var year = dateObj.getFullYear();
+  var month = months[dateObj.getMonth()];
+  var day = ("0" + dateObj.getDate()).slice(-2);
+  var from = month  + ',' + day + ','  +year 
+
+  var h=dateObj.getHours()
+  var m=dateObj.getMinutes()
+  var s=dateObj.getSeconds()
+  var hh = h <= 9 && h >= 0 ? "0"+h : h;
+  var mm = m <= 9 && m >= 0 ? "0"+m : m;
+  var ss=  s <= 9 && s >= 0 ? "0"+s : s;
+  var datetime=from +', '+hh+':'+mm+':'+ss
+  return datetime
+
+
+}
+convertTime(a){
+  // console.log(a)
+
+  var timeArr = a.split(':')
+  
+  var date = ''
+  if(timeArr[0]!='00'){
+    date += timeArr[0] + ' hour '
+  }
+  if(timeArr[1]!='00'){
+    date += timeArr[1] + ' minute '
+  }
+  if(timeArr[2]!='00'){
+    date += timeArr[2] + ' second '
+  }
+  if(date == '' ||   date == '-'){
+    date = '05 second'
+  }
+  return date
+}
+totalTime(inTime,outTime){
+  console.log("time===",inTime,outTime)
+  this.date1  = new Date(inTime)
+  this.date2=new Date(outTime)
+  var date=new Date()
+
+  if(this.date1 !="Invalid Date"){
+
+    if(this.date2!="Invalid Date"){
+      var diff = Math.abs(this.date2 - this.date1)
+    }
+
+    else{
+      this.date2=date
+      diff= Math.abs(this.date2 - this.date1)
+    }
+
+
+    let ms = diff % 1000;
+    diff = (diff - ms) / 1000;
+    let s = diff % 60;
+    diff = (diff - s) / 60;
+    let m = diff % 60;
+    diff = (diff - m) / 60;
+    let h = diff
+
+    let ss = s <= 9 && s >= 0 ? "0"+s : s;
+    let mm = m <= 9 && m >= 0 ? "0"+m : m;
+    let hh = h <= 9 && h >= 0 ? "0"+h : h;
+
+   this.time = hh +':' + mm + ':' +ss
+   console.log("time======",this.time)
+   return this.convertTime(this.time)
+  }
+}
 
 }

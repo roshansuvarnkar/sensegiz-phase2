@@ -182,13 +182,23 @@ export class HistoryReportComponent implements OnInit {
       if(res.status){
         if(type==0){
           this.liveData=res.success
-          this.dataSource = new MatTableDataSource(this.liveData);
         }
         else{
-          this.excelData=res.success
-          this.dataSource = new MatTableDataSource(this.excelData);
+          this.excelData=[]
+          for(var i=0;i<res.success.length;i++){
+         
+            this.excelData.push({
+            Sl_No:i+1,
+            Base_Person:res.success[i].baseName,
+            Contact_Person:res.success[i].contactName,
+            Contact_Time:this.general.updatedOnDate(res.success[i].updatedOn),
+            Total_Time:this.general.convertTime(res.success[i].totalTime)
+
+          })
+          }
         }
-  
+        this.dataSource = new MatTableDataSource(this.liveData);
+
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           // this.paginator.length = this.currentPageLength
@@ -209,7 +219,7 @@ export class HistoryReportComponent implements OnInit {
 
     }
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
-      // console.log("find data based on name ======",res);
+      console.log("find data based on name ======",res);
 
       if(res.status){
         if(type==0){
@@ -217,12 +227,16 @@ export class HistoryReportComponent implements OnInit {
         }
         else{
           this.excelData=[]
-          // for(let i=0;i<res.success.length:i++){
-          //   this.excelData.push({
-          //     i:i+1
-          //
-          //   })
-          // }
+          for(var i=0;i<res.success.length;i++){
+         
+            this.excelData.push({
+            Sl_No:i+1,
+            Contact_Person:res.success[i].contactName,
+            Contact_Time:this.general.updatedOnDate(res.success[i].updatedOn),
+            Total_Time:this.general.convertTime(res.success[i].totalTime)
+
+          })
+          }
 
         }
 
@@ -246,7 +260,7 @@ export class HistoryReportComponent implements OnInit {
 
       }
       this.api.getSummaryReport(data).then((res:any)=>{
-        // console.log("summary report ======",res);
+        console.log("summary report======",res);
 
         this.liveData=[]
         if(res.status){
@@ -288,6 +302,60 @@ dataDateReduce(data){
   },{})
 }
 
+// summaryReport(){
+
+//   var data={
+//     userId:this.loginData.userId,
+//     deviceName:this.deviceName,
+//     fromDate: this.from,
+//     toDate:this.to,
+
+//   }
+//   this.api.getSummaryReport(data).then((res:any)=>{
+//     console.log("summary report======",res);
+
+//     this.liveData=[]
+//     if(res.status){
+
+//       var groupUser = this.dataDateReduce(res.success)
+//       // console.log("groupDate===",groupUser)
+//       this.liveData = Object.keys(groupUser).map((data)=>{
+      
+//         return {
+//           date : groupUser[data],
+//           data : data
+//         }
+//       })
+//       console.log("live==",this.liveData)
+   
+//       // for(let i=0;i<this.liveData.length;i++){
+
+//       //   for(let j=0;j<this.liveData[i].data.length-1;j++){
+//       //     this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
+//       //   }
+     
+//       //   this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
+
+//       //  }
+      
+
+//     }
+//   })
+// }
+
+
+// dataDateReduce(data){
+// return data.reduce((group,obj)=>{
+// const user = obj.contactDeviceName
+// if(!group[user]){
+//   group[user]=[]
+// }
+// group[user].push(obj)
+// // console.log("group==",group)
+// return group
+// },{})
+// }
+
 locationReport(limit,offset,type){
   
     var data={
@@ -301,53 +369,17 @@ locationReport(limit,offset,type){
     }
     console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
-      // console.log("LocatSion history======",res);
+      console.log("LocatSion history======",res);
       if(res.status){ 
         if(type==0){
           this.locationData=[]
         for(let i=0;i<res.success.length;i++){
-
-          this.date1  = new Date(res.success[i].inTime)
-          this.date2=new Date(res.success[i].outTime)
-          var date=new Date()
-
-          if(this.date1 !="Invalid Date"){
-
-            if(this.date2!="Invalid Date"){
-              var diff = Math.abs(this.date2 - this.date1)
-            }
-
-            else{
-              this.date2=date
-              diff= Math.abs(this.date2 - this.date1)
-            }
-
-
-            let ms = diff % 1000;
-            diff = (diff - ms) / 1000;
-            let s = diff % 60;
-            diff = (diff - s) / 60;
-            let m = diff % 60;
-            diff = (diff - m) / 60;
-            let h = diff
-
-            let ss = s <= 9 && s >= 0 ? "0"+s : s;
-            let mm = m <= 9 && m >= 0 ? "0"+m : m;
-            let hh = h <= 9 && h >= 0 ? "0"+h : h;
-
-           this.time = hh +':' + mm + ':' +ss
-          }
-          else{
-            this.date2=date
-            diff= Math.abs(this.date2 - this.date1)
-          }
-          // console.log("this.time===",this.time)
           this.locationData.push({
             i:i+1,
             deviceName:res.success[i].deviceName,
             inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
             outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
-            totTime:this.time
+            totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
             // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
             // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
 
@@ -357,7 +389,18 @@ locationReport(limit,offset,type){
 
 
     else{
-      this.excelData=res.success
+      this.excelData=[]
+     for(var i=0;i<res.success.length;i++){
+      this.excelData.push({
+        Sl_No:i+1,
+        Username:res.success[i].deviceName,
+        Enter_Time:res.success[i].inTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].inTime),
+        Exit_Time:res.success[i].outTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].outTime),
+        Total_Time:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
+        
+
+      });
+     }
     }
 
     this.dataSource = new MatTableDataSource(this.locationData);
@@ -391,48 +434,12 @@ geofenceAndlocationReport(limit,offset,type){
         this.locGeoData=[]
       for(let i=0;i<res.success.length;i++){
 
-        this.date1  = new Date(res.success[i].inTime)
-        this.date2=new Date(res.success[i].outTime)
-        var date=new Date()
-        // console.log("date1==",this.date1,this.date2)
-
-        if(this.date1 !="Invalid Date"){
-
-          if(this.date2!="Invalid Date"){
-            var diff = Math.abs(this.date2 - this.date1)
-          }
-
-          else{
-            this.date2=date
-            diff= Math.abs(this.date2 - this.date1)
-          }
-
-
-          let ms = diff % 1000;
-          diff = (diff - ms) / 1000;
-          let s = diff % 60;
-          diff = (diff - s) / 60;
-          let m = diff % 60;
-          diff = (diff - m) / 60;
-          let h = diff
-
-          let ss = s <= 9 && s >= 0 ? "0"+s : s;
-          let mm = m <= 9 && m >= 0 ? "0"+m : m;
-          let hh = h <= 9 && h >= 0 ? "0"+h : h;
-
-         this.time = hh +':' + mm + ':' +ss
-        }
-        else{
-          this.date2=date
-          diff= Math.abs(this.date2 - this.date1)
-        }
-        // console.log("this.time===",this.time)
         this.locGeoData.push({
           i:i+1,
           coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
           inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
           outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
-          totTime:this.time,
+          totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime),
           geofenceStatus:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured',
 
         });
@@ -441,7 +448,17 @@ geofenceAndlocationReport(limit,offset,type){
 
 
   else{
-    this.excelData=res.success
+   for(var i=0;i<res.success.length;i++){
+    this.excelData.push({
+      Sl_No:i+1,
+      Location:res.success[i].coinName == null?'Not available':res.success[i].coinName,
+      Geofence:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured',
+      Enter_Time:res.success[i].inTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].inTime),
+      Exit_Time:res.success[i].outTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].outTime),
+      Total_Time:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
+
+    });
+   }
   }
 
   this.dataSource = new MatTableDataSource(this.locGeoData);
@@ -475,27 +492,6 @@ geofenceAndlocationReport(limit,offset,type){
       }
 }
 
-// convertTime(a){
-//   console.log("a====",a)
-//   var timeArr = a.split(':')
-//   var time = ''
-//   if(timeArr[0]=='00' && timeArr[1]=='00' && timeArr[2]!='00' ){
-//     time+=timeArr[2] +' sec'
-//   }
-//   if(timeArr[0]=='00' && timeArr[1]!='00' ){
-//     time+=timeArr[1] +' minutes'
-//   }
-//   if(timeArr[0]!='00' ){
-//     time+=a +' hours'
-//   }
-//
-//   return time;
-// }
-
-
-
-
-
 
 getUpdate(event) {
   // console.log("paginator event",event);
@@ -523,12 +519,12 @@ getPages() {
 
     this.openExcel()
 
-  },5000);
+  },6000);
 
   setTimeout(()=>{
     this.loadData(10,0,0)
-  },6000)
- clearTimeout(60*1000)
+  },8000)
+ clearTimeout(8*1000)
 }
 
 
@@ -576,40 +572,52 @@ getPages() {
 
   openExcel(){
 
-      if(this.type=='summaryReport'){
-          this.fileName='summaryReport.xlsx'
-          this.title = 'Summary Report of Find Name'+this.deviceName;
-          let element = document.getElementById('htmlData');
-          // console.log("element===",element)
-          this.general.exportToExcel(element,this.fileName, this.title)
+    if(this.type=='summaryReport'){
+      this.fileName='summaryReport-of-infectedUser-'+this.deviceName+'.xlsx'
+      this.title = 'Summary Report of Find Name'+this.deviceName;
+      let element = document.getElementById('htmlData');
+      this.general.exportToExcel(element,this.fileName, this.title)
 
-        }
-        else{
 
-          if(this.type=='basedOnDate'){
-            this.fileName='ReportBasedOnDate.xlsx'
-            this.title = 'Based on date'+this.from+" "+this.to;
-            let element = document.getElementById('htmlData');
-            this.general.exportToExcel(element,this.fileName, this.title)
+    }
+    else{
+      console.log("this.excelData====",this.excelData)
+      if(this.type=='basedOnDate'){
+        this.fileName='Generic_Report.xlsx'
+        this.title = 'Based on date'+this.from+" "+this.to;
 
-          }
-          if(this.type=='basedOnFindName'){
-            this.fileName='ReportBasedOnFindName.xlsx'
-            this.title = 'Based on Find Name'+this.deviceName;
-            this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
-
-          }
-        // console.log("excel data===",this.excelData)
+        this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
 
       }
+      if(this.type=='basedOnFindName'){
+        this.fileName='Report_of_Find-'+this.liveData[0].baseName+'.xlsx'
+        this.title = 'Based on Find Name'+this.deviceName;
+        let element = document.getElementById('htmlData');
+
+        this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+
+      }
+        if(this.type=='locationReport'){
+          this.fileName='Report_Of_Location-'+this.locationName+'.xlsx'
+          this.title = 'Based on Find Name'+this.deviceName;
+          let element = document.getElementById('htmlData');
+
+          this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+
+        }
+        if(this.type=='geoFenceReport'){
+          this.fileName='GeoFenceReport_of-'+this.deviceName+'.xlsx'
+          this.title = 'Based on Find Name'+this.deviceName;
+          let element = document.getElementById('htmlData');
+
+          this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+
+        }
+      // console.log("excel data===",this.excelData)
+
+    }
+
+
 
   }
-
-
-
-
-
-
-
-
 }
