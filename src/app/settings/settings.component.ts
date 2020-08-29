@@ -48,6 +48,7 @@ export class SettingsComponent implements OnInit {
   buzzerConfigStatus:boolean=false
   bufferValue:boolean=false
   measureStatus:boolean=false
+  multipleshift:boolean=false
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
@@ -299,9 +300,13 @@ export class SettingsComponent implements OnInit {
          data.userId = this.loginData.userId
          this.api.setTime(data).then((res:any)=>{
           //  console.log("time insrted or updated",res)
-           if(res.status){
-             var msg = 'Shift time updated Successfully'
-             this.general.openSnackBar(msg,'')
+          if(res.status){
+            this.multipleshift=false
+            var msg = 'Shift time update Successfully'
+            this.general.openSnackBar(msg,'')
+           
+           }else{
+            this.multipleshift=true
            }
          })
        } catch (err) {

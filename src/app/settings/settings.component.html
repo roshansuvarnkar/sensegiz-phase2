@@ -33,10 +33,10 @@
 
   <mat-card>
     <mat-card-title>
-      Define Maximum Distance
+      Define Maximum Range
     </mat-card-title>
     <mat-card-subtitle>
-     Enter maximum distance in meter
+     Enter maximum Coin to Find range
     </mat-card-subtitle><br>
     <mat-card-content>
   
@@ -366,6 +366,9 @@
     Enter time for each shift
   </mat-card-subtitle>
   <mat-card-content class="shift">
+    <mat-error *ngIf="multipleshift">
+      You cannot have multiple shift, to update shift click info
+    </mat-error>
     <form [formGroup]="workingForm" (ngSubmit)="onSubmitWorkForm(workingForm.value)">
       <mat-form-field>
         <input matInput placeholder="Shift name" formControlName="shift"  required>
