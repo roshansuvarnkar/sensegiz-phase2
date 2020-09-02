@@ -26,13 +26,14 @@
                 <mat-form-field class="otp">
                     <input matInput id="codeBox4" class="codebox" type="text" maxlength="1" formControlName="otp4" (keyup)="onKeyUpEvent(4, $event)" autocomplete="off" >
                 </mat-form-field>&nbsp;&nbsp;
-                <mat-error *ngIf="otpExpired">
-                    OTP expired
-                </mat-error>
-                <mat-error *ngIf="invalidOTP">
-                    Invalid OTP
-                </mat-error>
+               
                </div>
+               <mat-error *ngIf="otpExpired" class="oto-exp">
+                OTP expired
+            </mat-error>
+            <mat-error *ngIf="invalidOTP"  class="oto-exp"> 
+                Invalid OTP
+            </mat-error>
             <div class="btn-otp">
                 <button *ngIf="sendOTP" class="sendotp" mat-raised-button color="primary" (click)="sendOtp(twoStepAuthForm.value.username)">Send OTP</button>&nbsp;&nbsp;
                 <button class="btn-sub" mat-raised-button color="primary" [disabled]="!twoStepAuthForm.valid" *ngIf="otpField" (click)="submit(twoStepAuthForm.value)">Submit</button>&nbsp;&nbsp;
