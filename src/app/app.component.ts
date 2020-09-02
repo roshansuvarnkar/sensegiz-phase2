@@ -39,6 +39,8 @@ export class AppComponent {
       // console.log("login data===",res)
       this.loginData = res
       this.loginMobData=res
+            this.twoStepAuth=res
+
       this.loginDataInfo = this.login.loginData()
     })
     this.loginDataInfo = this.login.loginData()
@@ -83,7 +85,7 @@ export class AppComponent {
     localStorage.clear()
     this.login.loginCheckStatus.next(false)
     this.login.loginCred.next(false)
+    this.twoStepAuth=false
     this.router.navigate(['/login'])
   }
-
 }

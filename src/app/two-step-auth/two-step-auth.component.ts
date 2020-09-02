@@ -16,6 +16,7 @@ export class TwoStepAuthComponent implements OnInit {
   twoStepAuthForm:FormGroup
   otpField:boolean=false
   invalidUser:boolean=false
+  invalidOTP:boolean=false
 
   sendOTP:boolean=true
   forgetPwd:any
@@ -89,7 +90,14 @@ sendOtp(value){
     this.api.sendOtp(data).then((res:any)=>{
       console.log("send opt==",res)
   
-     this.otpField=res.status==true?true:false
+    if(res.status){
+      this.invalidUser=false
+
+      this.otpField=res.status==true?true:false
+    }
+    else{
+      this.invalidUser=true
+    }
 
     }) 
 
@@ -107,7 +115,7 @@ submit(data){
       this.otpExpired=otpExpiry==true?true:false
    
      if(res.status){
-      this.invalidUser=false
+      this.invalidOTP=false
       if(this.login.authData(res.status)  && this.forgetPwd == "twoStepAuth"){
         this.router.navigate(['/home'])
 
@@ -117,7 +125,7 @@ submit(data){
       } 
      }  
      else{
-      this.invalidUser=true
+      this.invalidOTP=true
 
      }  
     

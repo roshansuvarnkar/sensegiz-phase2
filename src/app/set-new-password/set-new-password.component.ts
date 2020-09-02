@@ -56,6 +56,7 @@ export class SetNewPasswordComponent implements OnInit {
   }
 
   checkPwd(event,password){
+    this.expiredPwd=false
     console.log("data=",event.target.value,password)
 
     var confirm=event.target.value

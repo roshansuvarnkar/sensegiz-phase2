@@ -58,7 +58,7 @@ export class LoginCheckService {
     var status = localStorage.getItem('sensegizlogin')
     var route = window.location.pathname
     // console.log("route==",route)
-    if(route !='/login' && route!='/admin-login'){
+    if(route !='/login' && route!='/admin-login' &&   route!='two-step-auth'){
       this.loginCred.next(true)
     }
     else{

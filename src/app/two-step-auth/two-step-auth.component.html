@@ -7,7 +7,7 @@
                     <input matInput type="text"  formControlName="username" placeholder="Enter Email Id / Mobile Number" (keyup)="validate($event)" required>
                 </mat-form-field> <br>
                 <mat-error *ngIf="invalidUser">
-                    Invalid username
+                    Invalid user
                 </mat-error>
                 <span class="dail" *ngIf="type">Note* : Please provide registered mobile number with valid country dail code 
                     if you are authenticating through mobile number to get OTP.
@@ -28,6 +28,9 @@
                 </mat-form-field>&nbsp;&nbsp;
                 <mat-error *ngIf="otpExpired">
                     OTP expired
+                </mat-error>
+                <mat-error *ngIf="invalidOTP">
+                    Invalid OTP
                 </mat-error>
                </div>
             <div class="btn-otp">
