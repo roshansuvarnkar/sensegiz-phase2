@@ -420,6 +420,22 @@
     </form>
   </mat-card-content>
 </mat-card> -->
+<mat-card>
+  <mat-card-title>
+   Two Step Authentication
+  </mat-card-title>
+  <mat-card-subtitle>
+    Enable or Disable two step authentication
+  </mat-card-subtitle><br> 
+  <mat-card-content>
+  
+        <mat-slide-toggle class="toggle" color="primary" [checked]= "twoStepAuthStatus.status" (change)="twoStepAuthchange($event)" >{{twoStepAuthStatus.value}}</mat-slide-toggle>
+
+      <br><br>
+      <button class="btn-set" mat-raised-button (click)="onSubmitTwoAuth(twoStepAuthStatus.status)" color="primary">Submit</button>
+ 
+  </mat-card-content>
+</mat-card>
 
 <mat-card>
   <mat-card-title>

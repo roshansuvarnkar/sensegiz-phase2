@@ -49,6 +49,8 @@ export class SettingsComponent implements OnInit {
   bufferValue:boolean=false
   measureStatus:boolean=false
   multipleshift:boolean=false
+  twoStepAuthStatus:any=[]
+
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
@@ -134,6 +136,8 @@ export class SettingsComponent implements OnInit {
     this.maxDistanceForm = this.fb.group({
       maxDistance:['',Validators.required]
     });
+
+    
     
 
   }
@@ -242,8 +246,20 @@ export class SettingsComponent implements OnInit {
             status:'Enable'
           }
         }
+        if(res.success[0].twoStepAuth== "N"){
+          this.twoStepAuthStatus={
+            value:'Enable',
+            status:false
+          }
+        }
+        else{
+          this.twoStepAuthStatus={
+            value:'Disable',
+            status:true
+          }
+        }
       }
-    })
+    });
   }
 
   // minThresholdMinsec(){
@@ -267,6 +283,43 @@ export class SettingsComponent implements OnInit {
   //   }
   // }
 
+  onSubmitTwoAuth(data){
+    console.log(" data===",data)
+      var value={
+        userId:this.loginData.userId,
+        twoStepAuth:data==true?'Y':'N'
+      }
+      console.log("value===",value)
+      this.api.twoStepAuth(value).then((res:any)=>{
+      
+        if(res.status){
+          this.refreshSetting()
+          if(data==true){
+            var msg = 'Two step authentication enabled'
+            this.general.openSnackBar(msg,'')
+          }else{
+            var msg = 'Two step authentication disabled'
+            this.general.openSnackBar(msg,'')
+          }
+        }
+      })
+
+ }
+ twoStepAuthchange(event){
+   console.log(event)
+   if(event.checked==true){
+     this.twoStepAuthStatus={
+       value:'Disable',
+       status:true
+     }
+   }  
+   else{
+    this.twoStepAuthStatus={
+      value:'Enable',
+      status:false
+    }
+   }
+  }
 
   onSubmitWorkForm(data) {
     // console.log("time==",data)

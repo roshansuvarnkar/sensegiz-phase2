@@ -19,11 +19,15 @@ import { GeoFenceComponent } from './geo-fence/geo-fence.component';
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
 import { LocationComponent } from './location/location.component';
+import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
+import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
 
 
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'login' , component:LoginComponent},
+  {path:'two-step-auth' , component:TwoStepAuthComponent},
+  {path:'set-new-password' , component:SetNewPasswordComponent},
   {path:'dashboard' , component:DashboardComponent , canActivate: [AuthGuard], data:{role:['user']}},
   {path:'history' , component:HistoryComponent , canActivate: [AuthGuard], data:{role:['user']}},
   {path:'settings' , component:SettingsComponent , canActivate: [AuthGuard], data:{role:['user']}},

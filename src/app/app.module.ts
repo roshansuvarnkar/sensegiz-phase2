@@ -41,6 +41,8 @@ import { ExceptionComponent } from './exception/exception.component';
 import { InternationalPhoneNumber2Module  } from 'ngx-international-phone-number2';
 import { LocationComponent } from './location/location.component';
 import * as moment from 'moment';
+import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
+import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +72,8 @@ import * as moment from 'moment';
     UserGuideComponent,
     ExceptionComponent,
     LocationComponent,
+    SetNewPasswordComponent,
+    TwoStepAuthComponent,
     
   ],
   imports: [

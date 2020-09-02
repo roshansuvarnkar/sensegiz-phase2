@@ -6,7 +6,7 @@ mat-card {
 .setting {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
 }
 .maxlimit {
   margin-top: 0.2rem;

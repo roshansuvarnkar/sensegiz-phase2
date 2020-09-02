@@ -10,6 +10,8 @@ export class LoginCheckService {
   public loginCred = new Subject<any>()
   public loginCheckStatus = new Subject<any>()
   public pageCheck = new Subject<any>()
+  public authCheck = new Subject<any>()
+
 
   constructor(private router:Router) {
       this.loginStatus()
@@ -18,7 +20,7 @@ export class LoginCheckService {
 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
-    if(status){
+    if(status  && status!='undefined'){
       this.loginCheckStatus.next(true)
       return true
     }
@@ -31,7 +33,7 @@ export class LoginCheckService {
 
   loginData(){
     var status = localStorage.getItem('sensegizlogin')
-    if(status){
+    if(status  && status!='undefined'){
       return JSON.parse(status)
     }
     else{
@@ -39,7 +41,19 @@ export class LoginCheckService {
     }
   }
 
-
+  authData(data){
+    var status = localStorage.getItem('sensegizlogin')
+    var auth=JSON.parse(status)==null?'N':JSON.parse(status)
+    
+    if(data || auth.twoStepAuth=="N" ){
+      this.authCheck.next(true)
+      return true
+    }
+    else{
+      this.authCheck.next(false)
+      return false
+    }
+  }
   loginStatusMenu(){
     var status = localStorage.getItem('sensegizlogin')
     var route = window.location.pathname
@@ -57,7 +71,7 @@ export class LoginCheckService {
 
   Getlogin(){
     var status = localStorage.getItem('sensegizlogin')
-    if(status){
+    if(status  && status!='undefined'){
       return status
     }
     else{

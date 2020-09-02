@@ -23,6 +23,8 @@ export class AppComponent {
   isTablet:boolean
   isDesktopDevice:boolean
   deviceStatus:boolean
+  twoStepAuth:boolean
+
   deviceInfo = null;
   host:any = environment.apiHost
 
@@ -42,11 +44,22 @@ export class AppComponent {
     this.loginDataInfo = this.login.loginData()
   //  console.log("loginDataInfo===",this.loginDataInfo);
 
-    this.login.loginCheckStatus.subscribe(res=>{
-      // console.log("login data===",res)
-      this.loginStatus = res
-      this.loginDataInfo = this.login.loginData()
-    })
+  this.login.loginCheckStatus.subscribe(res=>{
+    // console.log("login data1===",res)
+    this.loginStatus = res
+    this.loginDataInfo = this.login.loginData()
+    // console.log("heloooo",this.loginDataInfo)
+    if(this.loginDataInfo.twoStepAuth=='N'){
+      this.twoStepAuth=true
+      // console.log("im Noo")
+    }
+
+  })
+
+  this.login.authCheck.subscribe(res=>{
+    this.twoStepAuth=res
+  })
+
 
   }
 

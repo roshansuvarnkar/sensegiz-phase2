@@ -49,7 +49,7 @@
 
 
 
-<div *ngIf="loginData">
+<div *ngIf="loginData && twoStepAuth">
   <mat-toolbar color="primary" class="menubar">
     <span routerLink="/home">Home</span>
     <span routerLink="/dashboard">Manage People</span>
@@ -107,7 +107,7 @@
 </div >
 </div>
 
-<div *ngIf="!loginData">
+<div *ngIf="!loginData || !twoStepAuth">
   <router-outlet></router-outlet>
 
 </div>
