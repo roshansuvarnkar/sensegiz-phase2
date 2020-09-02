@@ -52,11 +52,12 @@ export class LoginComponent implements OnInit {
         
               // this.newPassword=false
               res.success.role='user'
+              res.success.passwordExpiry=passwordExpiry
               if(this.login.login(JSON.stringify(res.success)) && res.success.twoStepAuth!='Y' && !passwordExpiry){
 
                 this.router.navigate(['/home'])
               }
-              else if( passwordExpiry==true ){
+              else if( this.login.login(JSON.stringify(res.success)) && passwordExpiry==true ){
                 console.log("expired")
                 this.newPassword=true
 

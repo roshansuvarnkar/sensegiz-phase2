@@ -20,7 +20,8 @@ export class LoginCheckService {
 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
-    if(status  && status!='undefined'){
+    var passwordExpiry=JSON.parse(status)
+    if(status  && status!='undefined' && passwordExpiry.passwordExpiry==false){
       this.loginCheckStatus.next(true)
       return true
     }
@@ -58,7 +59,7 @@ export class LoginCheckService {
     var status = localStorage.getItem('sensegizlogin')
     var route = window.location.pathname
     // console.log("route==",route)
-    if(route !='/login' && route!='/admin-login' &&   route!='two-step-auth'){
+    if(route !='/login' && route!='/admin-login' ){
       this.loginCred.next(true)
     }
     else{

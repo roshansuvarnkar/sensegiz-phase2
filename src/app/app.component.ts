@@ -39,7 +39,7 @@ export class AppComponent {
       // console.log("login data===",res)
       this.loginData = res
       this.loginMobData=res
-            this.twoStepAuth=res
+      this.twoStepAuth=res
 
       this.loginDataInfo = this.login.loginData()
     })
