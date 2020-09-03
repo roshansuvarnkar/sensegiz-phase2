@@ -116,9 +116,11 @@ submit(data){
    
      if(res.status){
       this.invalidOTP=false
-      if(this.login.authData(res.status)  && this.forgetPwd == "twoStepAuth"){
+      localStorage.setItem('sensegizTwoStep','true')
+      this.login.authCheck.next(true)
+      if(this.forgetPwd == "twoStepAuth"){
+        
         this.router.navigate(['/home'])
-
       } 
       else if(this.forgetPwd== "forgetPassword"){
         this.router.navigate(['/set-new-password'],{queryParams:{user:JSON.stringify(data)}})

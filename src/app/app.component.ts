@@ -23,7 +23,7 @@ export class AppComponent {
   isTablet:boolean
   isDesktopDevice:boolean
   deviceStatus:boolean
-  twoStepAuth:boolean
+  twoStepAuth:any
 
   deviceInfo = null;
   host:any = environment.apiHost
@@ -33,18 +33,22 @@ export class AppComponent {
     private router:Router,
     private route:ActivatedRoute,
     private deviceService: DeviceDetectorService){
-    this.loginData = this.login.loginStatus()
+    // this.loginData = this.login.loginStatus()
     this.loginDataInfo = this.login.loginData()
+    this.twoStepAuth=this.login.authData()
+    console.log("auth dT==",this.login.authData())
     this.login.loginCred.subscribe(res=>{
       // console.log("login data===",res)
+      this.twoStepAuth=this.login.authData()
       this.loginData = res
       this.loginMobData=res
-      this.twoStepAuth=res
+      // this.twoStepAuth=res
 
       this.loginDataInfo = this.login.loginData()
     })
     this.loginDataInfo = this.login.loginData()
   //  console.log("loginDataInfo===",this.loginDataInfo);
+   console.log("loginData===",this.loginData);
 
   this.login.loginCheckStatus.subscribe(res=>{
     // console.log("login data1===",res)
@@ -52,14 +56,14 @@ export class AppComponent {
     this.loginDataInfo = this.login.loginData()
     // console.log("heloooo",this.loginDataInfo)
     if(this.loginDataInfo.twoStepAuth=='N'){
-      this.twoStepAuth=true
+      // this.twoStepAuth=true
       // console.log("im Noo")
     }
 
   })
 
   this.login.authCheck.subscribe(res=>{
-    this.twoStepAuth=res
+    this.twoStepAuth=this.login.authData()
   })
 
 

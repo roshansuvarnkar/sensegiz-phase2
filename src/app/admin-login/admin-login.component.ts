@@ -47,8 +47,9 @@ export class AdminLoginComponent implements OnInit {
    
           	res.success.role='admin'
             if(this.login.login(JSON.stringify(res.success))){
-                this.router.navigate(['/admin-dashboard'])
-              }
+              this.login.authCheck.next(true)
+              this.router.navigate(['/admin-dashboard'])
+            }
           }
         })
       } catch (err) {

@@ -14,14 +14,15 @@ export class LoginCheckService {
 
 
   constructor(private router:Router) {
-      this.loginStatus()
+      // this.loginStatus()
+      // this.authData()
    }
 
 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
     var passwordExpiry=JSON.parse(status)
-    if(status  && status!='undefined' && passwordExpiry.passwordExpiry==false){
+    if(status  && status!='undefined' || passwordExpiry.passwordExpiry==false){
       this.loginCheckStatus.next(true)
       return true
     }
@@ -42,18 +43,53 @@ export class LoginCheckService {
     }
   }
 
-  authData(data){
-    var status = localStorage.getItem('sensegizlogin')
-    var auth=JSON.parse(status)==null?'N':JSON.parse(status)
+  authData(){
+    var status = JSON.parse(localStorage.getItem('sensegizlogin'))
+    // var auth=JSON.parse(status)==null?'N':JSON.parse(status)
+    // console.log("inside auth==",JSON.parse(status))
+    // if( auth.twoStepAuth=="N" || auth.twoStepAuth=="Y" ){
+    //   this.authCheck.next(true)
+    //   return true
+    // }
+    // else{
+    //   this.authCheck.next(false)
+    //   return false
+    // }
+    console.log("status of authdata==",status)
+
+    if(status && status != 'undefined'){
+      if(status.role=='user' ){
+        if(status.twoStepAuth=='Y' && status.passwordExpiry==false){
+          var auth = localStorage.getItem('sensegizTwoStep')
+          if(auth=='true'){
+            var a = {status:true,role:'user'}
+            return a
+          }
+          else{
+            var a = {status:false,role:''}
+            return a
+          }
+        }
+        else if(status.twoStepAuth=='Y' && status.passwordExpiry==true){
+          var a = {status:false,role:''}
+          return a
+        }
+        else{
+          var a = {status:true,role:'user'}
+          return a
+        }
+      }
+      else if(status.role=='admin'){
+        var a = {status:true,role:'admin'}
+        return a
+      }
+      else{
+        var a = {status:false,role:''}
+        return a
+      }
+
+    }
     
-    if(data || auth.twoStepAuth=="N" ){
-      this.authCheck.next(true)
-      return true
-    }
-    else{
-      this.authCheck.next(false)
-      return false
-    }
   }
   loginStatusMenu(){
     var status = localStorage.getItem('sensegizlogin')

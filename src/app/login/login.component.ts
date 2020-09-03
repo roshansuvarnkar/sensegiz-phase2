@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
       userName: ['', Validators.email],
       password: ['', Validators.required]
     });
+    localStorage.clear()
   }
 
  onSubmit(data) {
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
               res.success.role='user'
               res.success.passwordExpiry=passwordExpiry
               if(this.login.login(JSON.stringify(res.success)) && res.success.twoStepAuth!='Y' && !passwordExpiry){
-
+                this.login.authCheck.next(true)
                 this.router.navigate(['/home'])
               }
               else if( this.login.login(JSON.stringify(res.success)) && passwordExpiry==true ){
@@ -65,10 +66,11 @@ export class LoginComponent implements OnInit {
               else{
                 this.newPassword=false
                 this.forgetPwd="twoStepAuth"
+                this.login.authCheck.next(true)
+
                 this.router.navigate(['/two-step-auth'],{ queryParams: { type : JSON.stringify(this.forgetPwd) } })         
               }
 
-              // this.router.navigate(['/two-step-auth']) 
 
             } 
 
