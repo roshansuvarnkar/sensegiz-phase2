@@ -75,8 +75,15 @@ export class LoginCheckService {
           return a
         }
         else{
-          var a = {status:true,role:'user'}
-          return a
+          if(status.twoStepAuth=="N" && status.passwordExpiry==true){
+            var a = {status:false,role:''}
+            return a
+          }
+          else{
+            var a = {status:true,role:'user'}
+            return a
+          }
+         
         }
       }
       else if(status.role=='admin'){
