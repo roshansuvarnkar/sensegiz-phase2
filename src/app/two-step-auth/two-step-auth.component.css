@@ -43,6 +43,18 @@ p.resend{
 span.dail {
     color: #d8270a;
 }
-.oto-exp{
+.otp-exp{
     text-align:center;
 }
+
+@media only screen and (max-width: 768px){
+    mat-card.mat-card.mat-focus-indicator.auth-card[_ngcontent-qxl-c293] {
+        width: 90%;
+        height: 20rem;
+        margin: 1rem;
+        /* margin-top: 10%; */
+        box-shadow: 0 2px 8px 0 #ef6c00;
+    }
+}
+
+

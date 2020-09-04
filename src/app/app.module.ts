@@ -43,6 +43,7 @@ import { LocationComponent } from './location/location.component';
 import * as moment from 'moment';
 import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
 import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +75,7 @@ import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
     LocationComponent,
     SetNewPasswordComponent,
     TwoStepAuthComponent,
+    ProfileComponent,
     
   ],
   imports: [
