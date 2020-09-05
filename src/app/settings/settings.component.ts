@@ -5,6 +5,8 @@ import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-shift.component';
+import { EditOverCrowdComponent } from '../edit-over-crowd/edit-over-crowd.component';
+
 
 import {  saveAs  }from 'file-saver'
 
@@ -50,13 +52,13 @@ export class SettingsComponent implements OnInit {
   measureStatus:boolean=false
   multipleshift:boolean=false
   twoStepAuthStatus:any=[]
-
   inactivityStatusValue:any=[]
   coinData:any=[]
   coin:any=[]
   min:any=[]
   sec:any=[]
   loading:boolean=false
+
   tempImagePath:any
   uploadForm: FormGroup;
     @ViewChild('fileInput') fileInput : ElementRef;
@@ -71,11 +73,14 @@ export class SettingsComponent implements OnInit {
     // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
-      shift: ['', Validators.required],
-      fromTime: ['', Validators.required],
-      toTime: ['', Validators.required]
+      shift: [{value:'',disabled: true}, Validators.required],
+      fromTime: [{value:'',disabled: true}, Validators.required],
+      toTime: [{value:'',disabled: true}, Validators.required]
     });
 
+    this.bufferForm = this.fb.group({
+      buffer: [{value:'',disabled: true},[Validators.required, Validators.min(0)]]
+    })
 
     this.distanceForm = this.fb.group({
       distance: ['', Validators.required],
@@ -97,9 +102,7 @@ export class SettingsComponent implements OnInit {
       inactivity: ['',[Validators.required,Validators.max(120), Validators.min(0)]]
     });
 
-    this.bufferForm = this.fb.group({
-      buffer: ['',[Validators.required, Validators.min(0)]]
-    })
+  
 
     this.overCrowedForm=this.fb.group({
       coinSelect:['',Validators.required],
@@ -116,9 +119,9 @@ export class SettingsComponent implements OnInit {
     //   wearable:['',Validators.required]
     // })
 
-    this.buzzerTimeForm=this.fb.group({
-      buzzerTime:['',[Validators.required,Validators.max(255), Validators.min(1)]]
-    })
+    // this.buzzerTimeForm=this.fb.group({
+    //   buzzerTime:['',[Validators.required,Validators.max(255), Validators.min(1)]]
+    // })
 
     this.buzzerConfigForm=this.fb.group({
       buzzerConfig:[''],
@@ -137,11 +140,11 @@ export class SettingsComponent implements OnInit {
       maxDistance:['',Validators.required]
     });
 
-    
-    
+  }
+  contactTeam(){
+  alert("Please contact SenseGiz Team for this setting")
 
   }
-
 
   refreshCoins(){
     var data={
@@ -845,7 +848,7 @@ export class SettingsComponent implements OnInit {
     dialogConfig.data = {
       type:"overcrowd"
     }
-    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+    const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
     });

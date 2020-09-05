@@ -4,6 +4,10 @@ import { Router ,ActivatedRoute} from '@angular/router';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import { EditSettingShiftComponent } from '../edit-setting-shift/edit-setting-shift.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+
+
 @Component({
   selector: 'app-admin-settings',
   templateUrl: './admin-settings.component.html',
@@ -14,6 +18,8 @@ export class AdminSettingsComponent implements OnInit {
   distanceForm:FormGroup
   scanningForm:FormGroup
   timeForm:FormGroup
+  bufferForm:FormGroup
+  workingForm:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
@@ -27,9 +33,14 @@ export class AdminSettingsComponent implements OnInit {
   requiredStatus1:boolean=false
   requiredStatus2:boolean=false
   timeFormStatus:boolean=true
-  constructor(private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
+  bufferValue:boolean=false
+  multipleShift:boolean=false
+  constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.bufferForm = this.fb.group({
+      buffer: ['',[Validators.required, Validators.min(0)]]
+    })
 
     this.txPowerForm = this.fb.group({
       txPower: ['', Validators.required],
@@ -46,6 +57,12 @@ export class AdminSettingsComponent implements OnInit {
       minutes:[{value:'',disabled: false},Validators.required],
       seconds:[{value:'',disabled: false},Validators.required]
     })
+    
+    this.workingForm = this.fb.group({
+      shift: ['', Validators.required],
+      fromTime: ['', Validators.required],
+      toTime: ['', Validators.required]
+    });
 
     this.route.queryParams.subscribe(params => {
       this.dataGet = JSON.parse(params.record) ;
@@ -70,6 +87,9 @@ export class AdminSettingsComponent implements OnInit {
         this.distanceForm.patchValue({
           distance: res.success[0].distance.toString(),
           rssi: res.success[0].rssi
+        })
+        this.bufferForm.patchValue({
+          buffer: res.success[0].buffer,
         })
         if(res.success[0].durationThreshold<=55){
           this.minStatus=true
@@ -118,6 +138,8 @@ export class AdminSettingsComponent implements OnInit {
       }
     }
   }
+
+
   onSubmitDistanceForm(data) {
     if (this.distanceForm.valid) {
       try {
@@ -248,7 +270,88 @@ export class AdminSettingsComponent implements OnInit {
     })
 
    }
+   onSubmitWorkForm(data) {
+    // console.log("time==",data)
+    var dateobj=new Date()
+    var year = dateobj.getFullYear();
+    var month = dateobj.getMonth() + 1
+    var day = dateobj.getDate()
+    var date = month + '/' + day + '/'  + year
 
+    var time1=date+" "+data.fromTime
+    var time2=date+" "+data.toTime
+    time1=new Date(time1).toUTCString()
+    time2=new Date(time2).toUTCString()
+    var h=new Date(time1).getUTCHours()
+    var m=new Date(time1).getUTCMinutes()
+    var h1=new Date(time2).getUTCHours()
+    var m1=new Date(time2).getUTCMinutes()
+     var hh = h <= 9 && h >= 0 ? "0"+h : h;
+     var mm = m <= 9 && m >= 0 ? "0"+m : m;
+     var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
+     var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
+
+    data.fromTime = hh + ':' + mm
+    data.toTime = hh1 + ':' + mm1
+    // console.log("data====",data)
+
+
+     if (this.workingForm.valid) {
+       try {
+        //  console.log("time data===",data)
+         data.userId = this.dataGet.userId
+         this.api.setTime(data).then((res:any)=>{
+          //  console.log("time insrted or updated",res)
+          if(res.status){
+            this.multipleShift=false
+            var msg = 'Shift time update Successfully'
+            this.general.openSnackBar(msg,'')
+           
+           }else{
+            this.multipleShift=true
+           }
+         })
+       } catch (err) {
+       }
+     }
+   }
+
+
+
+ 
+   onSubmitBufferForm(value){
+
+    if (this.bufferForm.valid) {
+      try {
+        // console.log("buffer data==",value)
+        var data={
+        userId : this.dataGet.userId,
+        buffer : value.buffer
+
+        }
+
+     
+        this.api.getBufferDeviceSetting(data).then((res:any)=>{
+          // console.log("Buffer response===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg = 'Buffer updated Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          // console.log("err===",err);
+        })
+    
+      } catch (err) {
+      }
+    }
+   }
+   bufferval(event){
+     console.log(event.target.value)
+    
+      this.bufferValue=event.target.value>5?true:false
+    
+   }
 
    getMin(event){
     // console.log("event==",event)
@@ -289,6 +392,21 @@ export class AdminSettingsComponent implements OnInit {
       this.requiredStatus2=true
       this.timeFormStatus=false
     }
+  }
+  openDialog(): void {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"shifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

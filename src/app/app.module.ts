@@ -44,6 +44,7 @@ import * as moment from 'moment';
 import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
 import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EditOverCrowdComponent } from './edit-over-crowd/edit-over-crowd.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { ProfileComponent } from './profile/profile.component';
     SetNewPasswordComponent,
     TwoStepAuthComponent,
     ProfileComponent,
+    EditOverCrowdComponent,
     
   ],
   imports: [

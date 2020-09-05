@@ -21,6 +21,8 @@ import { ExceptionComponent } from './exception/exception.component';
 import { LocationComponent } from './location/location.component';
 import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
 import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
+import { ProfileComponent } from './profile/profile.component';
+
 
 
 const routes: Routes = [
@@ -40,6 +42,7 @@ const routes: Routes = [
   {path:'user-guide' , component:UserGuideComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'exception' , component:ExceptionComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'location' , component:LocationComponent, canActivate: [AuthGuard], data:{role:['user']}},
+  {path:'profile' , component:ProfileComponent, canActivate: [AuthGuard], data:{role:['user']}},
 
 
   {path:'admin-login' , component:AdminLoginComponent},
