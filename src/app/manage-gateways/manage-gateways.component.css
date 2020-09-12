@@ -21,6 +21,9 @@ table.mat-table {
     margin-top: 1rem;
     /* text-align: center; */
 }
+.cursor{
+    cursor: pointer;
+  }
 
 ::ng-deep .mat-sort-header-container {
   display:flex;

@@ -504,29 +504,90 @@ getUpdate(event) {
 
 
 
-getPages() {
+// getPages() {
 
-  var tempLen=this.currentPageLength
-  // console.log("paginator event length",this.currentPageLength);
-  this.loadData(tempLen,0,1)
-  var msg = 'Downloading'
-  this.general.openSnackBar(msg,'')
-//  setTimeout(()=>{
-//     this.downloadPDF()
-//   },5000);
+//   var tempLen=this.currentPageLength
+//   // console.log("paginator event length",this.currentPageLength);
+//   this.loadData(tempLen,0,1)
+//   var msg = 'Downloading'
+//   this.general.openSnackBar(msg,'')
+// //  setTimeout(()=>{
+// //     this.downloadPDF()
+// //   },5000);
 
-  setTimeout(()=>{
+//   setTimeout(()=>{
 
-    this.openExcel()
+//     this.openExcel()
 
-  },6000);
+//   },6000);
 
-  setTimeout(()=>{
-    this.loadData(10,0,0)
-  },8000)
- clearTimeout(8*1000)
+//   setTimeout(()=>{
+//     this.loadData(10,0,0)
+//   },8000)
+//  clearTimeout(8*1000)
+// }
+
+getPages(){
+  var data={}
+  var fileName=''
+  var date=new Date()
+  console.log("date==",date)
+  if(this.type=='basedOnDate'){
+     data={
+      userId:this.loginData.userId,
+      fromDate: this.from,
+      toDate:this.to,
+      time:date
+     }
+     fileName="GenericReport"
+ }
+if(this.type=='basedOnFindName'){
+  data={
+    userId:this.loginData.userId,
+    deviceName:this.deviceName,
+    fromDate: this.from,
+    toDate:this.to,
+  }
+
+}
+if(this.type=='summaryReport'){
+data={
+  userId:this.loginData.userId,
+  deviceName:this.deviceName,
+  fromDate: this.from,
+  toDate:this.to,
+}
 }
 
+if(this.type=='locationReport'){
+   data={
+    userId:this.loginData.userId,
+    coinId:this.locationId,
+    fromDate: this.from,
+    toDate:this.to,
+  }
+}
+if(this.type=='geoFenceReport'){
+ data={
+    userId:this.loginData.userId,
+    deviceName:this.deviceName,
+    fromDate: this.from,
+    toDate:this.to,
+  }
+}
+  console.log("data to send ======",data);
+
+this.api.downlodReport(data,fileName).then((res:any)=>{
+  console.log("report data recieved ======",res);
+  if(res.status){
+    // console.log('\nTotal response: ',res.success[0].count);
+    // this.currentPageLength = parseInt(res.success[0].count);
+    // this.tempLen=this.currentPageLength
+  }
+})
+
+
+}
 
 
   orderContactOpen(a){

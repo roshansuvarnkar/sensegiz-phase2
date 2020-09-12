@@ -91,6 +91,7 @@ refreshFinds(){
               deviceName: res.success[i].deviceName,
               shift: res.success[i].shiftName ,
               infected: res.success[i].infected,
+              batteryUpdatedOn:res.success[i].batteryUpdatedOn,
               edit:'edit',
               delete:'delete',
               batteryStatus:res.success[i].batteryStatus,
@@ -260,6 +261,9 @@ getBatteryStatus(value){
   else{
     return {}
   }
+}
+getBatteryUpdatedOn(value){
+  return value
 }
 
 

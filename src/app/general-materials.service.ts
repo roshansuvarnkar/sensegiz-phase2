@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } from  '@angular/common/http';  
 import { environment } from '../environments/environment'
-import{Observable} from 'rxjs'
+import{Observable, BehaviorSubject} from 'rxjs'
 import { map } from  'rxjs/operators';
 import * as XLSX from 'xlsx';
 @Injectable({
@@ -16,7 +16,7 @@ export class GeneralMaterialsService {
   date2:any
   time:any
 
-
+  public loadingFreez : BehaviorSubject<any> = new BehaviorSubject<any>([])
   constructor(private _snackBar: MatSnackBar,private http: HttpClient) {}
 
   openSnackBar(message: string, action: string) {
@@ -50,7 +50,7 @@ exportAsExcelFile(json: any[], excelFileName: string,header: string){
       // console.log("wb===",wb)
 
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        XLSX.read(header)
+        // XLSX.read(header)
 
       XLSX.writeFile(wb, excelFileName);
 
@@ -115,6 +115,7 @@ convertTime(a){
   }
   return date
 }
+
 totalTime(inTime,outTime){
   console.log("time===",inTime,outTime)
   this.date1  = new Date(inTime)

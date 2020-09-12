@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment'
 import { identifierModuleUrl } from '@angular/compiler';
+import { GeneralMaterialsService } from './general-materials.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ApiService {
 
   host:string = environment.apiHost
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private general:GeneralMaterialsService) { }
 
   send(data){
     const httpOptions = {
@@ -969,5 +970,37 @@ deleteSubUser(data){
   });
 
 }
+
+downlodReport(data,fileName){
+  this.general.loadingFreez.next({status:true})
+
+  let url = this.host+'/download';
+  return new Promise((resolve,reject)=>{
+    this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      if(res.status==200)
+      this.downloadFile(res,fileName)
+
+      resolve(true);
+    },
+    err=>{
+      console.log("err==",err)
+    })
+  });
+
+}
+
+
+  downloadFile(response,fileName){
+    let body = response.body
+    let dataType = body.type;
+    let binaryData = [];
+    binaryData.push(body);
+    this.general.loadingFreez.next({status:false,message:''})
+    let downloadLink = document.createElement('a');
+    downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+    downloadLink.setAttribute('download', fileName);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
 
 }

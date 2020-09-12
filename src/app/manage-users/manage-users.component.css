@@ -22,6 +22,9 @@ table.mat-table {
   margin: 1.2rem 0 2rem 0;
   font-weight: 500;
 }
+.cursor{
+    cursor: pointer;
+  }
 @media only screen and (max-width: 768px) {
     table.table thead th {
         font-weight: 600;
