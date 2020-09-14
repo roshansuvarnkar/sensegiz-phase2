@@ -206,9 +206,9 @@ export class SettingsComponent implements OnInit {
         //   })
         // }
 
-        this.buzzerTimeForm.patchValue({
-          buzzerTime:res.success[0].buzzerTime
-        })
+        // this.buzzerTimeForm.patchValue({
+        //   buzzerTime:res.success[0].buzzerTime
+        // })
         // this.wearableForm.patchValue({
         //   wearable:res.success[0].type.toString()
         // })

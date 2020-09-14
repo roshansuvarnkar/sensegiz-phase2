@@ -23,7 +23,8 @@ export class ManageCoinsComponent implements OnInit {
   coinData:any=[]
   coindDataTemp:any=[]
   dataSource: any = [];
-  displayedColumns = ['i','coinId','coinName','gatewayId',	'edit',	'delete'];
+  inserted:any=[]
+  displayedColumns = ['i','coinId','coinName','gatewayId','batteryStatus',	'edit',	'delete'];
 
 
 constructor(public dialog: MatDialog,
@@ -66,8 +67,11 @@ constructor(public dialog: MatDialog,
     this.api.getData(data).then((res:any)=>{
       console.log("coin data ======",res);
       if(res.status){
+       
         this.coinData=[]
+        
       for (let i = 0; i <res.success.length; i++) {
+        
         this.coinData.push(
           {
               i: i+1,
@@ -75,6 +79,8 @@ constructor(public dialog: MatDialog,
               coinId: res.success[i].coinId,
               coinName: res.success[i].coinName,
               gatewayId:res.success[i].gatewayId==''?'-':res.success[i].gatewayId,
+              batteryStatus:res.success[i].batteryStatus,
+              insertedOn:res.success[i].insertedOn,
               edit:'edit',
               delete:'delete',
               
@@ -92,6 +98,36 @@ constructor(public dialog: MatDialog,
       }
     })
   }
+getInsertedOn(value){
+return value
+}
+  getBatteryStatus(value){
+    if(value == 5){
+      var a = {
+        'background-color':'green',
+        'width':'31px'
+      }
+      return a
+    }
+    else if(value == 6){
+      var a = {
+        'background-color':'#ffc107',
+        'width':'18px'
+      }
+      return a
+    }
+    else if(value == 7){
+      var a = {
+        'background-color':'red',
+        'width':'10px'
+      }
+      return a
+    }
+    else{
+      return {}
+    }
+  }
+
 edit(data){
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;

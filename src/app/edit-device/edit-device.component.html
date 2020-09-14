@@ -45,17 +45,17 @@
 
       <mat-step >
         <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>Mobile Number</mat-label>
          <input type="text" matInput formControlName="mobileNum" >
          <mat-error>
           Please provide valid mobile number
         </mat-error>
 
-        </mat-form-field>
+        </mat-form-field> -->
 
-          <!-- <international-phone-number2 placeholder="Enter phone number" [defaultCountry]="'in'" formControlName="mobileNum" >
-          </international-phone-number2> -->
+        <international-phone-number2   placeholder="Mobile number" [defaultCountry]="'in'" formControlName="mobileNum"required='true' aria-autocomplete="false" >
+        </international-phone-number2>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -156,16 +156,16 @@
     <form [formGroup]="userform" >
       <mat-step >
           <ng-template matStepLabel>Fill out user mobile number</ng-template>
-          <mat-form-field>
+          <!-- <mat-form-field>
             <mat-label>User Mobile number</mat-label>
             <input matInput  placeholder="Mobile number" formControlName="mobileNum" required>
             <mat-error>
               Please provide valid mobile number
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
 
-          <!-- <international-phone-number2 placeholder="Enter phone number" [defaultCountry]="'in'" formControlName="mobileNum" >
-          </international-phone-number2> -->
+          <international-phone-number2   placeholder="Mobile number" [defaultCountry]="'in'" formControlName="mobileNum"required='true' aria-autocomplete="false" >
+          </international-phone-number2>
           <div>
             <button mat-button matStepperNext>Next</button>
           </div>

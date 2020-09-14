@@ -74,7 +74,9 @@ table.mat-table {
   height: 18px;
 }
 
-
+.cursor{
+  cursor: pointer;
+}
 
 @media only screen and (max-width: 768px) {
     table.table thead th {
