@@ -73,7 +73,7 @@ gateway:any=[]
       this.Findform.patchValue({
         deviceName: this.deviceData.deviceName,
         deviceId: this.deviceData.deviceId,
-        mobileNum:this.deviceData.mobileNum=='-' ? '' : this.deviceData.mobileNum==undefined ? '-' : this.deviceData.mobileNum.slice(3),
+        mobileNum:this.deviceData.mobileNum=='-' ? '' : this.deviceData.mobileNum==undefined ? '-' : this.deviceData.mobileNum,
         emailId:this.deviceData.emailId=='-' ? '' : this.deviceData.emailId==undefined ? '-' : this.deviceData.emailId,
         empId:this.deviceData.empId=='-' ? '' : this.deviceData.empId==undefined ? '-' : this.deviceData.empId
       });
@@ -88,7 +88,7 @@ gateway:any=[]
 
     else if(this.type=='users'){
       this.userform.patchValue({
-        mobileNum: this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobileNum==undefined ? '-' : this.deviceData.mobileNum.slice(3),
+        mobileNum: this.deviceData.mobileNum=='' ? '-' : this.deviceData.mobileNum==undefined ? '-' : this.deviceData.mobileNum,
         emailId: this.deviceData.emailId
       });
     }
