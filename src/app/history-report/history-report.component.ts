@@ -54,6 +54,8 @@ export class HistoryReportComponent implements OnInit {
   date1:any
   date2:any
   coinData:any=[]
+  
+
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -328,15 +330,15 @@ dataDateReduce(data){
 //       })
 //       console.log("live==",this.liveData)
    
-//       // for(let i=0;i<this.liveData.length;i++){
+//       for(let i=0;i<this.liveData.length;i++){
 
-//       //   for(let j=0;j<this.liveData[i].data.length-1;j++){
-//       //     this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
-//       //   }
+//         for(let j=0;j<this.liveData[i].date.length-1;j++){
+//           this.liveData[i].date[j].updatedOn = this.liveData[i].date[j].updatedOn.split('T')[0]+','
+//         }
      
-//       //   this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
+//         this.liveData[i].date[this.liveData[i].date.length-1].updatedOn=this.liveData[i].date[this.liveData[i].date.length-1].updatedOn.split('T')[0]+'.'
 
-//       //  }
+//        }
       
 
 //     }
@@ -346,12 +348,13 @@ dataDateReduce(data){
 
 // dataDateReduce(data){
 // return data.reduce((group,obj)=>{
-// const user = obj.contactDeviceName
-// if(!group[user]){
-//   group[user]=[]
+// const name = obj.contactDeviceName
+// console.log("name---",name)
+// if(!group[name]){
+//   group[name]=[]
 // }
-// group[user].push(obj)
-// // console.log("group==",group)
+// group[name].push(obj)
+// console.log("group==",group)
 // return group
 // },{})
 // }
@@ -531,61 +534,97 @@ getPages(){
   var data={}
   var fileName=''
   var date=new Date()
+  var timezone=date.getTimezoneOffset()
+  
+  let m = timezone % 60;
+  timezone = (timezone - m) / 60;
+  let h = timezone
+  let mm = m <= 9 && m >= 0 ? "0"+m : m;
+  let hh = h <= 9 && h >= 0 ? "0"+h : h;
+  if(m<0 && h<0){
+     var timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
+  }
+  else if(m>0 && h>0){
+    timeZone= '-'+(-(hh)+':'+(-mm)).toString()
+  }
+  else{
+    timeZone=hh+':'+mm
+  }
   console.log("date==",date)
-  if(this.type=='basedOnDate'){
-     data={
+  console.log("timezone==",timeZone)
+
+ if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
+    if(this.type=='basedOnDate'){
+      data={
       userId:this.loginData.userId,
       fromDate: this.from,
       toDate:this.to,
-      time:date
-     }
-     fileName="GenericReport"
+      zone:timeZone,
+      type:this.type
+      }
+      fileName="GenericReport"
+  }
+  if(this.type=='basedOnFindName'){
+    data={
+    userId:this.loginData.userId,
+    deviceName:this.deviceName,
+    fromDate: this.from,
+    toDate:this.to,
+    zone:timeZone,
+    type:this.type
+  }
+  fileName="Report-of-Find- "+this.deviceName
+  }
+  
+    console.log("data to send ======",data);
+
+    this.api.downloadReport(data,fileName).then((res:any)=>{
+
+      console.log("report data recieved ======",res);
+    })
  }
-if(this.type=='basedOnFindName'){
-  data={
-    userId:this.loginData.userId,
-    deviceName:this.deviceName,
-    fromDate: this.from,
-    toDate:this.to,
-  }
+ if(this.type=='summaryReport'){
+    this.general.loadingFreez.next({status:true})
+    console.log("hi")
+    setTimeout(()=>{
 
-}
-if(this.type=='summaryReport'){
-data={
-  userId:this.loginData.userId,
-  deviceName:this.deviceName,
-  fromDate: this.from,
-  toDate:this.to,
-}
-}
+      this.openExcel()
+      this.general.loadingFreez.next({status:false})
 
-if(this.type=='locationReport'){
-   data={
-    userId:this.loginData.userId,
-    coinId:this.locationId,
-    fromDate: this.from,
-    toDate:this.to,
-  }
-}
-if(this.type=='geoFenceReport'){
- data={
-    userId:this.loginData.userId,
-    deviceName:this.deviceName,
-    fromDate: this.from,
-    toDate:this.to,
-  }
-}
-  console.log("data to send ======",data);
+    },6000);
 
-this.api.downlodReport(data,fileName).then((res:any)=>{
-  console.log("report data recieved ======",res);
-  if(res.status){
-    // console.log('\nTotal response: ',res.success[0].count);
-    // this.currentPageLength = parseInt(res.success[0].count);
-    // this.tempLen=this.currentPageLength
   }
-})
+  if(this.type=='locationReport' || this.type=='geoFenceReport' ){
+    if(this.type=='locationReport'){
+      data={
+      userId:this.loginData.userId,
+      coinId:this.locationId,
+      fromDate: this.from,
+      toDate:this.to,
+      zone:timeZone,
+      type:this.type
+    }
+    fileName="Report-of-location- "+this.locationName
+    }
+    if(this.type=='geoFenceReport'){
+    data={
+      userId:this.loginData.userId,
+      deviceName:this.deviceName,
+      fromDate: this.from,
+      toDate:this.to,
+      zone:timeZone,
+      type:this.type
+    }
+    fileName="GeoFenceReport_of- "+this.deviceName
+    }
+    console.log("data to send ======",data);
 
+    this.api.downloadLtReport(data,fileName).then((res:any)=>{
+
+      console.log("report data recieved ======",res);
+  
+    })
+  }
 
 }
 
@@ -641,42 +680,42 @@ this.api.downlodReport(data,fileName).then((res:any)=>{
 
 
     }
-    else{
-      console.log("this.excelData====",this.excelData)
-      if(this.type=='basedOnDate'){
-        this.fileName='Generic_Report.xlsx'
-        this.title = 'Based on date'+this.from+" "+this.to;
+    // else{
+    //   console.log("this.excelData====",this.excelData)
+    //   if(this.type=='basedOnDate'){
+    //     this.fileName='Generic_Report.xlsx'
+    //     this.title = 'Based on date'+this.from+" "+this.to;
 
-        this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+    //     this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
 
-      }
-      if(this.type=='basedOnFindName'){
-        this.fileName='Report_of_Find-'+this.liveData[0].baseName+'.xlsx'
-        this.title = 'Based on Find Name'+this.deviceName;
-        let element = document.getElementById('htmlData');
+    //   }
+    //   if(this.type=='basedOnFindName'){
+    //     this.fileName='Report_of_Find-'+this.liveData[0].baseName+'.xlsx'
+    //     this.title = 'Based on Find Name'+this.deviceName;
+    //     let element = document.getElementById('htmlData');
 
-        this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+    //     this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
 
-      }
-        if(this.type=='locationReport'){
-          this.fileName='Report_Of_Location-'+this.locationName+'.xlsx'
-          this.title = 'Based on Find Name'+this.deviceName;
-          let element = document.getElementById('htmlData');
+    //   }
+    //     if(this.type=='locationReport'){
+    //       this.fileName='Report_Of_Location-'+this.locationName+'.xlsx'
+    //       this.title = 'Based on Find Name'+this.deviceName;
+    //       let element = document.getElementById('htmlData');
 
-          this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+    //       this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
 
-        }
-        if(this.type=='geoFenceReport'){
-          this.fileName='GeoFenceReport_of-'+this.deviceName+'.xlsx'
-          this.title = 'Based on Find Name'+this.deviceName;
-          let element = document.getElementById('htmlData');
+    //     }
+    //     if(this.type=='geoFenceReport'){
+    //       this.fileName='GeoFenceReport_of-'+this.deviceName+'.xlsx'
+    //       this.title = 'Based on Find Name'+this.deviceName;
+    //       let element = document.getElementById('htmlData');
 
-          this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
+    //       this.general.exportAsExcelFile(this.excelData,this.fileName, this.title)
 
-        }
-      // console.log("excel data===",this.excelData)
+    //     }
+    //   // console.log("excel data===",this.excelData)
 
-    }
+    // }
 
 
 

@@ -971,12 +971,31 @@ deleteSubUser(data){
 
 }
 
-downlodReport(data,fileName){
+downloadReport(data,fileName){
   this.general.loadingFreez.next({status:true})
 
   let url = this.host+'/download';
   return new Promise((resolve,reject)=>{
-    this.http.get(url,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      if(res.status==200)
+      this.downloadFile(res,fileName)
+
+      resolve(true);
+    },
+    err=>{
+      console.log("err==",err)
+    })
+  });
+
+}
+downloadLtReport(data,fileName){
+
+  this.general.loadingFreez.next({status:true})
+
+  let url = this.host+'/download-lt';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
+      // console.log("nam--",res)
       if(res.status==200)
       this.downloadFile(res,fileName)
 
@@ -995,7 +1014,7 @@ downlodReport(data,fileName){
     let dataType = body.type;
     let binaryData = [];
     binaryData.push(body);
-    this.general.loadingFreez.next({status:false,message:''})
+    this.general.loadingFreez.next({status:false})
     let downloadLink = document.createElement('a');
     downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
     downloadLink.setAttribute('download', fileName);

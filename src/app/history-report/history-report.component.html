@@ -232,8 +232,8 @@
       <td>{{i+1}} </td>
       <td>{{a.data}}</td>
       <td>
-        <span *ngFor = 'let b of a.date'>
-          {{b.updatedOn.split('T')[0]}}
+        <span *ngFor = 'let b of a.date;let j=index'>
+          {{b.updatedOn}}
         </span>
       </td>
       <td>{{a.location}}</td>
