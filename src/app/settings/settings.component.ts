@@ -29,6 +29,7 @@ export class SettingsComponent implements OnInit {
   inactivityForm:FormGroup
   bufferForm:FormGroup
   overCrowedForm:FormGroup
+  groupByOverCrowedForm:FormGroup
   wearableForm:FormGroup
   timeForm:FormGroup
   scanningForm:FormGroup
@@ -58,8 +59,8 @@ export class SettingsComponent implements OnInit {
   min:any=[]
   sec:any=[]
   loading:boolean=false
-
   tempImagePath:any
+  type:any
   uploadForm: FormGroup;
     @ViewChild('fileInput') fileInput : ElementRef;
 
@@ -68,6 +69,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
+    
     this.refreshCoins()
     this.refreshSetting()
     // this.minThresholdMinsec()
@@ -110,6 +112,12 @@ export class SettingsComponent implements OnInit {
 
     })
 
+  
+    this.groupByOverCrowedForm=this.fb.group({
+    coinSelect:['',Validators.required],
+    maxLimit:['',Validators.required],
+    groupName:['',Validators.required]
+    })
     // this.timeForm=this.fb.group({
     //   minutes:[{value:'',disabled: false},Validators.required],
     //   seconds:[{value:'',disabled: false},Validators.required]
@@ -545,6 +553,33 @@ export class SettingsComponent implements OnInit {
 
    }
 
+   onSubmitGroupByOverCrowedForm(value){
+    if (this.overCrowedForm.valid) {
+      try {
+
+        var data={
+          userId:this.loginData.userId,
+          coinId:value.coinSelect,
+          maxLimit:value.maxLimit,
+          group:value.groupName
+        }
+
+        this.api.maxLimit(data).then((res:any)=>{
+          // console.log("limit response===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg='Max limit updated Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+
+   }
+
 
   //  onSubmitTimeForm(data){
   //   //  console.log(" time data===",data);
@@ -854,6 +889,20 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  openGroupByOvercrowdDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"Groupovercrowd"
+    }
+    const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
   fileChange(files){
 

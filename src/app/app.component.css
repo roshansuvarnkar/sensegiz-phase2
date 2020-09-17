@@ -1,3 +1,7 @@
+body,body-1, .mat-typography {
+  font: 100 14px/20px Roboto, "Helvetica Neue", sans-serif !important;
+  letter-spacing: normal;
+}
 img {
   height: 100%
 }

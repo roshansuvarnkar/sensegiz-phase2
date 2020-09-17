@@ -132,7 +132,7 @@
           </span></td>
         </ng-container>
 
-        <ng-container matColumnDef="battery">
+        <ng-container matColumnDef="batteryStatus">
               
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Battery</th>
           
@@ -144,9 +144,9 @@
                 </div>
               </span> 
           
-            <div  *ngIf="getBatteryUpdatedOn(live.batteryUpdatedOn)=='0000-00-00 00:00:00'" >
+            <div  *ngIf="getBatteryUpdatedOn(live.batteryUpdatedOn)=='0000-00-00 00:00:00' || live.batteryStatus=='0'" >
               <div class="batteryContainer">
-                <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(live.battery)" > </div></div>
+                <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(live.batteryStatus)" > </div></div>
                 <div class="batteryBump"></div>
               </div>
             </div>

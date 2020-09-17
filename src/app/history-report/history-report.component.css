@@ -26,7 +26,7 @@ p.center{
   color: #ef6c00;
   font-size: 2rem;
   font-weight: 500;
-  font-family: serif;
+  /* font-family: serif; */
   margin: 0 auto;
   padding-left: 4rem;
  
@@ -42,7 +42,7 @@ td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inser
 .mat-dialog-title {
   text-align: center;
   font-size: 1rem;
-  font-family: serif;
+  /* font-family: serif; */
 }
 
 .download2{
@@ -68,7 +68,7 @@ td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inser
   p.center {
     color: #ef6c00;
     font-size:x-large;
-    font-family: serif;
+    /* font-family: serif; */
     margin-left: -3rem !important;
   }
   mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color {
@@ -77,7 +77,7 @@ td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inser
 .mat-dialog-title {
   text-align: center;
   font-size: larger !important;
-  font-family: serif;
+  /* font-family: serif; */
 }
 .mat-paginator {
   display: block;

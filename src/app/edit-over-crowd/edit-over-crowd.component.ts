@@ -15,7 +15,6 @@ export class EditOverCrowdComponent implements OnInit {
 
 	overCrowdForm:FormGroup
 	type:any
-
 	coinData:any
 	loginData:any
 	gateway:any
@@ -29,7 +28,9 @@ export class EditOverCrowdComponent implements OnInit {
     private general:GeneralMaterialsService,
     private route: ActivatedRoute
 
-  ) { }
+  ) {
+	this.type=data.type
+   }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
@@ -37,7 +38,11 @@ export class EditOverCrowdComponent implements OnInit {
     
     this.overCrowdForm = this.fb.group({
 			data:this.fb.array([])
-      });
+	  });
+	  
+	//   this.overCrowdForm=this.fb.group({
+	// 	Groupdata:this.fb.array([])
+	// 	})
       this.refreshCoins()
   }
 

@@ -8,7 +8,7 @@
     </div>
     <br>
 
-	<mat-card class="overcrowd">
+	<mat-card class="overcrowd" *ngIf="type=='overcrowd'">
 		<mat-card-content *ngIf="coinData">
 			<form [formGroup]="overCrowdForm"  >
 		      <div class="diagWrapper"  formArrayName="data" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
@@ -54,7 +54,52 @@
 		</mat-card-content>
 	</mat-card>
 
+	
+	<mat-card class="Groupovercrowd" *ngIF="type=='Groupovercrowd'">
+		<mat-card-content *ngIf="coinData">
+			<form [formGroup]="overCrowdForm"  >
+		      <div class="diagWrapper"  formArrayName="data" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
+		        <div class='item' *ngFor="let a of overCrowdForm.get('data')['controls']; let i=index;">
+		          <ng-container [formGroupName]="i">
+		          	{{i+1}}.
+					<mat-form-field class="full-width-input">
+						<input matInput  type="text" placeholder="Coin Name" formControlName="coinName" matInput required >
+						<mat-error>
+							Please provide a valid coin name
+						</mat-error>
+					</mat-form-field>
+<!-- 
 
+					<mat-form-field class="full-width-input">
+							<mat-label>Gateway Id</mat-label>
+							<mat-select   formControlName="gatewayId" required>
+							  <mat-option *ngFor="let b of gateway" [value]="b.gatewayId">
+								{{b.gatewayId}}
+							  </mat-option>
+							</mat-select>
+					</mat-form-field> -->
+
+
+					<mat-form-field class="full-width-input">
+						<input matInput  type="number" placeholder="Max limit" formControlName="maxLimit" matInput required >
+						<mat-error>
+							Please provide a valid limit
+						</mat-error>
+					</mat-form-field>
+
+					<button type="button" mat-raised-button color="primary" (click)="submitOvercrowd(a.value)">Submit</button>
+
+					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)">delete</mat-icon></td>
+
+		          </ng-container>
+		        </div>
+
+		        <br>
+
+		      </div>
+		    </form>
+		</mat-card-content>
+	</mat-card>
 </div>
 
 

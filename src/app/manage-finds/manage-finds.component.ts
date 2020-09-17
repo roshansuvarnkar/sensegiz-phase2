@@ -25,7 +25,7 @@ loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName','empId','shift',	'infected','battery','emailId','mobileNum',	'edit',	'delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift',	'infected','batteryStatus','emailId','mobileNum',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
