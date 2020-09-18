@@ -148,7 +148,7 @@ export class EditOverCrowdComponent implements OnInit {
 			this.groupCoinData[i].data[j].coinName = this.groupCoinData[i].data[j].coinName+','
 			}
 	 
-			this.groupCoinData[i].data[this.groupCoinData[i].data.length-1].coinName=this.groupCoinData[i].data[this.groupCoinData[i].data.length-1].coinName+'.'
+		this.groupCoinData[i].data[this.groupCoinData[i].data.length-1].coinName=this.groupCoinData[i].data[this.groupCoinData[i].data.length-1].coinName+'.'
 
 	   }
     console.log("group data reduced==",this.groupCoinData)
