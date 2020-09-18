@@ -21,11 +21,15 @@ summaryReportForm:FormGroup
 locationForm:FormGroup
 dateForm:FormGroup
 geoAndLocForm:FormGroup
+cummulativeForm:FormGroup
+daysExceed:boolean=false
 finds:any=[]
 coinData:any=[]
 coin:any
 prevDate:any
 username:any
+date1:any
+date2:any
 
 
   constructor(public dialog: MatDialog,
@@ -45,7 +49,10 @@ username:any
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
-
+    this.cummulativeForm = this.fb.group({
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    });
 
     this.findIdForm = this.fb.group({
       selectedValue: ['', Validators.required],
@@ -102,7 +109,27 @@ username:any
       toDate:todayDate
     })
   }
+  onclickDate1(data){
+    // console.log("data==",data)
 
+    var date = new Date();
+    var toDate = new Date();
+    var prevDate = date.setDate(date.getDate() - data);
+
+    var date = new Date(prevDate);
+    var year = date.getFullYear();
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+    var tot = year + '-' + month + '-'  + day
+
+    var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
+    this.cummulativeForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
+  }
 
 onclickFindId(data){
   // console.log("data==",data)
@@ -274,7 +301,35 @@ onclickGeoLocation(data){
 
   }
  
+  onSubmitcummulativeForm(data){  
+    var date1=new Date(data.fromDate)
+    var date2=new Date(data.toDate)
+    var year = date1.getFullYear();
+    var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+    var day = ("0" + date1.getDate()).slice(-2);
+    var from = year + '-' + month + '-'  + day
 
+    var year1 = date2.getFullYear();
+    var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+    var day1 = ("0" + date2.getDate()).slice(-2);
+    var to = year1 + '-' + month1 + '-'  + day1
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      type:"cummulative",
+      fromDate:from,
+      toDate:to,
+    }
+    const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshFinds()
+    });
+  }
   // onSubmitFindId(data){
   //   console.log("data====",data)
 
@@ -335,18 +390,25 @@ onclickGeoLocation(data){
 
 
   onSubmitSummaryReport(data){
-    // console.log("data====",data)
+    console.log("data====",data)
 
-        var date1=new Date(data.fromDate)
-        var date2=new Date(data.toDate)
-        var year = date1.getFullYear();
-        var month = ("0" + (date1.getMonth() + 1)).slice(-2);
-        var day = ("0" + date1.getDate()).slice(-2);
+        this.date1=new Date(data.fromDate)
+        this.date2=new Date(data.toDate)
+     
+      //  var diffTime = Math.abs(this.date2 - this.date1);
+      //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    
+        // console.log(diffDays + " days");
+      // if(diffDays<=15){
+        // this.daysExceed=false
+        var year = this.date1.getFullYear();
+        var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
+        var day = ("0" + this.date1.getDate()).slice(-2);
         var from = year + '-' + month + '-'  + day
 
-        var year1 = date2.getFullYear();
-        var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
-        var day1 = ("0" + date2.getDate()).slice(-2);
+        var year1 = this.date2.getFullYear();
+        var month1 = ("0" + (this.date2.getMonth() + 1)).slice(-2);
+        var day1 = ("0" + this.date2.getDate()).slice(-2);
         var to = year1 + '-' + month1 + '-'  + day1
 
         const dialogConfig = new MatDialogConfig();
@@ -365,6 +427,10 @@ onclickGeoLocation(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
+      // }
+      // else{
+      //     this.daysExceed=true
+      // }
 
   }
 

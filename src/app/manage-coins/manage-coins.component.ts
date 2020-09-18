@@ -164,23 +164,25 @@ delete(value){
 
 }
 
-search(data){
+search(a){
   // console.log("a==",a)
-  if(data.length>0){
-    this.coinData = this.coindDataTemp.filter(obj=>{
-      return ((obj.coinName.toString().toLowerCase().indexOf(data)>-1) || (obj.coinId.toString().toLowerCase().indexOf(data)>-1))
-    })
+  // if(data.length>0){
+  //   this.coinData = this.coindDataTemp.filter(obj=>{
+  //     return ((obj.coinName.toString().toLowerCase().indexOf(data)>-1) || (obj.coinId.toString().toLowerCase().indexOf(data)>-1))
+  //   })
 
 
-  }
-  else{
-    this.coinData= this.coindDataTemp
+  // }
+  // else{
+  //   this.coinData= this.coindDataTemp
 
-  }
+  // }
   this.dataSource = new MatTableDataSource(this.coinData);
   setTimeout(() => {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filter =a.trim().toLowerCase()
+
   })
 }
 

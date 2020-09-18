@@ -18,7 +18,7 @@ p.center{
   color: #ef6c00;
   font-size: 2rem;
   font-weight: 500;
-  font-family: serif;
+  /* font-family: serif; */
   margin: 0 auto;
   padding-left: 4rem;
 }
@@ -31,7 +31,7 @@ p.center{
 .mat-dialog-title {
   text-align: center;
   font-size: 1rem;
-  font-family: serif;
+  /* font-family: serif; */
 }
 td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inserted {
   cursor: pointer;
@@ -46,13 +46,13 @@ table.mat-table.cdk-table.mat-sort {
 .mat-dialog-title {
   text-align: center;
   font-size: unset !important;
-  font-family: serif;
+  /* font-family: serif; */
 }
 p.center {
   color: #ef6c00;
   font-size: large;
   font-weight: 500;
-  font-family: serif;
+  /* font-family: serif; */
   margin: 0 !important;
   padding: 0 !important;
 }

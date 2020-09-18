@@ -68,7 +68,7 @@ button.mat-focus-indicator.btn.mat-raised-button.mat-button-base {
 } */
 mat-card-title{
   color: #ef6c00;
-  font-family: serif;
+  /* font-family: serif; */
   line-height: 2rem;
 }
 mat-icon{
@@ -84,8 +84,8 @@ mat-progress-bar.mat-progress-bar.mat-primary {
     justify-content: space-evenly;
     text-align: center;
     font-size: 1rem;
-    font-family: monospace;
-    font-weight: 600;
+    /* font-family: monospace; */
+    font-weight: 400;
     width: 100%;
 }
 .row.tot-head {
@@ -94,7 +94,7 @@ mat-progress-bar.mat-progress-bar.mat-primary {
       justify-content: space-between;
       color: #ef6c00;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 400;
       letter-spacing: 2px;
       padding: 0 1rem;
 }

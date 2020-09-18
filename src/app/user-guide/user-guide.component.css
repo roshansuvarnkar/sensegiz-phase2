@@ -5,7 +5,7 @@
 p {
     font-size:x-large;
     color: #ef6c00;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
 }
 p.heading {
     text-align: center;
@@ -16,22 +16,25 @@ p.heading {
 }
 li {
     font-size: large;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 2rem;
 }
 img {
     width: 80%;
+}
+b, strong {
+    font-weight: 400;
 }
 
 @media only screen and (max-width: 768px){
     p {
         font-size:large;
         color: #ef6c00;
-        font-family: sans-serif;
+        /* font-family: sans-serif; */
     }
     li {
         font-size: small;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 2rem;
     } 
     p.heading {

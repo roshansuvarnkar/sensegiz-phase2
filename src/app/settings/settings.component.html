@@ -226,6 +226,46 @@
   </mat-card-content>
 </mat-card>
 
+<mat-card>
+  <mat-card-title>
+     Over Crowding
+  </mat-card-title>
+  <mat-card-subtitle>
+    Enter coin name and maximum limit
+  </mat-card-subtitle> <br>
+  <mat-card-content>
+
+    <form [formGroup]="groupByOverCrowedForm" (ngSubmit)="onSubmitGroupByOverCrowedForm(groupByOverCrowedForm.value)" >
+      <mat-form-field>
+        <input type='text'  matInput placeholder="Group Name" formControlName="groupName"  required>
+        <mat-error>
+          Please provide a name
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field  >
+          <mat-label>Coin Name</mat-label>
+          <mat-select  formControlName="coinSelect" multiple required >
+            <mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y')">{{coin.coinName}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+    <div class="maxlimit" >
+      <mat-form-field>
+        <input type='number' min="0"  matInput placeholder="Max Limit" formControlName="maxLimit"  required>
+        <mat-error>
+          Please provide a limit
+        </mat-error>
+      </mat-form-field>
+    </div>
+      <br><br> <br> <br>
+    <div class="btn-set">
+      <button mat-raised-button [disabled]="!groupByOverCrowedForm.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+      <button type="button" mat-raised-button (click)="openGroupByOvercrowdDialog()" color="primary">Info</button>
+    </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
 
 <mat-card>
   <mat-card-title>

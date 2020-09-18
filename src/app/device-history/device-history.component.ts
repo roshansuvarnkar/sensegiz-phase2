@@ -51,10 +51,11 @@ export class DeviceHistoryComponent implements OnInit {
       offset:offset
    }
     this.api.getDeviceData(data).then((res:any)=>{
-       console.log("find data ======",res);
+      console.log("find data ======",res);
+      this.findData=[]
+
       if(res.status){
         this.finds=res.success
-        this.findData=[]
         for(let i=0;i<res.success.length;i++){
           this.findData.push({
             i:i+1,
@@ -64,6 +65,7 @@ export class DeviceHistoryComponent implements OnInit {
            })
 
         }
+        }
 
         this.dataSource = new MatTableDataSource(this.findData);
         setTimeout(() => {
@@ -71,7 +73,7 @@ export class DeviceHistoryComponent implements OnInit {
           // this.dataSource.paginator = this.paginator;
 
         });
-      }
+
 
     })
   }

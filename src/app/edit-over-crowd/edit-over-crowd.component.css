@@ -9,7 +9,7 @@ p.center{
   color: #ef6c00;
   font-size: 2rem;
   font-weight: 500;
-  font-family: serif;
+  /* font-family: serif; */
   margin: 0 auto;
 }
 .content {
@@ -17,6 +17,11 @@ p.center{
   justify-content: space-between;
 
 }
+.tab-align {
+  border: 1px solid #8080800a;
+  box-shadow: 1px 1px 1px 1px #8080802e;
+}
+
 @media only screen and (max-width: 768px) {
   mat-card.mat-card.mat-focus-indicator.shifts{
     display: flex;
@@ -26,7 +31,7 @@ p.center{
   p.center {
     color: #ef6c00;
     font-size:x-large;
-    font-family: serif;
+    /* font-family: serif; */
     margin-left: 0rem !important;
     
   }
