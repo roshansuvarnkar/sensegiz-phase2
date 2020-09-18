@@ -31,6 +31,7 @@ export class HistoryReportComponent implements OnInit {
   summaryData:any=[]
   excelData:any=[]
   locGeoData:any=[]
+  countCummulative=[]
   dataSource:any
   loginData:any
   from:Date
@@ -45,6 +46,7 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
   displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
   displayedColumns4: string[] = ['i','coinName','geofenceStatus','inTime', 'outTime','totTime'];
+  displayedColumns5: string[] = ['i','username','count','totTime'];
   fileName:any
   locationData:any=[]
   locationName:any
@@ -356,12 +358,51 @@ dataDateReduce(data){
 // }
 
 cummulativeReport(){
+  var date=new Date()
+  var timezone=date.getTimezoneOffset()
+  
+  let m = timezone % 60;
+  timezone = (timezone - m) / 60;
+  let h = timezone
+  let mm = m <= 9 && m >= 0 ? "0"+m : m;
+  let hh = h <= 9 && h >= 0 ? "0"+h : h;
+  if(m<0 && h<0){
+     var timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
+  }
+  else if(m>0 && h>0){
+    timeZone= '-'+(-(hh)+':'+(-mm)).toString()
+  }
+  else{
+    timeZone=hh+':'+mm
+  }
   var data={
     userId:this.loginData.userId,
     fromDate: this.from,
     toDate:this.to,
+    zone:timeZone
 
   }
+  console.log("hvhs==",data)
+  this.api.viewCTReport(data).then((res:any)=>{
+    this.countCummulative=[]
+    console.log("cummulative report==",res)
+    if(res.status){
+      for(let i=0;i<res.data.length;i++){
+        this.countCummulative.push({
+          i:i+1,
+          username:res.data[i].baseDeviceName,
+          count:res.data[i].count,
+          totTime:this.general.convertTime(res.data[i].totalTime)
+
+        });
+      }
+      this.dataSource = new MatTableDataSource(this.countCummulative);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator
+         })
+    }
+  })
 
 }
 
@@ -641,10 +682,16 @@ getPages(){
       zone:timeZone,
       type:this.type
     }
-    fileName="GeoFenceReport_of- "+this.deviceName
+    fileName="CummulativeReport"
     console.log("data to send ======",data);
 
     //apicall
+    
+    this.api.downloadCummulative(data,fileName).then((res:any)=>{
+
+      console.log("report data recieved ======",res);
+  
+    })
     }
 
 }

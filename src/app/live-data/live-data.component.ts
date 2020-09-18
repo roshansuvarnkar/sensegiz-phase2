@@ -54,6 +54,7 @@ displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updated
   prevDayData(){
     // var limit=this.paginator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
+    this.liveData=[]
     this.count = this.count + 1;
     // console.log("count==",this.count);
 
@@ -62,6 +63,7 @@ displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updated
   }
 
   nextDayData(){
+    this.liveData=[]
     // var limit=this.paginator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count - 1;
@@ -77,12 +79,13 @@ getTotalCount(val){
     tblName:'deviceData',
     count:val
   }
-
+ 
   this.api.getLiveDataTotalCount(data).then((res:any)=>{
     // console.log("live data ======",res);
     if(res.status){
-      // console.log('\nTotal response: ',res.success[0].count);
+      console.log('\nTotal response: ',res.success[0].count);
       this.currentPageSize= parseInt(res.success[0].count);
+     
 
     }
   })
@@ -90,7 +93,7 @@ getTotalCount(val){
 
 
   refreshData(value,limit=10,offset=0){
-
+    this.liveData=[]
 
     var data={
       userId:this.loginData.userId,
@@ -99,8 +102,10 @@ getTotalCount(val){
       offset:offset,
       limit:limit
     }
+   
 
     this.api.getLiveData(data).then((res:any)=>{
+    
       console.log("live data ======",res);
       if(res.status){
         this.liveData=[]
@@ -114,7 +119,16 @@ getTotalCount(val){
             startTime:this.startTime(res.success[i].totalTime,res.success[i].updatedOn)
           })
         }
-        this.currentPageLength = res.success.length;
+        // this.currentPageLength = res.success.length;
+        this.dataSource = new MatTableDataSource(this.liveData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          //this.dataSource.paginator = this.paginator;
+          this.paginator.length = this.currentPageSize
+        })
+      }
+      else if(res.success==false){
+        this.liveData=[]
         this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;

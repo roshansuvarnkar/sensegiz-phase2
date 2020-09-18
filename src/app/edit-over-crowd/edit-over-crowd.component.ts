@@ -32,7 +32,7 @@ export class EditOverCrowdComponent implements OnInit {
 
   ) {
 	this.type=data.type
-	this.groupCoinData=data.groupdata
+
 	
 
    }

@@ -57,6 +57,7 @@ export class SideBarComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.findData)
         setTimeout(() => {
           this.dataSource.paginator = this.paginator;
+
         })
       }
     })
@@ -70,21 +71,26 @@ export class SideBarComponent implements OnInit {
 
 
   search(a){
-  if(a.length>0){
-    this.findData = this.findDataTemp.filter(obj=>{
-      return (obj.deviceName.toString().toLowerCase().indexOf(a)>-1)
-    })
-    this.dataSource = new MatTableDataSource(this.findData);
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-    })
-  }
-  else{
+  // if(a.length>0){
+  //   this.findData = this.findDataTemp.filter(obj=>{
+  //     return (obj.deviceName.toString().toLowerCase().indexOf(a)>-1)
+  //   })
+  //   this.dataSource = new MatTableDataSource(this.findData);
+  //   setTimeout(() => {
+  //     this.dataSource.paginator = this.paginator;
+  //   })
+  // }
+  // else{
+  //   this.dataSource = new MatTableDataSource(this.findDataTemp);
+  //   setTimeout(() => {
+  //     this.dataSource.paginator = this.paginator;
+  //   })
+  // }
     this.dataSource = new MatTableDataSource(this.findDataTemp);
-    setTimeout(() => {
-      this.dataSource.paginator = this.paginator;
-    })
-  }
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.filter =a.trim().toLowerCase()
+      })
 }
 
 

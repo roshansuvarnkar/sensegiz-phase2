@@ -83,7 +83,7 @@ export class SettingsComponent implements OnInit {
     
     this.refreshCoins()
     this.refreshSetting()
-    this.refreshGroupCoins()
+  
     // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
@@ -183,47 +183,10 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  refreshGroupCoins(){
-    var data={
-      userId:this.loginData.userId,
-      }
-
-    this.api.getGroupData(data).then((res:any)=>{
-      console.log(" group coin data ======",res);
-      
-      if(res.status){
-      this.groupCoinDataTemp=res.success
-         
-          var groupData=this.dataDateReduce(res.success)
-        
-          this.groupCoinData = Object.keys(groupData).map((data)=>{
-             
-            return {
-              name : data,
-              data : groupData[data]
-            }
-          })
-
-    console.log("group data reduced==",this.groupCoinData)
-
-      }
-      else{
-        this.grouped=false
-      }
-    })
-  }
 
 
-  dataDateReduce(data){
-    return data.reduce((group,obj)=>{
-      const name = obj.groupName
-      if(!group[name]){
-        group[name]=[]
-      }
-      group[name].push(obj)
-      return group
-    },{})
-  }
+
+
  
 
   refreshSetting(){
@@ -629,7 +592,7 @@ export class SettingsComponent implements OnInit {
            
             var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
-            this.refreshGroupCoins()
+            this.refreshCoins()
 
           }
 
