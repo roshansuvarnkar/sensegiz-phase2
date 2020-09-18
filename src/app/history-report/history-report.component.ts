@@ -91,7 +91,7 @@ export class HistoryReportComponent implements OnInit {
     if(this.type=='basedOnDate'){
       var data={
         userId:this.loginData.userId,
-      
+
         fromDate: this.from,
         toDate:this.to,
       }
@@ -186,7 +186,7 @@ export class HistoryReportComponent implements OnInit {
         else{
           this.excelData=[]
           for(var i=0;i<res.success.length;i++){
-         
+
             this.excelData.push({
             Sl_No:i+1,
             Base_Person:res.success[i].baseName,
@@ -228,7 +228,7 @@ export class HistoryReportComponent implements OnInit {
         else{
           this.excelData=[]
           for(var i=0;i<res.success.length;i++){
-         
+
             this.excelData.push({
             Sl_No:i+1,
             Contact_Person:res.success[i].contactName,
@@ -268,23 +268,23 @@ export class HistoryReportComponent implements OnInit {
           var groupDate = this.dataDateReduce(res.success)
           // console.log("groupDate===",groupDate)
           this.liveData = Object.keys(groupDate).map((data)=>{
-           
+
             return {
               date : data,
               data : groupDate[data]
             }
           })
-       
+
           for(let i=0;i<this.liveData.length;i++){
 
             for(let j=0;j<this.liveData[i].data.length-1;j++){
               this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
             }
-         
+
             this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
 
            }
-          
+
 
         }
       })
@@ -320,24 +320,24 @@ dataDateReduce(data){
 //       var groupUser = this.dataDateReduce(res.success)
 //       // console.log("groupDate===",groupUser)
 //       this.liveData = Object.keys(groupUser).map((data)=>{
-      
+
 //         return {
 //           date : groupUser[data],
 //           data : data
 //         }
 //       })
 //       console.log("live==",this.liveData)
-   
+
 //       // for(let i=0;i<this.liveData.length;i++){
 
 //       //   for(let j=0;j<this.liveData[i].data.length-1;j++){
 //       //     this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
 //       //   }
-     
+
 //       //   this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
 
 //       //  }
-      
+
 
 //     }
 //   })
@@ -357,7 +357,7 @@ dataDateReduce(data){
 // }
 
 locationReport(limit,offset,type){
-  
+
     var data={
       userId:this.loginData.userId,
       coinId:this.locationId,
@@ -370,7 +370,7 @@ locationReport(limit,offset,type){
     console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
       console.log("LocatSion history======",res);
-      if(res.status){ 
+      if(res.status){
         if(type==0){
           this.locationData=[]
         for(let i=0;i<res.success.length;i++){
@@ -397,7 +397,7 @@ locationReport(limit,offset,type){
         Enter_Time:res.success[i].inTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].inTime),
         Exit_Time:res.success[i].outTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].outTime),
         Total_Time:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
-        
+
 
       });
      }
@@ -531,14 +531,29 @@ getPages(){
   var data={}
   var fileName=''
   var date=new Date()
+  let timeZone = date.getTimezoneOffset()
+  if(timeZone > 0)
+  {
+    timeZone = -1*timeZone
+  }
+  else if(timeZone < 0){
+    timeZone = -1*timeZone
+  }
+  else{
+    timeZone = timeZone
+  }
+
+
+  console.log("timeZone===",timeZone)
   console.log("date==",date)
   if(this.type=='basedOnDate'){
      data={
       userId:this.loginData.userId,
       fromDate: this.from,
       toDate:this.to,
-      time:date
+      zone: timeZone
      }
+     console.log("data==",data)
      fileName="GenericReport"
  }
 if(this.type=='basedOnFindName'){
@@ -622,7 +637,7 @@ this.api.downlodReport(data,fileName).then((res:any)=>{
     if(timeArr[2]!='00'){
       date += timeArr[2] + ' second '
     }
-    
+
     if(date=='' || date=='-'){
       date = '05 second'
     }

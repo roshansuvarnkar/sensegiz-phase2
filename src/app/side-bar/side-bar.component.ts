@@ -41,7 +41,7 @@ export class SideBarComponent implements OnInit {
 
 
   refreshFinds(){
-  
+
     var data={
       userId:this.loginData.userId,
 
@@ -64,7 +64,7 @@ export class SideBarComponent implements OnInit {
 
 
   clickDevice(data){
-    // console.log("data====",data)
+     console.log("data====",data)
     this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
   }
 
@@ -93,7 +93,7 @@ getColorIcon(a){
     this.date1 = new Date()
     this.date2 = new Date(a)
     const diffTime = Math.abs(this.date2 - this.date1);
- 
+
     const diffDays = Math.ceil(diffTime / (1000 * 60));
     if(diffDays <= 1440){
       this.color = 'green'
