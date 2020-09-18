@@ -91,7 +91,7 @@ export class EditOverCrowdComponent implements OnInit {
 		}
 	})
  }
- 
+
 
  refreshGroupCoins(){
     var data={
@@ -225,7 +225,7 @@ dataDateReduce(data){
 	  })
 
   }
-
+ 
   deleteOvercrowd(value){
 
 	  var data = {
