@@ -91,7 +91,7 @@ export class EditOverCrowdComponent implements OnInit {
 		}
 	})
  }
-
+ 
 
  refreshGroupCoins(){
     var data={
