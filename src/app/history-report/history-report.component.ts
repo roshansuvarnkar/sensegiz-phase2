@@ -54,7 +54,6 @@ export class HistoryReportComponent implements OnInit {
   date1:any
   date2:any
   coinData:any=[]
-  
 
     constructor(
       public dialog: MatDialog,
@@ -83,10 +82,7 @@ export class HistoryReportComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
 
     this.getTotalCount()
-
     this.loadData()
-
-
   }
 
   getTotalCount(){
@@ -359,6 +355,16 @@ dataDateReduce(data){
 // },{})
 // }
 
+cummulativeReport(){
+  var data={
+    userId:this.loginData.userId,
+    fromDate: this.from,
+    toDate:this.to,
+
+  }
+
+}
+
 locationReport(limit,offset,type){
   
     var data={
@@ -477,8 +483,9 @@ geofenceAndlocationReport(limit,offset,type){
 
       if(this.type == 'basedOnDate'){
         this.basedOnDate(limit=limit,offset=offset,type=type)
-
-
+      }
+      if(this.type == 'cummulative'){
+        this.cummulativeReport()
       }
       if(this.type == 'basedOnFindName'){
         this.basedOnFindName(limit=limit,offset=offset,type=type)
@@ -617,6 +624,7 @@ getPages(){
     }
     fileName="GeoFenceReport_of- "+this.deviceName
     }
+    
     console.log("data to send ======",data);
 
     this.api.downloadLtReport(data,fileName).then((res:any)=>{
@@ -625,6 +633,19 @@ getPages(){
   
     })
   }
+  if(this.type=='cummulative'){
+    data={
+      userId:this.loginData.userId,
+      fromDate: this.from,
+      toDate:this.to,
+      zone:timeZone,
+      type:this.type
+    }
+    fileName="GeoFenceReport_of- "+this.deviceName
+    console.log("data to send ======",data);
+
+    //apicall
+    }
 
 }
 

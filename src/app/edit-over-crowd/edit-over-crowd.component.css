@@ -17,6 +17,11 @@ p.center{
   justify-content: space-between;
 
 }
+.tab-align {
+  border: 1px solid #8080800a;
+  box-shadow: 1px 1px 1px 1px #8080802e;
+}
+
 @media only screen and (max-width: 768px) {
   mat-card.mat-card.mat-focus-indicator.shifts{
     display: flex;

@@ -226,7 +226,7 @@
   </mat-card-content>
 </mat-card>
 
-<!-- <mat-card>
+<mat-card>
   <mat-card-title>
      Over Crowding
   </mat-card-title>
@@ -244,8 +244,8 @@
       </mat-form-field>
       <mat-form-field  >
           <mat-label>Coin Name</mat-label>
-          <mat-select  formControlName="coinSelect" multiple required>
-            <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+          <mat-select  formControlName="coinSelect" multiple required >
+            <mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y')">{{coin.coinName}}</mat-option>
           </mat-select>
       </mat-form-field>
     <div class="maxlimit" >
@@ -264,7 +264,7 @@
 
     </form>
   </mat-card-content>
-</mat-card> -->
+</mat-card>
 
 
 <mat-card>

@@ -215,22 +215,23 @@ onShiftSelection(a){
 
 search(a){
   // console.log("a==",a)
-  if(a.length>0){
-    this.findData = this.elementsTemp.filter(obj=>{
-      return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)
-        || (obj.emailId.toString().toLowerCase().indexOf(a)>-1) || (obj.empId.toString().toLowerCase().indexOf(a)>-1))
-    })
+  // if(a.length>0){
+  //   this.findData = this.elementsTemp.filter(obj=>{
+  //     return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)
+  //       || (obj.emailId.toString().toLowerCase().indexOf(a)>-1) || (obj.empId.toString().toLowerCase().indexOf(a)>-1))
+  //   })
 
 
-  }
-  else{
-    this.findData= this.elementsTemp
+  // }
+  // else{
+  //   this.findData= this.elementsTemp
 
-  }
+  // }
   this.dataSource = new MatTableDataSource(this.findData);
   setTimeout(() => {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filter =a.trim().toLowerCase()
   })
 }
 

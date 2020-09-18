@@ -52,9 +52,12 @@ export class SettingsComponent implements OnInit {
   bufferValue:boolean=false
   measureStatus:boolean=false
   multipleshift:boolean=false
+  grouped:boolean=false
   twoStepAuthStatus:any=[]
   inactivityStatusValue:any=[]
   coinData:any=[]
+  groupCoinData:any=[]
+  groupCoinDataTemp:any=[]
   coin:any=[]
   min:any=[]
   sec:any=[]
@@ -62,9 +65,17 @@ export class SettingsComponent implements OnInit {
   tempImagePath:any
   type:any
   uploadForm: FormGroup;
-    @ViewChild('fileInput') fileInput : ElementRef;
 
-  constructor(public dialog: MatDialog,private fb:FormBuilder,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
+  @ViewChild('fileInput') fileInput : ElementRef;
+
+  constructor(public dialog: MatDialog,
+    private fb:FormBuilder,
+    private api:ApiService,
+    private login:LoginCheckService,
+    private general:GeneralMaterialsService
+    ) {}
+
+  
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
@@ -72,6 +83,7 @@ export class SettingsComponent implements OnInit {
     
     this.refreshCoins()
     this.refreshSetting()
+    this.refreshGroupCoins()
     // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
@@ -105,9 +117,9 @@ export class SettingsComponent implements OnInit {
     });
 
   
-
+ 
     this.overCrowedForm=this.fb.group({
-      coinSelect:['',Validators.required],
+      coinSelect:[{value:'',disabled: false} ,Validators.required],
       maxLimit:['',Validators.required]
 
     })
@@ -164,10 +176,55 @@ export class SettingsComponent implements OnInit {
       // console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
+        this.grouped=false
+    
 
       }
     })
   }
+
+  refreshGroupCoins(){
+    var data={
+      userId:this.loginData.userId,
+      }
+
+    this.api.getGroupData(data).then((res:any)=>{
+      console.log(" group coin data ======",res);
+      
+      if(res.status){
+      this.groupCoinDataTemp=res.success
+         
+          var groupData=this.dataDateReduce(res.success)
+        
+          this.groupCoinData = Object.keys(groupData).map((data)=>{
+             
+            return {
+              name : data,
+              data : groupData[data]
+            }
+          })
+
+    console.log("group data reduced==",this.groupCoinData)
+
+      }
+      else{
+        this.grouped=false
+      }
+    })
+  }
+
+
+  dataDateReduce(data){
+    return data.reduce((group,obj)=>{
+      const name = obj.groupName
+      if(!group[name]){
+        group[name]=[]
+      }
+      group[name].push(obj)
+      return group
+    },{})
+  }
+ 
 
   refreshSetting(){
     var data={
@@ -316,6 +373,7 @@ export class SettingsComponent implements OnInit {
       })
 
  }
+
  twoStepAuthchange(event){
    console.log(event)
    if(event.checked==true){
@@ -554,30 +612,33 @@ export class SettingsComponent implements OnInit {
    }
 
    onSubmitGroupByOverCrowedForm(value){
-    if (this.overCrowedForm.valid) {
+    if (this.groupByOverCrowedForm.valid) {
       try {
 
         var data={
           userId:this.loginData.userId,
           coinId:value.coinSelect,
-          maxLimit:value.maxLimit,
-          group:value.groupName
+          groupMaxlimit:value.maxLimit,
+          groupName:value.groupName
         }
-
-        this.api.maxLimit(data).then((res:any)=>{
-          // console.log("limit response===",res)
+        console.log("group over crowd==",data)
+        this.api.setMaxLimit(data).then((res:any)=>{
+          console.log("group maxlimit response===",res)
           if(res.status){
-            this.refreshSetting()
+            // this.refreshSetting()
+           
             var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
+            this.refreshGroupCoins()
+
           }
+
         }).catch(err=>{
           console.log("err===",err);
         })
       } catch (err) {
       }
     }
-
    }
 
 
@@ -896,7 +957,8 @@ export class SettingsComponent implements OnInit {
     dialogConfig.height = '60vh';
     dialogConfig.width = '70vw';
     dialogConfig.data = {
-      type:"Groupovercrowd"
+      type:"Groupovercrowd",
+     
     }
     const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
 

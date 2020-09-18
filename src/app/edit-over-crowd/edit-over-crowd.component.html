@@ -1,5 +1,5 @@
 
-<div class="head" >
+<div class="head" *ngIf="type=='overcrowd'">
 	<div class="content">
     	<p class="center">Over Crowding</p>
 		<span>
@@ -8,7 +8,7 @@
     </div>
     <br>
 
-	<mat-card class="overcrowd" *ngIf="type=='overcrowd'">
+	<mat-card class="overcrowd" >
 		<mat-card-content *ngIf="coinData">
 			<form [formGroup]="overCrowdForm"  >
 		      <div class="diagWrapper"  formArrayName="data" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
@@ -54,52 +54,121 @@
 		</mat-card-content>
 	</mat-card>
 
-	
-	<mat-card class="Groupovercrowd" *ngIF="type=='Groupovercrowd'">
-		<mat-card-content *ngIf="coinData">
-			<form [formGroup]="overCrowdForm"  >
-		      <div class="diagWrapper"  formArrayName="data" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
-		        <div class='item' *ngFor="let a of overCrowdForm.get('data')['controls']; let i=index;">
-		          <ng-container [formGroupName]="i">
-		          	{{i+1}}.
-					<mat-form-field class="full-width-input">
-						<input matInput  type="text" placeholder="Coin Name" formControlName="coinName" matInput required >
-						<mat-error>
-							Please provide a valid coin name
-						</mat-error>
-					</mat-form-field>
-<!-- 
-
-					<mat-form-field class="full-width-input">
-							<mat-label>Gateway Id</mat-label>
-							<mat-select   formControlName="gatewayId" required>
-							  <mat-option *ngFor="let b of gateway" [value]="b.gatewayId">
-								{{b.gatewayId}}
-							  </mat-option>
-							</mat-select>
-					</mat-form-field> -->
-
-
-					<mat-form-field class="full-width-input">
-						<input matInput  type="number" placeholder="Max limit" formControlName="maxLimit" matInput required >
-						<mat-error>
-							Please provide a valid limit
-						</mat-error>
-					</mat-form-field>
-
-					<button type="button" mat-raised-button color="primary" (click)="submitOvercrowd(a.value)">Submit</button>
-
-					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)">delete</mat-icon></td>
-
-		          </ng-container>
-		        </div>
-
-		        <br>
-
-		      </div>
-		    </form>
-		</mat-card-content>
-	</mat-card>
 </div>
+	<!-- <mat-card class="Groupovercrowd" *ngIf="type=='Groupovercrowd'">
+		<mat-card-content *ngIf="groupCoinData">
+			<form [formGroup]="groupByoverCrowdForm"  >
+		      <div class="diagWrapper"  formArrayName="Groupdata" *ngIf="groupByoverCrowdForm.get('Groupdata')['controls']?.length>0">
+		        <div class='item' *ngFor="let a of groupByoverCrowdForm.get('Groupdata')['controls']; let i=index;">
+		          <ng-container [formGroupName]="i">
+		          	{{i+1}}.
+					<mat-form-field class="full-width-input">
+						<input matInput  type="text" placeholder="Group Name"  formControlName="groupName" matInput required >
+						<mat-error>
+							Please provide a valid coin name
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="full-width-input" >
+						<input matInput  type="text" placeholder="Coin Name" formControlName="coinName"  matInput required >
+						<mat-error>
+							Please provide a valid coin name
+						</mat-error>
+					</mat-form-field>
+
+
+
+					<mat-form-field class="full-width-input">
+						<input matInput  type="number" placeholder="Max limit" formControlName="maxLimit" matInput required >
+						<mat-error>
+							Please provide a valid limit
+						</mat-error>
+					</mat-form-field>
+
+					<button type="button" mat-raised-button color="primary" (click)="submitOvercrowd(a.value)">Submit</button>
+
+					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)">delete</mat-icon></td>
+
+		          </ng-container>
+		        </div>
+
+		        <br>
+
+		      </div>
+		    </form>
+		</mat-card-content>
+	</mat-card> -->
+
+
+
+	<div *ngIf="type =='Groupovercrowd'" id="htmlData">
+		<div class="content">
+			<p class="center">  Group Over Crowd </p>
+			<span class="icon">
+			  <!-- <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon> -->
+	  
+			  <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+			</span>
+		  </div> <br>
+
+	<form [formGroup]="groupByoverCrowdForm">
+		<div class="tab-align">
+			<table class="table table-borderless">
+				<!-- <thead>
+					<tr>
+						<th>Sl No.</th>
+						<th>Group Name</th>
+						<th>Coins</th>
+						<th>Coin Name</th>
+						<th>Max Limit</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead> -->
+				<tbody *ngFor="let coin of groupCoinData;let i =index">
+					
+						<tr *ngIf="coin.name!='null'">
+				
+							<td >{{i+1}}</td>
+							<td >
+								<mat-form-field>
+									<input matInput type="text" formControlName="groupName" placeholder="Group Name">
+								</mat-form-field>
+							</td>
+							
+							<td >
+								<span *ngFor="let a of coin.data">
+									
+										{{a.coinName}}
+									
+								</span>
+						
+							</td>
+							<td >
+								<mat-form-field>
+									<mat-select formControlName="coinSelect" multiple required placeholder="Coin Name">
+										<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y')">{{coin.coinName}}</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</td>
+							<td >
+								<mat-form-field>
+									<input matInput type="number" formControlName="maxLimit" placeholder="Max Limit">
+								</mat-form-field>
+							</td>
+							
+						
+							<td ><mat-icon>delete</mat-icon></td>
+							<td><button mat-raised-button>Submit</button></td>
+					
+						</tr>
+				
+
+				</tbody>
+			</table>
+		</div>
+	</form>
+	</div>
+
 
 
