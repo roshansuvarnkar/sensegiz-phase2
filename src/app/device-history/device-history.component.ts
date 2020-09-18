@@ -34,7 +34,7 @@ export class DeviceHistoryComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
         this.deviceData = JSON.parse(params.record) ;
-        // console.log("records=",this.deviceData )
+         console.log("records=",this.deviceData )
         this.getTotalCount()
         this.refreshFinds()
     })
@@ -73,7 +73,7 @@ export class DeviceHistoryComponent implements OnInit {
           // this.dataSource.paginator = this.paginator;
 
         });
-      
+
 
     })
   }

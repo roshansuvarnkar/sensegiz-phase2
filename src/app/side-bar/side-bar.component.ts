@@ -41,7 +41,7 @@ export class SideBarComponent implements OnInit {
 
 
   refreshFinds(){
-  
+
     var data={
       userId:this.loginData.userId,
 
@@ -99,7 +99,7 @@ getColorIcon(a){
     this.date1 = new Date()
     this.date2 = new Date(a)
     const diffTime = Math.abs(this.date2 - this.date1);
- 
+
     const diffDays = Math.ceil(diffTime / (1000 * 60));
     if(diffDays <= 1440){
       this.color = 'green'

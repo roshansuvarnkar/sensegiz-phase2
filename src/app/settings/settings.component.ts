@@ -75,15 +75,14 @@ export class SettingsComponent implements OnInit {
     private general:GeneralMaterialsService
     ) {}
 
-  
+
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-    
+
     this.refreshCoins()
     this.refreshSetting()
-  
     // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
@@ -116,15 +115,15 @@ export class SettingsComponent implements OnInit {
       inactivity: ['',[Validators.required,Validators.max(120), Validators.min(0)]]
     });
 
-  
- 
+
+
     this.overCrowedForm=this.fb.group({
       coinSelect:[{value:'',disabled: false} ,Validators.required],
       maxLimit:['',Validators.required]
 
     })
 
-  
+
     this.groupByOverCrowedForm=this.fb.group({
     coinSelect:['',Validators.required],
     maxLimit:['',Validators.required],
@@ -173,21 +172,17 @@ export class SettingsComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-      // console.log("coin data ======",res);
+      console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
         this.grouped=false
-    
+
 
       }
     })
   }
 
 
-
-
-
- 
 
   refreshSetting(){
     var data={
@@ -322,7 +317,7 @@ export class SettingsComponent implements OnInit {
       }
       console.log("value===",value)
       this.api.twoStepAuth(value).then((res:any)=>{
-      
+
         if(res.status){
           this.refreshSetting()
           if(data==true){
@@ -344,7 +339,7 @@ export class SettingsComponent implements OnInit {
        value:'Disable',
        status:true
      }
-   }  
+   }
    else{
     this.twoStepAuthStatus={
       value:'Enable',
@@ -389,7 +384,7 @@ export class SettingsComponent implements OnInit {
             this.multipleshift=false
             var msg = 'Shift time update Successfully'
             this.general.openSnackBar(msg,'')
-           
+
            }else{
             this.multipleshift=true
            }
@@ -512,7 +507,7 @@ export class SettingsComponent implements OnInit {
 
    }
 
- 
+
    onSubmitBufferForm(value){
 
     if (this.bufferForm.valid) {
@@ -524,7 +519,7 @@ export class SettingsComponent implements OnInit {
 
         }
 
-     
+
         this.api.getBufferDeviceSetting(data).then((res:any)=>{
           // console.log("Buffer response===",res)
           if(res.status){
@@ -535,16 +530,16 @@ export class SettingsComponent implements OnInit {
         }).catch(err=>{
           // console.log("err===",err);
         })
-    
+
       } catch (err) {
       }
     }
    }
    bufferval(event){
      console.log(event.target.value)
-    
+
       this.bufferValue=event.target.value>5?true:false
-    
+
    }
 
    onSubmitoverCrowedForm(value){
@@ -589,11 +584,9 @@ export class SettingsComponent implements OnInit {
           console.log("group maxlimit response===",res)
           if(res.status){
             // this.refreshSetting()
-           
+            this.refreshCoins();
             var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
-            this.refreshCoins()
-
           }
 
         }).catch(err=>{
@@ -815,7 +808,7 @@ export class SettingsComponent implements OnInit {
   measurement(event){
     console.log("event==",event)
     this.measureStatus=event.value=='meter'?false:true
-    
+
   }
 
 
@@ -921,7 +914,7 @@ export class SettingsComponent implements OnInit {
     dialogConfig.width = '70vw';
     dialogConfig.data = {
       type:"Groupovercrowd",
-     
+
     }
     const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
 
@@ -968,7 +961,7 @@ export class SettingsComponent implements OnInit {
 
   formSubmit(data){
     data.userId =  this.loginData.userId
-    data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename 
+    data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
     console.log("file===",data)
    if(data.fileData.filetype=='image/jpg'||data.fileData.filetype=='image/jpeg'||data.fileData.filetype=='image/png'){
     this.api.uploadLogo(data).then((res:any)=>{

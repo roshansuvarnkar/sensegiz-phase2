@@ -21,7 +21,7 @@
 							Please provide a valid coin name
 						</mat-error>
 					</mat-form-field>
-<!-- 
+<!--
 
 					<mat-form-field class="full-width-input">
 							<mat-label>Gateway Id</mat-label>
@@ -101,17 +101,17 @@
 
 
 
-	<div *ngIf="type =='Groupovercrowd'" id="htmlData">
-		<div class="content">
-			<p class="center">  Group Over Crowd </p>
-			<span class="icon">
-			  <!-- <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon> -->
-	  
-			  <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
-			</span>
-		  </div> <br>
+<div *ngIf="type =='Groupovercrowd'" id="htmlData">
+	<div class="content">
+		<p class="center">  Group Over Crowd </p>
+		<span class="icon">
+			<!-- <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon> -->
 
-	<form [formGroup]="groupByoverCrowdForm">
+			<button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+		</span>
+	</div> <br>
+
+	<form [formGroup]="overCrowdGroupForm">
 		<div class="tab-align">
 			<table class="table table-borderless">
 				<!-- <thead>
@@ -125,22 +125,84 @@
 						<th>Delete</th>
 					</tr>
 				</thead> -->
-				<tbody *ngFor="let coin of groupCoinData;let i =index">
-					
+				<tbody>
+					<div class="diagWrapper"  formArrayName="items" *ngIf="overCrowdGroupForm.get('items')['controls']?.length>0">
+						<tr *ngFor="let name of overCrowdGroupForm.get('items')['controls']; let i=index">
+							<div [formGroupName]="i">
+								<td>
+									<mat-form-field class="full-width-input">
+										<input matInput  type="text" placeholder="Group name" formControlName="name" matInput required >
+										<mat-error>
+											Please provide a valid name
+										</mat-error>
+									</mat-form-field>
+								</td>
+								<td *ngIf="name.get('data')['controls']?.length>0">
+									<span *ngFor="let data of name.get('data')['controls']; let j=index">
+										{{data.get('coinName').value}},
+									</span>
+								</td>
+								<td>
+									<mat-form-field>
+										<mat-select formControlName="coinSelect" multiple required placeholder="Coin Name">
+											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y')">{{coin.coinName}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</td>
+								<td>
+									<mat-form-field class="full-width-input">
+										<input matInput  type="text" placeholder="Group name" formControlName="maxLimit" matInput required >
+										<mat-error>
+											Please provide a valid name
+										</mat-error>
+									</mat-form-field>
+								</td>
+								<td>
+
+								</td>
+							</div>
+						</tr>
+					</div>
+				</tbody>
+
+
+				<!-- <label>Company Name: </label>
+				<input formControlName="company" /><span><button (click)="deleteCompany(i)">Delete Company</button></span>
+				<div formArrayName="projects">
+					<div *ngFor="let project of comp.get('projects').controls; let j=index">
+						<fieldset>
+							<legend><h4>PROJECT {{j+1}}</h4></legend>
+							<div [formGroupName]="j">
+								<label>Project Name:</label>
+								<input formControlName="projectName" /><span><button (click)="deleteProject(comp.controls.projects, j)">Delete Project</button></span>
+							</div>
+						</fieldset>
+					</div>
+					<button (click)="addNewProject(comp.controls.projects)">Add new Project</button>
+				</div>
+				</div> -->
+
+
+
+
+				<!-- <tbody *ngFor="let coin of groupCoinData;let i =index">
+
 						<tr *ngIf="coin.name!='null'">
-				
+
 							<td >{{i+1}}</td>
 							<td >
 								<mat-form-field>
 									<input matInput type="text" formControlName="groupName" placeholder="Group Name">
 								</mat-form-field>
 							</td>
-							
+
 							<td >
 								<span *ngFor="let a of coin.data">
-									{{a.coinName}}
+
+										{{a.coinName}}
+
 								</span>
-						
+
 							</td>
 							<td >
 								<mat-form-field>
@@ -154,19 +216,16 @@
 									<input matInput type="number" formControlName="maxLimit" placeholder="Max Limit">
 								</mat-form-field>
 							</td>
-							
-						
+
+
 							<td ><mat-icon>delete</mat-icon></td>
 							<td><button mat-raised-button>Submit</button></td>
-					
-						</tr>
-				
 
-				</tbody>
+						</tr>
+
+
+				</tbody> -->
 			</table>
 		</div>
 	</form>
 	</div>
-
-
-
