@@ -142,7 +142,7 @@
 										{{data.get('coinName').value}},
 									</span>
 								</td>
-								<td>
+								<td> 
 									<mat-form-field>
 										<mat-select formControlName="coinSelect" multiple required placeholder="Coin Name">
 											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y')">{{coin.coinName}}</mat-option>
