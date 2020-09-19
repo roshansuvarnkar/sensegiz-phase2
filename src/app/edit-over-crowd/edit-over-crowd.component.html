@@ -11,7 +11,7 @@
 	<mat-card class="overcrowd" >
 		<mat-card-content *ngIf="coinData">
 			<form [formGroup]="overCrowdForm"  >
-		      <div class="diagWrapper"  formArrayName="data" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
+		      <div class="diagWrapper"  formArrayName="items" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
 		        <div class='item' *ngFor="let a of overCrowdForm.get('data')['controls']; let i=index;">
 		          <ng-container [formGroupName]="i">
 		          	{{i+1}}.
@@ -132,10 +132,10 @@
 										{{data.get('coinName').value}}
 									</span>
 								</td>
-								<td> 
+								<td>
 									<mat-form-field>
-										<mat-select formControlName="coinSelect" multiple required placeholder="Coin Name">
-											<mat-option *ngFor="let coin of coinData;let j=index" [value]="coin.coinId"  >{{coin.coinName}}</mat-option>
+										<mat-select  multiple required placeholder="Coin Name">
+											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y' && coin.groupName != name.get('name').value)">{{coin.coinName}}</mat-option>
 										</mat-select>
 									</mat-form-field>
 								</td>

@@ -71,29 +71,28 @@ export class EditOverCrowdComponent implements OnInit {
 		  tblName:'coinRegistration'
 		}
 
-		this.api.getData(data).then((res:any)=>{
-		 console.log("coin data ======",res);
-		  if(res.status){
-			this.coinData=res.success
-			this.coinDatatemp=res.success
-			const control = <FormArray>this.overCrowdForm.controls.data;
-			control.controls = [];
-
-		  for (let i = 0; i <this.coinData.length; i++) {
-			control.push(this.fb.group(
-				{
-					id:[this.coinData[i].id],
-					coinId:[this.coinData[i].coinId],
-					coinName: [this.coinData[i].coinName],
-					// gatewayId:[this.coinData[i].gatewayId],
-					maxLimit:[this.coinData[i].maxLimit]
-
-				}
-			));
-		  }
-	
-		}
-	})
+	// 	this.api.getData(data).then((res:any)=>{
+	// 	 console.log("coin data ======",res);
+	// 	  if(res.status){
+	// 		this.coinData=res.success
+	// 		const control = <FormArray>this.overCrowdForm.controls.data;
+	// 		control.controls = [];
+  //
+	// 	  for (let i = 0; i <this.coinData.length; i++) {
+	// 		control.push(this.fb.group(
+	// 			{
+	// 				id:[this.coinData[i].id],
+	// 				coinId:[this.coinData[i].coinId],
+	// 				coinName: [this.coinData[i].coinName],
+	// 				// gatewayId:[this.coinData[i].gatewayId],
+	// 				maxLimit:[this.coinData[i].maxLimit]
+  //
+	// 			}
+	// 		));
+	// 	  }
+	// 	//   console.log("control==",control)
+	// 	}
+	// })
  }
 
 
@@ -108,6 +107,7 @@ export class EditOverCrowdComponent implements OnInit {
       this.groupCoinData=[]
       if(res.status){
         this.groupCoinData = res.success;
+        this.coinData = res.success;
 
         var groupData=this.dataDateReduce(this.groupCoinData)
         console.log("groupData===",groupData)
@@ -125,14 +125,16 @@ export class EditOverCrowdComponent implements OnInit {
         const control = <FormArray>this.overCrowdGroupForm.controls.items;
         control.controls = [];
         for(var i=0;i<this.groupCoinData.length;i++){
-          control.push(this.fb.group(
-            {
-              name:[this.groupCoinData[i].name],
-			  maxLimit:[this.groupCoinData[i].data[0].groupMaxlimit],
-			  coinSelect:[''],
-              data:this.setData(this.groupCoinData[i])
-            })
-          )
+          if(this.groupCoinData[i].name!='null'){
+            control.push(this.fb.group(
+              {
+                name:[this.groupCoinData[i].name],
+				maxLimit:[this.groupCoinData[i].data[0].groupMaxlimit],
+				
+                data:this.setData(this.groupCoinData[i])
+              })
+            )
+          }
           console.log("this.overCrowdGroupForm==",this.overCrowdGroupForm);
         }
 		console.log("this.overCrowdGroupForm11111==",this.overCrowdGroupForm);
@@ -245,7 +247,7 @@ dataDateReduce(data){
 		// console.log("coin data ======",res);
 		if(res.status){
 		  this.refreshCoins()
-		  var msg = 'Coin Deleted Successfully' 
+		  var msg = 'Coin Deleted Successfully'
 		  this.general.openSnackBar(msg,'')
 		}
 	  })
