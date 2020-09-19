@@ -30,7 +30,7 @@ gateway:any=[]
     private login:LoginCheckService,
     private general:GeneralMaterialsService
   ) {
-    // console.log("data===",data)
+    console.log("data===",data)
     this.type=data.type
     this.deviceData=data.data
   }
@@ -114,7 +114,7 @@ gateway:any=[]
         console.log("find edit===",data)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
-        data.userId=this.deviceData.userId
+        data.userId=this.loginData.userId
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("find submit====",res);
           if(res.status){
@@ -140,7 +140,7 @@ gateway:any=[]
       try {
         data.tblName='gatewayRegistration'
         data.id=this.deviceData.id
-        data.userId=this.deviceData.userId
+        data.userId=this.loginData.userId
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("gateway submit==",res)
           if(res.status){
