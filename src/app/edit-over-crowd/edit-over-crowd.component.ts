@@ -14,12 +14,11 @@ import { Router ,ActivatedRoute} from '@angular/router';
 export class EditOverCrowdComponent implements OnInit {
 
 	overCrowdForm:FormGroup
-	groupByoverCrowdForm:FormGroup
 	type:any
+
 	coinData:any
 	loginData:any
 	gateway:any
-	groupCoinData=[]
 
   constructor(
     private fb: FormBuilder,
@@ -30,29 +29,16 @@ export class EditOverCrowdComponent implements OnInit {
     private general:GeneralMaterialsService,
     private route: ActivatedRoute
 
-  ) {
-	this.type=data.type
-
-	
-
-   }
+  ) { }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
-	this.loginData = JSON.parse(this.loginData)
+    this.loginData = JSON.parse(this.loginData)
     
     this.overCrowdForm = this.fb.group({
 			data:this.fb.array([])
-	  });
-	  
-	  this.groupByoverCrowdForm=this.fb.group({
-		coinSelect:[''],
-		coinId:[''],
-		maxLimit:[''],
-		groupName:[''],
-		})
-	  this.refreshCoins()
-	  this.refreshGroupCoins()
+      });
+      this.refreshCoins()
   }
 
   refreshGateway(){
@@ -100,75 +86,7 @@ export class EditOverCrowdComponent implements OnInit {
 		}
 	})
  }
- refreshGroupCoins(){
-    var data={
-      userId:this.loginData.userId,
-  
-    }
-
-    this.api.getGroupData(data).then((res:any)=>{
-	  console.log(" group  data ======",this.groupCoinData);
-      this.groupCoinData=[]
-      if(res.status){
-	// 	const control = <FormArray>this.groupByoverCrowdForm.controls.Groupdata;
-	// 	control.controls = [];
-		
-	//   for (let i = 0; i <this.groupCoinData.length; i++) {
-	// 	for(let j=0;j<this.groupCoinData[i].data.length;j++){
-	// 		control.push(this.fb.group(
-	// 			{
-	// 				id:[this.groupCoinData[i].data[j].id],
-	// 				coinId:[this.groupCoinData[i].data[j].coinId],
-	// 				coinName: [this.groupCoinData[i].data[j].coinName],
-	// 				gatewayId:[this.groupCoinData[i].data[j].gatewayId],
-	// 				maxLimit:[this.groupCoinData[i].data[j].groupMaximit],
-	// 				groupName:[this.groupCoinData[i].data[j].groupName]
-					
-	// 			}
-	// 		));	
-	// 	}
-	//   }
-
-	  
-	var groupData=this.dataDateReduce(res.success)
-        
-	this.groupCoinData = Object.keys(groupData).map((data)=>{
-	   
-	  return {
-		name : data,
-		data : groupData[data]
-	  }
-	})
-         
-       
-       
-	  for(let i=0;i<this.groupCoinData.length;i++){
-
-			for(let j=0;j<this.groupCoinData[i].data.length-1;j++){
-			this.groupCoinData[i].data[j].coinName = this.groupCoinData[i].data[j].coinName+','
-			}
-	 
-		this.groupCoinData[i].data[this.groupCoinData[i].data.length-1].coinName=this.groupCoinData[i].data[this.groupCoinData[i].data.length-1].coinName+'.'
-
-	   }
-    console.log("group data reduced==",this.groupCoinData)
-
-      }
-     
-	})
-}
-dataDateReduce(data){
-    return data.reduce((group,obj)=>{
-      const name = obj.groupName
-      if(!group[name]){
-        group[name]=[]
-      }
-      group[name].push(obj)
-      return group
-    },{})
-  }
  
-  
  submitOvercrowd(data){
 	
 	data.coinId=[data.coinId]
@@ -184,23 +102,5 @@ dataDateReduce(data){
 	  })
 
   }
-
-  deleteOvercrowd(value){
-	
-	  var data = {
-		id:value.id,
-		tblName:'coinRegistration'
-	  }
-	  this.api.deletedeviceandUser(data).then((res:any)=>{
-		// console.log("coin data ======",res);
-		if(res.status){
-		  this.refreshCoins()
-		  var msg = 'Coin Deleted Successfully'
-		  this.general.openSnackBar(msg,'')
-		}
-	  })
-  
-  }
-
 
 }

@@ -101,11 +101,11 @@
 
 
 
-<div *ngIf="type =='Groupovercrowd'" id="htmlData">
+<!-- <div *ngIf="type =='Groupovercrowd'" id="htmlData">
 	<div class="content">
 		<p class="center">  Group Over Crowd </p>
 		<span class="icon">
-			<!-- <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon> -->
+			<mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
 
 			<button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
 		</span>
@@ -114,17 +114,7 @@
 	<form [formGroup]="overCrowdGroupForm">
 		<div class="tab-align">
 			<table class="table table-borderless">
-				<!-- <thead>
-					<tr>
-						<th>Sl No.</th>
-						<th>Group Name</th>
-						<th>Coins</th>
-						<th>Coin Name</th>
-						<th>Max Limit</th>
-						<th>Edit</th>
-						<th>Delete</th>
-					</tr>
-				</thead> -->
+			
 				<tbody>
 					<div class="diagWrapper"  formArrayName="items" *ngIf="overCrowdGroupForm.get('items')['controls']?.length>0">
 						<tr *ngFor="let name of overCrowdGroupForm.get('items')['controls']; let i=index">
@@ -166,66 +156,11 @@
 				</tbody>
 
 
-				<!-- <label>Company Name: </label>
-				<input formControlName="company" /><span><button (click)="deleteCompany(i)">Delete Company</button></span>
-				<div formArrayName="projects">
-					<div *ngFor="let project of comp.get('projects').controls; let j=index">
-						<fieldset>
-							<legend><h4>PROJECT {{j+1}}</h4></legend>
-							<div [formGroupName]="j">
-								<label>Project Name:</label>
-								<input formControlName="projectName" /><span><button (click)="deleteProject(comp.controls.projects, j)">Delete Project</button></span>
-							</div>
-						</fieldset>
-					</div>
-					<button (click)="addNewProject(comp.controls.projects)">Add new Project</button>
-				</div>
-				</div> -->
 
 
 
 
-				<!-- <tbody *ngFor="let coin of groupCoinData;let i =index">
-
-						<tr *ngIf="coin.name!='null'">
-
-							<td >{{i+1}}</td>
-							<td >
-								<mat-form-field>
-									<input matInput type="text" formControlName="groupName" placeholder="Group Name">
-								</mat-form-field>
-							</td>
-
-							<td >
-								<span *ngFor="let a of coin.data">
-
-										{{a.coinName}}
-
-								</span>
-
-							</td>
-							<td >
-								<mat-form-field>
-									<mat-select formControlName="coinSelect" multiple required placeholder="Coin Name">
-										<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y')">{{coin.coinName}}</mat-option>
-									</mat-select>
-								</mat-form-field>
-							</td>
-							<td >
-								<mat-form-field>
-									<input matInput type="number" formControlName="maxLimit" placeholder="Max Limit">
-								</mat-form-field>
-							</td>
-
-
-							<td ><mat-icon>delete</mat-icon></td>
-							<td><button mat-raised-button>Submit</button></td>
-
-						</tr>
-
-
-				</tbody> -->
 			</table>
 		</div>
 	</form>
-	</div>
+	</div> -->
