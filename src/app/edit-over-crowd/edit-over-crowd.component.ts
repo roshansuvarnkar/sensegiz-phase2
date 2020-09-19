@@ -225,7 +225,7 @@ dataDateReduce(data){
 	  })
 
   }
- 
+
   deleteOvercrowd(value){
 
 	  var data = {
@@ -236,7 +236,7 @@ dataDateReduce(data){
 		// console.log("coin data ======",res);
 		if(res.status){
 		  this.refreshCoins()
-		  var msg = 'Coin Deleted Successfully'
+		  var msg = 'Coin Deleted Successfully' 
 		  this.general.openSnackBar(msg,'')
 		}
 	  })
