@@ -125,6 +125,7 @@ export class EditOverCrowdComponent implements OnInit {
             control.push(this.fb.group(
               {
                 name:[this.groupCoinData[i].name],
+                coinName:[this.coinData],
                 maxLimit:[this.groupCoinData[i].data[0].groupMaxlimit],
                 data:this.setData(this.groupCoinData[i])
               })

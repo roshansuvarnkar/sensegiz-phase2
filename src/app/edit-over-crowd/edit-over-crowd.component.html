@@ -144,14 +144,14 @@
 								</td>
 								<td>
 									<mat-form-field>
-										<mat-select  multiple required placeholder="Coin Name">
+										<mat-select formControlName="coinName" multiple required placeholder="Coin Name">
 											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y' && coin.groupName != name.get('name').value)">{{coin.coinName}}</mat-option>
 										</mat-select>
 									</mat-form-field>
 								</td>
 								<td>
 									<mat-form-field class="full-width-input">
-										<input matInput  type="text" placeholder="Group name" formControlName="maxLimit" matInput required >
+										<input matInput  type="text" placeholder="Max limit" formControlName="maxLimit" matInput required >
 										<mat-error>
 											Please provide a valid name
 										</mat-error>
