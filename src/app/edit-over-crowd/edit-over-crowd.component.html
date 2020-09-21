@@ -101,12 +101,11 @@
 
 
 
-<div *ngIf="type =='Groupovercrowd'" id="htmlData">
+<!-- <div *ngIf="type =='Groupovercrowd'" id="htmlData">
 	<div class="content">
 		<p class="center">  Group Over Crowd </p>
 		<span class="icon">
-			<!-- <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon> -->
-
+			
 			<button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
 		</span>
 	</div> <br>
@@ -114,7 +113,7 @@
 	<form [formGroup]="overCrowdGroupForm"  >
 		<div class="tab-align">
 			<table class="table table-borderless">
-			
+
 				<tbody>
 					<div class="diagWrapper"  formArrayName="items" *ngIf="overCrowdGroupForm.get('items')['controls']?.length>0">
 						<tr *ngFor="let name of overCrowdGroupForm.get('items')['controls']; let i=index">
@@ -128,16 +127,16 @@
 									</mat-form-field>
 								</td>
 								<td *ngIf="name.get('data')['controls']?.length>0">
-								
+
 									<ul>
 										<li *ngFor="let data of name.get('data')['controls']; let j=index">{{data.get('coinName').value}}</li>
 									</ul>
 								</td>
 								<td>
 									<mat-form-field>
-										<mat-select formControlName="coinName" multiple placeholder="Coin Name" >
-											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId"   [disabled]="(coin.isGroup=='Y' && coin.groupName != name.get('name').value)">{{coin.coinName}}</mat-option>
-										</mat-select> 
+										<mat-select formControlName="coinName" multiple placeholder="Coin Name" [compareWith]="compareCoinGroup">
+											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin"   [disabled]="(coin.isGroup=='Y' && coin.groupName != name.get('name').value)">{{coin.coinName}}</mat-option>
+										</mat-select>
 									</mat-form-field>
 								</td>
 								<td>
@@ -162,4 +161,4 @@
 			</table>
 		</div>
 	</form>
-	</div>
+	</div> -->

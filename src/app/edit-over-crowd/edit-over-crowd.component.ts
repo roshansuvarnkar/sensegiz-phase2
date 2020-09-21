@@ -24,6 +24,7 @@ export class EditOverCrowdComponent implements OnInit {
 	gateway:any
 	groupCoinData:any=[]
 	grouped:any=[]
+	groupNotNull:any=[]
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +38,7 @@ export class EditOverCrowdComponent implements OnInit {
   ) {
 	this.type=data.type
 	this.groupCoinData=data.groupdata
-    
+
 
    }
 
@@ -61,8 +62,8 @@ export class EditOverCrowdComponent implements OnInit {
 		  items:this.fb.array([])
 		});
 
-	 // this.refreshCoins()
-	  this.refreshGroupCoins()
+	 this.refreshCoins()
+	  // this.refreshGroupCoins()
   }
 
 	refreshCoins(){
@@ -77,7 +78,7 @@ export class EditOverCrowdComponent implements OnInit {
 			this.coinDatatemp=res.success
 			const control = <FormArray>this.overCrowdForm.controls.data;
 			control.controls = [];
-  
+
 		  for (let i = 0; i <this.coinDatatemp.length; i++) {
 			control.push(this.fb.group(
 				{
@@ -86,7 +87,7 @@ export class EditOverCrowdComponent implements OnInit {
 					coinName: [this.coinDatatemp[i].coinName],
 					// gatewayId:[this.coinData[i].gatewayId],
 					maxLimit:[this.coinDatatemp[i].maxLimit]
-  
+
 				}
 			));
 		  }
@@ -109,7 +110,7 @@ export class EditOverCrowdComponent implements OnInit {
       if(res.status){
         this.groupCoinData = res.success;
         this.coinData = res.success;
-
+        console.log("this.coinData===",this.coinData)
         var groupData=this.dataDateReduce(this.groupCoinData)
         // console.log("groupData===",groupData)
 
@@ -117,7 +118,7 @@ export class EditOverCrowdComponent implements OnInit {
           return {
             name : data,
 		      	data : groupData[data],
-		
+
           }
         })
 
@@ -125,25 +126,28 @@ export class EditOverCrowdComponent implements OnInit {
 
         const control = <FormArray>this.overCrowdGroupForm.controls.items;
         control.controls = [];
-        for(var i=0;i<this.groupCoinData.length;i++){
-          if(this.groupCoinData[i].name!='null'){
+         this.groupNotNull = []
+        this.groupNotNull = this.groupCoinData.filter(obj=>{
+          return obj.name != 'null';
+        })
+        for(var i=0;i<this.groupNotNull.length;i++){
+          if(this.groupNotNull[i].name!='null'){
             control.push(this.fb.group(
               {
-                name:[this.groupCoinData[i].name],
+                name:[this.groupNotNull[i].name],
                 coinName:[],
-                maxLimit:[this.groupCoinData[i].data[0].groupMaxlimit],
-                data:this.setData(this.groupCoinData[i])
+                maxLimit:[this.groupNotNull[i].data[0].groupMaxlimit],
+                data:this.setData(this.groupNotNull[i])
               })
             )
-            // console.log("this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control)==",this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control))
-            // control.controls[i].get('coinName').setValue(this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control))
-            // console.log("control.controls[i].get('coinName')====",control.controls[i].get('coinName'))
+            console.log("control.controls[i].get('coinName')===",control.controls[i].get('coinName'))
+            control.controls[i].get('coinName').setValue(this.setCoinSelect(this.coinData,this.groupNotNull[i].name,control))
           }
-    
-          console.log("this.overCrowdGroupForm==",this.overCrowdGroupForm);
+
         }
+        console.log("this.overCrowdGroupForm==",this.overCrowdGroupForm);
 		    // console.log("this.overCrowdGroupForm11111==",this.overCrowdGroupForm);
-		
+
         // for(var j=0 ; j<this.groupCoinData[i].data ; i++){
         //   control.push(this.fb.group(
         //     {
@@ -182,7 +186,9 @@ export class EditOverCrowdComponent implements OnInit {
 }
 
 
-
+compareCoinGroup(o1: any, o2: any) {
+ return (o1.coinId == o2.coinId && o1.crId == o2.crId);
+}
 
 setData(x) {
   let arr = new FormArray([])
@@ -211,21 +217,19 @@ setCoinSelect(data,group,control){
   data.forEach(x=>{
     if(group==x.groupName){
       arr.push({
-        // cgId: x.cgId,
-        // coinId: x.coinId,
-        // coinName: x.coinName,
-        // crId: x.crId,
-        // groupMaxlimit: x.groupMaxlimit,
-        // groupName:x.groupName,
-        // isGroup: x.isGroup,
-        // maxLimit: x.maxLimit,
-        // userId: x.userId
-        coinId:x.coinId
+        cgId: x.cgId,
+        coinId: x.coinId,
+        coinName: x.coinName,
+        crId: x.crId,
+        groupMaxlimit: x.groupMaxlimit,
+        groupName:x.groupName,
+        isGroup: x.isGroup,
+        maxLimit: x.maxLimit,
+        userId: x.userId,
+        // coinId:x.coinId
       })
     }
   })
-  control.get('coinName')
-  console.log("arr===",arr)
   return arr;
 }
 
@@ -243,13 +247,28 @@ dataDateReduce(data){
 
 submit(data,i){
   console.log("data======",data)
+  data.coinId=data.coinName.filter(x=>{
+    return x.coinId
+  })
 
   var value={
     groupName:data.items[i].name,
     groupMaximit:data.items[i].maxLimit,
-    coinName:data.items[i].coinName
+    coinId:data.coinId
   }
   console.log("value======",value)
+  this.api.setMaxLimit(data).then((res:any)=>{
+    console.log("group maxlimit response===",res)
+    if(res.status){
+      // this.refreshSetting()
+      this.refreshGroupCoins();
+      var msg='Group updated Successfully'
+      this.general.openSnackBar(msg,'')
+    }
+
+  }).catch(err=>{
+    console.log("err===",err);
+  })
 }
 
  submitOvercrowd(data){
@@ -262,7 +281,7 @@ submit(data,i){
 		if(res.status){
 		  var msg='Max limit updated Successfully'
 		  this.general.openSnackBar(msg,'')
-		  // this.refreshCoins()
+		  this.refreshCoins()
 		}
 	  })
 
@@ -277,7 +296,7 @@ submit(data,i){
 	  this.api.deletedeviceandUser(data).then((res:any)=>{
 		// console.log("coin data ======",res);
 		if(res.status){
-		  // this.refreshCoins()
+		  this.refreshCoins()
 		  var msg = 'Coin Deleted Successfully'
 		  this.general.openSnackBar(msg,'')
 		}
