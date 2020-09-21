@@ -585,6 +585,7 @@ export class SettingsComponent implements OnInit {
           if(res.status){
             // this.refreshSetting()
             this.refreshCoins();
+            this.groupByOverCrowedForm.reset()
             var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
           }

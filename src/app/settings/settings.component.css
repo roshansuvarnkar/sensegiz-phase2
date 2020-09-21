@@ -27,10 +27,16 @@ mat-card-content.mat-card-content.shift {
   border: 1px solid red;
   color: red;
 }
-button.mat-focus-indicator.btn-set.mat-raised-button.mat-button-base.mat-primary {
+.btn-set {
   position: absolute;
   bottom: 1rem;
   right: 7.5rem;
+  cursor:pointer;
+}
+.btn-set-grp {
+  position: absolute;
+  bottom: 1rem;
+  right: 5.5rem;
   cursor:pointer;
 }
 input.input-file {

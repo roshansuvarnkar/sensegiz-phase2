@@ -135,9 +135,9 @@ export class EditOverCrowdComponent implements OnInit {
                 data:this.setData(this.groupCoinData[i])
               })
             )
-            console.log("this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control)==",this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control))
-            control.controls[i].get('coinName').setValue(this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control))
-            console.log("control.controls[i].get('coinName')====",control.controls[i].get('coinName'))
+            // console.log("this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control)==",this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control))
+            // control.controls[i].get('coinName').setValue(this.setCoinSelect(this.coinData,this.groupCoinData[i].name,control))
+            // console.log("control.controls[i].get('coinName')====",control.controls[i].get('coinName'))
           }
     
           console.log("this.overCrowdGroupForm==",this.overCrowdGroupForm);
@@ -283,6 +283,22 @@ submit(data,i){
 		}
 	  })
 
+  }
+  deleteGroupOverCrowd(value,i){
+    console.log("delete",value)
+    var data={
+      userId:this.loginData.userId,
+      groupName:value.items[i].name
+    }
+    
+    this.api.deleteGroupName(data).then((res:any)=>{
+      // console.log("coin data ======",res);
+      if(res.status){
+        this.refreshGroupCoins()
+        var msg = 'Group Deleted Successfully'
+        this.general.openSnackBar(msg,'')
+      }
+      })
   }
 
 

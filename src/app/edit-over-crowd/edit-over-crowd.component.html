@@ -149,6 +149,9 @@
 									</mat-form-field>
 								</td>
 								<td>
+									<mat-icon (click)="deleteGroupOverCrowd(overCrowdGroupForm.value,i)">delete</mat-icon>
+								</td>
+								<td>
 										<button mat-raised-button (click)="submit(overCrowdGroupForm.value,i)" >Submit</button>
 								</td>
 							</div>
