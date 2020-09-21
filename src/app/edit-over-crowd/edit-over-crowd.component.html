@@ -9,9 +9,9 @@
     <br>
 
 	<mat-card class="overcrowd" >
-		<mat-card-content *ngIf="coinData">
+		<mat-card-content *ngIf="coinDatatemp">
 			<form [formGroup]="overCrowdForm"  >
-		      <div class="diagWrapper"  formArrayName="items" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
+		      <div class="diagWrapper"  formArrayName="data" *ngIf="overCrowdForm.get('data')['controls']?.length>0">
 		        <div class='item' *ngFor="let a of overCrowdForm.get('data')['controls']; let i=index;">
 		          <ng-container [formGroupName]="i">
 		          	{{i+1}}.
@@ -111,7 +111,7 @@
 		</span>
 	</div> <br>
 
-	<form [formGroup]="overCrowdGroupForm" >
+	<form [formGroup]="overCrowdGroupForm"  >
 		<div class="tab-align">
 			<table class="table table-borderless">
 			
@@ -128,37 +128,33 @@
 									</mat-form-field>
 								</td>
 								<td *ngIf="name.get('data')['controls']?.length>0">
-									<span *ngFor="let data of name.get('data')['controls']; let j=index">
-										{{data.get('coinName').value}}
-									</span>
+								
+									<ul>
+										<li *ngFor="let data of name.get('data')['controls']; let j=index">{{data.get('coinName').value}}</li>
+									</ul>
 								</td>
 								<td>
 									<mat-form-field>
-										<mat-select  multiple required placeholder="Coin Name">
-											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId" [disabled]="(coin.isGroup=='Y' && coin.groupName != name.get('name').value)">{{coin.coinName}}</mat-option>
-										</mat-select>
+										<mat-select formControlName="coinName" multiple placeholder="Coin Name" >
+											<mat-option *ngFor="let coin of coinData;let i= index" [value]="coin.coinId"   [disabled]="(coin.isGroup=='Y' && coin.groupName != name.get('name').value)">{{coin.coinName}}</mat-option>
+										</mat-select> 
 									</mat-form-field>
 								</td>
 								<td>
 									<mat-form-field class="full-width-input">
-										<input matInput  type="number" placeholder="Max Limit" formControlName="maxLimit" matInput required >
+										<input matInput  type="number" placeholder="Max limit" formControlName="maxLimit" matInput required >
 										<mat-error>
 											Please provide a valid name
 										</mat-error>
 									</mat-form-field>
 								</td>
 								<td>
-										<button mat-raised-button >Submit</button>
+										<button mat-raised-button (click)="submit(overCrowdGroupForm.value,i)" >Submit</button>
 								</td>
 							</div>
 						</tr>
 					</div>
 				</tbody>
-
-
-
-
-
 
 			</table>
 		</div>
