@@ -220,14 +220,14 @@ gateway:any=[]
     })
   }
 
-  getNumber(event){
-    console.log(" get number event==",event)
-  }
-  telInputObject(event){
-    console.log(" tel obj event==",event)
+  // getNumber(event){
+  //   console.log(" get number event==",event)
+  // }
+  // telInputObject(event){
+  //   console.log(" tel obj event==",event)
 
-  }
-  onCountryChange(event){
-    console.log("country==",event)
-  }
+  // }
+  // onCountryChange(event){
+  //   console.log("country==",event)
+  // }
 }
