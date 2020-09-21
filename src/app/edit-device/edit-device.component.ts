@@ -106,9 +106,9 @@ gateway:any=[]
 
   Findsubmit(data){
     console.log("find edit===",data)
-    var mobNum=data.mobileNum.replace(/\s/g,'')
-    console.log("mon num==",mobNum)
-    data.mobileNum=mobNum==''?'-':mobNum=='+91'?mobNum.substring(3):mobNum
+    // var mobNum=data.mobileNum.replace(/\s/g,'')
+    // console.log("mon num==",mobNum)
+    // data.mobileNum=mobNum==''?'-':mobNum=='+91'?mobNum.substring(3):mobNum
     if (this.Findform.valid) {
       try {
         console.log("find edit===",data)
