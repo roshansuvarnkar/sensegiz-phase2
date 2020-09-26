@@ -53,7 +53,7 @@ export class HistoryReportComponent implements OnInit {
   locationId:any
   title:any
   time:any
-  date1:any
+  date:any
   date2:any
   coinData:any=[]
 
@@ -76,6 +76,7 @@ export class HistoryReportComponent implements OnInit {
       this.deviceName=data.deviceName
       this.locationName=data.locationName
       this.locationId=data.locationId
+      this.date=data.date
 
      }
 
@@ -174,8 +175,10 @@ export class HistoryReportComponent implements OnInit {
       fromDate: this.from,
       toDate:this.to,
       limit:limit,
-      offset:offset
+      offset:offset,
+      zone:this.getZone(this.date)
     }
+    console.log("data==",data)
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
       console.log("find data based on date ======",res);
       this.liveData=[]
@@ -215,7 +218,8 @@ export class HistoryReportComponent implements OnInit {
       fromDate: this.from,
       toDate:this.to,
       offset:offset,
-      limit:limit
+      limit:limit,
+      zone:this.getZone(this.date)
 
     }
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
@@ -257,7 +261,7 @@ export class HistoryReportComponent implements OnInit {
         deviceName:this.deviceName,
         fromDate: this.from,
         toDate:this.to,
-
+        zone:this.getZone(this.date)
       }
       this.api.getSummaryReport(data).then((res:any)=>{
         console.log("summary report======",res);
@@ -356,7 +360,25 @@ dataDateReduce(data){
 // return group
 // },{})
 // }
+getZone(date){
+  var timezone=date.getTimezoneOffset()
 
+  let m = timezone % 60;
+  timezone = (timezone - m) / 60;
+  let h = timezone
+  let mm = m <= 9 && m >= 0 ? "0"+m : m;
+  let hh = h <= 9 && h >= 0 ? "0"+h : h;
+  if(m<0 && h<0){
+     var timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
+  }
+  else if(m>0 && h>0){
+    timeZone= '-'+(-(hh)+':'+(-mm)).toString()
+  }
+  else{
+    timeZone=hh+':'+mm
+  }
+  return timeZone
+}
 cummulativeReport(){
   var date=new Date()
   var timezone=date.getTimezoneOffset()
@@ -414,7 +436,8 @@ locationReport(limit,offset,type){
       fromDate: this.from,
       toDate:this.to,
       offset:offset,
-      limit:limit
+      limit:limit,
+      zone:this.getZone(this.date)
 
     }
     console.log("data3==",data)
@@ -471,7 +494,8 @@ geofenceAndlocationReport(limit,offset,type){
     fromDate: this.from,
     toDate:this.to,
     offset:offset,
-    limit:limit
+    limit:limit,
+    zone:this.getZone(this.date)
 
   }
   // console.log("data3==",data)
@@ -581,25 +605,8 @@ getUpdate(event) {
 getPages(){
   var data={}
   var fileName=''
-  var date=new Date()
-  var timezone=date.getTimezoneOffset()
-
-  let m = timezone % 60;
-  timezone = (timezone - m) / 60;
-  let h = timezone
-  let mm = m <= 9 && m >= 0 ? "0"+m : m;
-  let hh = h <= 9 && h >= 0 ? "0"+h : h;
-  if(m<0 && h<0){
-     var timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
-  }
-  else if(m>0 && h>0){
-    timeZone= '-'+(-(hh)+':'+(-mm)).toString()
-  }
-  else{
-    timeZone=hh+':'+mm
-  }
-  console.log("date==",date)
-  console.log("timezone==",timeZone)
+  var dateObj=new Date()
+  
 
  if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
     if(this.type=='basedOnDate'){
@@ -607,7 +614,7 @@ getPages(){
       userId:this.loginData.userId,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.getZone(dateObj),
       type:this.type
       }
       fileName="GenericReport"
@@ -618,7 +625,7 @@ getPages(){
     deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
-    zone:timeZone,
+    zone:this.getZone(dateObj),
     type:this.type
   }
   fileName="Report-of-Find- "+this.deviceName
@@ -649,7 +656,7 @@ getPages(){
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.getZone(dateObj),
       type:this.type
     }
     fileName="Report-of-location- "+this.locationName
@@ -660,7 +667,7 @@ getPages(){
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.getZone(dateObj),
       type:this.type
     }
     fileName="GeoFenceReport_of- "+this.deviceName
@@ -679,7 +686,7 @@ getPages(){
       userId:this.loginData.userId,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.getZone(dateObj),
       type:this.type
     }
     fileName="CummulativeReport"

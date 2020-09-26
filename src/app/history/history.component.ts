@@ -273,6 +273,7 @@ onclickGeoLocation(data){
     //console.log("data====",data)
         var date1=new Date(data.fromDate)
         var date2=new Date(data.toDate)
+        console.log("dates===",date1,date2)
         var year = date1.getFullYear();
         var month = ("0" + (date1.getMonth() + 1)).slice(-2);
         var day = ("0" + date1.getDate()).slice(-2);
@@ -292,6 +293,7 @@ onclickGeoLocation(data){
           type:"basedOnDate",
           fromDate:from,
           toDate:to,
+          date:date1
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -323,6 +325,7 @@ onclickGeoLocation(data){
       type:"cummulative",
       fromDate:from,
       toDate:to,
+      date:date1
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -379,6 +382,7 @@ onclickGeoLocation(data){
           deviceName:data.deviceName,
           fromDate:from,
           toDate:to,
+          date:date1
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -421,6 +425,7 @@ onclickGeoLocation(data){
           deviceName:data.deviceName,
           fromDate:from,
           toDate:to,
+          date:this.date1
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -468,6 +473,7 @@ onclickGeoLocation(data){
       locationId:data.coinSelect,
       fromDate:from,
       toDate:to,
+      date:date1
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -501,6 +507,8 @@ onclickGeoLocation(data){
       deviceName:data.deviceName,
       fromDate:from,
       toDate:to,
+      date:date1
+
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 

@@ -270,7 +270,7 @@ getBatteryUpdatedOn(value){
 
 
 fileChange(files){
-  alert("Format should be: Name*, employeeId, deviceId*, mobileNumber, emailId ")
+  // alert("Format should be: Name*, employeeId, deviceId*, mobileNumber, emailId ")
   this.loading=false
   this.format=false
 
@@ -338,8 +338,8 @@ fileSubmit(data){
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
   
     this.loading=false
-    if(data.header[0].toLowerCase()=='name' && data.header[2].toLowerCase()=='deviceid'|| data.header[1].toLowerCase()=="employeeid" || 
-    data.header[3]=="mobilenumber".toLowerCase() || data.header[4]=="emailid".toLowerCase()){
+    if(data.header[0].toLowerCase()==='name' && data.header[2].toLowerCase()==='deviceid' && data.header[1].toLowerCase()==="employeeid" && 
+        data.header[3]==="mobilenumber".toLowerCase() && data.header[4]==="emailid".toLowerCase()){
       this.format=false
       var msg = 'Please wait..!it takes few minutes to upload'
       this.general.openSnackBar(msg,'')
