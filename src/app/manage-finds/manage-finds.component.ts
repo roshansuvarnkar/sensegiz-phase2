@@ -33,6 +33,7 @@ tempImagePath:any=''
 header:any
 worksheet:any
 storeData:any
+userType:any
 fileupload:FormGroup
 loading:boolean=false
 format:boolean=false
@@ -60,7 +61,7 @@ openDialog(): void {
 ngOnInit(): void {
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
-
+  this.userType=this.loginData.type
   this.fileupload = this.fb.group({
     fileData:null,
     type:'devices',

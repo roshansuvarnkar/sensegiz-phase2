@@ -9,7 +9,9 @@ export const environment = {
   // apiHost: 'http://44.234.23.96:3000',
   // apiHost:'https://testdba.sensegiz.com:3000',
     // apiHost:'http://52.66.226.95:3000',
-    apiHost:'http://15.207.104.32:3000',
+    apiHost:'http://65.0.27.166:3000',
+
+
   production: false
 };
 

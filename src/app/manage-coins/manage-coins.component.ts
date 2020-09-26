@@ -20,6 +20,7 @@ export class ManageCoinsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
+  userType:any
   coinData:any=[]
   coindDataTemp:any=[]
   dataSource: any = [];
@@ -37,6 +38,7 @@ constructor(public dialog: MatDialog,
   ngOnInit(): void {
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
+  this.userType=this.loginData.type
 
   this.refreshCoins()
   }
