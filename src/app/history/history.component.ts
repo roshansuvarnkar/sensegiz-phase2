@@ -399,12 +399,12 @@ onclickGeoLocation(data){
         this.date1=new Date(data.fromDate)
         this.date2=new Date(data.toDate)
      
-      //  var diffTime = Math.abs(this.date2 - this.date1);
-      //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+       var diffTime = Math.abs(this.date2 - this.date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     
-        // console.log(diffDays + " days");
-      // if(diffDays<=15){
-        // this.daysExceed=false
+        console.log(diffDays + " days");
+      if(diffDays<=15){
+        this.daysExceed=false
         var year = this.date1.getFullYear();
         var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
         var day = ("0" + this.date1.getDate()).slice(-2);
@@ -432,10 +432,10 @@ onclickGeoLocation(data){
         dialogRef.afterClosed().subscribe(result => {
           this.refreshFinds()
         });
-      // }
-      // else{
-      //     this.daysExceed=true
-      // }
+      }
+      else{
+          this.daysExceed=true
+      }
 
   }
 

@@ -203,7 +203,10 @@
       </mat-card-title>
       <mat-card-subtitle>
         Enter infected person name and date range
-      </mat-card-subtitle>
+      </mat-card-subtitle> 
+      <mat-error *ngIf="daysExceed">
+        Please choose date range of past 15 days from 'To date'
+      </mat-error>
     </span>
     <mat-card-content>
       <div class="radio">
@@ -213,9 +216,7 @@
       </mat-radio-group>
       </div><br>
       <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
-        <!-- <mat-error *ngIf="daysExceed">
-          Please choose date range of past 15 days from 'To date'
-        </mat-error> -->
+
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="User Name"  formControlName="deviceName" [matAutocomplete]="auto" (keyup)="infectedSuggestion($event)" required>
           <mat-autocomplete #auto="matAutocomplete">

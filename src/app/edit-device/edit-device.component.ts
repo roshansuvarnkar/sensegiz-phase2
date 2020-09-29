@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-edit-device',
@@ -11,14 +12,18 @@ import { GeneralMaterialsService } from '../general-materials.service';
   styleUrls: ['./edit-device.component.css']
 })
 export class EditDeviceComponent implements OnInit {
-type:any
-deviceData:any
-Findform:FormGroup
-gatewayform:FormGroup
-userform:FormGroup
-coinform:FormGroup
-loginData:any
-gateway:any=[]
+  SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.India];
+  type:any
+  deviceData:any
+  Findform:FormGroup
+  gatewayform:FormGroup
+  userform:FormGroup
+  coinform:FormGroup
+  loginData:any
+  gateway:any=[]
 
 
 
@@ -106,15 +111,14 @@ gateway:any=[]
 
   Findsubmit(data){
     console.log("find edit===",data)
-    var mobNum=data.mobileNum.replace(/\s/g,'')
-    console.log("mon num==",mobNum)
-    data.mobileNum=mobNum==''?'-':mobNum=='+91'?mobNum.substring(3):mobNum
+   
     if (this.Findform.valid) {
       try {
         console.log("find edit===",data)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
         data.userId=this.loginData.userId
+        data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("find submit====",res);
           if(res.status){

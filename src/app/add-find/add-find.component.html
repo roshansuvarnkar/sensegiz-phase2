@@ -1,7 +1,6 @@
 
 
 <div *ngIf="type=='finds'" >
- 
 
   <div class="flexWrap space-between">
     <h2 mat-dialog-title>Add Find Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
@@ -31,50 +30,71 @@
             <button mat-button matStepperNext>Next</button>
           </div>
       </mat-step>
-
       <mat-step >
-          <ng-template matStepLabel>Fill out your Employee Id</ng-template>
-          <mat-form-field>
-            <mat-label>Employee Id</mat-label>
-            <input type="text" matInput formControlName="employeeId" placeholder="Ex. 1" >
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-      </mat-step>
-      <mat-step >
-        <ng-template matStepLabel>Fill out your Email Id</ng-template>
+        <ng-template matStepLabel>Fill out your Employee Id</ng-template>
         <mat-form-field>
-          <mat-label>Email Id</mat-label>
-          <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com" >
-          <mat-error>
-            Please provide valid email id. Ex.xyz@gmail.com
-          </mat-error>
-
-        </mat-form-field><br><br>
+          <mat-label>Employee Id</mat-label>
+          <input type="text" matInput formControlName="employeeId" placeholder="Ex. 1" >
+        </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
     </mat-step>
     <mat-step >
-      <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
-      <!-- <mat-form-field>
-        <mat-label>Mobile Number</mat-label>
-        <input type="tel" matInput formControlName="mobileNum" placeholder="Mobile Number" >
+      <ng-template matStepLabel>Fill out your Email Id</ng-template>
+      <mat-form-field>
+        <mat-label>Email Id</mat-label>
+        <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com" >
         <mat-error>
-          Please provide valid mobile number
+          Please provide valid email id. Ex.xyz@gmail.com
         </mat-error>
-      </mat-form-field> -->
-         <international-phone-number2   placeholder="Mobile number" [defaultCountry]="'in'" [allowedCountries]="['in','us']" formControlName="mobileNum"  autocomplete="off">
-       </international-phone-number2>
-    
+
+      </mat-form-field> <br><br>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
   </mat-step>
+  <mat-step >
+    <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
+    <!-- <mat-form-field>
+      <mat-label>Mobile Number</mat-label>
+      <input type="tel" matInput formControlName="mobileNum" placeholder="Mobile Number" >
+      <mat-error>
+        Please provide valid mobile number
+      </mat-error>
+    </mat-form-field> -->
+    <!-- <international-phone-number2   placeholder="Mobile number" [defaultCountry]="'in'" formControlName="mobileNum">
+    </international-phone-number2> -->
+    <div class="wrapper">
+      <ngx-intl-tel-input [cssClass]="'custom'"
+        [preferredCountries]="preferredCountries"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+        [selectFirstCountry]="true"
+        [selectedCountryISO]="CountryISO.India"
+        [maxLength]="15"
+        [tooltipField]="TooltipLabel.Name"
+        [phoneValidation]="true"
+        [separateDialCode]="false"
+        name="mobileNum"
+        formControlName="mobileNum">
+      </ngx-intl-tel-input>
+      <hr class="mob">
+      <mat-error *ngIf="Findform.get('mobileNum').status=='INVALID'" class="error" >
+        Please provide valid mobile number
+       </mat-error> 
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+</mat-step>
+
+
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
@@ -85,18 +105,18 @@
       </mat-step>
     </form>
   </mat-horizontal-stepper>
-  
-  <div>
-  
-  </div>
 
 
 </div>
 
-<div *ngIf="type=='gateways'" >
+
+
+<div *ngIf="type=='gateways'">
   <div class="flexWrap space-between">
     <h2 mat-dialog-title>Add Gateway Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
   </div>
+
+
 
   <mat-horizontal-stepper  #stepper  >
     <form [formGroup]="gatewayform" >
@@ -114,7 +134,7 @@
           <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
           <mat-form-field>
             <mat-label>Gateway Id</mat-label>
-            <input matInput formControlName="deviceId" maxLength="12" placeholder="Ex. 1" required>
+            <input matInput formControlName="deviceId" placeholder="Ex. 1" required>
             <mat-error>
               Enter gateway Id with character 12
             </mat-error>
@@ -159,13 +179,34 @@
           <ng-template matStepLabel class="stepper" >Fill out user mobile number</ng-template>
           <!-- <mat-form-field>
             <mat-label>User Mobile number</mat-label>
-            <input matInput placeholder="Mobile number" formControlName="mobileNum" required>
+            <input matInput type="number" placeholder="Mobile number" formControlName="mobileNum" required>
             <mat-error>
               Please provide valid mobile number
             </mat-error>
           </mat-form-field> -->
-             <international-phone-number2   placeholder="Mobile number" [defaultCountry]="'in'" formControlName="mobileNum" required='true' autocomplete="false" >
-       </international-phone-number2>
+          <!-- <international-phone-number2   placeholder="Mobile number" [defaultCountry]="'in'" formControlName="mobileNum">
+          </international-phone-number2> -->
+          <div class="wrapper">
+						<ngx-intl-tel-input [cssClass]="'custom'"
+							[preferredCountries]="preferredCountries"
+							[enableAutoCountrySelect]="true"
+							[enablePlaceholder]="true"
+							[searchCountryFlag]="true"
+							[searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+							[selectFirstCountry]="true"
+							[selectedCountryISO]="CountryISO.India"
+							[maxLength]="15"
+							[tooltipField]="TooltipLabel.Name"
+							[phoneValidation]="true"
+							[separateDialCode]="false"
+							name="mobileNum"
+							formControlName="mobileNum">
+            </ngx-intl-tel-input>
+            <hr class="mob">
+            <mat-error *ngIf="userform.get('mobileNum').status=='INVALID'" class="error" >
+              Please provide valid mobile number
+             </mat-error> 
+					</div>
           <div>
             <button mat-button matStepperNext>Next</button>
           </div>
@@ -178,7 +219,7 @@
           <mat-error>
             Please provide valid email id. Ex.xyz@gmail.com
           </mat-error>
-        </mat-form-field><br><br>
+        </mat-form-field> <br><br>
         <div>
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -194,7 +235,9 @@
     </form>
   </mat-horizontal-stepper>
 
+
 </div>
+
 
 
 

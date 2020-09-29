@@ -9,6 +9,8 @@ import * as FileSaver from 'file-saver';
 import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';  
 import { catchError, map } from 'rxjs/operators'; 
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+
 @Component({
   selector: 'app-add-find',
   templateUrl: './add-find.component.html',
@@ -17,23 +19,27 @@ import { catchError, map } from 'rxjs/operators';
 export class AddFindComponent implements OnInit {
   @ViewChild('fileInput') fileInput : ElementRef;
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef
-Findform:FormGroup
-gatewayform:FormGroup
-userform:FormGroup
-coinForm:FormGroup
-uploadForm:FormGroup
-gateway:any=[]
-type:any
-loginData:any
-findStatus:boolean=false
-gatewayStatus:boolean=false
-userStatus:boolean=false
-error:boolean=false
-storeData: any; 
-fileUploaded: File;  
-worksheet: any; 
-fileToUpload: File = null;
-files:any=[]
+  SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.India];
+  Findform:FormGroup
+  gatewayform:FormGroup
+  userform:FormGroup
+  coinForm:FormGroup
+  uploadForm:FormGroup
+  gateway:any=[]
+  type:any
+  loginData:any
+  findStatus:boolean=false
+  gatewayStatus:boolean=false
+  userStatus:boolean=false
+  error:boolean=false
+  storeData: any; 
+  fileUploaded: File;  
+  worksheet: any; 
+  fileToUpload: File = null;
+  files:any=[]
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddFindComponent>,
@@ -56,7 +62,7 @@ files:any=[]
       deviceName: ['', Validators.required],
       deviceId: ['', Validators.required],
       employeeId: [''],
-      mobileNum: ['',[Validators.minLength(10),Validators.maxLength(14)]],
+      mobileNum: [''],
       emailId: ['',[Validators.email]]
 
     });
@@ -71,7 +77,7 @@ files:any=[]
 
 
     this.userform = this.fb.group({
-      mobileNum: ['',[ Validators.required,Validators.minLength(10),Validators.maxLength(14)]],
+      mobileNum: ['',[ Validators.required]],
       emailId: ['',[Validators.email]]
     });
 
@@ -99,6 +105,8 @@ Findsubmit(data){
       console.log("find submit====",data)
       data.tblName ='deviceRegistration'
       data.userId=this.loginData.userId
+      data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
+
       this.api.deviceRegister(data).then((res:any)=>{
         // console.log("find submit====",res);
         if(res.status){

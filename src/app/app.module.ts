@@ -39,6 +39,8 @@ import { AdminSettingsComponent } from './admin-settings/admin-settings.componen
 import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
 import { InternationalPhoneNumber2Module  } from 'ngx-international-phone-number2';
+import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
+
 import { LocationComponent } from './location/location.component';
 import * as moment from 'moment';
 import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
@@ -91,6 +93,7 @@ import { EditOverCrowdComponent } from './edit-over-crowd/edit-over-crowd.compon
     FlexLayoutModule,
     HttpClientModule,
     InternationalPhoneNumber2Module,
+    NgxIntlTelInputModule,
     NgCircleProgressModule.forRoot({}),
     MDBBootstrapModule.forRoot(),
     DeviceDetectorModule.forRoot(),
