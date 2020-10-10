@@ -48,7 +48,7 @@ displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updated
     clearInterval(this.timeout)
   }
   refresh(){
-    this.getTotalCount(0)
+    // this.getTotalCount(0)
     this.refreshData(this.count)
   }
   prevDayData(){

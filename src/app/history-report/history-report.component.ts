@@ -230,113 +230,113 @@ export class HistoryReportComponent implements OnInit {
 
   }
 
-  summaryReport(){
+//   summaryReport(){
 
-      var data={
-        userId:this.loginData.userId,
-        deviceName:this.deviceName,
-        fromDate: this.from,
-        toDate:this.to,
-        zone:this.general.getZone(this.date)
+//       var data={
+//         userId:this.loginData.userId,
+//         deviceName:this.deviceName,
+//         fromDate: this.from,
+//         toDate:this.to,
+//         zone:this.general.getZone(this.date)
 
-      }
-      this.api.getSummaryReport(data).then((res:any)=>{
-        console.log("summary report======",res);
+//       }
+//       this.api.getSummaryReport(data).then((res:any)=>{
+//         console.log("summary report======",res);
 
-        this.liveData=[]
-        if(res.status){
+//         this.liveData=[]
+//         if(res.status){
 
-          var groupDate = this.dataDateReduce(res.success)
-          // console.log("groupDate===",groupDate)
-          this.liveData = Object.keys(groupDate).map((data)=>{
+//           var groupDate = this.dataDateReduce(res.success)
+//           // console.log("groupDate===",groupDate)
+//           this.liveData = Object.keys(groupDate).map((data)=>{
 
-            return {
-              date : data,
-              data : groupDate[data]
-            }
-          })
+//             return {
+//               date : data,
+//               data : groupDate[data]
+//             }
+//           })
 
-          for(let i=0;i<this.liveData.length;i++){
+//           for(let i=0;i<this.liveData.length;i++){
 
-            for(let j=0;j<this.liveData[i].data.length-1;j++){
-              this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
-            }
+//             for(let j=0;j<this.liveData[i].data.length-1;j++){
+//               this.liveData[i].data[j].contactDeviceName = this.liveData[i].data[j].contactDeviceName+','
+//             }
 
-            this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
+//             this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName=this.liveData[i].data[this.liveData[i].data.length-1].contactDeviceName+'.'
 
-           }
-
-
-        }
-      })
-    }
+//            }
 
 
-dataDateReduce(data){
-  return data.reduce((group,obj)=>{
-    const date = obj.updatedOn.split('T')[0]
-    if(!group[date]){
-      group[date]=[]
-    }
-    group[date].push(obj)
-    return group
-  },{})
-}
-
-// summaryReport(){
-
-//   var data={
-//     userId:this.loginData.userId,
-//     deviceName:this.deviceName,
-//     fromDate: this.from,
-//     toDate:this.to,
-
-//   }
-//   this.api.getSummaryReport(data).then((res:any)=>{
-//     console.log("summary report======",res);
-
-//     this.liveData=[]
-//     if(res.status){
-
-//       var groupUser = this.dataDateReduce(res.success)
-//       // console.log("groupDate===",groupUser)
-//       this.liveData = Object.keys(groupUser).map((data)=>{
-
-//         return {
-//           date : groupUser[data],
-//           data : data
 //         }
 //       })
-//       console.log("live==",this.liveData)
-
-//       for(let i=0;i<this.liveData.length;i++){
-
-//         for(let j=0;j<this.liveData[i].date.length-1;j++){
-//           this.liveData[i].date[j].updatedOn = this.liveData[i].date[j].updatedOn.split('T')[0]+','
-//         }
-
-//         this.liveData[i].date[this.liveData[i].date.length-1].updatedOn=this.liveData[i].date[this.liveData[i].date.length-1].updatedOn.split('T')[0]+'.'
-
-//        }
-
-
 //     }
-//   })
-// }
 
 
 // dataDateReduce(data){
-// return data.reduce((group,obj)=>{
-// const name = obj.contactDeviceName
-// console.log("name---",name)
-// if(!group[name]){
-//   group[name]=[]
+//   return data.reduce((group,obj)=>{
+//     const date = obj.updatedOn.split('T')[0]
+//     if(!group[date]){
+//       group[date]=[]
+//     }
+//     group[date].push(obj)
+//     return group
+//   },{})
 // }
-// group[name].push(obj)
-// console.log("group==",group)
-// return group
-// },{})
-// }
+
+summaryReport(){
+
+  var data={
+    userId:this.loginData.userId,
+    deviceName:this.deviceName,
+    fromDate: this.from,
+    toDate:this.to,
+
+  }
+  this.api.getSummaryReport(data).then((res:any)=>{
+    console.log("summary report======",res);
+
+    this.liveData=[]
+    if(res.status){
+
+      var groupUser = this.dataDateReduce(res.success)
+      // console.log("groupDate===",groupUser)
+      this.liveData = Object.keys(groupUser).map((data)=>{
+
+        return {
+          date : groupUser[data],
+          data : data
+        }
+      })
+      console.log("live==",this.liveData)
+
+      for(let i=0;i<this.liveData.length;i++){
+
+        for(let j=0;j<this.liveData[i].date.length-1;j++){
+          this.liveData[i].date[j].updatedOn = this.liveData[i].date[j].updatedOn.split('T')[0]+','
+        }
+
+        this.liveData[i].date[this.liveData[i].date.length-1].updatedOn=this.liveData[i].date[this.liveData[i].date.length-1].updatedOn.split('T')[0]+'.'
+
+       }
+
+
+    }
+  })
+}
+
+
+dataDateReduce(data){
+return data.reduce((group,obj)=>{
+const name = obj.contactDeviceName
+console.log("name---",name)
+if(!group[name]){
+  group[name]=[]
+}
+group[name].push(obj)
+console.log("group==",group)
+return group
+},{})
+}
 
 cummulativeReport(){
   var date=new Date()

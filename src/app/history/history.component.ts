@@ -334,6 +334,7 @@ onSubmitDateForm(data){
       toDate:to,
       fromDate1:from1,
       toDate1:to1,
+  
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -390,6 +391,7 @@ onSubmitDateForm(data){
           deviceName:data.deviceName,
           fromDate:from,
           toDate:to,
+          date:date1
         }
         const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -408,7 +410,7 @@ onSubmitSummaryReport(data){
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
   
       console.log(diffDays + " days");
-    if(diffDays<15){
+    if(diffDays>15){
       this.daysExceed=false
       var year = this.date1.getFullYear();
       var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
@@ -430,7 +432,7 @@ onSubmitSummaryReport(data){
         deviceName:data.deviceName,
         fromDate:from,
         toDate:to,
-        date:this.date1
+        
       }
       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -478,6 +480,7 @@ onSubmitSummaryReport(data){
       locationId:data.coinSelect,
       fromDate:from,
       toDate:to,
+      date:date1
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -511,6 +514,7 @@ onSubmitSummaryReport(data){
       deviceName:data.deviceName,
       fromDate:from,
       toDate:to,
+      date:date1
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
