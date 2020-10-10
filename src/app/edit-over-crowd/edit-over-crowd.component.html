@@ -42,7 +42,7 @@
 
 					<button type="button" mat-raised-button color="primary" (click)="submitOvercrowd(a.value)">Submit</button>
 
-					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)">delete</mat-icon></td>
+					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)" class="cursor">delete</mat-icon></td>
 
 		          </ng-container>
 		        </div>
@@ -101,7 +101,7 @@
 
 
 
-<!-- <div *ngIf="type =='Groupovercrowd'" id="htmlData">
+<div *ngIf="type =='Groupovercrowd'" id="htmlData">
 	<div class="content">
 		<p class="center">  Group Over Crowd </p>
 		<span class="icon">
@@ -148,7 +148,7 @@
 									</mat-form-field>
 								</td>
 								<td>
-									<mat-icon (click)="deleteGroupOverCrowd(overCrowdGroupForm.value,i)">delete</mat-icon>
+									<mat-icon (click)="deleteGroupOverCrowd(overCrowdGroupForm.value,i)" class="cursor">delete</mat-icon>
 								</td>
 								<td>
 										<button mat-raised-button (click)="submit(overCrowdGroupForm.value,i)" >Submit</button>
@@ -161,4 +161,4 @@
 			</table>
 		</div>
 	</form>
-	</div> -->
+	</div>

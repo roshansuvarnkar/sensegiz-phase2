@@ -65,7 +65,7 @@ export class DeviceHistoryComponent implements OnInit {
            })
 
         }
-        }
+      }
 
         this.dataSource = new MatTableDataSource(this.findData);
         setTimeout(() => {

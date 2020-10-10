@@ -1,186 +1,242 @@
 
 <div class="main-home">
 
-<div class="home">
-  <div class="first">
-    <mat-card class="first-card">
-      <mat-card-content>
-        <div class="row tot-head">
-          <span class="tot">
-            <mat-icon >account_circle</mat-icon>
-          </span><br>
-          <span class="tot">
-            <mat-label>Total number of users</mat-label> :
-            <mat-label>{{totalEmp}}</mat-label>
-            <br>
-            <!-- <mat-label>Total Finds</mat-label> :
-            <mat-label>{{totalEmp}}</mat-label> -->
-          </span>
-        </div><br><br>
-        <div class="row">
-          <div class="first-cont">
-            <div class="regi" >
-              Active Users <br><br>
-              <circle-progress (click)="activeUser()"
-                class="circle1"
-                [percent]="activeEmp"
-                [showUnits]="false"
-                [showBackground] = "true"
-                [backgroundColor]= "'#ef6c00'"
-                [outerStrokeColor] = "'#ffffff'"
-                [outerStrokeWidth] = 6
-                [showInnerStroke] = false
-                [radius] = 60
-                [titleColor] = "'#ffffff'"
-                [showSubtitle] = false
-                [backgroundPadding] = 5
-                [animation]="true"
-                [animationDuration]="500"
-                [startFromZero]="true"
-                [responsive]="false"
-              ></circle-progress>
+  <div class="home">
+    <div class="first">
+      <mat-card>
+        <mat-card-content>
+          <div class="row tot-head">
+            <span class="tot">
+              <mat-icon >account_circle</mat-icon>
+            </span><br>
+            <span class="tot">
+              <mat-label>Total number of users</mat-label> :
+              <mat-label>{{totalEmp}}</mat-label>
+              <br>
+              <!-- <mat-label>Total Finds</mat-label> :
+              <mat-label>{{totalEmp}}</mat-label> -->
+            </span>
+          </div><br><br>
+          <div class="row">
+            <div class="first-cont">
+              <div class="regi">
+                Active Users <br><br>
+                <circle-progress (click)="onlineUser()"
+                class="circle"
+                  [percent]="onlineCount"
+                  [maxPercent]="onlineCount"
+                  [showUnits]="false"
+                  [showBackground] = "true"
+                  [backgroundColor]= "'#ef6c00'"
+                  [outerStrokeColor] = "'#ffffff'"
+                  [outerStrokeWidth] = 6
+                  [showInnerStroke] = false
+                  [radius] = 60
+                  [titleColor] = "'#ffffff'"
+                  [showSubtitle] = false
+                  [backgroundPadding] = 5
+                  [animation]="true"
+                  [animationDuration]="500"
+                  [startFromZero]="true"
+                  [responsive]="false"
+                ></circle-progress>
+                
+              </div>
+              
+              <div class="infe" >
+            
+                <circle-progress (click)="activeUser()"
+                
+                  class="circle"
+                  fill="green"
+                  [percent]="activeEmp"
+                  [maxPercent]="activeEmp"
+                  [showUnits]="false"
+                  [showBackground] = "true"
+                  [backgroundColor]= "'#ef6c00'"
+                  [outerStrokeColor] = "'#ffffff'"
+                  [outerStrokeWidth] = 6
+                  [showInnerStroke] = false
+                  [radius] = 60
+                  [titleColor] = "'#ffffff'"
+                  [showSubtitle] = false
+                  [backgroundPadding] = 5
+                  [animation]="true"
+                  [animationDuration]="500"
+                  [startFromZero]="true"
+                  [responsive]="false"
+                ></circle-progress>
+                <br> <br> Registered Users 
+              </div>
+              <div class="regi">
+                Offline Users <br><br>
+                <circle-progress (click)="offlineUser()"
+                  class="circle"
+                  [percent]="offlineCount"
+                  [maxPercent]="offlineCount"
+                  [showUnits]="false"
+                  [showBackground] = "true"
+                  [backgroundColor]= "'#ef6c00'"
+                  [outerStrokeColor] = "'#ffffff'"
+                  [outerStrokeWidth] = 6
+                  [showInnerStroke] = false
+                  [radius] = 60
+                  [titleColor] = "'#ffffff'"
+                  [showSubtitle] = false
+                  [backgroundPadding] = 5
+                  [animation]="true"
+                  [animationDuration]="500"
+                  [startFromZero]="true"
+                  [responsive]="false"
+                ></circle-progress>
+                
+              </div>
+              <div class="infe">
+               
+                <circle-progress (click)="infectedUser()"
+                  class="circle"
+                  [percent]="infectedEmp"
+                  [maxPercent]="infectedEmp"
+                  [showUnits]="false"
+                  [showBackground] = "true"
+                  [backgroundColor]= "'#ef6c00'"
+                  [outerStrokeColor] = "'#ffffff'"
+                  [outerStrokeWidth] = 6
+                  [showInnerStroke] = false
+                  [radius] = 60
+                  [titleColor] = "'#ffffff'"
+                  [showSubtitle] = false
+                  [backgroundPadding] = 5
+                  [animation]="true"
+                  [animationDuration]="500"
+                  [startFromZero]="true"
+                  [responsive]="false"
+                ></circle-progress>
+               <br> <br>Infected Users 
+              </div> <br> 
+              <!-- <div class="count">
+                Normal User <br><br>
+                <circle-progress (click)="normalUser()"
+                  [percent]="normalEmp"
+                  [showUnits]="false"
+                  [showBackground] = "true"
+                  [backgroundColor]= "'#ef6c00'"
+                  [outerStrokeColor] = "'#ffffff'"
+                  [outerStrokeWidth] = 6
+                  [showInnerStroke] = false
+                  [radius] = 60
+                  [titleColor] = "'#ffffff'"
+                  [showSubtitle] = false
+                  [backgroundPadding] = 5
+                  [animation]="true"
+                  [animationDuration]="500"
+                  [startFromZero]="true"
+                  [responsive]="false"
+                ></circle-progress><br><br>
+              </div> -->
+  
+  
             </div>
-            <div class="infe">
-              Infected Users <br><br>
-              <circle-progress (click)="infectedUser()"
-                class="circle2"
-                [percent]="infectedEmp"
-                [showUnits]="false"
-                [showBackground] = "true"
-                [backgroundColor]= "'#ef6c00'"
-                [outerStrokeColor] = "'#ffffff'"
-                [outerStrokeWidth] = 6
-                [showInnerStroke] = false
-                [radius] = 60
-                [titleColor] = "'#ffffff'"
-                [showSubtitle] = false
-                [backgroundPadding] = 5
-                [animation]="true"
-                [animationDuration]="500"
-                [startFromZero]="true"
-                [responsive]="false"
-              ></circle-progress>
-            </div>
-            <!-- <div class="count">
-              Normal User <br><br>
-              <circle-progress (click)="normalUser()"
-                [percent]="normalEmp"
-                [showUnits]="false"
-                [showBackground] = "true"
-                [backgroundColor]= "'#ef6c00'"
-                [outerStrokeColor] = "'#ffffff'"
-                [outerStrokeWidth] = 6
-                [showInnerStroke] = false
-                [radius] = 60
-                [titleColor] = "'#ffffff'"
-                [showSubtitle] = false
-                [backgroundPadding] = 5
-                [animation]="true"
-                [animationDuration]="500"
-                [startFromZero]="true"
-                [responsive]="false"
-              ></circle-progress><br><br>
-            </div> -->
           </div>
-        </div>
-
-
-      </mat-card-content>
-    </mat-card>
-    <br>
-    <mat-card class="panel">
-      <mat-card-content>
-        <mat-icon >settings</mat-icon><br>
-
-            <mat-card class="settingcard">
-              <mat-card-content class="setting" routerLink="/settings">
-                <mat-label>  Minimum social distance</mat-label>
-                <mat-label>  {{setting?.distance}} meter</mat-label>
-                <mat-icon >keyboard_arrow_right</mat-icon>
-              </mat-card-content>
-            </mat-card><br>
-            <mat-card class="settingcard">
-              <mat-card-content class="setting" routerLink="/settings">
-                <mat-label>Violation alert</mat-label>
-                <mat-label class="tab-set">{{setting?.threshold}}</mat-label>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-              </mat-card-content>
-            </mat-card><br>
-            <!-- <mat-card class="settingcard">
-              <mat-card-content class="setting" routerLink="/settings">
-                <mat-label>Transmission power</mat-label>
-                <mat-label class="tab-set">{{setting?.txPower}} feet</mat-label>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-              </mat-card-content>
-            </mat-card> -->
-      </mat-card-content>
-    </mat-card>
-
-  </div>
-
-  <div class="three">
-    <mat-card>
-      <mat-card-title>Frequent Violators</mat-card-title>
-      <mat-card-content>
-        <mat-card *ngFor="let data of contactDeviceMax; let i = index">
-          <mat-card-content>
-            <div class="tab-head">
-              <span class="tab-emp">
-                <span><li></li></span>
-                <span class="emp-pad"><mat-icon >person_outline</mat-icon></span>
-                <span class="rec">
-                  <span class="emp-pad">{{data.baseDeviceName}}</span>
-                  <span class="emp-pad">{{data.totalCount}}</span>
-                </span>
-
-              </span>
-              <span class="tab-btn">
-                <button mat-raised-button class="btn btn-warning" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
-              </span>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </mat-card-content> 
+  
+  
+        </mat-card-content>
       </mat-card>
-  </div>
-
-</div>
-
-<div class="rowhome">
-  <div class="second">
-    <mat-card>
-      <mat-card-content>
-        <div id="chartContainer" style="height: 245px; width: 100%;"></div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="four">
-    <mat-card>
-      <mat-card-title class="search-title">
-        <span class="search-head">
-          Cumulative Time
-        </span>
-      </mat-card-title>
-        <mat-card >
-          <mat-card-content *ngFor="let data of contactTimeMax; let i = index">
-            <div class="row">
-              <div class="col-md-6">
-                <span class="max-emp">
-                  <mat-icon>person_outline</mat-icon>&nbsp;
-                  <mat-label>{{data.baseName}}</mat-label>
+      <br>
+      <mat-card>
+        <mat-card-content>
+          <mat-icon >settings</mat-icon><br>
+  
+              <mat-card class="settingcard">
+                <mat-card-content class="setting" routerLink="/settings">
+                  <mat-label>  Minimum social distance</mat-label>
+                  <mat-label>  {{setting?.distance}} meter</mat-label>
+                  <mat-icon >keyboard_arrow_right</mat-icon>
+                </mat-card-content>
+              </mat-card><br>
+              <mat-card class="settingcard">
+                <mat-card-content class="setting" routerLink="/settings">
+                  <mat-label>Violation alert</mat-label>
+                  <mat-label class="tab-set">{{setting?.threshold}}</mat-label>
+                  <mat-icon>keyboard_arrow_right</mat-icon>
+                </mat-card-content>
+              </mat-card><br>
+              <!-- <mat-card class="settingcard">
+                <mat-card-content class="setting" routerLink="/settings">
+                  <mat-label>Transmission power</mat-label>
+                  <mat-label class="tab-set">{{setting?.txPower}} feet</mat-label>
+                  <mat-icon>keyboard_arrow_right</mat-icon>
+                </mat-card-content>
+              </mat-card> -->
+        </mat-card-content>
+      </mat-card>
+  
+    </div>
+  
+    <div class="three">
+      <mat-card>
+        <mat-card-title>Frequent Violators</mat-card-title>
+        <mat-card-content>
+          <mat-card *ngFor="let data of contactDeviceMax; let i = index">
+            <mat-card-content>
+              <div class="tab-head">
+                <span class="tab-emp">
+                  <span><li></li></span>
+                  <span class="emp-pad"><mat-icon >person_outline</mat-icon></span>
+                  <span class="rec">
+                    <span class="emp-pad">{{data.baseDeviceName}}</span>
+                    <span class="emp-pad">{{data.totalCount}}</span>
+                  </span>
+  
+                </span>
+                <span class="tab-btn">
+                  <button mat-raised-button class="btn" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
                 </span>
               </div>
-              <div class="col-md-6">
-                <span class="max-prg">
-                  <mat-label>Time : {{data.totTime}} hrs / {{data.totmin}} mins</mat-label>
-                  <mat-progress-bar mode="determinate" [value]="data.totmin" class="progress"></mat-progress-bar>
-                </span>
-              </div>
-            </div>
-          </mat-card-content>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content> 
         </mat-card>
-    </mat-card>
+    </div>
+  
   </div>
-</div>
-
-</div>
+  
+  <div class="rowhome">
+    <div class="second">
+      <mat-card>
+        <mat-card-content>
+          <div id="chartContainer" style="height: 202px; width: 100%;"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="four">
+      <mat-card>
+        <mat-card-title class="search-title">
+          <span class="search-head">
+             Cumulative time
+          </span>
+        </mat-card-title>
+          <mat-card >
+            <mat-card-content *ngFor="let data of contactTimeMax; let i = index">
+              <div class="row">
+                <div class="col-md-6">
+                  <span class="max-emp">
+                    <mat-icon>person_outline</mat-icon>&nbsp;
+                    <mat-label>{{data.baseName}}</mat-label>
+                  </span>
+                </div>
+                <div class="col-md-6">
+                  <span class="max-prg">
+                    <mat-label>Time : {{data.totTime}} hrs / {{data.totmin}} mins</mat-label>
+                    <mat-progress-bar mode="determinate" [value]="data.totmin"></mat-progress-bar>
+                  </span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+      </mat-card>
+    </div>
+  </div>
+  
+  </div>
+  

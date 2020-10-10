@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver'; 
 import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
@@ -17,23 +18,27 @@ import { catchError, map } from 'rxjs/operators';
 export class AddFindComponent implements OnInit {
   @ViewChild('fileInput') fileInput : ElementRef;
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef
-Findform:FormGroup
-gatewayform:FormGroup
-userform:FormGroup
-coinForm:FormGroup
-uploadForm:FormGroup
-gateway:any=[]
-type:any
-loginData:any
-findStatus:boolean=false
-gatewayStatus:boolean=false
-userStatus:boolean=false
-error:boolean=false
-storeData: any; 
-fileUploaded: File;  
-worksheet: any; 
-fileToUpload: File = null;
-files:any=[]
+  SearchCountryField = SearchCountryField;
+	TooltipLabel = TooltipLabel;
+	CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.India];
+  Findform:FormGroup
+  gatewayform:FormGroup
+  userform:FormGroup
+  coinForm:FormGroup
+  uploadForm:FormGroup
+  gateway:any=[]
+  type:any
+  loginData:any
+  findStatus:boolean=false
+  gatewayStatus:boolean=false
+  userStatus:boolean=false
+  error:boolean=false
+  storeData: any; 
+  fileUploaded: File;  
+  worksheet: any; 
+  fileToUpload: File = null;
+  files:any=[]
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<AddFindComponent>,

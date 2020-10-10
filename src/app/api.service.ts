@@ -1009,7 +1009,19 @@ deleteGroupName(data){
   });
 
 }
+getOnlineCount(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
+  let url = this.host+'/getOnlinedevice';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+
+}
 downloadFile(response,fileName){
   let body = response.body
   let dataType = body.type;
@@ -1078,20 +1090,18 @@ downloadCummulative(data,fileName){
   });
 
 }
+ 
+viewCTReport(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
+  let url = this.host+'/viewCTReport';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
 
-  
-  viewCTReport(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-  
-    let url = this.host+'/viewCTReport';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-  
-  }
+}
 }

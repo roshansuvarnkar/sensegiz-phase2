@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-edit-device',
@@ -19,8 +20,10 @@ userform:FormGroup
 coinform:FormGroup
 loginData:any
 gateway:any=[]
-
-
+SearchCountryField = SearchCountryField;
+TooltipLabel = TooltipLabel;
+CountryISO = CountryISO;
+preferredCountries: CountryISO[] = [CountryISO.India];
 
   constructor(
     private fb: FormBuilder,
