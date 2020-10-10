@@ -131,27 +131,27 @@ date2:any
     })
   }
 
-onclickFindId(data){
-  // console.log("data==",data)
+// onclickFindId(data){
+//   // console.log("data==",data)
 
-  var date = new Date();
-  var toDate = new Date();
-  var prevDate = date.setDate(date.getDate() - data);
+//   var date = new Date();
+//   var toDate = new Date();
+//   var prevDate = date.setDate(date.getDate() - data);
 
-  var date = new Date(prevDate);
-  var year = date.getFullYear();
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
+//   var date = new Date(prevDate);
+//   var year = date.getFullYear();
+//   var month = ("0" + (date.getMonth() + 1)).slice(-2);
+//   var day = ("0" + date.getDate()).slice(-2);
 
-  var tot = year + '-' + month + '-'  + day
+//   var tot = year + '-' + month + '-'  + day
 
-  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+//   var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
 
-   this.findIdForm.patchValue({
-      fromDate:tot,
-      toDate:todayDate
-    })
- }
+//    this.findIdForm.patchValue({
+//       fromDate:tot,
+//       toDate:todayDate
+//     })
+//  }
 
 
 
@@ -269,37 +269,43 @@ onclickGeoLocation(data){
     })
   }
 
-  onSubmitDateForm(data){
-    //console.log("data====",data)
-        var date1=new Date(data.fromDate)
-        var date2=new Date(data.toDate)
-        var year = date1.getFullYear();
-        var month = ("0" + (date1.getMonth() + 1)).slice(-2);
-        var day = ("0" + date1.getDate()).slice(-2);
-        var from = year + '-' + month + '-'  + day
+onSubmitDateForm(data){
+  // console.log("data====",data)
+      var date1=new Date(data.fromDate)
+      var date2=new Date(data.toDate)
+      var year = date1.getFullYear();
+      var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+      var day = ("0" + date1.getDate()).slice(-2);
+      var from = year + '-' + month + '-'  + day
+      var from1 = day + '-' + month + '-'  + year
 
-        var year1 = date2.getFullYear();
-        var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
-        var day1 = ("0" + date2.getDate()).slice(-2);
-        var to = year1 + '-' + month1 + '-'  + day1
 
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.height = '90vh';
-        dialogConfig.width = '75vw';
-        dialogConfig.data = {
-          type:"basedOnDate",
-          fromDate:from,
-          toDate:to,
-        }
-        const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+      var year1 = date2.getFullYear();
+      var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+      var day1 = ("0" + date2.getDate()).slice(-2);
+      var to = year1 + '-' + month1 + '-'  + day1
+      var to1 = day1 + '-' + month1 + '-'  + year1
 
-        dialogRef.afterClosed().subscribe(result => {
-          this.refreshFinds()
-        });
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.height = '90vh';
+      dialogConfig.width = '75vw';
+      dialogConfig.data = {
+        type:"basedOnDate",
+        fromDate:from,
+        toDate:to,
+        fromDate1:from1,
+        toDate1:to1,
+        date:date1
+      }
+      const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
-  }
+      dialogRef.afterClosed().subscribe(result => {
+        this.refreshFinds()
+      });
+
+}
  
   onSubmitcummulativeForm(data){  
     var date1=new Date(data.fromDate)
@@ -308,11 +314,14 @@ onclickGeoLocation(data){
     var month = ("0" + (date1.getMonth() + 1)).slice(-2);
     var day = ("0" + date1.getDate()).slice(-2);
     var from = year + '-' + month + '-'  + day
+    var from1 = day + '-' + month + '-'  + year
+
 
     var year1 = date2.getFullYear();
     var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
     var day1 = ("0" + date2.getDate()).slice(-2);
     var to = year1 + '-' + month1 + '-'  + day1
+    var to1 = day1 + '-' + month1 + '-'  + year1
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -323,6 +332,8 @@ onclickGeoLocation(data){
       type:"cummulative",
       fromDate:from,
       toDate:to,
+      fromDate1:from1,
+      toDate1:to1,
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -389,50 +400,49 @@ onclickGeoLocation(data){
   }
 
 
-  onSubmitSummaryReport(data){
-    console.log("data====",data)
+onSubmitSummaryReport(data){
+  // console.log("data====",data)
+      this.date1=new Date(data.fromDate)
+      this.date2 =new Date(data.toDate)
+      var diffTime = Math.abs(this.date2 - this.date1);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+  
+      console.log(diffDays + " days");
+    if(diffDays<15){
+      this.daysExceed=false
+      var year = this.date1.getFullYear();
+      var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
+      var day = ("0" + this.date1.getDate()).slice(-2);
+      var from = year + '-' + month + '-'  + day
 
-        this.date1=new Date(data.fromDate)
-        this.date2=new Date(data.toDate)
-     
-      //  var diffTime = Math.abs(this.date2 - this.date1);
-      //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    
-        // console.log(diffDays + " days");
-      // if(diffDays<=15){
-        // this.daysExceed=false
-        var year = this.date1.getFullYear();
-        var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
-        var day = ("0" + this.date1.getDate()).slice(-2);
-        var from = year + '-' + month + '-'  + day
+      var year1 = this.date2.getFullYear();
+      var month1 = ("0" + (this.date2.getMonth() + 1)).slice(-2);
+      var day1 = ("0" + this.date2.getDate()).slice(-2);
+      var to = year1 + '-' + month1 + '-'  + day1
 
-        var year1 = this.date2.getFullYear();
-        var month1 = ("0" + (this.date2.getMonth() + 1)).slice(-2);
-        var day1 = ("0" + this.date2.getDate()).slice(-2);
-        var to = year1 + '-' + month1 + '-'  + day1
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.height = '90vh';
+      dialogConfig.width = '75vw';
+      dialogConfig.data = {
+        type:"summaryReport",
+        deviceName:data.deviceName,
+        fromDate:from,
+        toDate:to,
+        date:this.date1
+      }
+      const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.height = '90vh';
-        dialogConfig.width = '75vw';
-        dialogConfig.data = {
-          type:"summaryReport",
-          deviceName:data.deviceName,
-          fromDate:from,
-          toDate:to,
-        }
-        const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(result => {
+        this.refreshFinds()
+      });
+    }
+    else{
+        this.daysExceed=true
+    }
 
-        dialogRef.afterClosed().subscribe(result => {
-          this.refreshFinds()
-        });
-      // }
-      // else{
-      //     this.daysExceed=true
-      // }
-
-  }
+}
 
 
   onSubmitLocationForm(data){
@@ -581,3 +591,11 @@ onclickGeoLocation(data){
 
 
 }
+
+
+
+
+  
+
+
+  

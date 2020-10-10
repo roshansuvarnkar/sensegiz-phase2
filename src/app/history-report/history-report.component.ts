@@ -34,8 +34,10 @@ export class HistoryReportComponent implements OnInit {
   countCummulative=[]
   dataSource:any
   loginData:any
-  from:Date
-  to:Date
+  from:any
+  to:any
+  from1:any
+  to1:any
   index:any
   selectedValue:any
   deviceName:any
@@ -55,6 +57,7 @@ export class HistoryReportComponent implements OnInit {
   time:any
   date1:any
   date2:any
+  date:any
   coinData:any=[]
 
     constructor(
@@ -72,6 +75,9 @@ export class HistoryReportComponent implements OnInit {
       console.log("data==",data)
       this.from = data.fromDate
       this.to = data.toDate
+      this.from1 = data.fromDate1
+      this.to1 = data.toDate1
+      this.date=data.date
       this.selectedValue=data.valueSelected
       this.deviceName=data.deviceName
       this.locationName=data.locationName
@@ -174,29 +180,17 @@ export class HistoryReportComponent implements OnInit {
       fromDate: this.from,
       toDate:this.to,
       limit:limit,
-      offset:offset
+      offset:offset,
+      zone:this.general.getZone(this.date)
     }
+    console.log("data==",data)
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
       console.log("find data based on date ======",res);
       this.liveData=[]
       if(res.status){
-        if(type==0){
-          this.liveData=res.success
-        }
-        else{
-          this.excelData=[]
-          for(var i=0;i<res.success.length;i++){
-
-            this.excelData.push({
-            Sl_No:i+1,
-            Base_Person:res.success[i].baseName,
-            Contact_Person:res.success[i].contactName,
-            Contact_Time:this.general.updatedOnDate(res.success[i].updatedOn),
-            Total_Time:this.general.convertTime(res.success[i].totalTime)
-
-          })
-          }
-        }
+       
+        this.liveData=res.success
+      
         this.dataSource = new MatTableDataSource(this.liveData);
 
         setTimeout(() => {
@@ -215,30 +209,16 @@ export class HistoryReportComponent implements OnInit {
       fromDate: this.from,
       toDate:this.to,
       offset:offset,
-      limit:limit
+      limit:limit,
+      zone:this.general.getZone(this.date)
 
     }
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
       console.log("find data based on name ======",res);
 
       if(res.status){
-        if(type==0){
-          this.liveData=res.success
-        }
-        else{
-          this.excelData=[]
-          for(var i=0;i<res.success.length;i++){
-
-            this.excelData.push({
-            Sl_No:i+1,
-            Contact_Person:res.success[i].contactName,
-            Contact_Time:this.general.updatedOnDate(res.success[i].updatedOn),
-            Total_Time:this.general.convertTime(res.success[i].totalTime)
-
-          })
-          }
-
-        }
+      
+        this.liveData=res.success
 
         this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {
@@ -257,6 +237,7 @@ export class HistoryReportComponent implements OnInit {
         deviceName:this.deviceName,
         fromDate: this.from,
         toDate:this.to,
+        zone:this.general.getZone(this.date)
 
       }
       this.api.getSummaryReport(data).then((res:any)=>{
@@ -359,27 +340,12 @@ dataDateReduce(data){
 
 cummulativeReport(){
   var date=new Date()
-  var timezone=date.getTimezoneOffset()
-  
-  let m = timezone % 60;
-  timezone = (timezone - m) / 60;
-  let h = timezone
-  let mm = m <= 9 && m >= 0 ? "0"+m : m;
-  let hh = h <= 9 && h >= 0 ? "0"+h : h;
-  if(m<0 && h<0){
-     var timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
-  }
-  else if(m>0 && h>0){
-    timeZone= '-'+(-(hh)+':'+(-mm)).toString()
-  }
-  else{
-    timeZone=hh+':'+mm
-  }
+
   var data={
     userId:this.loginData.userId,
     fromDate: this.from,
     toDate:this.to,
-    zone:timeZone
+    zone:this.general.getZone(date)
 
   }
   console.log("hvhs==",data)
@@ -414,15 +380,16 @@ locationReport(limit,offset,type){
       fromDate: this.from,
       toDate:this.to,
       offset:offset,
-      limit:limit
+      limit:limit,
+      zone:this.general.getZone(this.date)
 
     }
     console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
       console.log("LocatSion history======",res);
+      this.locationData=[]
       if(res.status){
-        if(type==0){
-          this.locationData=[]
+        
         for(let i=0;i<res.success.length;i++){
           this.locationData.push({
             i:i+1,
@@ -435,29 +402,13 @@ locationReport(limit,offset,type){
 
           });
         }
-        }
 
 
-    else{
-      this.excelData=[]
-     for(var i=0;i<res.success.length;i++){
-      this.excelData.push({
-        Sl_No:i+1,
-        Username:res.success[i].deviceName,
-        Enter_Time:res.success[i].inTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].inTime),
-        Exit_Time:res.success[i].outTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].outTime),
-        Total_Time:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
-
-
-      });
-     }
-    }
-
-    this.dataSource = new MatTableDataSource(this.locationData);
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-      // this.dataSource.paginator = this.paginator
-       })
+      this.dataSource = new MatTableDataSource(this.locationData);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator
+        })
      }
   })
 }
@@ -471,19 +422,16 @@ geofenceAndlocationReport(limit,offset,type){
     fromDate: this.from,
     toDate:this.to,
     offset:offset,
-    limit:limit
+    limit:limit,
+    zone:this.general.getZone(this.date)
 
   }
   // console.log("data3==",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
     // console.log("Location and geo fence history======",res);
-
+    this.locGeoData=[]
     if(res.status){
-
-      if(type==0){
-        this.locGeoData=[]
       for(let i=0;i<res.success.length;i++){
-
         this.locGeoData.push({
           i:i+1,
           coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
@@ -494,22 +442,8 @@ geofenceAndlocationReport(limit,offset,type){
 
         });
       }
-      }
+  
 
-
-  else{
-   for(var i=0;i<res.success.length;i++){
-    this.excelData.push({
-      Sl_No:i+1,
-      Location:res.success[i].coinName == null?'Not available':res.success[i].coinName,
-      Geofence:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured',
-      Enter_Time:res.success[i].inTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].inTime),
-      Exit_Time:res.success[i].outTime == '0000-00-00 00:00:00'?'-':this.general.updatedOnDate(res.success[i].outTime),
-      Total_Time:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
-
-    });
-   }
-  }
 
   this.dataSource = new MatTableDataSource(this.locGeoData);
   setTimeout(() => {
@@ -582,24 +516,7 @@ getPages(){
   var data={}
   var fileName=''
   var date=new Date()
-  var timezone=date.getTimezoneOffset()
 
-  let m = timezone % 60;
-  timezone = (timezone - m) / 60;
-  let h = timezone
-  let mm = m <= 9 && m >= 0 ? "0"+m : m;
-  let hh = h <= 9 && h >= 0 ? "0"+h : h;
-  if(m<0 && h<0){
-     var timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
-  }
-  else if(m>0 && h>0){
-    timeZone= '-'+(-(hh)+':'+(-mm)).toString()
-  }
-  else{
-    timeZone=hh+':'+mm
-  }
-  console.log("date==",date)
-  console.log("timezone==",timeZone)
 
  if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
     if(this.type=='basedOnDate'){
@@ -607,7 +524,7 @@ getPages(){
       userId:this.loginData.userId,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.general.getZone(date),
       type:this.type
       }
       fileName="GenericReport"
@@ -618,7 +535,7 @@ getPages(){
     deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
-    zone:timeZone,
+    zone:this.general.getZone(date),
     type:this.type
   }
   fileName="Report-of-Find- "+this.deviceName
@@ -649,7 +566,7 @@ getPages(){
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.general.getZone(date),
       type:this.type
     }
     fileName="Report-of-location- "+this.locationName
@@ -660,7 +577,7 @@ getPages(){
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.general.getZone(date),
       type:this.type
     }
     fileName="GeoFenceReport_of- "+this.deviceName
@@ -679,7 +596,7 @@ getPages(){
       userId:this.loginData.userId,
       fromDate: this.from,
       toDate:this.to,
-      zone:timeZone,
+      zone:this.general.getZone(date),
       type:this.type
     }
     fileName="CummulativeReport"

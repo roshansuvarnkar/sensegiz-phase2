@@ -63,7 +63,7 @@ export class EditOverCrowdComponent implements OnInit {
 		});
 
 	 this.refreshCoins()
-	  // this.refreshGroupCoins()
+	  this.refreshGroupCoins()
   }
 
 	refreshCoins(){
@@ -134,6 +134,7 @@ export class EditOverCrowdComponent implements OnInit {
           if(this.groupNotNull[i].name!='null'){
             control.push(this.fb.group(
               {
+                userId:[this.groupNotNull[i].data[0].userId],
                 name:[this.groupNotNull[i].name],
                 coinName:[],
                 maxLimit:[this.groupNotNull[i].data[0].groupMaxlimit],
@@ -245,25 +246,31 @@ dataDateReduce(data){
     },{})
   }
 
+
+filterCoin(data){
+  let a =[]
+  data.coinName.filter(obj=>{
+    a.push(obj.coinId)
+  })
+  return a;
+}
 submit(data,i){
   console.log("data======",data)
-  data.coinId=data.coinName.filter(x=>{
-    return x.coinId
-  })
-
   var value={
+    userId:data.items[i].userId,
     groupName:data.items[i].name,
-    groupMaximit:data.items[i].maxLimit,
-    coinId:data.coinId
+    groupMaxlimit:data.items[i].maxLimit,
+    coinId:this.filterCoin(data.items[i])
   }
   console.log("value======",value)
-  this.api.setMaxLimit(data).then((res:any)=>{
+  this.api.updateGroupName(value).then((res:any)=>{
     console.log("group maxlimit response===",res)
     if(res.status){
       // this.refreshSetting()
-      this.refreshGroupCoins();
       var msg='Group updated Successfully'
       this.general.openSnackBar(msg,'')
+      this.refreshGroupCoins();
+
     }
 
   }).catch(err=>{
@@ -307,15 +314,18 @@ submit(data,i){
     console.log("delete",value)
     var data={
       userId:this.loginData.userId,
-      groupName:value.items[i].name
+      groupName:value.items[i].name,
+      coinId:this.filterCoin(value.items[i])
     }
-    
+    console.log("delete data ======",data);
+
     this.api.deleteGroupName(data).then((res:any)=>{
-      // console.log("coin data ======",res);
       if(res.status){
-        this.refreshGroupCoins()
+        
         var msg = 'Group Deleted Successfully'
         this.general.openSnackBar(msg,'')
+        this.refreshGroupCoins()
+         this.refreshCoins()
       }
       })
   }
