@@ -52,7 +52,7 @@
           Please provide valid email id. Ex.xyz@gmail.com
         </mat-error>
 
-      </mat-form-field> <br><br>
+      </mat-form-field> <br>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -205,7 +205,7 @@
 							formControlName="mobileNum">
             </ngx-intl-tel-input>
             <hr class="mob">
-            <mat-error *ngIf="userform.get('mobileNum').status=='INVALID'" class="error" >
+            <mat-error *ngIf="userform.get('mobileNum').status=='INVALID' && userform.get('mobileNum').touched==true" class="error" >
               Please provide valid mobile number
              </mat-error> 
 					</div> <br>  <br>
