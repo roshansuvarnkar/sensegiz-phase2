@@ -43,8 +43,8 @@ export class HistoryReportComponent implements OnInit {
   deviceName:any
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updatedOn', 'totaltime'];
-  displayedColumns1: string[] = ['i','contactName', 'updatedOn', 'totaltime'];
+  displayedColumns: string[] = ['i','baseName','contactName','location','startTime', 'updatedOn', 'totaltime'];
+  displayedColumns1: string[] = ['i','contactName','location', 'updatedOn', 'totaltime'];
   displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
   displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
   displayedColumns4: string[] = ['i','coinName','geofenceStatus','inTime', 'outTime','totTime'];
@@ -194,6 +194,7 @@ export class HistoryReportComponent implements OnInit {
           i:i+1,
           baseName:res.success[i].baseName,
           contactName:res.success[i].contactName,
+          location:res.success[i].location,
           updatedOn:this.general.updatedOnDate(res.success[i].updatedOn),
           startTime:this.general.startTime(res.success[i].totalTime,res.success[i].updatedOn),
           totalTime:this.general.convertTime(res.success[i].totalTime)
