@@ -59,7 +59,7 @@ export class AddFindComponent implements OnInit {
 
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: ['', Validators.required],
+      deviceId: ['', [Validators.required,Validators.min(1)]],
       employeeId: [''],
       mobileNum: ['',[Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
@@ -82,7 +82,7 @@ export class AddFindComponent implements OnInit {
 
     this.coinForm =this.fb.group({
       coinName: ['', Validators.required],
-      coinId: ['', Validators.required],
+      coinId: ['', [Validators.required,Validators.min(1)]],
       gatewayId:['', Validators.required]
     });
     

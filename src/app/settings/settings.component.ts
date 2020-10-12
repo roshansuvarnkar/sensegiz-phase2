@@ -904,6 +904,7 @@ export class SettingsComponent implements OnInit {
     const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
+      this.refreshCoins()
     });
   }
 

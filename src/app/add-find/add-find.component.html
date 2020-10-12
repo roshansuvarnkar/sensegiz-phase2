@@ -26,6 +26,7 @@
           <mat-form-field>
             <mat-label>Find Id</mat-label>
             <input type="number" min="1" matInput formControlName="deviceId" placeholder="Ex. 1" required>
+            <mat-error >Device ID cannot be 0</mat-error>
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
@@ -267,6 +268,8 @@
           <mat-form-field>
             <mat-label>Coin Id</mat-label>
             <input type="number" matInput formControlName="coinId" placeholder="Ex. 1" required>
+            <mat-error >Coin ID cannot be 0</mat-error>
+
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
