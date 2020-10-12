@@ -27,7 +27,7 @@ count= 0
 currentPageLength:number = 10;
 currentPageSize:number = 10;
 
-displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updatedOn','totalTime'];
+displayedColumns: string[] = ['i','baseName','contactName','location','startTime', 'updatedOn','totalTime'];
 
 
   constructor(
