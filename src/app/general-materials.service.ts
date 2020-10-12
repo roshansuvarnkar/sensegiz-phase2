@@ -95,6 +95,23 @@ updatedOnDate(date){
 
 
 }
+startTime(data1,data2){
+  console.log(data1,data2)
+  var date=new Date(data2)
+  if(data1!="00:00:00" || data1!='-'){
+    var a=data1.split(':')
+    date.setHours(date.getHours() -a[0]);
+    date.setMinutes(date.getMinutes() - a[1]); 
+    date.setSeconds(date.getSeconds() - a[2]); 
+    // console.log("new date==",date)
+  }
+  if(data1=="00:00:00" || data1=='-'){
+    date.setSeconds(date.getSeconds() - 5); 
+  }
+ 
+
+  return date
+}
 convertTime(a){
   // console.log(a)
 
