@@ -410,7 +410,7 @@ onSubmitSummaryReport(data){
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
   
       console.log(diffDays + " days");
-    if(diffDays>15){
+    if(diffDays<15){
       this.daysExceed=false
       var year = this.date1.getFullYear();
       var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
