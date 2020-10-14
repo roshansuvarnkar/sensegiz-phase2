@@ -107,17 +107,17 @@ preferredCountries: CountryISO[] = [CountryISO.India];
   }
 
 
+
   Findsubmit(data){
-    console.log("find edit===",data)
-    // var mobNum=data.mobileNum.replace(/\s/g,'')
-    // console.log("mon num==",mobNum)
-    // data.mobileNum=mobNum==''?'-':mobNum=='+91'?mobNum.substring(3):mobNum
     if (this.Findform.valid) {
       try {
-        console.log("find edit===",data)
+         console.log("find edit===",data)
+        //  var mobNum=data.mobileNum.replace(/\s/g,'')
+          // console.log("mon num==",mobNum)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
-        data.userId=this.loginData.userId
+        data.userId=this.deviceData.userId
+        data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("find submit====",res);
           if(res.status){
@@ -128,8 +128,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
             var msg = 'Device Name Already exists, try different Name'
             this.general.openSnackBar(msg,'')
           }
-
-
+        
         })
       } catch (err) {
       }
@@ -143,7 +142,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       try {
         data.tblName='gatewayRegistration'
         data.id=this.deviceData.id
-        data.userId=this.loginData.userId
+        data.userId=this.deviceData.userId
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("gateway submit==",res)
           if(res.status){
@@ -151,7 +150,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Gateway Name Already exists, try different gateway'
+            var msg = 'Gateway Name  Already exists, try different gateway'
             this.general.openSnackBar(msg,'')
           }
         })
@@ -166,17 +165,15 @@ preferredCountries: CountryISO[] = [CountryISO.India];
     if (this.userform.valid) {
       try {
         data.id=this.deviceData.id
-        data.userId=this.loginData.userId
-        console.log("user data==",data)
-
+        data.mobileNum=data.mobileNum.e164Number
         this.api.EditUserRegister(data).then((res:any)=>{
-          console.log("user submit==",res)
+          // console.log("user submit==",res)
           if(res.status){
             var msg = 'User Updated Successfully'
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Email id or Mobile Number Already exists, try different device'
+            var msg = 'Email Id or Mobile Number Already exists, try different device'
             this.general.openSnackBar(msg,'')
           }
         })

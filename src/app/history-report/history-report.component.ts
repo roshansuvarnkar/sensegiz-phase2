@@ -97,9 +97,9 @@ export class HistoryReportComponent implements OnInit {
     if(this.type=='basedOnDate'){
       var data={
         userId:this.loginData.userId,
-
         fromDate: this.from,
         toDate:this.to,
+        zone:this.general.getZone(this.date)
       }
 
       this.api.getHistoryDateReportTotalCount(data).then((res:any)=>{
@@ -118,6 +118,7 @@ export class HistoryReportComponent implements OnInit {
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
+      zone:this.general.getZone(this.date)
     }
 
     this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
@@ -137,6 +138,7 @@ export class HistoryReportComponent implements OnInit {
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
+      zone:this.general.getZone(this.date)
     }
 
     this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
@@ -155,6 +157,7 @@ export class HistoryReportComponent implements OnInit {
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
+      zone:this.general.getZone(this.date)
     }
 
     this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
@@ -301,6 +304,7 @@ summaryReport(){
     deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
+    zone:this.general.getZone(this.date)
 
   }
   this.api.getSummaryReport(data).then((res:any)=>{

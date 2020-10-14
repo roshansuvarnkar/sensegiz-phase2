@@ -170,7 +170,7 @@ delete(a){
 
 infected(a){
   if(confirm('Are you sure to do this operation')){
-    // console.log("yes",a)
+    console.log("yes",a)
     var inf = a.infected == 0 ? 1 :0
     var data = {
       deviceId:a.deviceId,
@@ -294,6 +294,8 @@ fileChange(files){
    }
  }
 this.readExcel(files[0])
+
+
 }
 
 readExcel(file) {  
@@ -316,9 +318,15 @@ readExcel(file) {
      
   }  
   readFile.readAsArrayBuffer(file);  
+  console.log(this.fileupload)
+  var msg = 'Uploading file'
+  this.general.openSnackBar(msg,'')
+  setTimeout(()=>{this.fileSubmit(this.fileupload.value)},6*1000)
   
 }
-
+onclick(){
+  document.getElementById('file').click()
+}
 
 clearFile(){
 this.fileupload.get('fileData').setValue(null);
@@ -331,8 +339,10 @@ randomNumber(min=1, max=20) {
    return Math.random() * (max - min) + min;
 }
 
+
 fileSubmit(data){
-  console.log(data)
+  console.log("file upload data",data)
+
   var type=data.fileData.filename.split('.')
   console.log("type==",type[type.length-1].toString())
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
@@ -341,7 +351,7 @@ fileSubmit(data){
     if(data.header[0].toLowerCase()=='name' && data.header[2].toLowerCase()=='deviceid'|| data.header[1].toLowerCase()=="employeeid" || 
     data.header[3]=="mobilenumber".toLowerCase() || data.header[4]=="emailid".toLowerCase()){
       this.format=false
-      var msg = 'Please wait..!it takes few minutes to upload'
+      var msg = 'Please wait..! It takes few minutes to upload'
       this.general.openSnackBar(msg,'')
       data.userId =  this.loginData.userId
       data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename

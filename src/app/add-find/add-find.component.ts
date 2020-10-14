@@ -99,13 +99,16 @@ onNoClick(): void {
 }
 
 Findsubmit(data){
+  console.log("this.findform===",this.Findform)
+  console.log("find submit data==",data)
   if (this.Findform.valid) {
     try {
-      console.log("find submit====",data)
       data.tblName ='deviceRegistration'
       data.userId=this.loginData.userId
+      data.mobileNum=data.mobileNum!=null?data.mobileNum.e164Number:''
+      console.log("data of finds====",data)
       this.api.deviceRegister(data).then((res:any)=>{
-        // console.log("find submit====",res);
+        console.log("find res data====",res);
         if(res.status){
           var msg = 'Find Registered Successfully'
           this.general.openSnackBar(msg,'')
@@ -116,6 +119,7 @@ Findsubmit(data){
         }
       })
     } catch (err) {
+      console.log("erroe==",err)
     }
   }
 }
@@ -149,6 +153,7 @@ Usersubmit(data){
   if (this.userform.valid) {
     try {
       data.userId=this.loginData.userId
+      data.mobileNum=data.mobileNum.e164Number
       this.api.UserRegister(data).then((res:any)=>{
         // console.log("user submit==",res)
         if(res.status){
@@ -156,7 +161,7 @@ Usersubmit(data){
           this.general.openSnackBar(msg,'')
         }
         else if(!res.status && res.alreadyExisted){
-          var msg = 'Email id or Mobile Number Already exists, try different user'
+          var msg = 'EmailId or Mobile Number Already exists, try different device'
           this.general.openSnackBar(msg,'')
         }
       })
@@ -187,21 +192,21 @@ coinSubmit(data){
   }
 
 }
-refreshGateway(){
-  var data={
-      userId:this.loginData.userId,
-      tblName:'gatewayRegistration'
-    }
+  refreshGateway(){
+    var data={
+        userId:this.loginData.userId,
+        tblName:'gatewayRegistration'
+      }
 
-  this.api.getData(data).then((res:any)=>{
-    console.log("gateway data ======",res);
-    if(res.status){
-      this.gateway=res.success
+    this.api.getData(data).then((res:any)=>{
+      console.log("gateway data ======",res);
+      if(res.status){
+        this.gateway=res.success
 
-    }
+      }
 
-  })
-}
+    })
+  }
 
 
 

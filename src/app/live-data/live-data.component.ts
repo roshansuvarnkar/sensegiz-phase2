@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { GeneralMaterialsService } from '../general-materials.service';
 import { Timestamp } from 'rxjs';
 import { ThrowStmt } from '@angular/compiler';
 import * as moment from 'moment'
@@ -33,6 +34,7 @@ displayedColumns: string[] = ['i','baseName','contactName','location','startTime
   constructor(
     private api: ApiService,
     private login:LoginCheckService,
+    private general:GeneralMaterialsService,
     private router:Router
   ) { }
 
@@ -74,10 +76,12 @@ displayedColumns: string[] = ['i','baseName','contactName','location','startTime
   }
 
 getTotalCount(val){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     tblName:'deviceData',
-    count:val
+    count:val,
+    zone:this.general.getZone(date)
   }
  
   this.api.getLiveDataTotalCount(data).then((res:any)=>{
@@ -94,11 +98,12 @@ getTotalCount(val){
 
   refreshData(value,limit=10,offset=0){
     this.liveData=[]
-
+    var date=new Date()
     var data={
       userId:this.loginData.userId,
       tblName:'deviceData',
       count:value,
+      zone:this.general.getZone(date),
       offset:offset,
       limit:limit
     }
