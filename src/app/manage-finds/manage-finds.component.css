@@ -47,8 +47,6 @@ table.mat-table {
   display: none;
 }
 
-
-
 .batteryContainer {
   display: -webkit-box;
   display: -moz-box;
@@ -83,11 +81,11 @@ table.mat-table {
 .cursor{
   cursor: pointer;
 }
-/* .upload-btn{
+.upload-btn{
   display: block;
   color: #ef6c00;
    text-decoration: underline orange;
-} */
+}
 @media only screen and (max-width: 768px) {
     table.table thead th {
         font-weight: 600;
