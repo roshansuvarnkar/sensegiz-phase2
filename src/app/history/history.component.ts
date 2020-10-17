@@ -432,6 +432,7 @@ onSubmitSummaryReport(data){
         deviceName:data.deviceName,
         fromDate:from,
         toDate:to,
+        date:this.date1
         
       }
       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);

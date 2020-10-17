@@ -43,7 +43,7 @@ export class HistoryReportComponent implements OnInit {
   deviceName:any
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns: string[] = ['i','baseName','contactName','location','startTime', 'updatedOn', 'totaltime'];
+  displayedColumns: string[] = ['i','baseName','contactName','empId','location','startTime', 'updatedOn', 'totaltime'];
   displayedColumns1: string[] = ['i','contactName','location', 'updatedOn', 'totaltime'];
   displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
   displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
@@ -197,6 +197,7 @@ export class HistoryReportComponent implements OnInit {
           i:i+1,
           baseName:res.success[i].baseName,
           contactName:res.success[i].contactName,
+          empId:res.success[i].empId==null || res.success[i].empId==''?'-':res.success[i].empId,
           location:res.success[i].location,
           updatedOn:this.general.updatedOnDate(res.success[i].updatedOn),
           startTime:this.general.startTime(res.success[i].totalTime,res.success[i].updatedOn),
@@ -324,15 +325,15 @@ summaryReport(){
       })
       console.log("live==",this.liveData)
 
-      for(let i=0;i<this.liveData.length;i++){
+      // for(let i=0;i<this.liveData.length;i++){
 
-        for(let j=0;j<this.liveData[i].date.length-1;j++){
-          this.liveData[i].date[j].updatedOn = this.liveData[i].date[j].updatedOn.split('T')[0]+','
-        }
+      //   for(let j=0;j<this.liveData[i].date.length-1;j++){
+      //     this.liveData[i].date[j].updatedOn = this.liveData[i].date[j].updatedOn.split('T')[0]+','
+      //   }
 
-        this.liveData[i].date[this.liveData[i].date.length-1].updatedOn=this.liveData[i].date[this.liveData[i].date.length-1].updatedOn.split('T')[0]+'.'
+      //   this.liveData[i].date[this.liveData[i].date.length-1].updatedOn=this.liveData[i].date[this.liveData[i].date.length-1].updatedOn.split('T')[0]+'.'
 
-       }
+      //  }
 
 
     }
@@ -341,18 +342,46 @@ summaryReport(){
 
 
 dataDateReduce(data){
-return data.reduce((group,obj)=>{
-const name = obj.contactDeviceName
-console.log("name---",name)
-if(!group[name]){
-  group[name]=[]
+  return data.reduce((group,obj)=>{
+  const name = obj.contactDeviceName
+  console.log("name---",name,"this.deviceName====",this.deviceName)
+  if(name!=this.deviceName){
+      if(!group[name]){
+        group[name]=[]
+      }
+      group[name].push(obj)
+    }
+    console.log("group==",group)
+    return group
+ 
+  },{})
 }
-group[name].push(obj)
-console.log("group==",group)
-return group
-},{})
+callUpdatedon(date){
+  var a=[]
+  var data=date.filter((obj,index)=>{
+     console.log(a.includes(obj.updatedOn))
+    if(!a.includes(obj.updatedOn)){
+        a.push(obj.updatedOn)
+    }
+  })
+  console.log("aaa==",a)
+  a[a.length-1]= a[a.length-1]+'.'
+  return a
 }
 
+location(loc){
+  console.log("loc===",loc)
+  var a=[]
+  var data=loc.filter((obj,index)=>{
+     console.log(a.includes(obj.location))
+    if(!a.includes(obj.location) && (obj.location!='-' || obj.location!='')){
+        a.push(obj.location)
+    }
+  })
+  console.log("aaa==",a)
+  a[a.length-1]= a[a.length-1]+'.'
+  return a
+}
 cummulativeReport(){
   var date=new Date()
 
