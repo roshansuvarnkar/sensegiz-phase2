@@ -26,7 +26,9 @@ mat-card-title{
     display: flex;
     justify-content: center;
 }
-
+::ng-deep .mat-autocomplete-panel{
+    width:0 !important;
+}
 mat-radio-button {
     display: inline !important;
     margin-left: 2.6rem;
