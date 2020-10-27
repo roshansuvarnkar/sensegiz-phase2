@@ -299,8 +299,10 @@ submit(data,i){
 	  var data = {
     id:value.id,
     userId:this.loginData.userId,
+    coinId:value.coinId,
 		tblName:'coinMaxLimitInfo'
-	  }
+    }
+    console.log("data delete===",data)
 	  this.api.deleteOvercrowding(data).then((res:any)=>{
 		console.log("delete data ======",res);
 		if(res.status){

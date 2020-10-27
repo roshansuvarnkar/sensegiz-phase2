@@ -990,19 +990,20 @@ getPages(){
   returnTotTime(inTime,outTime){
 
     console.log("time===",inTime,outTime)
-     this.inDate  = new Date(inTime)
-     this.outDate=new Date(outTime)
     var date=new Date()
+     this.inDate  =inTime==null || inTime=='-'?date: new Date(inTime)
+     this.outDate=outTime==null||outTime=='' ||outTime=='-'?date:new Date(outTime)
   
-    if(this.inDate !="Invalid Date" || this.inDate !=null || this.inDate !='' || this.inDate !='-'){
   
-      if(this.outDate!="Invalid Date" || this.outDate!=null || this.outDate!='' || this.outDate!='-'){
-        var diff = Math.abs(this.date2 - this.date1)
+    if(this.inDate !="Invalid Date" ){
+  
+      if(this.outDate!="Invalid Date" ){
+        var diff = Math.abs(this.outDate - this.inDate)
       }
   
       else{
         this.date2=date
-        diff= Math.abs(this.date2 - this.date1)
+        diff= Math.abs(this.outDate - this.inDate)
       }
   
   

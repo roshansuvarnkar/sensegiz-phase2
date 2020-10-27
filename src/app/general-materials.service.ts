@@ -135,9 +135,9 @@ convertTime(a){
 
 totalTime(inTime,outTime){
   console.log("time===",inTime,outTime)
-  var date=new Date()
-  this.date1  = new Date(inTime)
-  this.date2=outTime==null||outTime==''||outTime=='-'||outTime==undefined?date:new Date(outTime)
+ 
+  this.date1 = new Date(inTime)
+  this.date2 = new Date('0000-00-00 00:00:00')
   
   console.log("time2===",this.date1, this.date2)
  
@@ -148,9 +148,7 @@ totalTime(inTime,outTime){
     }
 
     else if(this.date2!=null){
-      console.log("date===",date)
-      this.date2=date
-      diff= Math.abs(this.date2 - this.date1)
+      
     }
 
 
