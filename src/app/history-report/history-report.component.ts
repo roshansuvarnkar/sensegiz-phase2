@@ -1022,6 +1022,5 @@ getPages(){
       this.inoutTime = hh +':' + mm + ':' +ss
             return this.inoutTime;
     }
-
   }
 }
