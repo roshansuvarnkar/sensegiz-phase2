@@ -88,10 +88,9 @@ hr {
       /* flex-wrap: wrap; */
       /* justify-content: space-evenly; */
   }
-  mat-card.mat-card.mat-focus-indicator.tab {
-    /* max-width: fit-content !important; */
-    width: 140%;
-}
+  mat-card.mat-card.mat-focus-indicator.tab{
+    width: fit-content !important;
+  }
 mat-card.mat-card.mat-focus-indicator.sub {
     max-width: 20rem;
     text-align: center;

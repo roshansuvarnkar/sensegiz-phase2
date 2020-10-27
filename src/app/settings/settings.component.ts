@@ -557,6 +557,7 @@ export class SettingsComponent implements OnInit {
           // console.log("limit response===",res)
           if(res.status){
             this.refreshSetting()
+            this.overCrowedForm.reset()
             var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
           }
@@ -689,7 +690,7 @@ export class SettingsComponent implements OnInit {
           // console.log("buzzer congig===",res)
           if(res.status){
             this.refreshSetting()
-            var msg='Buzzer configured Successfully'
+            var msg='Alert configured Successfully'
             this.general.openSnackBar(msg,'')
           }
 

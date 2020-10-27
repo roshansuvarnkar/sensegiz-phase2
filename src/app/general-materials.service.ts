@@ -135,17 +135,20 @@ convertTime(a){
 
 totalTime(inTime,outTime){
   console.log("time===",inTime,outTime)
-  this.date1  = new Date(inTime)
-  this.date2=new Date(outTime)
   var date=new Date()
+  this.date1  = new Date(inTime)
+  this.date2=outTime==null||outTime==''||outTime=='-'||outTime==undefined?date:new Date(outTime)
+  
+  console.log("time2===",this.date1, this.date2)
+ 
+  if(this.date1 !="Invalid Date" ){
 
-  if(this.date1 !="Invalid Date"){
-
-    if(this.date2!="Invalid Date"){
+    if(this.date2!="Invalid Date" ){
       var diff = Math.abs(this.date2 - this.date1)
     }
 
-    else{
+    else if(this.date2!=null){
+      console.log("date===",date)
       this.date2=date
       diff= Math.abs(this.date2 - this.date1)
     }

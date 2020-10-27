@@ -1034,6 +1034,20 @@ getOnlineCount(data){
   });
 
 }
+
+deleteOvercrowding(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/deleteOverCrowding';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+
+}
 downloadFile(response,fileName){
   let body = response.body
   let dataType = body.type;

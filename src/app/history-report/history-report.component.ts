@@ -9,6 +9,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import { OrderContactComponent } from '../order-contact/order-contact.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
 
 
@@ -27,7 +28,6 @@ export class HistoryReportComponent implements OnInit {
   type:any
   dateBased:any
   findNameBased:any
-  liveData:any=[]
   summaryData:any=[]
   excelData:any=[]
   locGeoData:any=[]
@@ -59,13 +59,21 @@ export class HistoryReportComponent implements OnInit {
   date2:any
   date:any
   coinData:any=[]
-
+  liveData:any=[]
+  totTime:any=[]
+  limit:any
+  offset:any
+  selectMin:FormGroup
+  inDate:any
+  outDate:any
+  inoutTime:any
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
       private login:LoginCheckService,
       private general:GeneralMaterialsService,
       private router:Router,
+      private fb:FormBuilder,
       public dialogRef: MatDialogRef<HistoryReportComponent>,
        @Inject(MAT_DIALOG_DATA)  data,
     ) {
@@ -88,7 +96,9 @@ export class HistoryReportComponent implements OnInit {
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-
+    this.selectMin=this.fb.group({
+      minute:['']
+    })
     this.getTotalCount()
     this.loadData()
   }
@@ -176,7 +186,7 @@ export class HistoryReportComponent implements OnInit {
 
 
 
-  basedOnDate(limit,offset,type){
+  basedOnDate(limit,offset){
     console.log(limit,offset)
     var data={
       userId:this.loginData.userId,
@@ -190,9 +200,12 @@ export class HistoryReportComponent implements OnInit {
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
       console.log("find data based on date ======",res);
       this.liveData=[]
+      this.totTime=[]
       if(res.status){
+        this.totTime=res.success
+        // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         for(var i=0;i<res.success.length;i++){
-
+      
           this.liveData.push({
           i:i+1,
           baseName:res.success[i].baseName,
@@ -213,11 +226,23 @@ export class HistoryReportComponent implements OnInit {
           // this.paginator.length = this.currentPageLength
         })
       }
+    // }
+    // else{
+    //   this.totTime=res.success
+    //   console.log("this.tottttttt===",this.totTime)
+
+    //   if(this.selectMin.get('minute').value!=''){
+    //     console.log("this.selectMin.get('minute').value===",this.selectMin.get('minute').value)
+        
+    //     this.filterTotTime(this.selectMin.get('minute').value)
+    
+    //   }
+    // }
 
     })
 
   }
-  basedOnFindName(limit,offset,type){
+  basedOnFindName(limit,offset){
     var data={
       userId:this.loginData.userId,
       deviceName:this.deviceName,
@@ -226,23 +251,39 @@ export class HistoryReportComponent implements OnInit {
       offset:offset,
       limit:limit,
       zone:this.general.getZone(this.date)
-
+  
     }
+    this.liveData=[]
+    this.totTime=[]
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
       console.log("find data based on name ======",res);
-
+  
       if(res.status){
-      
-        this.liveData=res.success
-
+     
+          this.liveData=res.success
+          this.totTime=res.success
+     
+        // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           // this.paginator.length = this.currentPageLength
         })
+        // }
+        // else{
+        //   this.totTime=res.success
+        //   console.log("this.tottttttt===",this.totTime)
+  
+        //   if(this.selectMin.get('minute').value!=''){
+        //     console.log("this.selectMin.get('minute').value===",this.selectMin.get('minute').value)
+            
+        //     this.filterTotTime(this.selectMin.get('minute').value)
+        
+        //   }
+        // }
       }
     })
-
+  
   }
 
 //   summaryReport(){
@@ -312,8 +353,9 @@ summaryReport(){
     console.log("summary report======",res);
 
     this.liveData=[]
-    if(res.status){
 
+    if(res.status){
+     
       var groupUser = this.dataDateReduce(res.success)
       // console.log("groupDate===",groupUser)
       this.liveData = Object.keys(groupUser).map((data)=>{
@@ -374,11 +416,12 @@ location(loc){
   var a=[]
   var data=loc.filter((obj,index)=>{
      console.log(a.includes(obj.location))
-    if(!a.includes(obj.location) && (obj.location!='-' || obj.location!='')){
+    if(!a.includes(obj.location) && obj.location!='-'){
         a.push(obj.location)
     }
+
   })
-  console.log("aaa==",a)
+  console.log("loc a==",a)
   a[a.length-1]= a[a.length-1]+'.'
   return a
 }
@@ -394,29 +437,47 @@ cummulativeReport(){
   }
   console.log("hvhs==",data)
   this.api.viewCTReport(data).then((res:any)=>{
-    this.countCummulative=[]
+    this.liveData=[]
+    this.totTime=[]
     console.log("cummulative report==",res)
     if(res.status){
-      for(let i=0;i<res.data.length;i++){
-        this.countCummulative.push({
-          i:i+1,
-          username:res.data[i].baseDeviceName,
-          count:res.data[i].count,
-          totTime:this.general.convertTime(res.data[i].totalTime)
+      this.totTime=res.data
+      // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
+        console.log("this.selectMin.get('minute').value else===",this.selectMin.get('minute').value)
+        for(let i=0;i<res.data.length;i++){
+          this.liveData.push({
+            i:i+1,
+            username:res.data[i].baseDeviceName,
+            count:res.data[i].count,
+            totTime:this.general.convertTime(res.data[i].totalTime)
+  
+          });
+        }
+        this.dataSource = new MatTableDataSource(this.liveData);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator
+           })
+    
+      // }
+      // else{
+      //   this.totTime=res.success
+      //   console.log("this.tottttttt===",this.totTime)
 
-        });
-      }
-      this.dataSource = new MatTableDataSource(this.countCummulative);
-      setTimeout(() => {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator
-         })
+      //   if(this.selectMin.get('minute').value!=''){
+      //     console.log("this.selectMin.get('minute').value===",this.selectMin.get('minute').value)
+          
+      //     this.filterTotTime(this.selectMin.get('minute').value)
+      
+      //   }
+      // }
+
     }
   })
 
 }
 
-locationReport(limit,offset,type){
+locationReport(limit,offset){
 
     var data={
       userId:this.loginData.userId,
@@ -431,15 +492,18 @@ locationReport(limit,offset,type){
     console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
       console.log("LocatSion history======",res);
-      this.locationData=[]
+      this.liveData=[]
+      this.totTime=[]
       if(res.status){
-        
+        this.totTime=res.success
+        console.log("location ====",this.totTime)
+        // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         for(let i=0;i<res.success.length;i++){
-          this.locationData.push({
+          this.liveData.push({
             i:i+1,
             deviceName:res.success[i].deviceName,
-            inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
-            outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
+            inTime:res.success[i].inTime == '0000-00-00 00:00:00' || res.success[i].inTime == null?'-':res.success[i].inTime,
+            outTime:res.success[i].outTime == '0000-00-00 00:00:00'  || res.success[i].inTime == null?'-':res.success[i].outTime,
             totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
             // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
             // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
@@ -448,17 +512,30 @@ locationReport(limit,offset,type){
         }
 
 
-      this.dataSource = new MatTableDataSource(this.locationData);
+      this.dataSource = new MatTableDataSource(this.liveData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
         // this.dataSource.paginator = this.paginator
         })
+      // }
+      // else{
+      //   this.totTime=res.success
+      //   console.log("this.tottttttt===",this.totTime)
+
+      //   if(this.selectMin.get('minute').value!=''){
+      //     console.log("this.selectMin.get('minute').value===",this.selectMin.get('minute').value)
+          
+      //     this.filterTotTime(this.selectMin.get('minute').value)
+      
+      //   }
+      // }
+
      }
   })
 }
 
 
-geofenceAndlocationReport(limit,offset,type){
+geofenceAndlocationReport(limit,offset){
 
   var data={
     userId:this.loginData.userId,
@@ -472,15 +549,19 @@ geofenceAndlocationReport(limit,offset,type){
   }
   // console.log("data3==",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
-    // console.log("Location and geo fence history======",res);
-    this.locGeoData=[]
+    console.log("Location and geo fence history======",res);
+    this.liveData=[]
+    this.totTime=[]
     if(res.status){
+      this.totTime=res.success
+      // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
       for(let i=0;i<res.success.length;i++){
-        this.locGeoData.push({
+      
+        this.liveData.push({
           i:i+1,
           coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
-          inTime:res.success[i].inTime == '0000-00-00 00:00:00'?'-':res.success[i].inTime,
-          outTime:res.success[i].outTime == '0000-00-00 00:00:00'?'-':res.success[i].outTime,
+          inTime:res.success[i].inTime == '0000-00-00 00:00:00'|| res.success[i].inTime == null?'-':res.success[i].inTime,
+          outTime:res.success[i].outTime == '0000-00-00 00:00:00' || res.success[i].inTime == null?'-':res.success[i].outTime,
           totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime),
           geofenceStatus:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured',
 
@@ -488,36 +569,46 @@ geofenceAndlocationReport(limit,offset,type){
       }
   
 
-
-  this.dataSource = new MatTableDataSource(this.locGeoData);
+  this.dataSource = new MatTableDataSource(this.liveData);
   setTimeout(() => {
     this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator
      })
    }
+  // }
+  // else{
+  //   this.totTime=res.success
+  //   console.log("this.tottttttt===",this.totTime)
+
+  //   if(this.selectMin.get('minute').value!=''){
+  //     console.log("this.selectMin.get('minute').value===",this.selectMin.get('minute').value)
+      
+  //     this.filterTotTime(this.selectMin.get('minute').value)
+  
+  //   }
+  // }
 })
 }
 
-  loadData(limit=10,offset=0,type=0){
+  loadData(limit=10,offset=0){
 
       if(this.type == 'basedOnDate'){
-        this.basedOnDate(limit=limit,offset=offset,type=type)
+        this.basedOnDate(limit=limit,offset=offset)
       }
       if(this.type == 'cummulative'){
         this.cummulativeReport()
       }
       if(this.type == 'basedOnFindName'){
-        this.basedOnFindName(limit=limit,offset=offset,type=type)
+        this.basedOnFindName(limit=limit,offset=offset)
       }
       if(this.type == 'summaryReport'){
         this.summaryReport()
-
       }
       if(this.type == 'locationReport'){
-        this.locationReport(limit=limit,offset=offset,type=type)
+        this.locationReport(limit=limit,offset=offset)
       }
       if(this.type == 'geoFenceReport'){
-        this.geofenceAndlocationReport(limit=limit,offset=offset,type=type)
+        this.geofenceAndlocationReport(limit=limit,offset=offset)
       }
 }
 
@@ -525,10 +616,10 @@ geofenceAndlocationReport(limit,offset,type){
 getUpdate(event) {
   // console.log("paginator event",event);
   // console.log("paginator event length", this.currentPageLength);
-  var limit = event.pageSize
-  var offset = event.pageIndex*event.pageSize
+  this.limit = event.pageSize
+ this.offset = event.pageIndex*event.pageSize
   // console.log("limit==",limit,"offset==",offset)
-  this.loadData(limit,offset)
+  this.loadData(this.limit,this.offset)
 }
 
 
@@ -697,7 +788,154 @@ getPages(){
     return date
   }
 
+  filterTotTime(event){
+    console.log("event value===",event.value)
+    var arr=[]
 
+  if(event.value !="0"){
+    if(this.type == 'basedOnDate'  ){
+      
+      this.totTime.filter((obj,index)=>{
+    
+        if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+          arr.push({
+        
+            baseName:obj.baseName,
+            contactName:obj.contactName,
+            empId:obj.empId==null ||obj.empId==''?'-':obj.empId,
+            updatedOn:obj.updatedOn,
+            startTime:this.general.startTime(obj.totalTime,obj.updatedOn),
+            totalTime:this.general.convertTime(obj.totalTime)
+      
+          })
+          console.log("arrr==",arr)
+          return arr
+        }
+    
+      
+      })
+      
+
+      this.dataSource = new MatTableDataSource(arr);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+
+
+      })
+
+    }
+    if(this.type == 'basedOnFindName'  ){
+      
+      this.totTime.filter((obj,index)=>{
+    
+        if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+          arr.push(obj)
+          console.log("arrr==",arr)
+          return arr
+        }
+    
+      
+      })
+      
+
+      this.dataSource = new MatTableDataSource(arr);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+    
+
+      })
+
+    }
+    if(this.type == 'cummulative' ){
+      
+      this.totTime.filter((obj,index)=>{
+    
+        if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+          arr.push({
+            username:obj.baseDeviceName,
+            count:obj.count,
+            totTime:this.general.convertTime(obj.totalTime)
+        
+            })
+            console.log("arrr==",arr)
+            return arr
+          }
+      
+        
+        })
+        
+
+        this.dataSource = new MatTableDataSource(arr);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+   
+        })
+    }
+    if(this.type=='geoFenceReport'){
+      
+      this.totTime.filter((obj,index)=>{
+        var data=this.returnTotTime(obj.inTime,obj.outTime)
+        if((parseInt(data.split(':')[1])>=parseInt(event.value) )|| (parseInt(data.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+          arr.push({
+        
+          coinName:obj.coinName == null?'Not available':obj.coinName,
+          inTime:obj.inTime == '0000-00-00 00:00:00'?'-':obj.inTime,
+          outTime:obj.outTime == '0000-00-00 00:00:00'?'-':obj.outTime,
+          totTime:this.general.totalTime(obj.inTime,obj.outTime),
+          geofenceStatus:obj.geofenceStatus == 0?'Entered location ':obj.geofenceStatus == 1?'Exited location':'Not configured',
+
+      
+          })
+          console.log("arrr==",arr)
+          return arr
+        }
+    
+      
+      })
+      
+      this.dataSource = new MatTableDataSource(arr);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+
+      })
+     
+
+    }
+    if(this.type=='locationReport'){
+      
+      this.totTime.filter((obj,index)=>{
+        var data=this.returnTotTime(obj.inTime,obj.outTime)
+        if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+          arr.push({
+          deviceName:obj.deviceName,
+          inTime:obj.inTime == '0000-00-00 00:00:00'?'-':obj.inTime,
+          outTime:obj.outTime == '0000-00-00 00:00:00'?'-':obj.outTime,
+          totTime:this.general.totalTime(obj.inTime,obj.outTime),
+     
+          })
+          console.log("arrr==",arr)
+          return arr
+        }
+    
+      
+      })
+      
+
+      this.dataSource = new MatTableDataSource(arr);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+       
+
+      })
+
+    }
+  }
+  else{
+    this.loadData(this.limit,this.offset)
+   
+  }
+
+  }
 
   openExcel(){
 
@@ -747,6 +985,43 @@ getPages(){
     // }
 
 
+
+  }
+  returnTotTime(inTime,outTime){
+
+    console.log("time===",inTime,outTime)
+     this.inDate  = new Date(inTime)
+     this.outDate=new Date(outTime)
+    var date=new Date()
+  
+    if(this.inDate !="Invalid Date" || this.inDate !=null || this.inDate !='' || this.inDate !='-'){
+  
+      if(this.outDate!="Invalid Date" || this.outDate!=null || this.outDate!='' || this.outDate!='-'){
+        var diff = Math.abs(this.date2 - this.date1)
+      }
+  
+      else{
+        this.date2=date
+        diff= Math.abs(this.date2 - this.date1)
+      }
+  
+  
+      let ms = diff % 1000;
+      diff = (diff - ms) / 1000;
+      let s = diff % 60;
+      diff = (diff - s) / 60;
+      let m = diff % 60;
+      diff = (diff - m) / 60;
+      let h = diff
+  
+      let ss = s <= 9 && s >= 0 ? "0"+s : s;
+      let mm = m <= 9 && m >= 0 ? "0"+m : m;
+      let hh = h <= 9 && h >= 0 ? "0"+h : h;
+  
+  
+      this.inoutTime = hh +':' + mm + ':' +ss
+            return this.inoutTime;
+    }
 
   }
 }

@@ -69,7 +69,7 @@ export class EditOverCrowdComponent implements OnInit {
 	refreshCoins(){
 		var data={
 		  userId:this.loginData.userId,
-		  tblName:'coinRegistration'
+		  tblName:'coinMaxLimitInfo'
 		}
 
 		this.api.getData(data).then((res:any)=>{
@@ -297,11 +297,12 @@ submit(data,i){
   deleteOvercrowd(value){
 
 	  var data = {
-		id:value.id,
-		tblName:'coinRegistration'
+    id:value.id,
+    userId:this.loginData.userId,
+		tblName:'coinMaxLimitInfo'
 	  }
-	  this.api.deletedeviceandUser(data).then((res:any)=>{
-		// console.log("coin data ======",res);
+	  this.api.deleteOvercrowding(data).then((res:any)=>{
+		console.log("delete data ======",res);
 		if(res.status){
 		  this.refreshCoins()
 		  var msg = 'Coin Deleted Successfully'

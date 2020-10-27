@@ -75,3 +75,29 @@ mat-card.mat-card.mat-focus-indicator.sub {
 }
 
   }
+
+  /* .row{
+      background: black;
+      color: darkgray;
+      font-size: small;
+      margin-top: 1rem;
+      
+  }
+  ul .head{
+    color: darkgray;
+    font-size: medium;
+    font-weight: 400;
+  }
+  .row ul li:hover{
+    cursor: pointer;
+    color: whitesmoke;
+}
+.row ul li{
+    cursor: pointer;
+    color: darkgray;
+    line-height: 1.5rem;
+    padding-top:1rem;
+}
+.address{
+    padding-top: 2rem;
+} */
