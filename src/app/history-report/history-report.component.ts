@@ -503,7 +503,7 @@ locationReport(limit,offset){
             i:i+1,
             deviceName:res.success[i].deviceName,
             inTime:res.success[i].inTime == '0000-00-00 00:00:00' || res.success[i].inTime == null?'-':res.success[i].inTime,
-            outTime:res.success[i].outTime == '0000-00-00 00:00:00'  || res.success[i].inTime == null?'-':res.success[i].outTime,
+            outTime:res.success[i].outTime == '0000-00-00 00:00:00'  || res.success[i].outTime == null?'-':res.success[i].outTime,
             totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
             // geofenceStatus:res.success[i].geofenceStatus == 1?'Exited':'Entered',
             // status:res.success[i].status == 'Y'?'Geo fence not configured':'-'
@@ -561,7 +561,7 @@ geofenceAndlocationReport(limit,offset){
           i:i+1,
           coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
           inTime:res.success[i].inTime == '0000-00-00 00:00:00'|| res.success[i].inTime == null?'-':res.success[i].inTime,
-          outTime:res.success[i].outTime == '0000-00-00 00:00:00' || res.success[i].inTime == null?'-':res.success[i].outTime,
+          outTime:res.success[i].outTime == '0000-00-00 00:00:00' || res.success[i].outTime == null?'-':res.success[i].outTime,
           totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime),
           geofenceStatus:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured',
 
@@ -665,16 +665,16 @@ getPages(){
       fileName="GenericReport"
   }
   if(this.type=='basedOnFindName'){
-    data={
-    userId:this.loginData.userId,
-    deviceName:this.deviceName,
-    fromDate: this.from,
-    toDate:this.to,
-    zone:this.general.getZone(date),
-    type:this.type
-  }
-  fileName="Report-of-Find- "+this.deviceName
-  }
+      data={
+      userId:this.loginData.userId,
+      deviceName:this.deviceName,
+      fromDate: this.from,
+      toDate:this.to,
+      zone:this.general.getZone(date),
+      type:this.type
+    }
+    fileName="Report-of-Find- "+this.deviceName
+    }
 
     console.log("data to send ======",data);
 
@@ -696,26 +696,26 @@ getPages(){
   }
   if(this.type=='locationReport' || this.type=='geoFenceReport' ){
     if(this.type=='locationReport'){
-      data={
-      userId:this.loginData.userId,
-      coinId:this.locationId,
-      fromDate: this.from,
-      toDate:this.to,
-      zone:this.general.getZone(date),
-      type:this.type
-    }
-    fileName="Report-of-location- "+this.locationName
+        data={
+        userId:this.loginData.userId,
+        coinId:this.locationId,
+        fromDate: this.from,
+        toDate:this.to,
+        zone:this.general.getZone(date),
+        type:this.type
+      }
+      fileName="Report-of-location- "+this.locationName
     }
     if(this.type=='geoFenceReport'){
-    data={
-      userId:this.loginData.userId,
-      deviceName:this.deviceName,
-      fromDate: this.from,
-      toDate:this.to,
-      zone:this.general.getZone(date),
-      type:this.type
-    }
-    fileName="GeoFenceReport_of- "+this.deviceName
+      data={
+        userId:this.loginData.userId,
+        deviceName:this.deviceName,
+        fromDate: this.from,
+        toDate:this.to,
+        zone:this.general.getZone(date),
+        type:this.type
+      }
+      fileName="GeoFenceReport_of- "+this.deviceName
     }
 
     console.log("data to send ======",data);
@@ -874,7 +874,7 @@ getPages(){
     if(this.type=='geoFenceReport'){
       
       this.totTime.filter((obj,index)=>{
-        var data=this.returnTotTime(obj.inTime,obj.outTime)
+        var data=this.returnTotTime(obj.inTime,obj.outTl̥ime) == '-'? '00:00:00' : this.returnTotTime(obj.inTime,obj.outTime)
         if((parseInt(data.split(':')[1])>=parseInt(event.value) )|| (parseInt(data.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
           arr.push({
         
@@ -904,8 +904,8 @@ getPages(){
     if(this.type=='locationReport'){
       
       this.totTime.filter((obj,index)=>{
-        var data=this.returnTotTime(obj.inTime,obj.outTime)
-        if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+        var data=this.returnTotTime(obj.inTime,obj.outTl̥ime) == '-'? '00:00:00' : this.returnTotTime(obj.inTime,obj.outTime)
+        if((parseInt(data.split(':')[1])>=parseInt(event.value) )|| (parseInt(data.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
           arr.push({
           deviceName:obj.deviceName,
           inTime:obj.inTime == '0000-00-00 00:00:00'?'-':obj.inTime,
@@ -991,8 +991,8 @@ getPages(){
 
     console.log("time===",inTime,outTime)
     var date=new Date()
-     this.inDate  =inTime==null || inTime=='-'?date: new Date(inTime)
-     this.outDate=outTime==null||outTime=='' ||outTime=='-'?date:new Date(outTime)
+     this.inDate  = new Date(inTime)
+     this.outDate = outTime==null? new Date('0000-00-00 00:00:00'):new Date(outTime)
   
   
     if(this.inDate !="Invalid Date" ){
@@ -1002,8 +1002,7 @@ getPages(){
       }
   
       else{
-        this.date2=date
-        diff= Math.abs(this.outDate - this.inDate)
+        return '-'
       }
   
   

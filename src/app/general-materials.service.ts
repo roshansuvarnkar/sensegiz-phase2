@@ -137,7 +137,7 @@ totalTime(inTime,outTime){
   console.log("time===",inTime,outTime)
  
   this.date1 = new Date(inTime)
-  this.date2 = new Date('0000-00-00 00:00:00')
+  this.date2 = outTime==null? new Date('0000-00-00 00:00:00'):new Date(outTime)
   
   console.log("time2===",this.date1, this.date2)
  
@@ -147,8 +147,8 @@ totalTime(inTime,outTime){
       var diff = Math.abs(this.date2 - this.date1)
     }
 
-    else if(this.date2!=null){
-      
+    else {
+      return '-'
     }
 
 
