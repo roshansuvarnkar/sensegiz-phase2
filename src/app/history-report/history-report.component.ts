@@ -67,6 +67,7 @@ export class HistoryReportComponent implements OnInit {
   inDate:any
   outDate:any
   inoutTime:any
+  
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -212,7 +213,7 @@ export class HistoryReportComponent implements OnInit {
           contactName:res.success[i].contactName,
           empId:res.success[i].empId==null || res.success[i].empId==''?'-':res.success[i].empId,
           location:res.success[i].location,
-          updatedOn:this.general.updatedOnDate(res.success[i].updatedOn),
+          updatedOn:res.success[i].updatedOn,
           startTime:this.general.startTime(res.success[i].totalTime,res.success[i].updatedOn),
           totalTime:this.general.convertTime(res.success[i].totalTime)
 
@@ -357,6 +358,7 @@ summaryReport(){
     if(res.status){
      
       var groupUser = this.dataDateReduce(res.success)
+      this.locationData=this.location(res.success)
       // console.log("groupDate===",groupUser)
       this.liveData = Object.keys(groupUser).map((data)=>{
 
@@ -385,9 +387,10 @@ summaryReport(){
 
 dataDateReduce(data){
   return data.reduce((group,obj)=>{
-  const name = obj.contactDeviceName
+  const name = obj.contactDeviceName == this.deviceName?obj.baseDeviceName: obj.contactDeviceName
+ 
   console.log("name---",name,"this.deviceName====",this.deviceName)
-  if(name!=this.deviceName){
+  if(name!=this.deviceName  ){
       if(!group[name]){
         group[name]=[]
       }

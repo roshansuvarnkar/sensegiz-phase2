@@ -52,7 +52,7 @@ totTime:any=[]
     this.refreshData(this.count)
     this.getTotalCount(0)
     // console.log("count",this.count)
-    this.timeout=setInterval(()=>{ this.refreshData(this.count)},30*1000)
+    this.timeout=setInterval(()=>{ this.refreshData(this.count,this.limit,this.offset)},30*1000)
   }
   ngOnDestroy() {
     clearInterval(this.timeout)
@@ -138,7 +138,7 @@ getTotalCount(val){
           setTimeout(() => {
             this.dataSource.sort = this.sort;
             //this.dataSource.paginator = this.paginator;
-            this.paginator.length = this.currentPageSize
+            // this.paginator.length = this.currentPageSize
           })
         // }
         // else{
@@ -159,7 +159,7 @@ getTotalCount(val){
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           //this.dataSource.paginator = this.paginator;
-          this.paginator.length = this.currentPageSize
+          // this.paginator.length = this.currentPageSize
         })
       }
     })
@@ -204,7 +204,7 @@ getTotalCount(val){
 // }
 
   getUpdate(event) {
-      // console.log("paginator event",event);
+      console.log("paginator event",event);
       // console.log("paginator event length", this.currentPageLength);
      this.limit = event.pageSize
       this.offset = event.pageIndex*event.pageSize
