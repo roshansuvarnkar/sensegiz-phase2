@@ -113,7 +113,7 @@ export class HistoryReportComponent implements OnInit {
       }
 
       this.api.getHistoryDateReportTotalCount(data).then((res:any)=>{
-        // console.log("length of report on date ======",res);
+        console.log("length of report on date ======",res);
         if(res.status){
           // console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
@@ -132,7 +132,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
-      // console.log("length of report on device name ======",res);
+      console.log("length of report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -152,7 +152,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
-      // console.log("length of location report on device name ======",res);
+      console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -171,7 +171,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
-      // console.log("length of geo fence report on device name ======",res);
+      console.log("length of geo fence report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -416,8 +416,11 @@ location(loc){
   var a=[]
   var data=loc.filter((obj,index)=>{
      console.log(a.includes(obj.location))
-    if(!a.includes(obj.location) && obj.location!='-'){
-        a.push(obj.location)
+    if(!a.includes(obj.location)  ){
+      if(obj.location!='-')
+        {
+          a.push(obj.location)
+        }
     }
 
   })
