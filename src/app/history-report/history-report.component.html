@@ -346,9 +346,9 @@
         <!-- <span *ngFor = 'let b of a.date;let j=index'>
           {{b.updatedOn }}
         </span> -->
-        <span >
+        <span *ngFor = 'let b of callUpdatedon(a.date)'>
         
-          {{callUpdatedon(a.date)}}
+          {{b| date: "dd-MM-y"}},
         </span>
       </td>
       <!-- <td>{{a.location}}</td> -->

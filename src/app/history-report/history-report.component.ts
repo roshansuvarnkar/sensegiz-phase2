@@ -11,6 +11,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { OrderContactComponent } from '../order-contact/order-contact.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
+import { exit } from 'process';
 
 
 
@@ -354,12 +355,12 @@ summaryReport(){
     console.log("summary report======",res);
 
     this.liveData=[]
-
+    this.locationData=[]
     if(res.status){
      
       var groupUser = this.dataDateReduce(res.success)
       this.locationData=this.location(res.success)
-      // console.log("groupDate===",groupUser)
+      console.log("locationData===",this.locationData)
       this.liveData = Object.keys(groupUser).map((data)=>{
 
         return {
@@ -367,7 +368,7 @@ summaryReport(){
           data : data
         }
       })
-      console.log("live==",this.liveData)
+      // console.log("live==",this.liveData)
 
       // for(let i=0;i<this.liveData.length;i++){
 
@@ -389,14 +390,14 @@ dataDateReduce(data){
   return data.reduce((group,obj)=>{
   const name = obj.contactDeviceName == this.deviceName?obj.baseDeviceName: obj.contactDeviceName
  
-  console.log("name---",name,"this.deviceName====",this.deviceName)
-  if(name!=this.deviceName  ){
+  // console.log("name---",name,"this.deviceName====",this.deviceName)
+  if(name.toLowerCase()!=this.deviceName.toLowerCase()  ){
       if(!group[name]){
         group[name]=[]
       }
       group[name].push(obj)
     }
-    console.log("group==",group)
+    // console.log("group==",group)
     return group
  
   },{})
@@ -404,29 +405,42 @@ dataDateReduce(data){
 callUpdatedon(date){
   var a=[]
   var data=date.filter((obj,index)=>{
-     console.log(a.includes(obj.updatedOn))
-    if(!a.includes(obj.updatedOn)){
-        a.push(obj.updatedOn)
-    }
+     console.log(obj.updatedOn)
+     if(!a.includes(obj.updatedOn)){
+       a.push(obj.updatedOn)
+     }
+      
   })
   console.log("aaa==",a)
-  a[a.length-1]= a[a.length-1]+'.'
   return a
 }
 
 location(loc){
-  console.log("loc===",loc)
+   console.log("loc===",loc)
   var a=[]
-  var data=loc.filter((obj,index)=>{
-     console.log(a.includes(obj.location))
-    if(!a.includes(obj.location)  ){
-      if(obj.location!='-')
-        {
-          a.push(obj.location)
-        }
+  var locArr=[]
+  for(let i=0;i<loc.length;i++){
+    var arr=loc[i].location.split(',')
+    for(let j=0;j<arr.length;j++){
+      // locArr.push(arr[j].toUpperCase())
+      if(!a.includes(arr[j])){
+        if(arr[j]!='-' && arr[j] !='')
+          {
+            a.push(arr[j])
+          }
+      }
     }
+  }
+  console.log("locArr===",locArr)
+  // var data=locArr.filter((obj,index)=>{
+  //   if(!a.includes(obj)){
+  //     if(obj!='-' && obj !='')
+  //       {
+  //         a.push(obj)
+  //       }
+  //   }
 
-  })
+  // })
   console.log("loc a==",a)
   a[a.length-1]= a[a.length-1]+'.'
   return a

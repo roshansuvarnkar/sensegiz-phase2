@@ -31,6 +31,7 @@ currentPageLength:number = 10;
 currentPageSize:number = 10;
 limit:any
 offset:any
+pageSet:any
 displayedColumns: string[] = ['i','baseName','contactName','location','startTime', 'updatedOn','totalTime'];
 selectMin:FormGroup
 totTime:any=[]
@@ -52,7 +53,7 @@ totTime:any=[]
     this.refreshData(this.count)
     this.getTotalCount(0)
     // console.log("count",this.count)
-    this.timeout=setInterval(()=>{ this.refreshData(this.count,this.limit,this.offset)},30*1000)
+    this.timeout=setInterval(()=>{ this.refreshData(this.count,this.pageSet)},30*1000)
   }
   ngOnDestroy() {
     clearInterval(this.timeout)
@@ -62,6 +63,8 @@ totTime:any=[]
     // var limit=this.paginator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.liveData=[]
+    this.paginator.pageIndex=0
+  
     this.count = this.count + 1;
     // console.log("count==",this.count);
 
@@ -71,6 +74,9 @@ totTime:any=[]
 
   nextDayData(){
     this.liveData=[]
+    this.paginator.pageIndex=0
+    
+
     // var limit=this.pagi=nator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count - 1;
@@ -208,6 +214,7 @@ getTotalCount(val){
       // console.log("paginator event length", this.currentPageLength);
      this.limit = event.pageSize
       this.offset = event.pageIndex*event.pageSize
+      this.pageSet=event.pageSize
       this.refreshData(this.count,this.limit,this.offset)
   }
 
