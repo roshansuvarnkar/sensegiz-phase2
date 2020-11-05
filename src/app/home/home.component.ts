@@ -53,7 +53,6 @@ dataPoints:any=[]
     this.refreshCount()
     this.refreshSetting()
     this.maximumContactTime()
-    this.refreshOnlineDevice()
     this.repeatedContacts()
     this.numOfcontactPerDay()
 
@@ -119,10 +118,13 @@ refreshOnlineDevice(){
 
   this.api.getOnlineCount(data).then((res:any)=>{
     console.log("online data ======",res);
-    if(res.status == true){
+    
+    if(res.status ){
+     
       this.onlineCount=res.success.length
-      this.offlineCount=this.totalEmp-res.success.length
-    }else if(res.status == false){
+      this.offlineCount=this.totalEmp - res.success.length
+      console.log("online offline count===",this.totalEmp ,this.onlineCount,this.offlineCount)  
+     }else {
       this.offlineCount=this.totalEmp-0
     }
   })
@@ -262,7 +264,7 @@ refreshCount(){
       this.infectedEmp = res.success[1].inectedEmp
       this.normalEmp = res.success[2].normalEmp
       this.activeEmp = res.success[3].activeEmp
-     
+     this.refreshOnlineDevice()
     }
   })
  

@@ -70,12 +70,14 @@ date2:any
     this.summaryReportForm = this.fb.group({
       deviceName: ['', Validators.required],
       fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
+      toDate: ['', Validators.required],
+      // minutes:['']
     });
     this.locationForm = this.fb.group({
       coinSelect: ['', Validators.required],
       fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
+      toDate: ['', Validators.required],
+     
     });
     this.geoAndLocForm = this.fb.group({
       deviceName:['', Validators.required],

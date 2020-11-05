@@ -60,7 +60,7 @@ export class AddFindComponent implements OnInit {
     this.Findform = this.fb.group({
       deviceName: ['', Validators.required],
       deviceId: ['', [Validators.required,Validators.min(1)]],
-      employeeId: [''],
+      empId: [''],
       mobileNum: ['',[Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
 
@@ -131,6 +131,8 @@ Gatewaysubmit(data){
     try {
       data.tblName='gatewayRegistration'
       data.userId=this.loginData.userId
+              console.log("gateway insert data==",data)
+
       this.api.deviceRegister(data).then((res:any)=>{
         // console.log("gateway submit==",res)
         if(res.status){
@@ -154,6 +156,7 @@ Usersubmit(data){
     try {
       data.userId=this.loginData.userId
       data.mobileNum=data.mobileNum.e164Number
+      data.userId=this.loginData.userId
       this.api.UserRegister(data).then((res:any)=>{
         // console.log("user submit==",res)
         if(res.status){
@@ -175,7 +178,7 @@ coinSubmit(data){
   if (this.coinForm.valid) {
     try {
       data.userId=this.loginData.userId
-      console.log("data======",data)
+      console.log(" coin insert data======",data)
       this.api.coinRegister(data).then((res:any)=>{
         console.log("coin submit==",res)
         if(res.status){

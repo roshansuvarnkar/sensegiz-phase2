@@ -116,8 +116,10 @@ preferredCountries: CountryISO[] = [CountryISO.India];
           // console.log("mon num==",mobNum)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
-        data.userId=this.deviceData.userId
+        data.userId=this.loginData.userId
+        data.deviceId=this.deviceData.deviceId
         data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
+        console.log("find update data===",data)
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("find submit====",res);
           if(res.status){
@@ -142,7 +144,10 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       try {
         data.tblName='gatewayRegistration'
         data.id=this.deviceData.id
-        data.userId=this.deviceData.userId
+        data.deviceId=this.deviceData.gatewayId
+        data.deviceName=this.deviceData.gatewayName
+        data.userId=this.loginData.userId
+        console.log("gateway update data===",data)
         this.api.editDeviceRegister(data).then((res:any)=>{
           // console.log("gateway submit==",res)
           if(res.status){
@@ -166,6 +171,8 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       try {
         data.id=this.deviceData.id
         data.mobileNum=data.mobileNum.e164Number
+        data.userId=this.loginData.userId
+        data.deviceId=this.deviceData.deviceId
         this.api.EditUserRegister(data).then((res:any)=>{
           // console.log("user submit==",res)
           if(res.status){
@@ -187,6 +194,9 @@ preferredCountries: CountryISO[] = [CountryISO.India];
     if (this.coinform.valid) {
       try {
         data.id=this.deviceData.id
+        data.userId=this.loginData.userId
+        data.coinId=this.deviceData.coinId
+        console.log("coin send data==",data)
         this.api.editCoinRegister(data).then((res:any)=>{
           console.log("coin submit==",res)
           if(res.status){

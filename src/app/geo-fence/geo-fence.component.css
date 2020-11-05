@@ -20,7 +20,11 @@ table.mat-table {
   letter-spacing: 2px;
   font-weight: 500;
 }
-
+.search{
+    position: absolute;
+    right: 1rem;
+    top: 1.3rem;
+}
 .selectDevice {
   margin-top:1rem
 }

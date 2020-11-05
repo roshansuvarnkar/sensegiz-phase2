@@ -26,7 +26,7 @@ loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName','empId','shift',	'infected','batteryStatus','emailId','mobileNum',	'edit',	'delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift','infected','isolated','batteryStatus','emailId','mobileNum',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -106,6 +106,7 @@ refreshFinds(){
               deviceName: res.success[i].deviceName,
               shift: res.success[i].shiftName ,
               infected: res.success[i].infected,
+              isolated: res.success[i].isolated,
               batteryUpdatedOn:res.success[i].batteryUpdatedOn,
               edit:'edit',
               delete:'delete',
@@ -184,29 +185,66 @@ delete(a){
 
 
 infected(a){
-  if(confirm('Are you sure to do this operation')){
-    console.log("yes",a)
-    var inf = a.infected == 0 ? 1 :0
-    var data = {
-      deviceId:a.deviceId,
-      userId:this.loginData.userId,
-      infected:inf
-    }
-    this.api.editInfectedPerson(data).then((res:any)=>{
-      // console.log("infected data ======",res);
-      if(res.status){
-        this.refreshFinds()
-        var msg = 'Employee updated Successfully'
-        this.general.openSnackBar(msg,'')
+
+    if(confirm('Are you sure to do this operation')){
+      console.log("yes",a)
+     
+        var inf = a.infected == 0 ? 1 :0
+        var data = {
+          deviceId:a.deviceId,
+          userId:this.loginData.userId,
+          infected:inf
+        }
+        this.api.editInfectedPerson(data).then((res:any)=>{
+          // console.log("infected data ======",res);
+          if(res.status){
+            this.refreshFinds()
+            var msg = 'Employee updated Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        })
       }
-    })
-  }
-  else{
-    this.refreshFinds()
-
-  }
-
+    else{
+      this.refreshFinds()
+    }
+  
 }
+
+
+isolated(a){
+  var inf=0
+  var data={}
+      
+    if(confirm('Are you sure to do this operation')){
+      console.log("yes",a)
+      
+      if(a.infected == 0){
+        var isolate = a.isolated == 0 ? 1 :0
+        data = {
+          deviceId:a.deviceId,
+          userId:this.loginData.userId,
+          isolated:isolate
+        }
+        console.log("isolate data===",data)
+        this.api.editIsolation(data).then((res:any)=>{
+          console.log("isolated data ======",res);
+          if(res.status){
+            this.refreshFinds()
+            var msg = 'Employee updated Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        })
+      }
+      else{
+        alert("You cannot isolate infected person.")
+        this.refreshFinds()
+      }
+    }
+    else{
+      this.refreshFinds()
+    }
+
+  }
 
 
 onShiftSelection(a){

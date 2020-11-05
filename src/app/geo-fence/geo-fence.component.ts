@@ -26,7 +26,7 @@ export class GeoFenceComponent implements OnInit {
   geofenceData:any=[]
   geoFenceStatus:boolean=false
   dataSource: any = [];
-  displayedColumns = ['i','deviceName','coinName'];
+  displayedColumns = ['i','deviceName','coinName']; //,'delete'
   constructor(private fb: FormBuilder,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -89,8 +89,11 @@ export class GeoFenceComponent implements OnInit {
          for(let i=0;i<res.data.length;i++){
            this.geofenceData.push({
              i:i+1,
+             id:res.data[i].id,
              deviceName:res.data[i].deviceName,
-             coinName:res.data[i].coinName
+             coinName:res.data[i].coinName,
+             coinId:res.data[i].geofence,
+            //  delete:'clear'
            })
          }
        
@@ -146,5 +149,26 @@ export class GeoFenceComponent implements OnInit {
   
   }
 
- 
+ delete(value){
+   console.log("delete geofence===",value)
+   var data={
+     id:value.id,
+     userId:this.loginData.userId,
+     coinId:value.coinId.split(','),
+     coinName:value.coinName.split(','),
+
+   }
+   console.log("delete geofence data===",data)
+
+ }
+
+ search(a){
+
+  this.dataSource = new MatTableDataSource(this.geofenceData);
+  setTimeout(() => {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.filter =a.trim().toLowerCase()
+  })
+}
 }

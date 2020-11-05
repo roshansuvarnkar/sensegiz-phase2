@@ -68,6 +68,7 @@ export class HistoryReportComponent implements OnInit {
   inDate:any
   outDate:any
   inoutTime:any
+  deviceIdData:any
   
     constructor(
       public dialog: MatDialog,
@@ -356,8 +357,10 @@ summaryReport(){
 
     this.liveData=[]
     this.locationData=[]
+    this.deviceIdData=[]
+
     if(res.status){
-     
+      this.deviceIdData=this.deviceId(res.success)
       var groupUser = this.dataDateReduce(res.success)
       this.locationData=this.location(res.success)
       console.log("locationData===",this.locationData)
@@ -391,7 +394,7 @@ dataDateReduce(data){
   const name = obj.contactDeviceName == this.deviceName?obj.baseDeviceName: obj.contactDeviceName
  
   // console.log("name---",name,"this.deviceName====",this.deviceName)
-  if(name.toLowerCase()!=this.deviceName.toLowerCase()  ){
+  if(name.toLowerCase()!=this.deviceName.toLowerCase()){
       if(!group[name]){
         group[name]=[]
       }
@@ -405,18 +408,18 @@ dataDateReduce(data){
 callUpdatedon(date){
   var a=[]
   var data=date.filter((obj,index)=>{
-     console.log(obj.updatedOn)
+    //  console.log(obj.updatedOn)
      if(!a.includes(obj.updatedOn)){
        a.push(obj.updatedOn)
      }
       
   })
-  console.log("aaa==",a)
+  // console.log("aaa==",a)
   return a
 }
 
 location(loc){
-   console.log("loc===",loc)
+  //  console.log("loc===",loc)
   var a=[]
   var locArr=[]
   for(let i=0;i<loc.length;i++){
@@ -431,17 +434,7 @@ location(loc){
       }
     }
   }
-  console.log("locArr===",locArr)
-  // var data=locArr.filter((obj,index)=>{
-  //   if(!a.includes(obj)){
-  //     if(obj!='-' && obj !='')
-  //       {
-  //         a.push(obj)
-  //       }
-  //   }
 
-  // })
-  console.log("loc a==",a)
   a[a.length-1]= a[a.length-1]+'.'
   return a
 }
@@ -808,7 +801,7 @@ getPages(){
     return date
   }
 
-  filterTotTime(event){
+filterTotTime(event){
     console.log("event value===",event.value)
     var arr=[]
 
@@ -828,7 +821,7 @@ getPages(){
             totalTime:this.general.convertTime(obj.totalTime)
       
           })
-          console.log("arrr==",arr)
+          // console.log("arrr==",arr)
           return arr
         }
     
@@ -850,7 +843,7 @@ getPages(){
     
         if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
           arr.push(obj)
-          console.log("arrr==",arr)
+          // console.log("arrr==",arr)
           return arr
         }
     
@@ -877,7 +870,7 @@ getPages(){
             totTime:this.general.convertTime(obj.totalTime)
         
             })
-            console.log("arrr==",arr)
+            // console.log("arrr==",arr)
             return arr
           }
       
@@ -906,7 +899,7 @@ getPages(){
 
       
           })
-          console.log("arrr==",arr)
+          // console.log("arrr==",arr)
           return arr
         }
     
@@ -1042,5 +1035,28 @@ getPages(){
       this.inoutTime = hh +':' + mm + ':' +ss
             return this.inoutTime;
     }
+  }
+
+  deviceId(data){
+    var a=[]
+    data.filter((obj)=>{
+      obj.contactDevice=obj.contactDeviceName== this.deviceName?obj.baseDevice: obj.contactDevice
+        if(!a.includes(obj.contactDevice)){
+          a.push(obj.contactDevice)
+        }   
+    })
+    return a
+  }
+  sendWarning(){
+    var data={
+      userId:this.loginData.userId,
+      deviceId:this.deviceIdData,
+      infectedPersonName:this.deviceName,
+      adminEmailId:this.loginData.userName
+    }
+    console.log("sendwarning data=====",data)
+    this.api.infectedContactalert(data).then((res:any)=>{
+      console.log("infectedContactalert res===",res)
+    })
   }
 }

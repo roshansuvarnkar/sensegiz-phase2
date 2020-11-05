@@ -31,6 +31,7 @@
 
 
     </form> -->
+
     <div class="mat-elevation-z8">
 
 
@@ -316,7 +317,11 @@
       </span>
     </div> <br>
     <p class="center-head" mat-dialog-title>Infected User - {{deviceName | titlecase}}</p>
-
+  
+    <div class="btn">
+      <button mat-raised-button  class="btn-color" (click)="sendWarning()" >Send warning</button>
+    </div>  <br>
+    
     <div class="tab-align">
       <div >
         <span >
