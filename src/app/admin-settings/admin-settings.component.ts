@@ -47,7 +47,10 @@ export class AdminSettingsComponent implements OnInit {
     });
     this.distanceForm = this.fb.group({
       distance: ['', Validators.required],
-      rssi: ['', Validators.required],
+      rssi: [''],
+      wearable:['',Validators.required],
+      customize:['']
+
     });
     this.scanningForm=this.fb.group({
       seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
@@ -84,10 +87,6 @@ export class AdminSettingsComponent implements OnInit {
       if(res.status){
         this.setting = res.success[0]
 
-        this.distanceForm.patchValue({
-          distance: res.success[0].distance.toString(),
-          rssi: res.success[0].rssi
-        })
         this.bufferForm.patchValue({
           buffer: res.success[0].buffer,
         })
@@ -106,7 +105,11 @@ export class AdminSettingsComponent implements OnInit {
             minutes:res.success[0].durationThreshold/60,
           })
         }
-       
+        this.distanceForm.patchValue({
+          distance: res.success[0].distance.toString(),
+          rssi: res.success[0].rssi,
+          wearable:res.success[0].type.toString()
+        })
         this.txPowerForm.patchValue({
           txPower: res.success[0].txPower,
         })
@@ -141,24 +144,61 @@ export class AdminSettingsComponent implements OnInit {
 
 
   onSubmitDistanceForm(data) {
-    if (this.distanceForm.valid) {
-      try {
-        console.log("distance ===",data)
-        data.userId = this.dataGet.userId
-        this.api.addDistance(data).then((res:any)=>{
-          console.log("distance inserted or updated",res)
-          if(res.status){
-            this.refreshSetting()
-            var msg = 'Minimum distance updated Successfully'
-            this.general.openSnackBar(msg,'')
-          }
-        })
-      } catch (err) {
-      }
-    }
-  }
+    console.log("data=",data)
 
-  
+     if (this.distanceForm.valid) {
+       try {
+         var value={}
+         data.customize=data.customize==''?0:data.customize
+        if(data.customize==1){
+          value={
+            userId:this.dataGet.userId,
+            type:data.wearable,
+            distance:data.distance,
+            customize:data.customize,
+            rssi:data.rssi
+          }
+        }
+        else{
+          value={
+            userId:this.dataGet.userId,
+            type:data.wearable,
+            distance:data.distance,
+            customize:data.customize,
+           
+            }
+        }
+         console.log("distance ===",value,data)
+         this.api.setDeviceRssi(value).then((res:any)=>{
+           console.log("distance insrted or updated",res)
+           if(res.status){
+            var msg = 'Minimum distance and wearable type updated Successfully'
+            this.general.openSnackBar(msg,'')
+            this.refreshSetting()
+        //      this.api.updateWearableType(value).then((res:any)=>{
+        //      if(res.status){
+        //       console.log("type",res)
+        //       var msg = 'Minimum distance and wearable type updated Successfully'
+        //      this.general.openSnackBar(msg,'')
+        //      this.refreshSetting()
+        //      }
+
+             
+        //  })
+        }
+        })
+       } catch (err) {
+       }
+     }
+   }
+  customizeoff(){
+    this.statusCustomise=false
+    this.distanceForm.patchValue({
+      customize:0,
+      
+      
+    })
+  }
   onSubmittxPowerForm(data) {
     if (this.txPowerForm.valid) {
       try {
@@ -178,18 +218,62 @@ export class AdminSettingsComponent implements OnInit {
   }
 
 
-  customise(){
+  customise(event){
+    console.log("event===",event)
     this.statusCustomise = this.statusCustomise == true ? false : true
+    this.distanceForm.patchValue({
+      customize:event.checked==true?1:0
+    })
   }
   onclick(event){
-    this.distanceForm.reset()
-    this.selectedValue=event.value==1?false:true
-     
+    console.log("radio value==",event.value)
+    if(event.value==0){
+      this.distanceForm.patchValue({
+        wearable:"0"
+      })
+      if(this.setting.distance == "1" ){
+        this.distanceForm.patchValue({
+          rssi:'BE'
+        })
+      }
+      else if(this.setting.distance == "2" ){
+        this.distanceForm.patchValue({
+          rssi:'BC'
+        })
+
+      }
+      else if(this.setting.distance  == "3" ){
+        this.distanceForm.patchValue({
+          rssi:'B6'
+        })
+      }
+    }
+    if(event.value==1){
+      this.distanceForm.patchValue({
+        wearable:"1"
+      })
+      if(this.setting.distance == "1"){
+        this.distanceForm.patchValue({
+          rssi:'AC'
+        })
+      }
+      else if(this.setting.distance == "2" ){
+        this.distanceForm.patchValue({
+          rssi:'A9'
+        })
+
+      }
+      else if(this.setting.distance  == "3" ){
+        this.distanceForm.patchValue({
+          rssi:'A5'
+        })
+      }
+    }
   }
 
   changeDistance(event){
-    
-    if(this.setting.type==0){
+    console.log(this.distanceForm.get('wearable').value,event)
+    if(this.distanceForm.get('wearable').value==0 ){
       if(event.value == 1 ){
         this.distanceForm.patchValue({
           rssi:'BE'
@@ -206,7 +290,7 @@ export class AdminSettingsComponent implements OnInit {
         })
       }
     }
-    else if(this.setting.type==1){
+    else if( this.distanceForm.get('wearable').value==1 ){
       if(event.value == 1 ){
         this.distanceForm.patchValue({
           rssi:'AC'

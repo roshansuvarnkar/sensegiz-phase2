@@ -305,7 +305,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card>
+<mat-card (click)="contactTeam()">
   <mat-card-title>
     Define Proximity and Select Wearable Type
   </mat-card-title>
@@ -375,7 +375,7 @@
         </mat-form-field>
       </div> -->
       <br><br>
-      <button class="btn-set" mat-raised-button [disabled]="!distanceForm.valid" color="primary">Submit</button>
+      <button class="btn-set" mat-raised-button  color="primary" disabled>Submit</button>
     </form>
   </mat-card-content>
 </mat-card>
