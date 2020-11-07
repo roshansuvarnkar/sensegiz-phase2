@@ -195,8 +195,6 @@ export class AdminSettingsComponent implements OnInit {
     this.statusCustomise=false
     this.distanceForm.patchValue({
       customize:0,
-      
-      
     })
   }
   onSubmittxPowerForm(data) {
