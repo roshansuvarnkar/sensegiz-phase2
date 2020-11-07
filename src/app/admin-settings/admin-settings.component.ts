@@ -47,7 +47,7 @@ export class AdminSettingsComponent implements OnInit {
     });
     this.distanceForm = this.fb.group({
       distance: ['', Validators.required],
-      rssi: ['',Validators.pattern(/^[A-z 0-9]{2}$/)],
+      rssi: ['',Validators.pattern(/^[A-Z][A-Z 0-9]{1}$/)],
       wearable:['',Validators.required],
       customize:['']
 
