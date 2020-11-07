@@ -139,39 +139,19 @@ preferredCountries: CountryISO[] = [CountryISO.India];
 
 
 
-  // Gatewaysubmit(data){
-  //   if (this.gatewayform.valid) {
-  //     try {
-  //       data.tblName='gatewayRegistration'
-  //       data.id=this.deviceData.id
-  //       data.deviceId=this.deviceData.gatewayId
-  //       data.deviceName=this.deviceData.gatewayName
-  //       data.userId=this.loginData.userId
-  //       console.log("gateway update data===",data)
-  //       this.api.editDeviceRegister(data).then((res:any)=>{
-  //         console.log("gateway submit==",res)
-  //         if(res.status){
-  //           var msg = 'Gateway Updated Successfully'
-  //           this.general.openSnackBar(msg,'')
-  //         }
-  //         else if(res.status == false && res.alreadyExisted){
-  //           var msg = 'Gateway Name  Already exists, try different gateway'
-  //           this.general.openSnackBar(msg,'')
-  //         }
-  //       })
-  //     } catch (err) {
-  //     }
-  //   }
-  // }
+
 
   Gatewaysubmit(data){
     if (this.gatewayform.valid) {
       try {
         data.tblName='gatewayRegistration'
         data.id=this.deviceData.id
-        data.userId=this.deviceData.userId
+        data.userId=this.loginData.userId
+        data.deviceId= this.deviceData.gatewayId
+        console.log("gateway data==",data)
+
         this.api.editDeviceRegister(data).then((res:any)=>{
-          // console.log("gateway submit==",res)
+          console.log("gateway submit==",res)
           if(res.status){
          var msg = 'Gateway Updated Successfully'
             this.general.openSnackBar(msg,'')
