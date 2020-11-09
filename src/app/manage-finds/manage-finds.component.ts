@@ -218,7 +218,7 @@ isolated(a){
     if(confirm('Are you sure to do this operation')){
       console.log("yes",a)
       
-      if(a.infected == 0 || (a.infected == 1 && isolate == 0)){
+      if(a.infected == 0){
       
         data = {
           deviceId:a.deviceId,
