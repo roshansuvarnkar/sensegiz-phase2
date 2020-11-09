@@ -6,11 +6,11 @@ export const environment = {
   // apiHost:'http://44.230.214.164:3000',
   // apiHost:'http://sd2-api.sensegiz.com:3000',
   //  apiHost:'http://65.0.120.36:3000',
-   apiHost:'http://3.6.205.70:3000',
+  //  apiHost:'http://3.6.205.70:3000',
   // apiHost:'http://15.206.213.108:3000',
 
   // apiHost:'http://65.0.60.192:3000',
-  // apiHost:'https://testdba.sensegiz.com:3000',
+  apiHost:'https://testdba.sensegiz.com:3000',
   production: false
 };
 
