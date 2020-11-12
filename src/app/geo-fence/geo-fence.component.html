@@ -59,10 +59,10 @@
           <td mat-cell *matCellDef="let geofence "> {{geofence.coinName}} </td>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="delete">
+        <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
           <td mat-cell *matCellDef="let geofence"  (click)="delete(geofence)" class="cursor"><mat-icon>{{geofence.delete}}</mat-icon> </td>
-        </ng-container> -->
+        </ng-container>
    </div>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

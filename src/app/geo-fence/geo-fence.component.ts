@@ -26,7 +26,7 @@ export class GeoFenceComponent implements OnInit {
   geofenceData:any=[]
   geoFenceStatus:boolean=false
   dataSource: any = [];
-  displayedColumns = ['i','deviceName','coinName']; //,'delete'
+  displayedColumns = ['i','deviceName','coinName','delete']; 
   constructor(private fb: FormBuilder,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
   ngOnInit(): void {
@@ -93,7 +93,7 @@ export class GeoFenceComponent implements OnInit {
              deviceName:res.data[i].deviceName,
              coinName:res.data[i].coinName,
              coinId:res.data[i].geofence,
-            //  delete:'clear'
+             delete:'clear'
            })
          }
        
@@ -139,9 +139,9 @@ export class GeoFenceComponent implements OnInit {
      this.api.setGeofenceData(data1).then((res:any)=>{
       console.log("Geo fence device set data ======",res);
       if(res.status){
-        
-        
+
         this.refreshGeoFence()
+      
       }
      
     })
@@ -151,15 +151,26 @@ export class GeoFenceComponent implements OnInit {
 
  delete(value){
    console.log("delete geofence===",value)
-   var data={
-     id:value.id,
-     userId:this.loginData.userId,
-     coinId:value.coinId.split(','),
-     coinName:value.coinName.split(','),
+ if(confirm("Do you sure want to deassign geofence?")){
+  var data={
+    id:value.id,
+    userId:this.loginData.userId,
+    coinId:value.coinId.split(','),
+    coinName:value.coinName.split(','),
 
+  }
+  console.log("delete geofence data===",data)
+  this.api.deleteGeofence(data).then((res:any)=>{
+   console.log("Geo fence device set data ======",res);
+   if(res.status){
+      var msg = 'Geofence Deassigned Successfully'
+      this.general.openSnackBar(msg,'')   
+     this.refreshGeoFence()
+     this.refreshCoins()
    }
-   console.log("delete geofence data===",data)
-
+  
+ })
+ }
  }
 
  search(a){
