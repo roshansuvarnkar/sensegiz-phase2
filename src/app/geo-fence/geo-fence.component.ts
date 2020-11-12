@@ -93,7 +93,7 @@ export class GeoFenceComponent implements OnInit {
              deviceName:res.data[i].deviceName,
              coinName:res.data[i].coinName,
              coinId:res.data[i].geofence,
-             delete:'clear'
+             delete:'delete'
            })
          }
        
