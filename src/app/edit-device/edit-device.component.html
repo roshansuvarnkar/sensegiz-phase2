@@ -122,10 +122,20 @@
   <mat-horizontal-stepper  #stepper >
     <form [formGroup]="gatewayform" >
       <mat-step >
+        <ng-template matStepLabel class="stepper">Gateway Type</ng-template>
+        <mat-form-field >
+          <mat-label>Select Gateway Type</mat-label>
+          <input type="text" formControlName="type" matInput disabled>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step >
           <ng-template matStepLabel>Fill out your gateway nick name</ng-template>
           <mat-form-field>
             <mat-label>Gateway Nick Name</mat-label>
-            <input matInput placeholder="User Name" formControlName="deviceName" required>
+            <input matInput placeholder="Gateway Nick Name" formControlName="deviceName" required>
           </mat-form-field>
           <div>
             <button mat-button matStepperNext>Next</button>

@@ -265,7 +265,8 @@ export class HistoryReportComponent implements OnInit {
      
           this.liveData=res.success
           this.totTime=res.success
-     
+          this.liveData.userId=this.loginData.userId
+
         // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {

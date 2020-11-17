@@ -119,15 +119,26 @@
     <h2 mat-dialog-title>Add Gateway Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
   </div>
 
-
-
   <mat-horizontal-stepper  #stepper  >
     <form [formGroup]="gatewayform" >
+      <mat-step>
+        <ng-template matStepLabel class="stepper">Gateway Type</ng-template>
+        <mat-form-field>
+          <mat-label>Select Gateway Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option [value]="0">Ethernet Gateway</mat-option>
+            <mat-option [value]="1">WiFi Gateway</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
       <mat-step >
           <ng-template matStepLabel class="stepper">Fill out your gateway nick name</ng-template>
           <mat-form-field>
             <mat-label>Gateway Nick Name</mat-label>
-            <input matInput placeholder="User Name" formControlName="deviceName" required>
+            <input matInput placeholder="Gateway Nick Name" formControlName="deviceName" required>
           </mat-form-field>
           <div>
             <button mat-button matStepperNext>Next</button>
