@@ -245,6 +245,7 @@ export class HistoryReportComponent implements OnInit {
     })
 
   }
+  
   basedOnFindName(limit,offset){
     var data={
       userId:this.loginData.userId,
