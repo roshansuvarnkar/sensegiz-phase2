@@ -245,7 +245,7 @@ export class HistoryReportComponent implements OnInit {
     })
 
   }
-  
+
   basedOnFindName(limit,offset){
     var data={
       userId:this.loginData.userId,
@@ -265,8 +265,8 @@ export class HistoryReportComponent implements OnInit {
       if(res.status){
      
           this.liveData=res.success
+
           this.totTime=res.success
-          this.liveData.userId=this.loginData.userId
 
         // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         this.dataSource = new MatTableDataSource(this.liveData);
@@ -773,6 +773,7 @@ getPages(){
     dialogConfig.data = {
       data:a,
       order:2,
+      userId:this.loginData.userId,
       fromDate : this.from,
       toDate : this.to
     }
