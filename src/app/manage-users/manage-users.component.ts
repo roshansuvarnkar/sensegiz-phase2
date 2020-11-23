@@ -56,6 +56,7 @@ export class ManageUsersComponent implements OnInit {
   refreshUsers(){
     var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 &&  this.loginData.id!=0) ? this.loginData.id : 0,
         tblName:'userDetails'
       }
 

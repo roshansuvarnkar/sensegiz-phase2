@@ -76,6 +76,7 @@ ngOnInit(): void {
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceRegistration'
   }
 
@@ -119,6 +120,7 @@ refreshFinds(){
 refreshShift(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceShift'
   }
 
@@ -176,6 +178,7 @@ infected(a){
     var data = {
       deviceId:a.deviceId,
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       infected:inf
     }
     this.api.editInfectedPerson(data).then((res:any)=>{
@@ -200,6 +203,7 @@ onShiftSelection(a){
     var data = {
     shiftId:a.shift,
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceId:a.deviceId
   }
   this.api.editShift(data).then((res:any)=>{
@@ -297,27 +301,27 @@ fileChange(files){
 this.readExcel(files[0])
 }
 
-readExcel(file) {  
-  let readFile = new FileReader();  
-  readFile.onload = (e) => {  
-    this.storeData = readFile.result;  
-    var data = new Uint8Array(this.storeData);  
-    var arr = new Array();  
-    for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);  
-    var bstr = arr.join("");  
-    var workbook = XLSX.read(bstr, { type: "binary" });  
-    var first_sheet_name = workbook.SheetNames[0];  
-    this.worksheet = workbook.Sheets[first_sheet_name];  
+readExcel(file) {
+  let readFile = new FileReader();
+  readFile.onload = (e) => {
+    this.storeData = readFile.result;
+    var data = new Uint8Array(this.storeData);
+    var arr = new Array();
+    for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+    var bstr = arr.join("");
+    var workbook = XLSX.read(bstr, { type: "binary" });
+    var first_sheet_name = workbook.SheetNames[0];
+    this.worksheet = workbook.Sheets[first_sheet_name];
     this.header=XLSX.utils.sheet_to_json(this.worksheet, { header: 1 })
 
     this.fileupload.patchValue({
       header:this.header[0]
     })
 
-     
-  }  
-  readFile.readAsArrayBuffer(file);  
-  
+
+  }
+  readFile.readAsArrayBuffer(file);
+
 }
 
 
@@ -337,14 +341,15 @@ fileSubmit(data){
   var type=data.fileData.filename.split('.')
   console.log("type==",type[type.length-1].toString())
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
-  
+
     this.loading=false
-    if(data.header[0].toLowerCase()==='name' && data.header[2].toLowerCase()==='deviceid' && data.header[1].toLowerCase()==="employeeid" && 
+    if(data.header[0].toLowerCase()==='name' && data.header[2].toLowerCase()==='deviceid' && data.header[1].toLowerCase()==="employeeid" &&
         data.header[3]==="mobilenumber".toLowerCase() && data.header[4]==="emailid".toLowerCase()){
       this.format=false
       var msg = 'Please wait..!it takes few minutes to upload'
       this.general.openSnackBar(msg,'')
       data.userId =  this.loginData.userId
+      data.subUserId = (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
         console.log("file===",data)
       this.api.uploadDeviceFile(data).then((res:any)=>{
@@ -353,9 +358,9 @@ fileSubmit(data){
           this.clearFile()
           var msg = 'uploaded'
           this.general.openSnackBar(msg,'')
-        
+
         }
-        
+
       })
 
   }
@@ -367,7 +372,7 @@ fileSubmit(data){
   else{
     this.loading=true
     }
- 
+
  }
 
 

@@ -76,16 +76,17 @@ displayedColumns: string[] = ['i','baseName','contactName','startTime', 'updated
 getTotalCount(val){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceData',
     count:val
   }
- 
+
   this.api.getLiveDataTotalCount(data).then((res:any)=>{
     // console.log("live data ======",res);
     if(res.status){
       console.log('\nTotal response: ',res.success[0].count);
       this.currentPageSize= parseInt(res.success[0].count);
-     
+
 
     }
   })
@@ -97,15 +98,16 @@ getTotalCount(val){
 
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceData',
       count:value,
       offset:offset,
       limit:limit
     }
-   
+
 
     this.api.getLiveData(data).then((res:any)=>{
-    
+
       console.log("live data ======",res);
       if(res.status){
         this.liveData=[]
@@ -165,12 +167,12 @@ startTime(data1,data2){
   if(data1!="00:00:00" || data1!='-'){
     var a=data1.split(':')
     date.setHours(date.getHours() -a[0]);
-    date.setMinutes(date.getMinutes() - a[1]); 
-    date.setSeconds(date.getSeconds() - a[2]); 
+    date.setMinutes(date.getMinutes() - a[1]);
+    date.setSeconds(date.getSeconds() - a[2]);
     console.log("new date==",date)
   }
   if(data1=="00:00:00" || data1=='-'){
-    date.setSeconds(date.getSeconds() - 5); 
+    date.setSeconds(date.getSeconds() - 5);
   }
 
   return date

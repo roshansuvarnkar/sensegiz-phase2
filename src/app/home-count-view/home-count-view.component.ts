@@ -49,6 +49,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
 
       var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         type:'active',
       }
       this.api.getHomeCountData(data).then((res:any)=>{
@@ -70,6 +71,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
     if(this.type == 'infectedUserData'){
       var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         type:'infected',
       }
       this.api.getHomeCountData(data).then((res:any)=>{

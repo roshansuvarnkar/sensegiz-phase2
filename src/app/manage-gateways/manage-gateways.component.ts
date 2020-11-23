@@ -23,7 +23,7 @@ export class ManageGatewaysComponent implements OnInit {
   gatewayData:any=[]
   elementsTemp:any=[]
   dataSource: any = [];
-  displayedColumns = ['i','gatewayId','gatewayName','currentVersion','edit',	'delete']; 
+  displayedColumns = ['i','gatewayId','gatewayName','currentVersion','edit',	'delete'];
   // ,'currentVersion'
   constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
 
@@ -59,6 +59,7 @@ export class ManageGatewaysComponent implements OnInit {
 refreshGateway(){
   var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'gatewayRegistration'
     }
 

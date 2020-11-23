@@ -67,7 +67,7 @@ sendWarning(id,value){
     userId:this.loginData.userId,
     id:id,
     totalCount:value,
-    
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
 
   this.api.showWarning(data).then((res:any)=>{
@@ -91,6 +91,7 @@ sendWarning(id,value){
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
 
   this.api.getAssignedDevices(data).then((res:any)=>{
@@ -129,7 +130,7 @@ activeUser(){
 
 
 infectedUser(){
- 
+
 
       // console.log("Infected users===",this.infectedEmp)
        const dialogConfig = new MatDialogConfig();
@@ -139,7 +140,7 @@ infectedUser(){
        dialogConfig.width = '75vw';
        dialogConfig.data = {
          type:"infectedUserData",
-        
+
        }
        const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
 
@@ -156,6 +157,7 @@ infectedUser(){
 normalUser(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     type:'normal'
   }
   this.api.getHomeCountData(data).then((res:any)=>{
@@ -197,6 +199,7 @@ refresh(){
 refreshCount(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
   this.api.getCountData(data).then((res:any)=>{
     console.log("count data ======",res);
@@ -216,6 +219,7 @@ refreshCount(){
 refreshSetting(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceSetting'
   }
   this.api.getData(data).then((res:any)=>{
@@ -234,6 +238,7 @@ refreshSetting(){
 maximumContactTime(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
   this.api.getMaxTimeContact(data).then((res:any)=>{
     // console.log("max contact time ======",res);
@@ -265,6 +270,7 @@ maximumContactTime(){
 repeatedContacts(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
   this.api.getMaxContactDevice(data).then((res:any)=>{
     // console.log("max contact devices data ======",res);
@@ -282,6 +288,7 @@ repeatedContacts(){
 numOfcontactPerDay(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
   this.api.getPerDayCount(data).then((res:any)=>{
     // console.log("repeated contacts data ======",res);
@@ -305,7 +312,7 @@ numOfcontactPerDay(){
 
       }
 
-     
+
 
       var chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
@@ -353,7 +360,7 @@ numOfcontactPerDay(){
     }
 
   })
- 
+
 }
 
 }

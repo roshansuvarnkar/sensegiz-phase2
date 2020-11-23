@@ -5,10 +5,10 @@ import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver'; 
+import * as FileSaver from 'file-saver';
 import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';  
-import { catchError, map } from 'rxjs/operators'; 
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 @Component({
   selector: 'app-add-find',
   templateUrl: './add-find.component.html',
@@ -29,9 +29,9 @@ findStatus:boolean=false
 gatewayStatus:boolean=false
 userStatus:boolean=false
 error:boolean=false
-storeData: any; 
-fileUploaded: File;  
-worksheet: any; 
+storeData: any;
+fileUploaded: File;
+worksheet: any;
 fileToUpload: File = null;
 files:any=[]
   constructor(
@@ -80,7 +80,7 @@ files:any=[]
       coinId: ['', Validators.required],
       gatewayId:['', Validators.required]
     });
-    
+
     this.uploadForm =this.fb.group({
       excelFile:null
     });
@@ -97,8 +97,14 @@ Findsubmit(data){
   if (this.Findform.valid) {
     try {
       console.log("find submit====",data)
+      console.log("this.loginData====",this.loginData)
       data.tblName ='deviceRegistration'
+      if(this.loginData.hasOwnProperty('id') && this.loginData.id!=0 && this.loginData.type==4){
+        data.subUserId=this.loginData.id
+      }
       data.userId=this.loginData.userId
+      console.log("find ====",data)
+
       this.api.deviceRegister(data).then((res:any)=>{
         // console.log("find submit====",res);
         if(res.status){
@@ -121,6 +127,9 @@ Gatewaysubmit(data){
   if (this.gatewayform.valid) {
     try {
       data.tblName='gatewayRegistration'
+      if(this.loginData.hasOwnProperty('id') && this.loginData.id!=0 && this.loginData.type==4){
+        data.subUserId=this.loginData.id
+      }
       data.userId=this.loginData.userId
       this.api.deviceRegister(data).then((res:any)=>{
         // console.log("gateway submit==",res)
@@ -143,6 +152,9 @@ Usersubmit(data){
 
   if (this.userform.valid) {
     try {
+      if(this.loginData.hasOwnProperty('id') && this.loginData.id!=0 && this.loginData.type==4){
+        data.subUserId=this.loginData.id
+      }
       data.userId=this.loginData.userId
       this.api.UserRegister(data).then((res:any)=>{
         // console.log("user submit==",res)
@@ -164,6 +176,11 @@ coinSubmit(data){
   console.log("data======",data)
   if (this.coinForm.valid) {
     try {
+      console.log("this.loginData",this.loginData);
+
+      if(this.loginData.hasOwnProperty('id') && this.loginData.id!=0 && this.loginData.type==4){
+        data.subUserId=this.loginData.id
+      }
       data.userId=this.loginData.userId
       console.log("data======",data)
       this.api.coinRegister(data).then((res:any)=>{
@@ -182,12 +199,14 @@ coinSubmit(data){
   }
 
 }
+
+
 refreshGateway(){
   var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'gatewayRegistration'
-    }
-
+  }
   this.api.getData(data).then((res:any)=>{
     console.log("gateway data ======",res);
     if(res.status){

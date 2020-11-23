@@ -34,7 +34,7 @@ export class GeoFenceComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     this.refreshCoins()
-    this.refreshGeoFence() 
+    this.refreshGeoFence()
 
     this.deviceSelectForm=this.fb.group({
       findSelect:['',Validators.required],
@@ -48,39 +48,42 @@ export class GeoFenceComponent implements OnInit {
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceRegistration'
     }
-  
+
     this.api.getData(data).then((res:any)=>{
       console.log("find device data ======",res);
       if(res.status){
         this.findData=res.success
-   
+
       }
     })
   }
-  
+
   refreshCoins(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'coinRegistration'
     }
-  
+
     this.api.getData(data).then((res:any)=>{
       console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
-  
+
       }
     })
   }
-  
-   
-     
-  
+
+
+
+
   refreshGeoFence(){
     var data={
-      userId:this.loginData.userId
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
     this.api.getGeofenceData(data).then((res:any)=>{
       console.log("Geo fence device get data ======",res);
@@ -93,7 +96,7 @@ export class GeoFenceComponent implements OnInit {
              coinName:res.data[i].coinName
            })
          }
-       
+
          this.dataSource = new MatTableDataSource(this.geofenceData);
          setTimeout(() => {
            this.dataSource.sort = this.sort;
@@ -111,40 +114,40 @@ export class GeoFenceComponent implements OnInit {
 
   submit(data){
     console.log("data====",data)
-   
+
     var msg = 'Geofence updated Successfully'
         this.general.openSnackBar(msg,'')
     var value=this.coinData.filter((element)=>{
       return data.coinSelect.includes(element.coinId)
     });
-    
+
       if(value.length>0){
         this.coin=[]
         for(let i=0;i<value.length;i++){
           this.coin.push(value[i].coinName)
         }
-       
+
     }
     var data1={
       userId:this.loginData.userId,
       deviceId:data.findSelect,
       coinId:data.coinSelect,
-      coinName:this.coin
-
+      coinName:this.coin,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
      console.log("data1==",data1)
      this.api.setGeofenceData(data1).then((res:any)=>{
       console.log("Geo fence device set data ======",res);
       if(res.status){
-        
-        
+
+
         this.refreshGeoFence()
       }
-     
+
     })
-    
-  
+
+
   }
 
- 
+
 }

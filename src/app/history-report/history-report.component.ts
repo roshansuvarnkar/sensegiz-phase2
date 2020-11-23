@@ -92,7 +92,7 @@ export class HistoryReportComponent implements OnInit {
     if(this.type=='basedOnDate'){
       var data={
         userId:this.loginData.userId,
-
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         fromDate: this.from,
         toDate:this.to,
       }
@@ -110,6 +110,7 @@ export class HistoryReportComponent implements OnInit {
   if(this.type=='basedOnFindName'){
     var data1={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
@@ -129,6 +130,7 @@ export class HistoryReportComponent implements OnInit {
   if(this.type=='locationReport'){
     var data2={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
@@ -147,6 +149,7 @@ export class HistoryReportComponent implements OnInit {
   if(this.type=='geoFenceReport'){
     var data3={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
@@ -172,6 +175,7 @@ export class HistoryReportComponent implements OnInit {
     console.log(limit,offset)
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       fromDate: this.from,
       toDate:this.to,
       limit:limit,
@@ -214,6 +218,7 @@ export class HistoryReportComponent implements OnInit {
   basedOnFindName(limit,offset,type){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
@@ -258,6 +263,7 @@ export class HistoryReportComponent implements OnInit {
 
       var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         deviceName:this.deviceName,
         fromDate: this.from,
         toDate:this.to,
@@ -382,7 +388,7 @@ getZone(date){
 cummulativeReport(){
   var date=new Date()
   var timezone=date.getTimezoneOffset()
-  
+
   let m = timezone % 60;
   timezone = (timezone - m) / 60;
   let h = timezone
@@ -399,6 +405,7 @@ cummulativeReport(){
   }
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     fromDate: this.from,
     toDate:this.to,
     zone:timeZone
@@ -432,6 +439,7 @@ locationReport(limit,offset,type){
 
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
@@ -490,6 +498,7 @@ geofenceAndlocationReport(limit,offset,type){
 
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
@@ -606,12 +615,13 @@ getPages(){
   var data={}
   var fileName=''
   var dateObj=new Date()
-  
+
 
  if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
     if(this.type=='basedOnDate'){
       data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       fromDate: this.from,
       toDate:this.to,
       zone:this.getZone(dateObj),
@@ -622,6 +632,7 @@ getPages(){
   if(this.type=='basedOnFindName'){
     data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
@@ -653,6 +664,7 @@ getPages(){
     if(this.type=='locationReport'){
       data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       coinId:this.locationId,
       fromDate: this.from,
       toDate:this.to,
@@ -664,6 +676,7 @@ getPages(){
     if(this.type=='geoFenceReport'){
     data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.deviceName,
       fromDate: this.from,
       toDate:this.to,
@@ -684,6 +697,7 @@ getPages(){
   if(this.type=='cummulative'){
     data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       fromDate: this.from,
       toDate:this.to,
       zone:this.getZone(dateObj),
@@ -693,11 +707,11 @@ getPages(){
     console.log("data to send ======",data);
 
     //apicall
-    
+
     this.api.downloadCummulative(data,fileName).then((res:any)=>{
 
       console.log("report data recieved ======",res);
-  
+
     })
     }
 

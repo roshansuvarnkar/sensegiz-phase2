@@ -26,8 +26,8 @@ constructor(private router: Router, private login: LoginCheckService) {}
            this.login.loginCheckStatus.next(true)
         }
         else if(next.data.role == 'user' ){
-                 
-          if(this.loginData.type == 3){
+
+          if(this.loginData.type == 3 || this.loginData.type == 4){
             if(state.url == "/settings" || state.url == "/profile" ){
               this.login.loginCred.next(true)
               this.login.loginCheckStatus.next(true)
@@ -44,14 +44,14 @@ constructor(private router: Router, private login: LoginCheckService) {}
           }
         }
 
-        return true; 
+        return true;
       }
-     
+
       else{
         this.login.loginCred.next(false)
         this.login.loginCheckStatus.next(false)
         this.router.navigate(['/login'])
       }
   }
- 
+
 }
