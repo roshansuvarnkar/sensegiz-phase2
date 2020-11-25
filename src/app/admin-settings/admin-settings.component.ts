@@ -20,6 +20,7 @@ export class AdminSettingsComponent implements OnInit {
   timeForm:FormGroup
   bufferForm:FormGroup
   workingForm:FormGroup
+  sendDataForm:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
@@ -65,6 +66,10 @@ export class AdminSettingsComponent implements OnInit {
       shift: ['', Validators.required],
       fromTime: ['', Validators.required],
       toTime: ['', Validators.required]
+    });
+
+    this.sendDataForm = this.fb.group({
+      rate:['',[Validators.required,Validators.max(255), Validators.min(1)]],
     });
 
     this.route.queryParams.subscribe(params => {
@@ -116,7 +121,9 @@ export class AdminSettingsComponent implements OnInit {
         this.scanningForm.patchValue({
           seconds:res.success[0].scanningInterval.toString()
         })
-
+        this.sendDataForm.patchValue({
+          rate:res.success[0].gatewayDataRate.toString()
+        })
       }
     })
   }
@@ -315,7 +322,7 @@ export class AdminSettingsComponent implements OnInit {
           // console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()
-            var msg='Interval second Successfully'
+            var msg='Interval second updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
@@ -398,7 +405,24 @@ export class AdminSettingsComponent implements OnInit {
      }
    }
 
-
+   onSubmitSendDataForm(data){
+    if (this.scanningForm.valid) {
+      try {
+        data.userId=this.dataGet.userId
+        this.api.setGatewayDataRate(data).then((res:any)=>{
+          console.log("setGatewayDataRate ===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg='  Gateway data rate updated successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+   }
 
  
    onSubmitBufferForm(value){

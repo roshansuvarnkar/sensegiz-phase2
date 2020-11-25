@@ -360,10 +360,7 @@ numOfcontactPerDay(){
               label:this.dates[i]
              }
            )
-
       }
-
-     
 
       var chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
@@ -373,14 +370,11 @@ numOfcontactPerDay(){
                       fontColor: "#ef6c00",
                     },
                     axisY:{
-
                       gridThickness: 0
                     },
                     dataPointWidth: 30,
-
                     data: [{
                       type: "column",
-
                       dataPoints:this.dataPoints
                     }]
                   });
@@ -396,14 +390,11 @@ numOfcontactPerDay(){
           fontColor: "#ef6c00",
         },
         axisY:{
-
           gridThickness: 0
         },
         dataPointWidth: 30,
-
         data: [{
           type: "column",
-
           dataPoints:this.dataPoints
         }]
       });

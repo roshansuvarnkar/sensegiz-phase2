@@ -84,6 +84,7 @@ export class GeoFenceComponent implements OnInit {
     }
     this.api.getGeofenceData(data).then((res:any)=>{
       console.log("Geo fence device get data ======",res);
+
       if(res.status && res.data.length>=0){
         this.geofenceData=[]
          for(let i=0;i<res.data.length;i++){

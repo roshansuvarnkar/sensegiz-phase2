@@ -120,12 +120,13 @@ preferredCountries: CountryISO[] = [CountryISO.India];
           // console.log("mon num==",mobNum)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
+
         data.userId=this.loginData.userId
         data.deviceId=this.deviceData.deviceId
         data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
         console.log("find update data===",data)
         this.api.editDeviceRegister(data).then((res:any)=>{
-          // console.log("find submit====",res);
+          console.log("find submit====",res);
           if(res.status){
             var msg = 'Device Updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -201,11 +202,13 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       try {
         data.id=this.deviceData.id
         data.userId=this.loginData.userId
-        data.coinId=this.deviceData.coinId
+        data.coinId=this.deviceData.coinId,
+        data.coinName=data.coinName
         console.log("coin send data==",data)
         this.api.editCoinRegister(data).then((res:any)=>{
           console.log("coin submit==",res)
           if(res.status){
+         
             var msg = 'Coin Updated Successfully'
             this.general.openSnackBar(msg,'')
           }

@@ -155,6 +155,7 @@ export class SettingsComponent implements OnInit {
       fileData:null,
       type:'logo',
     });
+    
     this.maxDistanceForm = this.fb.group({
       maxDistance:['',Validators.required]
     });

@@ -150,13 +150,17 @@ delete(value){
     console.log("yes",value)
     var data = {
       id:value.id,
-      tblName:'coinRegistration'
+      tblName:'coinRegistration',
+      userId:this.loginData.userId,
+      coinId:value.coinId,
+      coinName:value.coinName
     }
+    console.log("delete coin===",data)
     this.api.deletedeviceandUser(data).then((res:any)=>{
       console.log("coin data ======",res);
       if(res.status){
         this.refreshCoins()
-        var msg = 'Coin Deleted Successfully'
+        var msg = 'Coin deleted Successfully'
         this.general.openSnackBar(msg,'')
       }
     })

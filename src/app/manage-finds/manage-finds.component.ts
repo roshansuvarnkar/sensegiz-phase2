@@ -169,8 +169,11 @@ delete(a){
     // console.log("yes",a)
     var data = {
       id:a.id,
-      tblName:'deviceRegistration'
+      tblName:'deviceRegistration',
+      userId:this.loginData.userId,
+      deviceId:a.deviceId
     }
+    console.log("delete device==",data)
     this.api.deletedeviceandUser(data).then((res:any)=>{
       // console.log("find data ======",res);
       if(res.status){

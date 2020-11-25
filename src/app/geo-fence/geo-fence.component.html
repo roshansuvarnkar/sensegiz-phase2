@@ -32,11 +32,11 @@
 
 
 
-<div *ngIf="!geoFenceStatus">
+
   <div class="center" > 
     <p>Geo-Fence Setting </p>
     <hr>
-  </div>
+ 
   
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort >
@@ -69,15 +69,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
       </table>
-      <mat-paginator
-                    pageSize="10"
-                    [pageSizeOptions] = "[5, 10, 25, 100]"
-                    showFirstLastButtons 
-                    >
-      </mat-paginator>
   </div>
-</div>
+  <mat-paginator   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons ></mat-paginator>
 
-<div *ngIf="geoFenceStatus">
-  <h1>No Data</h1>
 </div>
