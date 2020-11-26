@@ -57,7 +57,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
       deviceId: [{value: '', disabled: true}, Validators.required],
-      // type:[{value: '', disabled: true}, Validators.required],
+      type:[{value: '', disabled: true}, Validators.required],
 
     });
 
@@ -88,7 +88,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       this.gatewayform.patchValue({
         deviceName: this.deviceData.gatewayName,
         deviceId: this.deviceData.gatewayId,
-        // type:this.deviceData.gatewayType
+        type:this.deviceData.gatewayType
 
       });
     }
