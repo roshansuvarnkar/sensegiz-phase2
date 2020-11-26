@@ -202,6 +202,31 @@ export class ApiService {
     });
   }
 
+  setDeviceRssi(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/setDeviceRssi';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+ deleteGeofence(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    let url = this.host+'/deleteDeviceGeofence';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
+
 
 
   editInfectedPerson(data){
@@ -412,7 +437,19 @@ export class ApiService {
     });
   }
 
+  setGatewayDataRate(data)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
+    let url = this.host+'/setGatewayDataRate';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,data,httpOptions).subscribe(res=>{
+        resolve(res);
+      })
+    });
+  }
 
 
    editShift(data){
@@ -1009,7 +1046,58 @@ deleteGroupName(data){
   });
 
 }
+updateGroupName(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
+  let url = this.host+'/updategroupName';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+}
+getOnlineCount(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/getOnlinedevice';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+
+}
+
+deleteOvercrowding(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/deleteOverCrowding';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+
+}
+infectedContactalert(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/infectedContactAlert';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+
+}
 downloadFile(response,fileName){
   let body = response.body
   let dataType = body.type;
@@ -1078,20 +1166,30 @@ downloadCummulative(data,fileName){
   });
 
 }
+ 
+viewCTReport(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
+  let url = this.host+'/viewCTReport';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
 
-  
-  viewCTReport(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-  
-    let url = this.host+'/viewCTReport';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-  
-  }
+}
+editIsolation(data){
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  let url = this.host+'/makePersonIsolated';
+  return new Promise((resolve,reject)=>{
+    this.http.post(url,data,httpOptions).subscribe(res=>{
+      resolve(res);
+    })
+  });
+}
 }

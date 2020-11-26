@@ -69,7 +69,7 @@ export class EditOverCrowdComponent implements OnInit {
 	refreshCoins(){
 		var data={
 		  userId:this.loginData.userId,
-		  tblName:'coinRegistration'
+		  tblName:'coinMaxLimitInfo'
 		}
 
 		this.api.getData(data).then((res:any)=>{
@@ -263,7 +263,7 @@ submit(data,i){
     coinId:this.filterCoin(data.items[i])
   }
   console.log("value======",value)
-  this.api.setMaxLimit(value).then((res:any)=>{
+  this.api.updateGroupName(value).then((res:any)=>{
     console.log("group maxlimit response===",res)
     if(res.status){
       // this.refreshSetting()
@@ -297,11 +297,14 @@ submit(data,i){
   deleteOvercrowd(value){
 
 	  var data = {
-		id:value.id,
-		tblName:'coinRegistration'
-	  }
-	  this.api.deletedeviceandUser(data).then((res:any)=>{
-		// console.log("coin data ======",res);
+    id:value.id,
+    userId:this.loginData.userId,
+    coinId:value.coinId,
+		tblName:'coinMaxLimitInfo'
+    }
+    console.log("data delete===",data)
+	  this.api.deleteOvercrowding(data).then((res:any)=>{
+		console.log("delete data ======",res);
 		if(res.status){
 		  this.refreshCoins()
 		  var msg = 'Coin Deleted Successfully'
@@ -321,9 +324,11 @@ submit(data,i){
 
     this.api.deleteGroupName(data).then((res:any)=>{
       if(res.status){
-        this.refreshGroupCoins()
+
         var msg = 'Group Deleted Successfully'
         this.general.openSnackBar(msg,'')
+        this.refreshGroupCoins()
+         this.refreshCoins()
       }
       })
   }

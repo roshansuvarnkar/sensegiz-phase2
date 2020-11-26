@@ -66,4 +66,7 @@ mat-card.mat-card.mat-focus-indicator.geoReport {
     /* .history{
         margin-left: 2rem;
     } */
+    ::ng-deep .mat-autocomplete-panel{
+    width:0 !important;
+}
 }

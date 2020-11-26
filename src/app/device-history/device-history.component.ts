@@ -46,9 +46,9 @@ export class DeviceHistoryComponent implements OnInit {
 
    var data={
     userId:this.loginData.userId,
-     deviceName:this.deviceData.deviceName,
-      limit:limit,
-      offset:offset
+    deviceName:this.deviceData.deviceName,
+    limit:limit,
+    offset:offset
    }
     this.api.getDeviceData(data).then((res:any)=>{
       console.log("find data ======",res);

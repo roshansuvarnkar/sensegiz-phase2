@@ -42,7 +42,7 @@
 
 					<button type="button" mat-raised-button color="primary" (click)="submitOvercrowd(a.value)">Submit</button>
 
-					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)">delete</mat-icon></td>
+					<td><mat-icon matListIcon (click)="deleteOvercrowd(a.value)"  class="cursor">delete</mat-icon></td>
 
 		          </ng-container>
 		        </div>
@@ -126,7 +126,7 @@
 										</mat-error>
 									</mat-form-field>
 								</td>
-								<td *ngIf="name.get('data')['controls']?.length>0">
+								<td *ngIf="name.get('data')['controls']?.length>0" class="list">
 
 									<ul>
 										<li *ngFor="let data of name.get('data')['controls']; let j=index">{{data.get('coinName').value}}</li>
@@ -148,10 +148,10 @@
 									</mat-form-field>
 								</td>
 								<td>
-									<mat-icon (click)="deleteGroupOverCrowd(overCrowdGroupForm.value,i)">delete</mat-icon>
+									<mat-icon (click)="deleteGroupOverCrowd(overCrowdGroupForm.value,i)" class="cursor">delete</mat-icon>
 								</td>
 								<td>
-										<button mat-raised-button (click)="submit(overCrowdGroupForm.value,i)" >Submit</button>
+										<button mat-raised-button (click)="submit(overCrowdGroupForm.value,i)" color="primary" >Submit</button>
 								</td>
 							</div>
 						</tr>

@@ -155,6 +155,7 @@ export class SettingsComponent implements OnInit {
       fileData:null,
       type:'logo',
     });
+    
     this.maxDistanceForm = this.fb.group({
       maxDistance:['',Validators.required]
     });
@@ -557,6 +558,7 @@ export class SettingsComponent implements OnInit {
           // console.log("limit response===",res)
           if(res.status){
             this.refreshSetting()
+            this.overCrowedForm.reset()
             var msg='Max limit updated Successfully'
             this.general.openSnackBar(msg,'')
           }
@@ -689,7 +691,7 @@ export class SettingsComponent implements OnInit {
           // console.log("buzzer congig===",res)
           if(res.status){
             this.refreshSetting()
-            var msg='Buzzer configured Successfully'
+            var msg='Alert configured Successfully'
             this.general.openSnackBar(msg,'')
           }
 
@@ -904,6 +906,7 @@ export class SettingsComponent implements OnInit {
     const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
+      this.refreshCoins()
     });
   }
 
@@ -920,6 +923,7 @@ export class SettingsComponent implements OnInit {
     const dialogRef = this.dialog.open(EditOverCrowdComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
+      this.refreshCoins()
     });
   }
 

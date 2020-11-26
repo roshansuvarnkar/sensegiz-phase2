@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-edit-device',
@@ -19,8 +20,10 @@ userform:FormGroup
 coinform:FormGroup
 loginData:any
 gateway:any=[]
-
-
+SearchCountryField = SearchCountryField;
+TooltipLabel = TooltipLabel;
+CountryISO = CountryISO;
+preferredCountries: CountryISO[] = [CountryISO.India];
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +56,9 @@ gateway:any=[]
 
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
-      deviceId: [{value: '', disabled: true}, Validators.required]
+      deviceId: [{value: '', disabled: true}, Validators.required],
+      // type:[{value: '', disabled: true}, Validators.required],
+
     });
 
 
@@ -82,7 +87,9 @@ gateway:any=[]
     else if(this.type=='gateways'){
       this.gatewayform.patchValue({
         deviceName: this.deviceData.gatewayName,
-        deviceId: this.deviceData.gatewayId
+        deviceId: this.deviceData.gatewayId,
+        // type:this.deviceData.gatewayType
+
       });
     }
 
@@ -104,19 +111,22 @@ gateway:any=[]
   }
 
 
+
   Findsubmit(data){
-    console.log("find edit===",data)
-    var mobNum=data.mobileNum.replace(/\s/g,'')
-    console.log("mon num==",mobNum)
-    data.mobileNum=mobNum==''?'-':mobNum=='+91'?mobNum.substring(3):mobNum
     if (this.Findform.valid) {
       try {
-        console.log("find edit===",data)
+         console.log("find edit===",data)
+        //  var mobNum=data.mobileNum.replace(/\s/g,'')
+          // console.log("mon num==",mobNum)
         data.tblName='deviceRegistration'
         data.id=this.deviceData.id
+
         data.userId=this.loginData.userId
+        data.deviceId=this.deviceData.deviceId
+        data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
+        console.log("find update data===",data)
         this.api.editDeviceRegister(data).then((res:any)=>{
-          // console.log("find submit====",res);
+          console.log("find submit====",res);
           if(res.status){
             var msg = 'Device Updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -125,13 +135,14 @@ gateway:any=[]
             var msg = 'Device Name Already exists, try different Name'
             this.general.openSnackBar(msg,'')
           }
-
-
+        
         })
       } catch (err) {
       }
     }
   }
+
+
 
 
 
@@ -141,14 +152,17 @@ gateway:any=[]
         data.tblName='gatewayRegistration'
         data.id=this.deviceData.id
         data.userId=this.loginData.userId
+        data.deviceId= this.deviceData.gatewayId
+        console.log("gateway data==",data)
+
         this.api.editDeviceRegister(data).then((res:any)=>{
-          // console.log("gateway submit==",res)
+          console.log("gateway submit==",res)
           if(res.status){
-            var msg = 'Gateway Updated Successfully'
+         var msg = 'Gateway Updated Successfully'
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Gateway Name Already exists, try different gateway'
+          var msg = 'Gateway Name  Already exists, try different gateway'
             this.general.openSnackBar(msg,'')
           }
         })
@@ -163,17 +177,17 @@ gateway:any=[]
     if (this.userform.valid) {
       try {
         data.id=this.deviceData.id
+        data.mobileNum=data.mobileNum.e164Number
         data.userId=this.loginData.userId
-        console.log("user data==",data)
-
+        data.deviceId=this.deviceData.deviceId
         this.api.EditUserRegister(data).then((res:any)=>{
-          console.log("user submit==",res)
+          // console.log("user submit==",res)
           if(res.status){
             var msg = 'User Updated Successfully'
             this.general.openSnackBar(msg,'')
           }
           else if(!res.status && res.alreadyExisted){
-            var msg = 'Email id or Mobile Number Already exists, try different device'
+            var msg = 'Email Id or Mobile Number Already exists, try different device'
             this.general.openSnackBar(msg,'')
           }
         })
@@ -187,9 +201,14 @@ gateway:any=[]
     if (this.coinform.valid) {
       try {
         data.id=this.deviceData.id
+        data.userId=this.loginData.userId
+        data.coinId=this.deviceData.coinId,
+        data.coinName=data.coinName
+        console.log("coin send data==",data)
         this.api.editCoinRegister(data).then((res:any)=>{
           console.log("coin submit==",res)
           if(res.status){
+         
             var msg = 'Coin Updated Successfully'
             this.general.openSnackBar(msg,'')
           }
@@ -220,14 +239,14 @@ gateway:any=[]
     })
   }
 
-  getNumber(event){
-    console.log(" get number event==",event)
-  }
-  telInputObject(event){
-    console.log(" tel obj event==",event)
+  // getNumber(event){
+  //   console.log(" get number event==",event)
+  // }
+  // telInputObject(event){
+  //   console.log(" tel obj event==",event)
 
-  }
-  onCountryChange(event){
-    console.log("country==",event)
-  }
+  // }
+  // onCountryChange(event){
+  //   console.log("country==",event)
+  // }
 }

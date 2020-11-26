@@ -17,11 +17,18 @@ p.center{
   justify-content: space-between;
 
 }
+
 .tab-align {
   border: 1px solid #8080800a;
   box-shadow: 1px 1px 1px 1px #8080802e;
-}
 
+}
+.list{
+  width:15rem;
+}
+.head{
+  width: 100%t;
+}
 @media only screen and (max-width: 768px) {
   mat-card.mat-card.mat-focus-indicator.shifts{
     display: flex;
@@ -38,6 +45,14 @@ p.center{
   mat-icon.mat-icon.notranslate.material-icons.mat-icon-no-color {
     vertical-align: top;
     
+  }
+  .tab-align {
+    border: 1px solid #8080800a;
+    box-shadow: 1px 1px 1px 1px #8080802e;
+    width: fit-content;
+  }
+  .head{
+    width: fit-content;
   }
 
 }

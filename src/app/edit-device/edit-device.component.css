@@ -2,7 +2,17 @@
     border: none;
     
 }
-
+::ng-deep .focus{
+outline: unset !important;
+}
+mat-horizontal-stepper,mat-step,.step-phone{
+    position: relative;
+    z-index: 0;
+  }
+  .intl-phone{
+    position: absolute;
+    z-index: auto;
+  }
 
 ::ng-deep .btn.focus, .btn:focus {
     outline: 0;
@@ -21,4 +31,24 @@ hr {
 }
 ::ng-deep input:-internal-autofill-selected {
     background-color: white !important;
+}
+::ng-deep input#phone {
+    border: none !important;
+    outline-width: 0 !important;
+}
+::ng-deep input#phone:focus:hover:visited:active:focus-within:focus-visible {
+    border: none !important;
+    outline-width: 0 !important;
+
+}
+.mob{
+    border: 1px solid #cac6c3 !important;
+    margin-top: 0rem !important;
+    width: 11rem !important;
+    margin-left: 0rem !important;
+}
+
+.error{
+  margin-top: -1rem;
+  font-size: smaller;
 }

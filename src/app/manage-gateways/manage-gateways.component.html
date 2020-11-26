@@ -37,7 +37,10 @@
             <td mat-cell *matCellDef="let i=index" > {{i+1}} </td>
           </ng-container>
          
-
+          <ng-container matColumnDef="gatewayType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gateway Type </th>
+            <td mat-cell *matCellDef="let live "> {{live.gatewayType}} </td>
+          </ng-container>
 
           <ng-container matColumnDef="gatewayName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Gateway Name </th>
@@ -54,7 +57,11 @@
             <td mat-cell *matCellDef="let live"> {{live.currentVersion}} </td>
           </ng-container>
 
-
+          <!-- <ng-container matColumnDef="bleVersion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> BLE Version</th>
+            <td mat-cell *matCellDef="let live"> {{live.bleVersion}} </td>
+          </ng-container> -->
+          
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="userType==3"> Edit </th>
             <td mat-cell *matCellDef="let live"  class="cursor" [hidden]="userType==3"> <mat-icon (click)="edit(live)">{{live.edit}}</mat-icon></td>

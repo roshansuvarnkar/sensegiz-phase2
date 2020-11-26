@@ -18,7 +18,7 @@
 
     <button mat-menu-item routerLink="/dashboard"> <mat-icon>people</mat-icon>Manage People</button>
     <button mat-menu-item routerLink="/live-data"> <mat-icon>person_pin_circle</mat-icon>Social Distancing</button>
-    <button mat-menu-item routerLink="/exception"> <mat-icon>settings</mat-icon>Exception</button>
+    <button mat-menu-item routerLink="/exception"> <mat-icon>group</mat-icon>Exception</button>
     <!-- <button mat-menu-item routerLink="/location"> <mat-icon>place</mat-icon>Location</button> -->
 
     <button mat-menu-item routerLink="/settings" *ngIf="loginDataInfo.type!==3"> <mat-icon>settings</mat-icon>Settings</button>
@@ -48,6 +48,16 @@
           <mat-icon >exit_to_app</mat-icon>
         </span>
       </span>
+      <span class="flex title" *ngIf="loginStatus && twoStepAuth?.role=='admin' && (isMobile || isTablet)">
+        <span>
+          <mat-icon >person</mat-icon>
+        </span>
+        <p >{{loginDataInfo.userName}}</p>&emsp;&nbsp;&emsp;
+        <span  (click)="logout()" class="logout">
+          <mat-icon >exit_to_app</mat-icon>
+        </span>
+      </span>
+
     </span>
   </span><br>
   </mat-toolbar>

@@ -11,6 +11,11 @@ mat-card {
   mat-card.mat-card.mat-focus-indicator {
       box-shadow: 0 2px 8px 0 #ef6c00;
   }
+  .wearable {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: -1rem;
+  }
   mat-card-title{
     color: #ef6c00;
     /* font-family: serif; */

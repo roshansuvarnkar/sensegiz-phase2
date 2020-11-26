@@ -95,6 +95,23 @@ updatedOnDate(date){
 
 
 }
+startTime(data1,data2){
+  console.log(data1,data2)
+  var date=new Date(data2)
+  if(data1!="00:00:00" || data1!='-'){
+    var a=data1.split(':')
+    date.setHours(date.getHours() -a[0]);
+    date.setMinutes(date.getMinutes() - a[1]); 
+    date.setSeconds(date.getSeconds() - a[2]); 
+    // console.log("new date==",date)
+  }
+  if(data1=="00:00:00" || data1=='-'){
+    date.setSeconds(date.getSeconds() - 5); 
+  }
+ 
+
+  return date
+}
 convertTime(a){
   // console.log(a)
 
@@ -118,19 +135,20 @@ convertTime(a){
 
 totalTime(inTime,outTime){
   console.log("time===",inTime,outTime)
-  this.date1  = new Date(inTime)
-  this.date2=new Date(outTime)
-  var date=new Date()
+ 
+  this.date1 = new Date(inTime)
+  this.date2 = outTime==null? new Date('0000-00-00 00:00:00'):new Date(outTime)
+  
+  console.log("time2===",this.date1, this.date2)
+ 
+  if(this.date1 !="Invalid Date" ){
 
-  if(this.date1 !="Invalid Date"){
-
-    if(this.date2!="Invalid Date"){
+    if(this.date2!="Invalid Date" ){
       var diff = Math.abs(this.date2 - this.date1)
     }
 
-    else{
-      this.date2=date
-      diff= Math.abs(this.date2 - this.date1)
+    else {
+      return '-'
     }
 
 
@@ -151,5 +169,29 @@ totalTime(inTime,outTime){
    return this.convertTime(this.time)
   }
 }
+getZone(date){
+  var timezone=date.getTimezoneOffset()
+  console.log("time zone==",timezone)
 
+  let m = timezone % 60;
+  console.log("m==",m)
+  timezone = (timezone - m) / 60;
+  let h = timezone
+  console.log("h==",m)
+
+  let mm = m <= 9 && m >= 0 ? "0"+m : m;
+  let hh = h <= 9 && h >= 0 ? "0"+h : h;
+
+  var timezones=-(timezone)
+  console.log("time zone==",timezone)
+
+  if(timezones<0 ){
+    var timeZone= '-'+((hh)+':'+(mm)).toString()
+  }
+  else{
+    timeZone= '+'+ ((-hh)+':'+ (-mm)).toString()
+  }
+
+  return timeZone
+}
 }

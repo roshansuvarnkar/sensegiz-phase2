@@ -45,7 +45,8 @@ import { SetNewPasswordComponent } from './set-new-password/set-new-password.com
 import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditOverCrowdComponent } from './edit-over-crowd/edit-over-crowd.component';
- 
+import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +80,7 @@ import { EditOverCrowdComponent } from './edit-over-crowd/edit-over-crowd.compon
     TwoStepAuthComponent,
     ProfileComponent,
     EditOverCrowdComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -91,6 +92,7 @@ import { EditOverCrowdComponent } from './edit-over-crowd/edit-over-crowd.compon
     FlexLayoutModule,
     HttpClientModule,
     InternationalPhoneNumber2Module,
+    NgxIntlTelInputModule,
     NgCircleProgressModule.forRoot({}),
     MDBBootstrapModule.forRoot(),
     DeviceDetectorModule.forRoot(),

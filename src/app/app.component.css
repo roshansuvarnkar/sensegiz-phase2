@@ -1,9 +1,9 @@
+img {
+  height: 100%
+}
 body,body-1, .mat-typography {
   font: 100 14px/20px Roboto, "Helvetica Neue", sans-serif !important;
   letter-spacing: normal;
-}
-img {
-  height: 100%
 }
 span.flex.logo {
     position: relative;
@@ -21,13 +21,13 @@ right: 0;
 top: 50%;
 z-index: 2;
 }
-.mobilemenu{
-display: none;
-}
 span.logout {
   cursor: pointer;
 }
-.devices{ 
+.mobilemenu{
+display: none;
+}
+.devices{
 display: none;
 }
 button.mat-focus-indicator.mat-button.mat-button-base {
@@ -61,7 +61,6 @@ width: 100% !important;
   line-height: 1.687rem;
   font-size: 1.2rem;
 }
-
 /* .col-2, .desktop{
 display: none;
 } */
@@ -77,9 +76,9 @@ display: block;
 .menubar{
 display: none;
 }
-.logouticon{
-display: block;
-}
+/* .logout{
+margin-left: -7rem !important;
+} */
 img {
   height: 100%
 }
@@ -88,7 +87,7 @@ margin-left: -2rem;
 }
 span.flex.title{
   margin-top: 1rem;
-  font-size: large;
+  font-size: small;
 }
 button.mat-menu-item, .mat-menu-item .mat-icon  {
 
@@ -97,7 +96,7 @@ color: #f7a30bfa;
 .flex {
 display: flex;
 width: 100%;
-justify-content: space-evenly !important;
+/* justify-content: space-evenly !important; */
 }
 
 }
