@@ -26,7 +26,7 @@ export class LoginCheckService {
          }
        });
    }
-
+ 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
     var passwordExpiry=JSON.parse(status)
