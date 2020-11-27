@@ -120,7 +120,10 @@ export class ProfileComponent implements OnInit {
    }
 
 refreshSubUserData(){
-  this.api.getSubUser().then((res:any)=>{
+  let data = {
+    userId : this.loginData.userId
+  }
+  this.api.getSubUser(data).then((res:any)=>{
     console.log("data===",res)
     if(res.status){
       this.subUser=res.success

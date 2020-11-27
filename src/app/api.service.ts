@@ -1005,11 +1005,10 @@ createSubUser(data){
   });
 }
 
-getSubUser(){
+getSubUser(data){
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-     var data=""
   
     let url = this.host+'/getSubUser';
     return new Promise((resolve,reject)=>{
@@ -1166,7 +1165,7 @@ downloadCummulative(data,fileName){
   });
 
 }
- 
+
 viewCTReport(data){
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
