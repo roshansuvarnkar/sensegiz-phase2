@@ -9,8 +9,10 @@
     <form action="" [formGroup]="fileupload" >
       <!-- <span> <input type="file" #fileInput (change)="fileChange($event.target.files)" >
       <button class="upload-btn" mat-flat-button color="primary" >Upload</button></span> <br> <br> -->
-      <input type="file" id="file" style="display:none;" #fileInput (change)="fileChange($event.target.files)">
-      <span id="button" class="upload-btn cursor" mat-flat-button color="primary"  (click)="onclick()"> <mat-icon class="publish">publish</mat-icon> <span>Upload File</span> </span>
+      <span *ngIf="userType!=3">
+        <input type="file" id="file" style="display:none;" #fileInput (change)="fileChange($event.target.files)">
+        <span id="button" class="upload-btn cursor" mat-flat-button color="primary"  (click)="onclick()"> <mat-icon class="publish">publish</mat-icon> <span>Upload File</span> </span>
+      </span>
       <!-- <div class="upload-mob-btn "><span (click)="onclick()" > <mat-icon id="button" >cloud_upload</mat-icon>  </span> </div><br> <br> -->
 
       <span [ngStyle]="{'display':isDesktopDevice === true && loading===true ? 'block' : 'none','color': loading===true?'red':'red' }">Please choose xlsx or xls file*</span>
@@ -18,7 +20,7 @@
 
     </form>
    </div>
-    <button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
+    <button *ngIf="userType!=3" class="button" mat-flat-button color="primary" (click)="openDialog()">Add Finds</button>
 
   <mat-form-field class="full-width-input search">
     <input matInput placeholder="Search device" autocomplete="off" matInput (keyup)="search($event.target.value)" >
@@ -28,7 +30,7 @@
 
 
 </div>
-
+<br><br>
 <!--
 <div class="table">
   <table  mdbTable class="table table-hover z-depth-1" mdbTable >

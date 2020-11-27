@@ -1,5 +1,5 @@
 <br>
-<button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Users</button>
+<button class="button" mat-flat-button color="primary" (click)="openDialog()" *ngIf="userType!=3">Add Users</button>
 
 <!--
 <div class="table">

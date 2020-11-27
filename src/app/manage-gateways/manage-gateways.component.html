@@ -1,10 +1,10 @@
 <br>
-<button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Gateways</button>
+<button class="button" mat-flat-button color="primary" (click)="openDialog()" *ngIf="userType!=3">Add Gateways</button>
 <mat-form-field class="full-width-input search">
   <input matInput placeholder="Search device" autocomplete="off" matInput (keyup)="search($event.target.value)">
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
-
+<br><br>
 <!-- <div class="table">
   <table mdbTable  class="table table-hover z-depth-1">
     <thead>
@@ -36,7 +36,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
             <td mat-cell *matCellDef="let i=index" > {{i+1}} </td>
           </ng-container>
-         
+
           <ng-container matColumnDef="gatewayType">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Gateway Type </th>
             <td mat-cell *matCellDef="let live "> {{live.gatewayType}} </td>
@@ -61,7 +61,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> BLE Version</th>
             <td mat-cell *matCellDef="let live"> {{live.bleVersion}} </td>
           </ng-container> -->
-          
+
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="userType==3"> Edit </th>
             <td mat-cell *matCellDef="let live"  class="cursor" [hidden]="userType==3"> <mat-icon (click)="edit(live)">{{live.edit}}</mat-icon></td>
