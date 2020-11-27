@@ -1,5 +1,5 @@
 <br>
-<button class="button" mat-flat-button color="primary" (click)="openDialog()">Add Users</button>
+<button class="button" mat-flat-button color="primary" (click)="openDialog()" *ngIf="userType!=3">Add Users</button>
 
 <!--
 <div class="table">
@@ -52,13 +52,13 @@
 
 
           <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
-            <td mat-cell *matCellDef="let live"  class="cursor"> <mat-icon (click)="edit(live)">{{live.edit}}</mat-icon></td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="userType==3"> Edit </th>
+            <td mat-cell *matCellDef="let live"  class="cursor" [hidden]="userType==3"> <mat-icon (click)="edit(live)">{{live.edit}}</mat-icon></td>
           </ng-container>
 
           <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-            <td mat-cell *matCellDef="let live"  class="cursor"><mat-icon (click)="delete(live)">{{live.delete}}</mat-icon> </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="userType==3"> Delete </th>
+            <td mat-cell *matCellDef="let live"  class="cursor"><mat-icon (click)="delete(live)" [hidden]="userType==3">{{live.delete}}</mat-icon> </td>
           </ng-container>
 
      </div>

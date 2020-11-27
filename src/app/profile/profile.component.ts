@@ -26,6 +26,10 @@ export class ProfileComponent implements OnInit {
       name:'Normal User',
       value:3
     },
+    {
+      name:'Sub Admin',
+      value:4
+    },
   ]
   constructor(
     public dialog: MatDialog,
@@ -46,6 +50,7 @@ export class ProfileComponent implements OnInit {
     this.subAddUserform = this.fb.group({
       type:['',Validators.required],
       subUserName: ['', Validators.email],
+      department: [''],
       mobileNum:['',Validators.required],
       portalPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
         Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/)
@@ -56,9 +61,38 @@ export class ProfileComponent implements OnInit {
       userPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
         Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/)
       ]]
+    },
+    {
+      validators: this.formValidator(),
+      updateOn: 'blur',
     });
 
     this.refreshSubUserData()
+  }
+
+
+  formValidator(){
+    return (formGroup: FormGroup) => {
+      const type = formGroup.get('type');
+      const dept = formGroup.get('department');
+      console.log("formGroup==",formGroup)
+      if(type.value==4){
+        if(dept.value!=''){
+          dept.setErrors(null)
+          return
+        }
+        else{
+          dept.setErrors({
+            required:true
+          })
+          return
+        }
+      }
+      else{
+        dept.setErrors(null)
+        return null
+      }
+    }
   }
 
   onSubmit(data) {
@@ -86,7 +120,10 @@ export class ProfileComponent implements OnInit {
    }
 
 refreshSubUserData(){
-  this.api.getSubUser().then((res:any)=>{
+  let data = {
+    userId : this.loginData.userId
+  }
+  this.api.getSubUser(data).then((res:any)=>{
     console.log("data===",res)
     if(res.status){
       this.subUser=res.success

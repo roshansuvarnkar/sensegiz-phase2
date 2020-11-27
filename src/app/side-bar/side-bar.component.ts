@@ -35,7 +35,10 @@ export class SideBarComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshFinds()
     //this.checkPage()
-    setInterval(()=>{this.refreshFinds()},30*1000)
+    setInterval(()=>{
+      if(this.loginData != '' && this.loginData != undefined)
+        this.refreshFinds()
+    },30*1000)
 
   }
 
@@ -44,7 +47,7 @@ export class SideBarComponent implements OnInit {
 
     var data={
       userId:this.loginData.userId,
-
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{

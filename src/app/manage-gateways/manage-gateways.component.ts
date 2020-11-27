@@ -19,6 +19,7 @@ export class ManageGatewaysComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
+  userType:any
   gatewayData:any=[]
   elementsTemp:any=[]
   dataSource: any = [];
@@ -49,6 +50,7 @@ export class ManageGatewaysComponent implements OnInit {
   ngOnInit() {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
+    this.userType=this.loginData.type
     this.refreshGateway()
   }
 
@@ -57,6 +59,7 @@ export class ManageGatewaysComponent implements OnInit {
 refreshGateway(){
   var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'gatewayRegistration'
     }
 

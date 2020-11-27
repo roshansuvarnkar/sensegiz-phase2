@@ -324,7 +324,7 @@ submit(data,i){
 
     this.api.deleteGroupName(data).then((res:any)=>{
       if(res.status){
-        
+
         var msg = 'Group Deleted Successfully'
         this.general.openSnackBar(msg,'')
         this.refreshGroupCoins()

@@ -46,6 +46,7 @@ import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditOverCrowdComponent } from './edit-over-crowd/edit-over-crowd.component';
 import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
     TwoStepAuthComponent,
     ProfileComponent,
     EditOverCrowdComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -98,7 +99,7 @@ import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
     DeviceDetectorModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

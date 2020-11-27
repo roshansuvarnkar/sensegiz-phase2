@@ -34,11 +34,12 @@ export class ExceptionComponent implements OnInit {
     this.refreshException()
     this.getTotalCount()
   }
-  
+
   getTotalCount(){
-    
+
       var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
 
       this.api.getExceptionDataRowCount(data).then((res:any)=>{
@@ -53,13 +54,14 @@ export class ExceptionComponent implements OnInit {
 
   }
   refreshException(limit=10,offset=0){
-  
+
       var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         limit:limit,
         offset:offset
-        
       }
+
     console.log("data===",data)
       this.api.getExceptionData(data).then((res:any)=>{
         console.log("Exception ======",res);
@@ -80,12 +82,12 @@ export class ExceptionComponent implements OnInit {
             // this.dataSource.paginator = this.paginator;
             // this.paginator.length = this.currentPageSize
           })
-    
+
         }
       })
     }
 
-    
+
 
 getUpdate(event) {
   // console.log("paginator event",event);
@@ -97,4 +99,3 @@ getUpdate(event) {
 }
 
   }
-

@@ -20,6 +20,7 @@ export class ManageCoinsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loginData:any
+  userType:any
   coinData:any=[]
   coindDataTemp:any=[]
   dataSource: any = [];
@@ -32,11 +33,12 @@ constructor(public dialog: MatDialog,
   private login:LoginCheckService,
   private general:GeneralMaterialsService,) {}
 
-  
+
 
   ngOnInit(): void {
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
+  this.userType=this.loginData.type
 
   this.refreshCoins()
   }
@@ -50,28 +52,29 @@ constructor(public dialog: MatDialog,
       type:"coins"
     }
     const dialogRef = this.dialog.open(AddFindComponent, dialogConfig);
-  
+
     dialogRef.afterClosed().subscribe(result => {
       this.refreshCoins()
     });
 
-    
+
   }
 
   refreshCoins(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'coinRegistration'
     }
-  
+
     this.api.getData(data).then((res:any)=>{
       console.log("coin data ======",res);
       if(res.status){
-       
+
         this.coinData=[]
-        
+
       for (let i = 0; i <res.success.length; i++) {
-        
+
         this.coinData.push(
           {
               i: i+1,
@@ -83,9 +86,9 @@ constructor(public dialog: MatDialog,
               insertedOn:res.success[i].insertedOn,
               edit:'edit',
               delete:'delete',
-              
+
           });
-    
+
 
       }
       this.dataSource = new MatTableDataSource(this.coinData);
@@ -191,4 +194,3 @@ search(a){
 }
 
 }
-  

@@ -56,6 +56,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
 
        data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         type:'active',
       }
       console.log("data===",data)
@@ -79,6 +80,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
     if(this.type == 'infectedUserData'){
      data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         type:'infected',
       }
       console.log("data===",data)

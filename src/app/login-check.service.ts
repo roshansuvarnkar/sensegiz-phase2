@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs'
 import { Router , ActivatedRoute } from '@angular/router';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 
 @Injectable({
@@ -13,12 +14,19 @@ export class LoginCheckService {
   public authCheck = new Subject<any>()
 
 
-  constructor(private router:Router) {
+  constructor(private router:Router,private bnIdle: BnNgIdleService) {
       // this.loginStatus()
       // this.authData()
+      console.log("init login")
+       this.bnIdle.startWatching(600).subscribe((isTimedOut: boolean) => {
+         console.log('session expired',isTimedOut);
+         if (isTimedOut) {
+           localStorage.clear();
+           this.router.navigate(['/login']);
+         }
+       });
    }
-
-
+ 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
     var passwordExpiry=JSON.parse(status)
@@ -83,7 +91,7 @@ export class LoginCheckService {
             var a = {status:true,role:'user'}
             return a
           }
-         
+
         }
       }
       else if(status.role=='admin'){
@@ -100,7 +108,7 @@ export class LoginCheckService {
       var a = {status:false,role:''}
       return a
     }
-    
+
   }
   loginStatusMenu(){
     var status = localStorage.getItem('sensegizlogin')

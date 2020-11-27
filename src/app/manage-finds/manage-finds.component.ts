@@ -34,6 +34,7 @@ tempImagePath:any=''
 header:any
 worksheet:any
 storeData:any
+userType:any
 fileupload:FormGroup
 loading:boolean=false
 format:boolean=false
@@ -75,7 +76,7 @@ ngOnInit(): void {
   this.isDesktopDevice = this.deviceService.isDesktop();
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
-
+  this.userType=this.loginData.type
   this.fileupload = this.fb.group({
     fileData:null,
     type:'devices',
@@ -90,6 +91,7 @@ ngOnInit(): void {
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceRegistration'
   }
 
@@ -134,6 +136,7 @@ refreshFinds(){
 refreshShift(){
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceShift'
   }
 
@@ -191,11 +194,12 @@ infected(a){
 
     if(confirm('Are you sure to do this operation')){
       console.log("yes",a)
-     
+
         var inf = a.infected == 0 ? 1 :0
         var data = {
           deviceId:a.deviceId,
           userId:this.loginData.userId,
+          subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
           infected:inf
         }
         this.api.editInfectedPerson(data).then((res:any)=>{
@@ -210,19 +214,19 @@ infected(a){
     else{
       this.refreshFinds()
     }
-  
+
 }
 
 
 isolated(a){
   var inf=0
   var data={}
-  var isolate = a.isolated == 0 ? 1 :0 
+  var isolate = a.isolated == 0 ? 1 :0
     if(confirm('Are you sure to do this operation')){
       console.log("yes",a)
-      
+
       if(a.infected == 0){
-      
+
         data = {
           deviceId:a.deviceId,
           userId:this.loginData.userId,
@@ -255,6 +259,7 @@ onShiftSelection(a){
     var data = {
     shiftId:a.shift,
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceId:a.deviceId
   }
   this.api.editShift(data).then((res:any)=>{
@@ -326,7 +331,7 @@ getBatteryUpdatedOn(value){
 
 
 fileChange(files){
-  alert("Format should be: Name*, employeeId, deviceId*, mobileNumber, emailId ")
+  // alert("Format should be: Name*, employeeId, deviceId*, mobileNumber, emailId ")
   this.loading=false
   this.format=false
 
@@ -354,31 +359,31 @@ this.readExcel(files[0])
 
 }
 
-readExcel(file) {  
-  let readFile = new FileReader();  
-  readFile.onload = (e) => {  
-    this.storeData = readFile.result;  
-    var data = new Uint8Array(this.storeData);  
-    var arr = new Array();  
-    for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);  
-    var bstr = arr.join("");  
-    var workbook = XLSX.read(bstr, { type: "binary" });  
-    var first_sheet_name = workbook.SheetNames[0];  
-    this.worksheet = workbook.Sheets[first_sheet_name];  
+readExcel(file) {
+  let readFile = new FileReader();
+  readFile.onload = (e) => {
+    this.storeData = readFile.result;
+    var data = new Uint8Array(this.storeData);
+    var arr = new Array();
+    for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+    var bstr = arr.join("");
+    var workbook = XLSX.read(bstr, { type: "binary" });
+    var first_sheet_name = workbook.SheetNames[0];
+    this.worksheet = workbook.Sheets[first_sheet_name];
     this.header=XLSX.utils.sheet_to_json(this.worksheet, { header: 1 })
 
     this.fileupload.patchValue({
       header:this.header[0]
     })
 
-     
-  }  
-  readFile.readAsArrayBuffer(file);  
+
+  }
+  readFile.readAsArrayBuffer(file);
   console.log(this.fileupload)
   var msg = 'Uploading file'
   this.general.openSnackBar(msg,'')
   setTimeout(()=>{this.fileSubmit(this.fileupload.value)},6*1000)
-  
+
 }
 onclick(){
   document.getElementById('file').click()
@@ -402,14 +407,15 @@ fileSubmit(data){
   var type=data.fileData.filename.split('.')
   console.log("type==",type[type.length-1].toString())
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
-  
+
     this.loading=false
-    if(data.header[0].toLowerCase()=='name' && data.header[2].toLowerCase()=='deviceid'|| data.header[1].toLowerCase()=="employeeid" || 
-    data.header[3]=="mobilenumber".toLowerCase() || data.header[4]=="emailid".toLowerCase()){
+    if(data.header[0].toLowerCase()==='name' && data.header[2].toLowerCase()==='deviceid' && data.header[1].toLowerCase()==="employeeid" &&
+        data.header[3]==="mobilenumber".toLowerCase() && data.header[4]==="emailid".toLowerCase()){
       this.format=false
       var msg = 'Please wait..! It takes few minutes to upload'
       this.general.openSnackBar(msg,'')
       data.userId =  this.loginData.userId
+      data.subUserId = (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
         console.log("file===",data)
       this.api.uploadDeviceFile(data).then((res:any)=>{
@@ -418,9 +424,9 @@ fileSubmit(data){
           this.clearFile()
           var msg = 'uploaded'
           this.general.openSnackBar(msg,'')
-        
+
         }
-        
+
       })
 
   }
@@ -441,10 +447,10 @@ fileSubmit(data){
       var msg = 'Please choose xlsx or xls file*'
       this.general.openSnackBar(msg,'')
     }else{
-      
+
     }
     }
- 
+
  }
 
 

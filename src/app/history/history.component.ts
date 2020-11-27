@@ -77,7 +77,7 @@ date2:any
       coinSelect: ['', Validators.required],
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required],
-     
+
     });
     this.geoAndLocForm = this.fb.group({
       deviceName:['', Validators.required],
@@ -246,6 +246,7 @@ onclickGeoLocation(data){
   refreshFinds(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceRegistration'
     }
     this.api.getData(data).then((res:any)=>{
@@ -259,6 +260,7 @@ onclickGeoLocation(data){
   refreshCoins(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'coinRegistration'
     }
 
@@ -308,8 +310,8 @@ onSubmitDateForm(data){
       });
 
 }
- 
-  onSubmitcummulativeForm(data){  
+
+  onSubmitcummulativeForm(data){
     var date1=new Date(data.fromDate)
     var date2=new Date(data.toDate)
     var year = date1.getFullYear();
@@ -336,7 +338,7 @@ onSubmitDateForm(data){
       toDate:to,
       fromDate1:from1,
       toDate1:to1,
-  
+
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -409,8 +411,8 @@ onSubmitSummaryReport(data){
       this.date1=new Date(data.fromDate)
       this.date2 =new Date(data.toDate)
       var diffTime = Math.abs(this.date2 - this.date1);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-  
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
       console.log(diffDays + " days");
     if(diffDays<15){
       this.daysExceed=false
@@ -435,7 +437,7 @@ onSubmitSummaryReport(data){
         fromDate:from,
         toDate:to,
         date:this.date1
-        
+
       }
       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -492,7 +494,7 @@ onSubmitSummaryReport(data){
     });
   }
   onSubmitGeoAndLocForm(data){
-   
+
     var date1=new Date(data.fromDate)
     var date2=new Date(data.toDate)
     var year = date1.getFullYear();
@@ -504,8 +506,8 @@ onSubmitSummaryReport(data){
     var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
     var day1 = ("0" + date2.getDate()).slice(-2);
     var to = year1 + '-' + month1 + '-'  + day1
-    
-    
+
+
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -529,12 +531,12 @@ onSubmitSummaryReport(data){
 
   userSuggestion(event){
     console.log("data=",event)
-   
+
     var data={
       value:event.target.value,
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceData'
-
     }
     console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
@@ -548,15 +550,16 @@ onSubmitSummaryReport(data){
 
       }
     })
-    
+
   }
 
   infectedSuggestion(event){
     console.log("data=",event)
-   
+
     var data={
       value:event.target.value.toString(),
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceRegistration'
 
     }
@@ -576,10 +579,11 @@ onSubmitSummaryReport(data){
   geofenceuserSuggestion(event){
 
     console.log("data=",event)
-   
+
     var data={
       value:event.target.value,
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceDataPhase2'
 
     }
@@ -598,11 +602,3 @@ onSubmitSummaryReport(data){
 
 
 }
-
-
-
-
-  
-
-
-  

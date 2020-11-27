@@ -10,17 +10,19 @@
     <div class=" title" *ngIf="loginStatus">
       <span>
         <mat-icon >person</mat-icon>
-      </span> <br>  
-      <p >{{loginDataInfo.userName}}</p> 
-     
+      </span> <br>
+      <p >{{loginDataInfo.userName}}</p>
+
     </div><hr>
     <button mat-menu-item routerLink="/home"> <mat-icon>home</mat-icon>Home</button>
+
     <button mat-menu-item routerLink="/dashboard"> <mat-icon>people</mat-icon>Manage People</button>
     <button mat-menu-item routerLink="/live-data"> <mat-icon>person_pin_circle</mat-icon>Social Distancing</button>
     <button mat-menu-item routerLink="/exception"> <mat-icon>group</mat-icon>Exception</button>
     <!-- <button mat-menu-item routerLink="/location"> <mat-icon>place</mat-icon>Location</button> -->
 
-    <button mat-menu-item routerLink="/settings"> <mat-icon>settings</mat-icon>Settings</button>
+    <button mat-menu-item routerLink="/settings" *ngIf="loginDataInfo.type!==3"> <mat-icon>settings</mat-icon>Settings</button>
+    <button mat-menu-item routerLink="/profile" *ngIf="loginDataInfo.type!==3"> <mat-icon>perm_identity</mat-icon>Create Profile</button>
     <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>Reports</button>
     <button mat-menu-item  (click)="logout()" class="logout"><mat-icon >exit_to_app</mat-icon>Logout</button>
 
@@ -66,19 +68,19 @@
 <div *ngIf="twoStepAuth?.status && twoStepAuth?.role=='user'">
   <mat-toolbar color="primary" class="menubar">
     <span routerLink="/home">Home</span>
-    <!-- <span routerLink="/profile">Profile</span> -->
 
     <span routerLink="/dashboard">Manage People</span>
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/exception">Exception</span>
     <!-- <span routerLink="/location">Location</span> -->
-     <span>
+     <span *ngIf="loginDataInfo.type!==3">
       <span [matMenuTriggerFor]="belowMenu" class="menu">Settings</span>
       <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item routerLink="/settings">General settings</button>
+        <button mat-menu-item routerLink="/settings" *ngIf="loginDataInfo.type!==4">General settings</button>
         <button mat-menu-item routerLink="/geo-fence">Geofence settings</button>
         </mat-menu>
      </span>
+     <span routerLink="/profile" *ngIf="loginDataInfo.type!==3 && loginDataInfo.type!==4">Create Profile</span>
      <span routerLink="/history">Reports</span>
 
    <span routerLink="/user-guide">User Guide</span>
@@ -108,7 +110,7 @@
 
   <div *ngIf="isMobile || isTablet" >
     <mat-sidenav-container class="example-container">
-      
+
       <mat-sidenav #sidenav mode="over"  >
        <app-side-bar></app-side-bar>
       </mat-sidenav>

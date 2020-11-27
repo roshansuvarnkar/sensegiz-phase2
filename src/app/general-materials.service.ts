@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } from  '@angular/common/http';  
+import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType, HttpHeaders } from  '@angular/common/http';
 import { environment } from '../environments/environment'
 import{Observable, BehaviorSubject} from 'rxjs'
 import { map } from  'rxjs/operators';
@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
 export class GeneralMaterialsService {
   _timezone: any = null;
   _timeZoneAbbr: any
-  SERVER_URL: string =  environment.apiHost; 
+  SERVER_URL: string =  environment.apiHost;
   date1:any
   date2:any
   time:any
@@ -75,14 +75,14 @@ updateItem(key, property, value)
 }
 
 updatedOnDate(date){
-  
+
   var months=['Jan','Feb', 'Mar','Apr','May','Jun','Jul','Aug','sep','Oct','Nov','Dec']
 
   var dateObj=new Date(date)
   var year = dateObj.getFullYear();
   var month = months[dateObj.getMonth()];
   var day = ("0" + dateObj.getDate()).slice(-2);
-  var from = month  + ',' + day + ','  +year 
+  var from = month  + ',' + day + ','  +year
 
   var h=dateObj.getHours()
   var m=dateObj.getMinutes()
@@ -101,14 +101,14 @@ startTime(data1,data2){
   if(data1!="00:00:00" || data1!='-'){
     var a=data1.split(':')
     date.setHours(date.getHours() -a[0]);
-    date.setMinutes(date.getMinutes() - a[1]); 
-    date.setSeconds(date.getSeconds() - a[2]); 
+    date.setMinutes(date.getMinutes() - a[1]);
+    date.setSeconds(date.getSeconds() - a[2]);
     // console.log("new date==",date)
   }
   if(data1=="00:00:00" || data1=='-'){
-    date.setSeconds(date.getSeconds() - 5); 
+    date.setSeconds(date.getSeconds() - 5);
   }
- 
+
 
   return date
 }
@@ -116,7 +116,7 @@ convertTime(a){
   // console.log(a)
 
   var timeArr = a.split(':')
-  
+
   var date = ''
   if(timeArr[0]!='00'){
     date += timeArr[0] + ' hour '
@@ -135,12 +135,12 @@ convertTime(a){
 
 totalTime(inTime,outTime){
   console.log("time===",inTime,outTime)
- 
+
   this.date1 = new Date(inTime)
   this.date2 = outTime==null? new Date('0000-00-00 00:00:00'):new Date(outTime)
-  
+
   console.log("time2===",this.date1, this.date2)
- 
+
   if(this.date1 !="Invalid Date" ){
 
     if(this.date2!="Invalid Date" ){

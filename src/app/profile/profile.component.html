@@ -24,6 +24,14 @@
 						</mat-select>
 					</mat-form-field>
 
+					<mat-form-field class="full-width-input" *ngIf="subAddUserform.get('type').value==4">
+					  <input matInput placeholder="Department" formControlName="department" required>
+					  <mat-error>
+						Please provide a valid department
+					  </mat-error>
+					</mat-form-field>
+
+
 					<mat-form-field class="full-width-input">
 					  <input matInput placeholder="Email" formControlName="subUserName" required>
 					  <mat-error>
@@ -80,6 +88,8 @@
 						<tr>
 							<th scope="col">Sl no.</th>
 							<th scope="col">User Name</th>
+							<th scope="col">Type</th>
+							<th scope="col">Department</th>
 							<th scope="col">Mobile number</th>
 							<th scope="col">Added on</th>
 							<th scope="col">isDelete</th>
@@ -89,6 +99,10 @@
 					<tr *ngFor="let a of subUser;let i = index">
 						<td>{{i+1}}</td>
 						<td>{{a.userName}}</td>
+						<td *ngIf="a.type==2">Sub User</td>
+						<td *ngIf="a.type==3">Normal User</td>
+						<td *ngIf="a.type==4">Sub Admin</td>
+						<td>{{a.department}}</td>
 						<td>{{a.mobileNum}}</td>
           				<td>{{a.createdDate  | date : 'medium' : 'IST'}}</td>
 						<td *ngIf="a.isDeleted=='N'"><mat-icon matListIcon (click)="delete(a)">done</mat-icon></td>
@@ -98,54 +112,4 @@
 			</mat-card-content>
 		</mat-card>
 	</div>
-
-
-
-</div> -->
-<!-- <?php wp_footer(); ?>
-<script>
-	document.getElementById('year').innerHTML=new Date().getFullYear()
-</script>
-</body>
-</html>
-
-	
-	<footer  class="container">
-
-		<div>
-			<div class="row">
-				<div class="col-md-3">
-					<ul>
-						<span class="head">Get To Know Us</span>
-						<span><li> About us</li></span>
-						<span><li> Contact Us</li></span>
-						
-					</ul>
-		
-				</div>
-				<div class="col-md-3">
-					<ul>
-						<span class="head">Products</span>
-						<span><li>Open Face </li></span>
-						<span><li>Full Face</li></span>
-						<span><li>Fiber Composite Shell</li></span>
-						<span><li>Accessories</li></span>
-					</ul>
-		
-				</div>
-				<div class="col-md-6 text-center address">
-					<span>
-						<p>Address : YuvaHelmets, Belgavi, Karnataka,India. <br>Pincode: 590006</p>
-					</span>
-					<span class="copyright">
-						<p> copyright &copy;
-							<span id="year"></span>. <a href="#">Rovin Technologies.</a> All Rights Reserved.</p> 
-										
-						
-					</span>
-		
-				</div>
-			</div>
-		</div>
-	</footer> -->
-
+</div>
