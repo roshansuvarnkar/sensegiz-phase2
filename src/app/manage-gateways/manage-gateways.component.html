@@ -4,7 +4,9 @@
   <input matInput placeholder="Search device" autocomplete="off" matInput (keyup)="search($event.target.value)">
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
-<br><br>
+<div *ngIf="userType==3">
+  <br><br>
+</div>
 <!-- <div class="table">
   <table mdbTable  class="table table-hover z-depth-1">
     <thead>

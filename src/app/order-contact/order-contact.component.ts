@@ -93,6 +93,7 @@ export class OrderContactComponent implements OnInit {
   getTotalLength(){
     var data={
       userId:this.loginData,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.dataSet.contactName,
       zone:this.general.getZone(new Date()),
       fromDate:this.from,
@@ -114,6 +115,7 @@ export class OrderContactComponent implements OnInit {
     // console.log("data====",this.dataSet)
     var value={
       userId:this.loginData,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.dataSet.contactName,
       zone:this.general.getZone(new Date()),
       fromDate:this.from,
