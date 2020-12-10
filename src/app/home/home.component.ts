@@ -295,9 +295,11 @@ refreshSetting(){
 
 
 maximumContactTime(){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    zone:this.general.getZone(date)
   }
   this.api.getMaxTimeContact(data).then((res:any)=>{
     // console.log("max contact time ======",res);
@@ -327,9 +329,11 @@ maximumContactTime(){
 
 
 repeatedContacts(){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    zone:this.general.getZone(date)
   }
   this.api.getMaxContactDevice(data).then((res:any)=>{
     // console.log("max contact devices data ======",res);
@@ -345,9 +349,11 @@ repeatedContacts(){
 
 
 numOfcontactPerDay(){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    zone:this.general.getZone(date)
   }
   this.api.getPerDayCount(data).then((res:any)=>{
     // console.log("repeated contacts data ======",res);

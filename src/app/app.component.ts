@@ -51,7 +51,7 @@ export class AppComponent {
     })
     this.loginDataInfo = this.login.loginData()
   //  console.log("loginDataInfo===",this.loginDataInfo);
-   console.log("loginData===",this.loginData);
+   console.log("loginDataInfo===",this.loginDataInfo);
 
   this.login.loginCheckStatus.subscribe(res=>{
     // console.log("login data1===",res)
