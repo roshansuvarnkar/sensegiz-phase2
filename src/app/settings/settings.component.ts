@@ -174,7 +174,7 @@ export class SettingsComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("coin data ======",res);
+      console.log("coin data in setting ======",res);
       if(res.status){
         this.coinData=res.success
         this.grouped=false

@@ -401,16 +401,17 @@ summaryReport(){
 
 dataDateReduce(data){
   return data.reduce((group,obj)=>{
-  const name = obj.contactDeviceName == this.deviceName?obj.baseDeviceName: obj.contactDeviceName
+    console.log(obj.contactDeviceName.toLowerCase() == this.deviceName.toLowerCase())
+  const name = obj.contactDeviceName.toLowerCase().trim() == this.deviceName.toLowerCase().trim()?obj.baseDeviceName.trim(): obj.contactDeviceName.trim()
 
-  // console.log("name---",name,"this.deviceName====",this.deviceName)
-  if(name.toLowerCase()!=this.deviceName.toLowerCase()){
+  // console.log("this.deviceName====",this.deviceName)
+  if(name.toLowerCase().trim()!=this.deviceName.toLowerCase()){
       if(!group[name]){
         group[name]=[]
       }
       group[name].push(obj)
     }
-    // console.log("group==",group)
+    console.log("group==",group , name)
     return group
 
   },{})
@@ -436,7 +437,7 @@ location(loc){
     var arr=loc[i].location.split(',')
     for(let j=0;j<arr.length;j++){
       // locArr.push(arr[j].toUpperCase())
-      if(!a.includes(arr[j])){
+      if(!a.includes(arr[j].toUpperCase())){
         if(arr[j]!='-' && arr[j] !='')
           {
             a.push(arr[j])

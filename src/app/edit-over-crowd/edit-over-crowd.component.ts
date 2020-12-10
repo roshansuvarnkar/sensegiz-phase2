@@ -44,7 +44,7 @@ export class EditOverCrowdComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
-	this.loginData = JSON.parse(this.loginData)
+	  this.loginData = JSON.parse(this.loginData)
 
     this.overCrowdForm = this.fb.group({
 			data:this.fb.array([])
@@ -91,7 +91,7 @@ export class EditOverCrowdComponent implements OnInit {
 				}
 			));
 		  }
-		//   console.log("control==",control)
+		  console.log("control==",this.coinDatatemp)
 		}
 	})
  }
@@ -285,11 +285,11 @@ submit(data,i){
 	//  console.log("data==",data)
 	  this.api.maxLimit(data).then((res:any)=>{
 		// console.log("limit response===",res)
-		if(res.status){
-		  var msg='Max limit updated Successfully'
-		  this.general.openSnackBar(msg,'')
-		  this.refreshCoins()
-		}
+      if(res.status){
+        var msg='Max limit updated Successfully'
+        this.general.openSnackBar(msg,'')
+        this.refreshCoins()
+      }
 	  })
 
   }

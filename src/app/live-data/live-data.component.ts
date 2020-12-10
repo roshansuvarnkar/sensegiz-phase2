@@ -31,7 +31,8 @@ currentPageLength:number = 10;
 currentPageSize:number = 10;
 limit:any
 offset:any
-pageSet:any
+pageSet:any=10
+pageIndex:any=0
 displayedColumns: string[] = ['i','baseName','contactName','location','startTime', 'updatedOn','totalTime'];
 selectMin:FormGroup
 totTime:any=[]
@@ -53,18 +54,24 @@ totTime:any=[]
     this.refreshData(this.count)
     this.getTotalCount(0)
     // console.log("count",this.count)
-    this.timeout=setInterval(()=>{ this.refreshData(this.count,this.pageSet)},30*1000)
+    this.timeout=setInterval(()=>{ this.refresh()},30*1000)
   }
   ngOnDestroy() {
     clearInterval(this.timeout)
   }
-
+refresh(){
+  console.log("pagination==",this.pageSet,this.pageIndex)
+  this.refreshData(this.count,this.pageSet,this.pageIndex)
+  this.getTotalCount(this.count)
+}
   prevDayData(){
     // var limit=this.paginator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.liveData=[]
     this.paginator.pageIndex=0
-
+    this.paginator.pageSize=10
+    this.pageSet=10
+    this.pageIndex=0
     this.count = this.count + 1;
     // console.log("count==",this.count);
 
@@ -76,7 +83,9 @@ totTime:any=[]
     this.liveData=[]
     this.paginator.pageIndex=0
 
-
+    this.paginator.pageSize=10
+    this.pageSet=10
+    this.pageIndex=0
     // var limit=this.pagi=nator.pageSize
     // var offset=this.paginator.pageIndex*this.paginator.pageSize
     this.count = this.count - 1;
@@ -121,7 +130,7 @@ getTotalCount(val){
       limit:limit
     }
 
-
+    console.log("live data====",data)
     this.api.getLiveData(data).then((res:any)=>{
 
       console.log("live data ======",res);
@@ -217,7 +226,10 @@ getTotalCount(val){
      this.limit = event.pageSize
       this.offset = event.pageIndex*event.pageSize
       this.pageSet=event.pageSize
+      this.pageIndex=event.pageIndex*event.pageSize
+      // console.log("this.pageSet===",this.pageSet, "   this.pageSet===",this.pageIndex)
       this.refreshData(this.count,this.limit,this.offset)
+      this.getTotalCount(this.count)
   }
 
   filterTotTime(event){

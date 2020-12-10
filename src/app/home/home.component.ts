@@ -37,6 +37,54 @@ pageSize:any
 offlineCount:any
 onlineCount:any
 dataPoints:any=[]
+branch:boolean
+branch1:boolean
+
+option=[
+  { baseDevice: 120,
+    baseName: "User 120",
+    contactDevice: 305,
+    contactName: "User 305",
+    id: 1504927,
+    totTime: "07:40:41",
+    updatedOn: "2020-12-01T05:19:19.000Z",
+    userId: 35},
+    { baseDevice: 306,
+      baseName: "User 306",
+      contactDevice: 307,
+      contactName: "User 307",
+      id: 1504927,
+      totTime: "07:40:41",
+      updatedOn: "2020-12-01T05:19:19.000Z",
+      userId: 35},
+      { baseDevice: 306,
+        baseName: "User 306",
+        contactDevice: 308,
+        contactName: "User 308",
+        id: 1504927,
+        totTime: "07:40:41",
+        updatedOn: "2020-12-01T05:19:19.000Z",
+        userId: 35}
+  ]
+
+  option1=[
+    { baseDevice: 305,
+      baseName: "User 305",
+      contactDevice: 309,
+      contactName: "User 309",
+      id: 1504927,
+      totTime: "07:40:41",
+      updatedOn: "2020-12-01T05:19:19.000Z",
+      userId: 35},
+      { baseDevice: 305,
+        baseName: "User 305",
+        contactDevice: 310,
+        contactName: "User 310",
+        id: 1504927,
+        totTime: "07:40:41",
+        updatedOn: "2020-12-01T05:19:19.000Z",
+        userId: 35}
+    ]
   constructor(private api: ApiService,
   private login:LoginCheckService,
   private router:Router,
@@ -302,7 +350,7 @@ maximumContactTime(){
     zone:this.general.getZone(date)
   }
   this.api.getMaxTimeContact(data).then((res:any)=>{
-    // console.log("max contact time ======",res);
+    console.log("max contact time ======",res);
     if(res.status){
       this.contactTimeMax = []
       for(var i=0;i<res.success.length;i++){
@@ -416,5 +464,13 @@ numOfcontactPerDay(){
     }
 
   })
+ }
+
+
+ showNext(data,count){
+   console.log("data===",data)
+   this.branch=(count==1 || count== 2) && data.baseName== this.option[0].baseName?true:false
+   this.branch1=count==2 && data.baseName== this.option1[0].baseName ?true:false
+ 
  }
 }
