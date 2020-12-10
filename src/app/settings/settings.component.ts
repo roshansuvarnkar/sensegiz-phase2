@@ -155,7 +155,7 @@ export class SettingsComponent implements OnInit {
       fileData:null,
       type:'logo',
     });
-    
+
     this.maxDistanceForm = this.fb.group({
       maxDistance:['',Validators.required]
     });
@@ -169,6 +169,7 @@ export class SettingsComponent implements OnInit {
   refreshCoins(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'coinRegistration'
     }
 
@@ -188,6 +189,7 @@ export class SettingsComponent implements OnInit {
   refreshSetting(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceSetting'
     }
     this.api.getData(data).then((res:any)=>{

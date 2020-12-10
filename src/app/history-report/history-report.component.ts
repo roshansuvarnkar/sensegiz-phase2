@@ -355,6 +355,7 @@ summaryReport(){
 
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
     fromDate: this.from,
     toDate:this.to,
@@ -789,6 +790,7 @@ getPages(){
       data:a,
       order:2,
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       fromDate : this.from,
       toDate : this.to
     }
@@ -1068,6 +1070,7 @@ filterTotTime(event){
   sendWarning(){
     var data={
       userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceId:this.deviceIdData,
       infectedPersonName:this.deviceName,
       adminEmailId:this.loginData.userName

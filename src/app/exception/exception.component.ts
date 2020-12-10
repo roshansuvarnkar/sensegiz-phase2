@@ -41,7 +41,7 @@ export class ExceptionComponent implements OnInit {
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
-
+      console.log("data exception==",data)
       this.api.getExceptionDataRowCount(data).then((res:any)=>{
         console.log("length of exception report on date ======",res);
         if(res.status){
@@ -55,6 +55,7 @@ export class ExceptionComponent implements OnInit {
   }
   refreshException(limit=10,offset=0){
 
+    console.log("data exception==",data)
       var data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,

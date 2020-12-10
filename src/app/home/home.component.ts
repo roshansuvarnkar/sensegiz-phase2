@@ -161,6 +161,7 @@ refreshOnlineDevice(){
   var date=new Date()
   var data={
     userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     zone:this.general.getZone(date),
     type:'onlineUserData'
   }

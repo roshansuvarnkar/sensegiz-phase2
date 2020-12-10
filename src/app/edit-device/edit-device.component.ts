@@ -122,6 +122,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         data.id=this.deviceData.id
 
         data.userId=this.loginData.userId
+        data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.deviceId=this.deviceData.deviceId
         data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
         console.log("find update data===",data)
@@ -135,7 +136,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
             var msg = 'Device Name Already exists, try different Name'
             this.general.openSnackBar(msg,'')
           }
-        
+
         })
       } catch (err) {
       }
@@ -152,6 +153,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         data.tblName='gatewayRegistration'
         data.id=this.deviceData.id
         data.userId=this.loginData.userId
+        data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.deviceId= this.deviceData.gatewayId
         console.log("gateway data==",data)
 
@@ -179,6 +181,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         data.id=this.deviceData.id
         data.mobileNum=data.mobileNum.e164Number
         data.userId=this.loginData.userId
+        data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.deviceId=this.deviceData.deviceId
         this.api.EditUserRegister(data).then((res:any)=>{
           // console.log("user submit==",res)
@@ -202,13 +205,14 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       try {
         data.id=this.deviceData.id
         data.userId=this.loginData.userId
+        data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.coinId=this.deviceData.coinId,
         data.coinName=data.coinName
         console.log("coin send data==",data)
         this.api.editCoinRegister(data).then((res:any)=>{
           console.log("coin submit==",res)
           if(res.status){
-         
+
             var msg = 'Coin Updated Successfully'
             this.general.openSnackBar(msg,'')
           }
@@ -225,6 +229,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
   refreshGateway(){
     var data={
         userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         tblName:'gatewayRegistration'
       }
 
