@@ -19,7 +19,7 @@ export class OrderContactComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['i','baseName', 'contactName', 'updatedOn'];
   order:any=0
-  loginData:any
+  loginData:any={}
   dataSource:any
 	dataSet:any=[]
 	from:Date
@@ -70,12 +70,13 @@ export class OrderContactComponent implements OnInit {
       public dialogRef: MatDialogRef<OrderContactComponent>,
        @Inject(MAT_DIALOG_DATA)  data,
     ) {
-      this.loginData = data.userId
+      console.log("data from===",data)
+      this.loginData.userId = data.userId
+      this.loginData.id = data.subUserId
       this.order=data.order
       this.dataSet=data.data
       this.from = data.fromDate
       this.to = data.toDate
-      // console.log("data from===",data)
       console.log("data set===",this.dataSet,this.loginData)
       this.orderShow = this.orderType.filter(obj=>{
       	return obj.id==this.order
@@ -85,14 +86,14 @@ export class OrderContactComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.loginData = this.login.Getlogin()
-    this.loginData = JSON.parse(this.loginData)
+    //this.loginData = this.login.Getlogin()
+    //this.loginData = JSON.parse(this.loginData)
   }
 
 
   getTotalLength(){
     var data={
-      userId:this.loginData,
+      userId:this.loginData.userId,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.dataSet.contactName,
       zone:this.general.getZone(new Date()),
@@ -114,7 +115,7 @@ export class OrderContactComponent implements OnInit {
    onSubmitFindName(limit=10,offset=0){
     // console.log("data====",this.dataSet)
     var value={
-      userId:this.loginData,
+      userId:this.loginData.userId,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       deviceName:this.dataSet.contactName,
       zone:this.general.getZone(new Date()),

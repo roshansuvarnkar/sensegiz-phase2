@@ -132,8 +132,8 @@ preferredCountries: CountryISO[] = [CountryISO.India];
             var msg = 'Device Updated Successfully'
             this.general.openSnackBar(msg,'')
           }
-          else if(!res.status && res.alreadyExisted){
-            var msg = 'Device Name Already exists, try different Name'
+          else if(!res.status){
+            var msg = 'Entered data Already exists, try with different data'
             this.general.openSnackBar(msg,'')
           }
 

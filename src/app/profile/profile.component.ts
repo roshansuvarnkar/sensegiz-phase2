@@ -5,6 +5,7 @@ import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,10 @@ export class ProfileComponent implements OnInit {
   subUser:any
   loginData:any
   registered:boolean=false;
+  SearchCountryField = SearchCountryField;
+  TooltipLabel = TooltipLabel;
+  CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.India];
   userType:any=[
     {
       name:'Sub User',
@@ -96,7 +101,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(data) {
-    data.mobileNum=data.mobileNum.replace(/\s/g,'')
+    data.mobileNum=data.mobileNum!=null?data.mobileNum.e164Number:''
     data.userId=this.loginData.userId
     console.log("sub user register==",data)
 

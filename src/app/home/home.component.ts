@@ -95,6 +95,7 @@ option=[
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
+    console.log("this.loginData===",this.loginData)
     // this.checkUrl = this.router.url
 
     this.refreshFinds()
@@ -471,6 +472,6 @@ numOfcontactPerDay(){
    console.log("data===",data)
    this.branch=(count==1 || count== 2) && data.baseName== this.option[0].baseName?true:false
    this.branch1=count==2 && data.baseName== this.option1[0].baseName ?true:false
- 
+
  }
 }

@@ -17,7 +17,7 @@
               <mat-label>{{totalEmp}}</mat-label> -->
             </span>
           </div><br><br>
-     
+
           <div class="first-cont cursor">
             <div >
               Active<br>
@@ -64,8 +64,8 @@
                 [responsive]="false"
               ></circle-progress>
 
-            </div> 
-          </div> 
+            </div>
+          </div>
           <div class="first-cont cursor">
             <div>
               Registered <br>
@@ -88,7 +88,7 @@
                 [startFromZero]="true"
                 [responsive]="false"
               ></circle-progress>
-                            
+
             </div>
 
             <div>
@@ -112,16 +112,16 @@
                 [startFromZero]="true"
                 [responsive]="false"
               ></circle-progress>
-                     
+
             </div>
           </div>
         </mat-card-content>
       </mat-card>
       <br>
-      <mat-card>
+      <mat-card *ngIf="loginData.type!==3 && loginData.type!==4">
         <mat-card-content>
           <mat-icon >settings</mat-icon><br>
-  
+
               <mat-card class="settingcard">
                 <mat-card-content class="setting" routerLink="/settings">
                   <mat-label>  Minimum social distance</mat-label>
@@ -129,7 +129,7 @@
                   <mat-icon >keyboard_arrow_right</mat-icon>
                 </mat-card-content>
               </mat-card><br>
-              <mat-card class="settingcard">
+              <mat-card class="settingcard" >
                 <mat-card-content class="setting" routerLink="/settings">
                   <mat-label>Violation alert</mat-label>
                   <mat-label class="tab-set">{{setting?.threshold}}</mat-label>
@@ -145,9 +145,9 @@
               </mat-card> -->
         </mat-card-content>
       </mat-card>
-  
+
     </div>
-  
+
     <div class="three">
       <mat-card>
         <mat-card-title>Frequent Violators</mat-card-title>
@@ -162,7 +162,7 @@
                     <span class="emp-pad">{{data.baseDeviceName}}</span>
                     <span class="emp-pad">{{data.totalCount}}</span>
                   </span>
-  
+
                 </span>
                 <span class="tab-btn">
                   <button mat-raised-button class="btn" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
@@ -170,12 +170,12 @@
               </div>
             </mat-card-content>
           </mat-card>
-        </mat-card-content> 
+        </mat-card-content>
         </mat-card>
     </div>
-  
+
   </div>
-  
+
   <div class="rowhome">
     <div class="second">
       <mat-card>
@@ -213,5 +213,3 @@
     </div>
   </div>
 </div>
-  
-
