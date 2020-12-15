@@ -148,6 +148,8 @@ export class OrderContactComponent implements OnInit {
     dialogConfig.width = '75vw';
     dialogConfig.data = {
       data:a,
+      userId:a.userId,
+      subUserId:a.subUserId,
       order:this.order,
       fromDate : this.from,
       toDate : this.to
