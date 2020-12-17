@@ -31,7 +31,6 @@ export class SetNewPasswordComponent implements OnInit {
     this.setPasswordForm=this.fb.group({
       password:['',[Validators.required,Validators.minLength(8),Validators.maxLength(20),Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) ]],
       confirmPassword:['',[Validators.required,Validators.minLength(8),Validators.maxLength(20),Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) ]],
-
     },
     {
       validators:this.passwordMatchValidator
@@ -40,53 +39,6 @@ export class SetNewPasswordComponent implements OnInit {
 
   passwordMatchValidator(frm: FormGroup) {
     return frm.controls['password'].value === frm.controls['confirmPassword'].value ? null : {'mismatch': true};
-  }
-  passwordConfirming(c: AbstractControl): { invalid: boolean } {
-      if (c.get('password').value !== c.get('confirmPassword').value) {
-          return {invalid: true};
-      }
-  }
-// http://localhost:4500/set-new-password?user=%7B%22username%22:%22%2B917353207924%22,%22otp1%22:%222%22,%22otp2%22:%225%22,%22otp3%22:%228%22,%22otp4%22:%226%22,%22OTP%22:%222586%22%7D
-  confirmPasswordCheck(){
-    return (formGroup:FormGroup)=>{
-      const pwd = formGroup.get('password')
-      const confirmPwd = formGroup.get('confirmPassword')
-      console.log("formGroup===",formGroup)
-      if(pwd.value != '' || confirmPwd.value!=''){
-        console.log("1",formGroup)
-        if(pwd.status=='VALID' && confirmPwd.status =='VALID'){
-          console.log("2",formGroup)
-          if(pwd.value == confirmPwd.value){
-            console.log("3",formGroup)
-            pwd.setErrors(null)
-            confirmPwd.setErrors(null)
-            this.disable=false
-          }
-          else{
-            console.log("4",formGroup)
-            confirmPwd.setErrors({
-              match : false
-            })
-            this.disable=true
-          }
-        }
-        else{
-          console.log("5",formGroup)
-          confirmPwd.setErrors({
-            match : false
-          })
-          this.disable=false
-        }
-      }
-      else{
-        console.log("6",formGroup)
-        this.disable=false
-      }
-      // else{
-      //   pwd.setErrors(null)
-      //   confirmPwd.setErrors(null)
-      // }
-    }
   }
 
   submit(data){
