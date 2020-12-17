@@ -38,13 +38,13 @@ export class SetNewPasswordComponent implements OnInit {
   }
 
   passwordMatchValidator(frm: FormGroup) {
-    this.expiredPwd = false
-    if(frm.controls['password'].value === frm.controls['confirmPassword'].value)
-      return null
-    else
-       return {'mismatch': true};
+    // this.expiredPwd=false
+    return frm.controls['password'].value === frm.controls['confirmPassword'].value ? null : {'mismatch': true};
   }
 
+  checkPwd(){
+    this.expiredPwd= false
+  }
   submit(data){
     console.log("data=",data)
     data.username=this.userData.username
@@ -69,16 +69,6 @@ export class SetNewPasswordComponent implements OnInit {
 
   }
 
-  checkPwd(event,password){
-
-    this.expiredPwd=false
-    console.log("data=",event.target.value,password)
-
-    var confirm=event.target.value
-    this.disable=password!=confirm.toString()?true:false
-
-
-  }
 
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
