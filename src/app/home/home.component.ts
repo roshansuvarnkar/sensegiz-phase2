@@ -95,6 +95,7 @@ option=[
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
+    console.log("this.loginData===",this.loginData)
     // this.checkUrl = this.router.url
 
     this.refreshFinds()
@@ -343,9 +344,11 @@ refreshSetting(){
 
 
 maximumContactTime(){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    zone:this.general.getZone(date)
   }
   this.api.getMaxTimeContact(data).then((res:any)=>{
     console.log("max contact time ======",res);
@@ -375,9 +378,11 @@ maximumContactTime(){
 
 
 repeatedContacts(){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    zone:this.general.getZone(date)
   }
   this.api.getMaxContactDevice(data).then((res:any)=>{
     // console.log("max contact devices data ======",res);
@@ -393,9 +398,11 @@ repeatedContacts(){
 
 
 numOfcontactPerDay(){
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    zone:this.general.getZone(date)
   }
   this.api.getPerDayCount(data).then((res:any)=>{
     // console.log("repeated contacts data ======",res);
@@ -465,6 +472,6 @@ numOfcontactPerDay(){
    console.log("data===",data)
    this.branch=(count==1 || count== 2) && data.baseName== this.option[0].baseName?true:false
    this.branch1=count==2 && data.baseName== this.option1[0].baseName ?true:false
- 
+
  }
 }

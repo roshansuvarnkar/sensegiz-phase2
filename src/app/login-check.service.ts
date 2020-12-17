@@ -26,7 +26,7 @@ export class LoginCheckService {
          }
        });
    }
- 
+
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
     var passwordExpiry=JSON.parse(status)
@@ -42,11 +42,14 @@ export class LoginCheckService {
 
 
   loginData(){
-    var status = localStorage.getItem('sensegizlogin')
-    if(status  && status!='undefined'){
-      return JSON.parse(status)
+    var status = JSON.parse(localStorage.getItem('sensegizlogin'))
+    console.log("statsu======",status)
+    if(status!=null){
+      console.log("enter")
+      return status
     }
     else{
+      console.log("did not ")
       return false
     }
   }
@@ -65,7 +68,7 @@ export class LoginCheckService {
     // }
     console.log("status of authdata==",status)
 
-    if(status && status != 'undefined'){
+    if(status != null){
       if(status.role=='user' ){
         if(status.twoStepAuth=='Y' && status.passwordExpiry==false){
           var auth = localStorage.getItem('sensegizTwoStep')

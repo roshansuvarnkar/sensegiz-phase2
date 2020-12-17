@@ -17,6 +17,7 @@ export class AdminSettingsComponent implements OnInit {
   txPowerForm:FormGroup
   distanceForm:FormGroup
   scanningForm:FormGroup
+  scanCountForm:FormGroup
   timeForm:FormGroup
   bufferForm:FormGroup
   workingForm:FormGroup
@@ -55,13 +56,15 @@ export class AdminSettingsComponent implements OnInit {
     });
     this.scanningForm=this.fb.group({
       seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
-
+    })
+    this.scanCountForm=this.fb.group({
+      count:['',[Validators.required,Validators.max(255), Validators.min(0)]],
     })
     this.timeForm=this.fb.group({
       minutes:[{value:'',disabled: false},Validators.required],
       seconds:[{value:'',disabled: false},Validators.required]
     })
-    
+
     this.workingForm = this.fb.group({
       shift: ['', Validators.required],
       fromTime: ['', Validators.required],
@@ -121,6 +124,9 @@ export class AdminSettingsComponent implements OnInit {
         this.scanningForm.patchValue({
           seconds:res.success[0].scanningInterval.toString()
         })
+        this.scanCountForm.patchValue({
+          count:res.success[0].scanCount.toString()
+        })
         this.sendDataForm.patchValue({
           rate:res.success[0].gatewayDataRate.toString()
         })
@@ -172,7 +178,7 @@ export class AdminSettingsComponent implements OnInit {
             type:data.wearable,
             distance:data.distance,
             customize:data.customize,
-           
+
             }
         }
          console.log("distance ===",value,data)
@@ -190,7 +196,7 @@ export class AdminSettingsComponent implements OnInit {
         //      this.refreshSetting()
         //      }
 
-             
+
         //  })
         }
         })
@@ -313,6 +319,8 @@ export class AdminSettingsComponent implements OnInit {
       }
     }
   }
+
+
   onSubmitScanningForm(data){
     // console.log("data==",data)
     if (this.scanningForm.valid) {
@@ -323,6 +331,27 @@ export class AdminSettingsComponent implements OnInit {
           if(res.status){
             this.refreshSetting()
             var msg='Interval second updated Successfully'
+            this.general.openSnackBar(msg,'')
+          }
+        }).catch(err=>{
+          console.log("err===",err);
+        })
+      } catch (err) {
+      }
+    }
+  }
+
+
+  onSubmitScanCountForm(data){
+    // console.log("data==",data)
+    if (this.scanCountForm.valid) {
+      try {
+        data.userId=this.dataGet.userId
+        this.api.updateScanCount(data).then((res:any)=>{
+          // console.log("Scanning Interval===",res)
+          if(res.status){
+            this.refreshSetting()
+            var msg='Scan count updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
@@ -395,7 +424,7 @@ export class AdminSettingsComponent implements OnInit {
             this.multipleShift=false
             var msg = 'Shift time update Successfully'
             this.general.openSnackBar(msg,'')
-           
+
            }else{
             this.multipleShift=true
            }
@@ -424,7 +453,7 @@ export class AdminSettingsComponent implements OnInit {
     }
    }
 
- 
+
    onSubmitBufferForm(value){
 
     if (this.bufferForm.valid) {
@@ -436,7 +465,7 @@ export class AdminSettingsComponent implements OnInit {
 
         }
 
-     
+
         this.api.getBufferDeviceSetting(data).then((res:any)=>{
           // console.log("Buffer response===",res)
           if(res.status){
@@ -447,16 +476,16 @@ export class AdminSettingsComponent implements OnInit {
         }).catch(err=>{
           // console.log("err===",err);
         })
-    
+
       } catch (err) {
       }
     }
    }
    bufferval(event){
      console.log(event.target.value)
-    
+
       this.bufferValue=event.target.value>5?true:false
-    
+
    }
 
    getMin(event){
