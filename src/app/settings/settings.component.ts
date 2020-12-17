@@ -681,6 +681,20 @@ export class SettingsComponent implements OnInit {
 
   //  }
 
+
+  option(data){
+    console.log("option===",data.target.value)
+    if(data.target.value == '' || data.target.value == 'undefined' || data.target.value == null){
+      this.buzzerConfigForm.patchValue({
+        durationSec:10
+      })
+    }
+    else{
+      this.buzzerConfigForm.patchValue({
+        durationSec:data.target.value
+      })
+    }
+  }
   onSubmitbuzzerConfigForm(data){
     // console.log("data==",data)
     data.durationSec=data.buzzerConfig>0 && data.buzzerConfig<=4?0:data.durationSec
@@ -748,22 +762,20 @@ export class SettingsComponent implements OnInit {
 
   getBuzzerValue(event){
     // console.log("event==",event)
-   if(event.value == 5){
-     this.buzzerConfigStatus=true
-     this.buzzerConfigForm.patchValue({
-      durationSec:10
-    })
+    if(event.value == 5){
+      this.buzzerConfigStatus=true
+      this.buzzerConfigForm.patchValue({
+        durationSec:10
+      })
 
-   }else if(event.value !== 5){
-    this.buzzerConfigStatus=false
-   }
-
-
+    }else if(event.value !== 5){
+      this.buzzerConfigStatus=false
+    }
   }
 
-     customise(){
+  customise(){
      this.statusCustomise = this.statusCustomise == true ? false : true
-   }
+  }
 
   // getMin(event){
   //   // console.log("event==",event)
@@ -815,8 +827,6 @@ export class SettingsComponent implements OnInit {
     this.measureStatus=event.value=='meter'?false:true
 
   }
-
-
 
 
    // changeDistance(event){

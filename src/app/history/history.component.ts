@@ -30,7 +30,7 @@ prevDate:any
 username:any
 date1:any
 date2:any
-
+infectedDate:any
 
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
@@ -69,10 +69,12 @@ date2:any
 
     this.summaryReportForm = this.fb.group({
       deviceName: ['', Validators.required],
-      fromDate: ['', Validators.required],
-      toDate: ['', Validators.required],
+      status:['',Validators.required]
+      // fromDate: ['', Validators.required],
+      // toDate: ['', Validators.required],
       // minutes:['']
     });
+
     this.locationForm = this.fb.group({
       coinSelect: ['', Validators.required],
       fromDate: ['', Validators.required],
@@ -181,27 +183,29 @@ onclickFindName(data){
 
 }
 
-onclickSummaryReport(data){
-  // console.log("data==",data)
+// onclickSummaryReport(data){
+//   // console.log("data==",data)
 
-  var date = new Date();
-  var toDate = new Date();
-  var prevDate = date.setDate(date.getDate() - data);
+//   var date = new Date();
+//   var toDate = new Date();
+//   var prevDate = date.setDate(date.getDate() - data);
 
-  var date = new Date(prevDate);
-  var year = date.getFullYear();
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
+//   var date = new Date(prevDate);
+//   var year = date.getFullYear();
+//   var month = ("0" + (date.getMonth() + 1)).slice(-2);
+//   var day = ("0" + date.getDate()).slice(-2);
 
-  var tot = year + '-' + month + '-'  + day
+//   var tot = year + '-' + month + '-'  + day
 
-  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+//   var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
 
-   this.summaryReportForm.patchValue({
-      fromDate:tot,
-      toDate:todayDate
-    })
-}
+//    this.summaryReportForm.patchValue({
+//       fromDate:tot,
+//       toDate:todayDate
+//     })
+// }
+
+
 onclickLocation(data){
   var date = new Date();
   var toDate = new Date();
@@ -253,6 +257,7 @@ onclickGeoLocation(data){
       // console.log("find data ======",res);
       if(res.status){
         this.finds=res.success
+      
       }
     })
   }
@@ -272,6 +277,7 @@ onclickGeoLocation(data){
       }
     })
   }
+
 
 onSubmitDateForm(data){
   // console.log("data====",data)
@@ -408,14 +414,14 @@ onSubmitDateForm(data){
 
 onSubmitSummaryReport(data){
   // console.log("data====",data)
-      this.date1=new Date(data.fromDate)
-      this.date2 =new Date(data.toDate)
-      var diffTime = Math.abs(this.date2 - this.date1);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      // this.date1=new Date(data.fromDate)
+      // this.date2 =new Date(data.toDate)
+      // var diffTime = Math.abs(this.date2 - this.date1);
+      // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-      console.log(diffDays + " days");
-    if(diffDays<15){
-      this.daysExceed=false
+      // console.log(diffDays + " days");
+    // if(diffDays<15){
+    //   this.daysExceed=false
       var year = this.date1.getFullYear();
       var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
       var day = ("0" + this.date1.getDate()).slice(-2);
@@ -434,20 +440,19 @@ onSubmitSummaryReport(data){
       dialogConfig.data = {
         type:"summaryReport",
         deviceName:data.deviceName,
-        fromDate:from,
-        toDate:to,
-        date:this.date1
-
+        // fromDate:from,
+        // toDate:to, 
+        // date:this.date1
       }
       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
       dialogRef.afterClosed().subscribe(result => {
         this.refreshFinds()
       });
-    }
-    else{
-        this.daysExceed=true
-    }
+    // }
+    // else{
+    //     this.daysExceed=true
+    // }
 
 }
 
@@ -493,6 +498,7 @@ onSubmitSummaryReport(data){
       this.refreshCoins()
     });
   }
+
   onSubmitGeoAndLocForm(data){
 
     var date1=new Date(data.fromDate)
@@ -506,8 +512,6 @@ onSubmitSummaryReport(data){
     var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
     var day1 = ("0" + date2.getDate()).slice(-2);
     var to = year1 + '-' + month1 + '-'  + day1
-
-
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

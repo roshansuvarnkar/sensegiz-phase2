@@ -84,11 +84,6 @@
       </form>
     </mat-card-content>
   </mat-card>
-  
-
-
-
-  
 
 
 <!--
@@ -142,6 +137,7 @@
     <div>
       <span class="flex warning">&nbsp;&nbsp;<mat-icon class="warn">warning</mat-icon>Critical Warning: Before changing this setting please contact SenseGiz team.</span>
     </div>
+````````````````` 
 
     </mat-card-content>
   </mat-card>
@@ -508,7 +504,7 @@
       <div *ngIf="buzzerConfigStatus" >
         <mat-form-field >
           <mat-label>Enter seconds in multiple of 5</mat-label>
-            <input type='number' matInput formControlName="durationSec" required >
+            <input type='number' matInput formControlName="durationSec" (change)="option($event)" required >
             <mat-error  >
               Please enter valid duration, minimum seconds is 10
             </mat-error>
