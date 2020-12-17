@@ -230,7 +230,7 @@ isolated(a){
         data = {
           deviceId:a.deviceId,
           userId:this.loginData.userId,
-          subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+	subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
           isolated:isolate
         }
         console.log("isolate data===",data)
