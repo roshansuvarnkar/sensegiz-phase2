@@ -38,7 +38,11 @@ export class SetNewPasswordComponent implements OnInit {
   }
 
   passwordMatchValidator(frm: FormGroup) {
-    return frm.controls['password'].value === frm.controls['confirmPassword'].value ? null : {'mismatch': true};
+    this.expiredPwd = false
+    if(frm.controls['password'].value === frm.controls['confirmPassword'].value)
+      return null
+    else
+       return {'mismatch': true};
   }
 
   submit(data){
