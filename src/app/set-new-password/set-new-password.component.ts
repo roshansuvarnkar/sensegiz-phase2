@@ -43,7 +43,7 @@ export class SetNewPasswordComponent implements OnInit {
     data.system="portal"
     data.role='user'
     if(this.setPasswordForm.valid){
-      this.disable=false
+     
       this.api.updatePassword(data).then((res:any)=>{
         console.log("set pwd==",res)
          var passwordExpiry=res.hasOwnProperty('alreadyExisted')
@@ -58,12 +58,11 @@ export class SetNewPasswordComponent implements OnInit {
          }
       })
     }
-    else{
-      this.disable=true
-    }
+   
   }
 
   checkPwd(event,password){
+    
     this.expiredPwd=false
     console.log("data=",event.target.value,password)
 

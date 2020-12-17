@@ -69,9 +69,8 @@ infectedDate:any
 
     this.summaryReportForm = this.fb.group({
       deviceName: ['', Validators.required],
-      status:['',Validators.required]
-      // fromDate: ['', Validators.required],
-      // toDate: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required],
       // minutes:['']
     });
 
@@ -183,27 +182,29 @@ onclickFindName(data){
 
 }
 
-// onclickSummaryReport(data){
-//   // console.log("data==",data)
+onclickSummaryReport(data){
+  // console.log("data==",data)
 
-//   var date = new Date();
-//   var toDate = new Date();
-//   var prevDate = date.setDate(date.getDate() - data);
+  var date = new Date();
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
 
-//   var date = new Date(prevDate);
-//   var year = date.getFullYear();
-//   var month = ("0" + (date.getMonth() + 1)).slice(-2);
-//   var day = ("0" + date.getDate()).slice(-2);
+  var date = new Date(prevDate);
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
 
-//   var tot = year + '-' + month + '-'  + day
+  var tot = year + '-' + month + '-'  + day
 
-//   var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
 
-//    this.summaryReportForm.patchValue({
-//       fromDate:tot,
-//       toDate:todayDate
-//     })
-// }
+   this.summaryReportForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
+}
+
+
 
 
 onclickLocation(data){
@@ -277,6 +278,7 @@ onclickGeoLocation(data){
       }
     })
   }
+
 
 
 onSubmitDateForm(data){
@@ -414,14 +416,14 @@ onSubmitDateForm(data){
 
 onSubmitSummaryReport(data){
   // console.log("data====",data)
-      // this.date1=new Date(data.fromDate)
-      // this.date2 =new Date(data.toDate)
-      // var diffTime = Math.abs(this.date2 - this.date1);
-      // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      this.date1=new Date(data.fromDate)
+      this.date2 =new Date(data.toDate)
+      var diffTime = Math.abs(this.date2 - this.date1);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-      // console.log(diffDays + " days");
-    // if(diffDays<15){
-    //   this.daysExceed=false
+      console.log(diffDays + " days");
+    if(diffDays<15){
+      this.daysExceed=false
       var year = this.date1.getFullYear();
       var month = ("0" + (this.date1.getMonth() + 1)).slice(-2);
       var day = ("0" + this.date1.getDate()).slice(-2);
@@ -440,19 +442,19 @@ onSubmitSummaryReport(data){
       dialogConfig.data = {
         type:"summaryReport",
         deviceName:data.deviceName,
-        // fromDate:from,
-        // toDate:to, 
-        // date:this.date1
+        fromDate:from,
+        toDate:to, 
+        date:this.date1
       }
       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
       dialogRef.afterClosed().subscribe(result => {
         this.refreshFinds()
       });
-    // }
-    // else{
-    //     this.daysExceed=true
-    // }
+    }
+    else{
+        this.daysExceed=true
+    }
 
 }
 

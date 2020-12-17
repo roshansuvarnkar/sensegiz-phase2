@@ -230,7 +230,7 @@ isolated(a){
         data = {
           deviceId:a.deviceId,
           userId:this.loginData.userId,
-	subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+	        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
           isolated:isolate
         }
         console.log("isolate data===",data)
@@ -410,8 +410,8 @@ fileSubmit(data){
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
 
     this.loading=false
-    if(data.header[0].toLowerCase()==='name' && data.header[2].toLowerCase()==='deviceid' && data.header[1].toLowerCase()==="employeeid" &&
-        data.header[3]==="mobilenumber".toLowerCase() && data.header[4]==="emailid".toLowerCase()){
+    if(data.header[0].toLowerCase() == 'name' && data.header[2].toLowerCase() == 'deviceid' && data.header[1].toLowerCase() == "employeeid" &&
+        data.header[3].toLowerCase() == "mobilenumber" && data.header[4].toLowerCase() == "emailid"){
       this.format=false
       var msg = 'Please wait..! It takes few minutes to upload'
       this.general.openSnackBar(msg,'')
@@ -434,12 +434,12 @@ fileSubmit(data){
   else{
 
     this.format=true
-    if(this.isMobile==true || this.isTablet==true){
-      var msg = 'Please check format: Name*, employeeId, deviceId*, emailId, mobileNumber'
-      this.general.openSnackBar(msg,'')
-    }else{
+    // if(this.isMobile==true || this.isTablet==true){
+    //   var msg = 'Please check format: Name*, employeeId, deviceId*, emailId, mobileNumber'
+    //   this.general.openSnackBar(msg,'')
+    // }else{
 
-    }
+    // }
     }
   }
   else{

@@ -207,19 +207,18 @@
       </mat-error>
     </span>
     <mat-card-content>
-
+      <div class="radio">
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickSummaryReport(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickSummaryReport(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+    </div><br>
       <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
-        <div class="radio">
-          <mat-radio-group  color="primary" formControlName="status" >
-            <mat-radio-button value="before" name="small">Before marking infected</mat-radio-button>
-            <mat-radio-button value="after" name="small">After marking infected</mat-radio-button>
-          </mat-radio-group>
-        </div><br>
 
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" (keyup)="infectedSuggestion($event)"  required>
           <mat-autocomplete #auto="matAutocomplete" >
-            <mat-option *ngFor="let user of username"   [value]="user" >
+            <mat-option *ngFor="let user of username"  [value]="user" >
               {{user}}
             </mat-option>
           </mat-autocomplete>
@@ -228,7 +227,7 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- <mat-form-field>
+        <mat-form-field>
           <mat-label>From date</mat-label>
           <input matInput [matDatepicker]="myDatepicker5" formControlName="fromDate"  required>
           <mat-datepicker-toggle matSuffix [for]="myDatepicker5"></mat-datepicker-toggle>
@@ -246,8 +245,8 @@
           <mat-error>
             Please provide a valid to date
           </mat-error>
-        </mat-form-field> -->
-          <br> <br><br>
+        </mat-form-field>
+  <br> <br><br>
         <button class="btn-set" mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
