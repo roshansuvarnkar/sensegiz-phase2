@@ -1,4 +1,4 @@
-<marquee class=" marquee" behavior="" direction="left">Please contact SenseGiz Team before making any changes in settings</marquee>
+<marquee class=" marquee" behavior="" direction="left">Please contact support team before making any changes in settings</marquee>
 
 <!-- <div class="marquee">
   <p >Please contact SenseGiz Team before making any changes in Settings</p>
@@ -11,20 +11,20 @@
     </mat-card-title>
     <mat-card-subtitle>
       Enter buffer value for the wearable
-    </mat-card-subtitle><br> 
+    </mat-card-subtitle><br>
     <mat-card-content>
       <form [formGroup]="bufferForm" (ngSubmit)="onSubmitBufferForm(bufferForm.value)">
         <mat-form-field>
           <input type='number' min="0" max="5" matInput placeholder="Buffer" formControlName="buffer" (input)="bufferval($event)" disbaled required>
           <mat-error >
-            Please provide a valid buffer 
+            Please provide a valid buffer
           </mat-error>
-         
+
         </mat-form-field>
         <mat-error class="bufferError" *ngIf="bufferValue">
          Maximum value you can set is 5
         </mat-error>
-     
+
         <br><br><br>
         <button class="btn-set"  disabled mat-raised-button disabled color="primary">Submit</button>
       </form>
@@ -39,7 +39,7 @@
      Enter maximum Coin to Find range
     </mat-card-subtitle><br>
     <mat-card-content>
-  
+
       <form [formGroup]="maxDistanceForm" (ngSubmit)="onSubmitmaxDistanceForm(maxDistanceForm.value)" >
         <mat-form-field  >
             <mat-label>Enter Range</mat-label>
@@ -52,7 +52,7 @@
               <mat-option value="60">60</mat-option>
               <mat-option value="80">80</mat-option>
               <mat-option value="100">100</mat-option>
-  
+
             </mat-select>
             <mat-error  >
               Please enter value
@@ -79,11 +79,16 @@
             Please provide a valid threshold
           </mat-error>
         </mat-form-field>
-        <br><br> <br> 
+        <br><br> <br>
         <button class="btn-set" mat-raised-button [disabled]="!maxContactForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
   </mat-card>
+
+
+
+
+
 
 
 <!--
@@ -137,22 +142,21 @@
     <div>
       <span class="flex warning">&nbsp;&nbsp;<mat-icon class="warn">warning</mat-icon>Critical Warning: Before changing this setting please contact SenseGiz team.</span>
     </div>
-````````````````` 
 
     </mat-card-content>
   </mat-card>
  -->
 
- 
+
 
 
 <!-- <mat-card>
   <mat-card-title>
-    Define Response Time 
+    Define Response Time
   </mat-card-title>
   <mat-card-subtitle>
     Enter response time for the wearable
-  </mat-card-subtitle> <br> 
+  </mat-card-subtitle> <br>
     <mat-card-content>
 
     <form [formGroup]="timeForm" (ngSubmit)="onSubmitTimeForm(timeForm.value)" >
@@ -168,7 +172,7 @@
           Please select minimum minutes as 1
         </mat-error>
       </mat-form-field>
-  
+
       <mat-form-field  >
 
         <mat-label>Seconds</mat-label>
@@ -251,7 +255,7 @@
           Please provide a limit
         </mat-error>
       </mat-form-field>
-    </div><br><br> <br> 
+    </div><br><br> <br>
     <div class="btn-set-grp">
       <button mat-raised-button [disabled]="!groupByOverCrowedForm.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
       <button type="button" mat-raised-button (click)="openGroupByOvercrowdDialog()" color="primary">Info</button>
@@ -277,7 +281,7 @@
         <input matInput placeholder="Shift name" formControlName="shift" disabled  required>
         <mat-error>
           Please provide a valid shift name
-        </mat-error> 
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
         <input type='time' matInput placeholder="From time" formControlName="fromTime"  disabled required>
@@ -316,13 +320,13 @@
         <mat-radio-button value="0" name="small" >Pendant</mat-radio-button>
         <mat-radio-button value="1" name="small" >Band</mat-radio-button>
       </mat-radio-group><br>
-<!-- 
+<!--
       <mat-radio-group  color="primary"   class="wearable" (change)=measurement($event)>
         <mat-radio-button value="meter" name="small" >Meter</mat-radio-button>
         <mat-radio-button value="feet" name="small" >Feet</mat-radio-button>
       </mat-radio-group><br> -->
-      <mat-form-field> 
-        
+      <mat-form-field>
+
         <mat-label>Select distance</mat-label>
         <mat-select formControlName="distance" required >
           <mat-option value="1">
@@ -335,7 +339,7 @@
             3 meter
           </mat-option>
         </mat-select>
-<!-- 
+<!--
           <mat-select formControlName="distance" required *ngIf="!this.measureStatus">
             <mat-option value="1">
               1 meter
@@ -377,7 +381,7 @@
 </mat-card>
 
 
-  
+
 
 
 <!-- <mat-card>
@@ -434,7 +438,7 @@
  -->
 
 
- 
+
 
 
 <!-- <mat-card>
@@ -467,14 +471,14 @@
   </mat-card-title>
   <mat-card-subtitle>
     Enable or Disable two step authentication
-  </mat-card-subtitle><br> 
+  </mat-card-subtitle><br>
   <mat-card-content>
-  
+
         <mat-slide-toggle class="toggle" color="primary" [checked]= "twoStepAuthStatus.status" (change)="twoStepAuthchange($event)" >{{twoStepAuthStatus.value}}</mat-slide-toggle>
 
       <br><br> <br>
       <button class="btn-set" mat-raised-button (click)="onSubmitTwoAuth(twoStepAuthStatus.status)" color="primary">Submit</button>
- 
+
   </mat-card-content>
 </mat-card>
 
@@ -504,7 +508,7 @@
       <div *ngIf="buzzerConfigStatus" >
         <mat-form-field >
           <mat-label>Enter seconds in multiple of 5</mat-label>
-            <input type='number' matInput formControlName="durationSec" (change)="option($event)" required >
+            <input type='number' matInput formControlName="durationSec" required >
             <mat-error  >
               Please enter valid duration, minimum seconds is 10
             </mat-error>
