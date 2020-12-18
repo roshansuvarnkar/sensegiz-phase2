@@ -357,8 +357,8 @@ summaryReport(){
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
-    // fromDate: this.from,
-    // toDate:this.to,
+    fromDate: this.from,
+    toDate:this.to,
     zone:this.general.getZone(this.date)
 
   }
@@ -393,6 +393,7 @@ summaryReport(){
 
       //  }
 
+
     }
   })
 }
@@ -415,14 +416,14 @@ dataDateReduce(data){
 
   },{})
 }
-
 callUpdatedon(date){
   var a=[]
   var data=date.filter((obj,index)=>{
     //  console.log(obj.updatedOn)
-  if(!a.includes(obj.updatedOn)){
+     if(!a.includes(obj.updatedOn)){
        a.push(obj.updatedOn)
-    }
+     }
+
   })
   // console.log("aaa==",a)
   return a
@@ -448,7 +449,6 @@ location(loc){
   a[a.length-1]= a[a.length-1]+'.'
   return a
 }
-
 cummulativeReport(){
   var date=new Date()
 
