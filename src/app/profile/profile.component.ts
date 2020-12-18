@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   preferredCountries: CountryISO[] = [CountryISO.India];
   userType:any=[
     {
-      name:'Extra Admin',
+      name:'Co. Admin',
       value:2
     },
     {
