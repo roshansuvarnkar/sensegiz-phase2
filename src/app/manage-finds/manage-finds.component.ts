@@ -407,8 +407,8 @@ fileSubmit(data){
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
 
     this.loading=false
-    if(data.header[0].toLowerCase() == 'name' && data.header[2].toLowerCase() == 'deviceid' && data.header[1].toLowerCase() == "employeeid" &&
-        data.header[3].toLowerCase() == "mobilenumber" && data.header[4].toLowerCase() == "emailid"){
+    if(data.header[0].toLowerCase()==='name' && data.header[2].toLowerCase()==='deviceid' && data.header[1].toLowerCase()==="employeeid" &&
+        data.header[3].toLowerCase()==="emailid" && data.header[4].toLowerCase()==="mobilenumber"){
       this.format=false
       var msg = 'Please wait..! It takes few minutes to upload'
       this.general.openSnackBar(msg,'')

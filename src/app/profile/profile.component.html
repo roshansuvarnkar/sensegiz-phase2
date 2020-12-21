@@ -120,7 +120,7 @@
 					<tr *ngFor="let a of subUser;let i = index">
 						<td>{{i+1}}</td>
 						<td>{{a.userName}}</td>
-						<td *ngIf="a.type==2">Sub User</td>
+						<td *ngIf="a.type==2">Co. Admin</td>
 						<td *ngIf="a.type==3">Normal User</td>
 						<td *ngIf="a.type==4">Sub Admin</td>
 						<td>{{a.department}}</td>

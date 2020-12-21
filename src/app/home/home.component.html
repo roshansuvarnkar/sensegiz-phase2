@@ -165,7 +165,7 @@
 
                 </span>
                 <span class="tab-btn">
-                  <button mat-raised-button class="btn" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
+                  <button mat-raised-button class="btn" *ngIf="loginData.type!==3" (click)="sendWarning(data.id,data.totalCount)">Send warning</button>
                 </span>
               </div>
             </mat-card-content>

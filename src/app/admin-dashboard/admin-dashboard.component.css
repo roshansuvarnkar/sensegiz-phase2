@@ -1,7 +1,12 @@
 mat-card.mat-card.mat-focus-indicator.sub {
-    max-width: 20rem;
+    max-width: 22rem;
+    height: fit-content;
     text-align: center;
     color: #ef6c00eb;
+    margin-left: 1rem;
+}
+mat-card.mat-card.mat-focus-indicator.tab {
+    margin-left: 1rem;
 }
 mat-card-content.mat-card-content.main {
     display: flex;
@@ -82,24 +87,25 @@ hr {
   margin-top: -1rem;
   font-size: smaller;
 }
-.wrapper1{
-    margin-left: 2.5rem !important;
-    color: black;
-}
 @media only screen and (max-width: 768px){
     .flex1 {
       display: block;
       /* flex-wrap: wrap; */
       /* justify-content: space-evenly; */
   }
-  mat-card.mat-card.mat-focus-indicator.tab{
+  mat-card.mat-card.mat-focus-indicator.tab {
+    /* max-width: fit-content !important; */
     width: fit-content !important;
-  }
+}
 mat-card.mat-card.mat-focus-indicator.sub {
     max-width: 20rem;
     text-align: center;
     color: #ef6c00eb;
     margin-left: auto !important;
 }
+.wrapper1{
+    margin-left: 2.5rem !important;
+    color: black;
+}
 
-  }
+}
