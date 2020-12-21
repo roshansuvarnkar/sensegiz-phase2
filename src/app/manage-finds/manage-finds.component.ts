@@ -130,9 +130,6 @@ refreshFinds(){
   })
 }
 
-
-
-
 refreshShift(){
   var data={
     userId:this.loginData.userId,
@@ -434,22 +431,22 @@ fileSubmit(data){
   else{
 
     this.format=true
-    // if(this.isMobile==true || this.isTablet==true){
-    //   var msg = 'Please check format: Name*, employeeId, deviceId*, emailId, mobileNumber'
-    //   this.general.openSnackBar(msg,'')
-    // }else{
-
-    // }
-    }
-  }
-  else{
-    this.loading=true
     if(this.isMobile==true || this.isTablet==true){
-      var msg = 'Please choose xlsx or xls file*'
+      var msg = 'Please check format: Name*, employeeId, deviceId*, emailId, mobileNumber'
       this.general.openSnackBar(msg,'')
     }else{
 
     }
+    }
+  }
+  else{
+    this.loading=true
+      if(this.isMobile==true || this.isTablet==true){
+        var msg = 'Please choose xlsx or xls file*'
+        this.general.openSnackBar(msg,'')
+      }else{
+
+      }
     }
 
  }

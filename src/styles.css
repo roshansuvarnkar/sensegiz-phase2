@@ -84,6 +84,11 @@ tr {
 .cursor{
   cursor: pointer;
 }
+.wrapper1 {
+  margin-left: 3.5rem;
+  color: #3d3d3d;
+  text-align: left;
+}
 @media only screen and (max-width: 768px) {
   /* .container-fluid {
     width: 110%;

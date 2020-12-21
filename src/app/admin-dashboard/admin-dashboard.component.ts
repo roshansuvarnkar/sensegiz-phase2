@@ -41,6 +41,7 @@ export class AdminDashboardComponent implements OnInit {
     this.adminAddUserform = this.fb.group({
       userName: ['', Validators.email],
       mobileNum:['',Validators.required],
+      zone:[''],
       portalPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
         Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
       ]],

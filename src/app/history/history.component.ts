@@ -73,6 +73,11 @@ infectedDate:any
       toDate: ['', Validators.required],
       // minutes:['']
     });
+    // this.summaryReportForm = this.fb.group({
+    //   deviceName: ['', Validators.required],
+    //   status: ['', Validators.required],
+ 
+    // });
 
     this.locationForm = this.fb.group({
       coinSelect: ['', Validators.required],
@@ -415,7 +420,7 @@ onSubmitDateForm(data){
 
 
 onSubmitSummaryReport(data){
-  // console.log("data====",data)
+  console.log("data====",data)
       this.date1=new Date(data.fromDate)
       this.date2 =new Date(data.toDate)
       var diffTime = Math.abs(this.date2 - this.date1);

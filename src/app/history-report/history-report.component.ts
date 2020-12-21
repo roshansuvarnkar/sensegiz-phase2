@@ -357,8 +357,8 @@ summaryReport(){
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
-    // fromDate: this.from,
-    // toDate:this.to,
+    fromDate: this.from,
+    toDate:this.to,
     zone:this.general.getZone(this.date)
 
   }
