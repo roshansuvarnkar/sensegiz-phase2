@@ -40,7 +40,6 @@ import { UserGuideComponent } from './user-guide/user-guide.component';
 import { ExceptionComponent } from './exception/exception.component';
 import { InternationalPhoneNumber2Module  } from 'ngx-international-phone-number2';
 import { LocationComponent } from './location/location.component';
-import { MomentTimezonePickerModule } from 'moment-timezone-picker';
 import * as moment from 'moment';
 import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
 import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
@@ -84,7 +83,6 @@ import { BnNgIdleService } from 'bn-ng-idle';
     TwoStepAuthComponent,
     ProfileComponent,
     EditOverCrowdComponent,
-    MomentTimezonePickerModule
 
   ],
   imports: [
