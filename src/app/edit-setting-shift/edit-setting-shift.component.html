@@ -10,6 +10,7 @@
 	<mat-card class="shifts">
 		<mat-card-content *ngIf="shifts">
 			<form [formGroup]="shiftForm"  >
+			
 		      <div class="diagWrapper"  formArrayName="items" *ngIf="shiftForm.get('items')['controls']?.length>0">
 		        <div class='item' *ngFor="let item of shiftForm.get('items')['controls']; let i=index;">
 		          <ng-container [formGroupName]="i">

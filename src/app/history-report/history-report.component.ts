@@ -69,6 +69,7 @@ export class HistoryReportComponent implements OnInit {
   outDate:any
   inoutTime:any
   deviceIdData:any
+  status:any
 
     constructor(
       public dialog: MatDialog,
@@ -94,7 +95,7 @@ export class HistoryReportComponent implements OnInit {
       this.locationName=data.locationName
       this.locationId=data.locationId
       this.date=data.date
-
+      this.status=data.status
      }
 
   ngOnInit(): void {
@@ -352,16 +353,18 @@ export class HistoryReportComponent implements OnInit {
 // }
 
 summaryReport(){
-
+  var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
-    fromDate: this.from,
-    toDate:this.to,
-    zone:this.general.getZone(this.date)
+    // fromDate: this.from,
+    // toDate:this.to,
+    type:this.status,
+    zone:this.general.getZone(date)
 
   }
+  console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
     console.log("summary report======",res);
 

@@ -196,7 +196,7 @@
 
   <!-- summary from -->
 
-  <mat-card >
+  <!-- <mat-card >
     <span class="card-head">
       <mat-card-title color="primary">
         Summary Report of Infected User
@@ -229,13 +229,7 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- <mat-form-field class="full-width-input">
-          <mat-label>Time in minutes</mat-label>
-          <input type='number' matInput placeholder="in minutes" formControlName="minutes" >
-          <mat-error>
-            Please provide minutes
-          </mat-error>
-        </mat-form-field> -->
+
 
         <mat-form-field>
           <mat-label>From date</mat-label>
@@ -260,7 +254,46 @@
         <button class="btn-set" mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
       </form>
     </mat-card-content>
+  </mat-card> -->
+
+  <mat-card >
+    <span class="card-head">
+      <mat-card-title color="primary">
+        Summary Report of Infected User
+      </mat-card-title>
+      <mat-card-subtitle>
+        Enter infected person name and date range
+      </mat-card-subtitle>
+
+    </span>
+    <mat-card-content>
+     
+      <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
+        
+          <mat-radio-group  color="primary" formControlName="status" class="infect" >
+            <mat-radio-button value="0" name="small" [checked]="true">Before marking Infected</mat-radio-button> 
+            <mat-radio-button value="1" name="small" >After marking Infected</mat-radio-button>
+          </mat-radio-group>
+        <br><br>
+        <mat-form-field class="full-width-input">
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" 
+          (keyup)="infectedSuggestion($event)" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of username" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error>
+            Please provide a valid user name
+          </mat-error>
+        </mat-form-field>
+
+        <br> <br><br>
+        <button class="btn-set" mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
+      </form>
+    </mat-card-content>
   </mat-card>
+
 
   <mat-card >
     <span class="card-head">

@@ -146,6 +146,12 @@
 					
 					  </mat-error>
 					</mat-form-field><br>
+					<mat-form-field>
+						<mat-label>Select Zone</mat-label>
+						<mat-select formControlName="zone">
+							<mat-option *ngFor="let zone of zoneData" [value]="zone.zone">{{zone.text}}</mat-option>
+						</mat-select>
+					</mat-form-field> <br>
 			
 					<button mat-raised-button [disabled]="!adminAddUserform.valid" color="primary">Add user</button>
 				  </form>

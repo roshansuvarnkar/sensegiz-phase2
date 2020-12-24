@@ -42,6 +42,9 @@ mat-radio-group.mat-radio-group {
     display: flex;
     justify-content: space-between;
 }
+.infect{
+    display: contents !important;
+}
 button.mat-focus-indicator.btn-set.mat-raised-button.mat-button-base.mat-primary {
   position: absolute;
   bottom: 1rem;

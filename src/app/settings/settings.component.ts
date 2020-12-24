@@ -263,18 +263,18 @@ export class SettingsComponent implements OnInit {
           })
         }
 
-        if( res.success[0].inactivityStatus == 1){
-          this.inactivityStatusValue = {
-            value:true,
-            status:'Disable'
-          }
-        }
-        else{
-          this.inactivityStatusValue = {
-            value:false,
-            status:'Enable'
-          }
-        }
+        // if( res.success[0].inactivityStatus == 1){
+        //   this.inactivityStatusValue = {
+        //     value:true,
+        //     status:'Disable'
+        //   }
+        // }
+        // else{
+        //   this.inactivityStatusValue = {
+        //     value:false,
+        //     status:'Enable'
+        //   }
+        // }
         if(res.success[0].twoStepAuth== "N"){
           this.twoStepAuthStatus={
             value:'Enable',
@@ -484,31 +484,31 @@ export class SettingsComponent implements OnInit {
    }
 
 
-   onSubmitInactivityForm(value){
+  //  onSubmitInactivityForm(value){
 
-    if (this.inactivityForm.valid) {
-      try {
-        // console.log("inactivity data==",value)
-        var data={
-        userId : this.loginData.userId,
-        inactivity : value.inactivity
+  //   if (this.inactivityForm.valid) {
+  //     try {
+  //       // console.log("inactivity data==",value)
+  //       var data={
+  //       userId : this.loginData.userId,
+  //       inactivity : value.inactivity
 
-        }
+  //       }
 
-        this.api.getInactivityDeviceSetting(data).then((res:any)=>{
-          // console.log("Inactivity response===",res)
-          if(res.status){
-            this.refreshSetting()
-            var msg = 'Inactivity updated Successfully'
-            this.general.openSnackBar(msg,'')
-          }
-        })
-      } catch (err) {
-      }
-    }
+  //       this.api.getInactivityDeviceSetting(data).then((res:any)=>{
+  //         // console.log("Inactivity response===",res)
+  //         if(res.status){
+  //           this.refreshSetting()
+  //           var msg = 'Inactivity updated Successfully'
+  //           this.general.openSnackBar(msg,'')
+  //         }
+  //       })
+  //     } catch (err) {
+  //     }
+  //   }
 
 
-   }
+  //  }
 
 
    onSubmitBufferForm(value){
@@ -871,24 +871,24 @@ export class SettingsComponent implements OnInit {
    //
    // }
 
-   inactivityChange(event){
-     var checked = event.checked == true ? 1 : 2
+  //  inactivityChange(event){
+  //    var checked = event.checked == true ? 1 : 2
 
-     var data={
-       userId : this.loginData.userId,
-       status : checked
-     }
-    //  console.log("data====",data)
-     this.api.updateInactivityStatus(data).then((res:any)=>{
-       if(res.status){
-         this.refreshSetting()
-         var msg = 'Inactivity updated Successfully'
-         this.general.openSnackBar(msg,'')
-       }
-     }).catch(err=>{
-      //  console.log("err===",err);
-     })
-   }
+  //    var data={
+  //      userId : this.loginData.userId,
+  //      status : checked
+  //    }
+  //   //  console.log("data====",data)
+  //    this.api.updateInactivityStatus(data).then((res:any)=>{
+  //      if(res.status){
+  //        this.refreshSetting()
+  //        var msg = 'Inactivity updated Successfully'
+  //        this.general.openSnackBar(msg,'')
+  //      }
+  //    }).catch(err=>{
+  //     //  console.log("err===",err);
+  //    })
+  //  }
 
   openDialog(): void {
 

@@ -24,6 +24,7 @@ export class AdminDashboardComponent implements OnInit {
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
   adminData:any=[]
+  zoneData:any
    constructor(
    		public dialog: MatDialog,
       private fb: FormBuilder,
@@ -53,6 +54,7 @@ export class AdminDashboardComponent implements OnInit {
       ]]
     });
     this.refreshAdminData()
+    this.getZone()
   }
 
  onSubmit(data) {
@@ -133,6 +135,14 @@ refreshAdminData(){
     })
  }
 
-
+getZone(){
+  this.zoneData=[]
+  this.api.getCountryZone().then((res:any)=>{
+    console.log("data===",res)
+  if(res){
+    this.zoneData=res
+  }
+  })
+}
 
 }
