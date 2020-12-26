@@ -85,7 +85,8 @@ export class AddFindComponent implements OnInit {
     this.coinForm =this.fb.group({
       coinName: ['', Validators.required],
       coinId: ['', [Validators.required,Validators.min(1)]],
-      gatewayId:['', Validators.required]
+      gatewayId:['', Validators.required],
+      coinType:['',Validators.required]
     });
 
     this.uploadForm =this.fb.group({

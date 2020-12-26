@@ -133,7 +133,9 @@
 
 
     <div *ngIf="type =='onlineUserData'">
-
+      <button mat-raised-button (click)="getPages()" color="primary"><mat-icon> cloud_download &nbsp;&nbsp;&nbsp;&nbsp;</mat-icon>
+        Downlaod
+       </button>
 
       <div class="content">
         <p class="center">Active users</p>
@@ -176,7 +178,9 @@
     </div>
     
     <div *ngIf="type =='offlineUserData'">
-
+      <button mat-raised-button (click)="getPages()" color="primary"><mat-icon> cloud_download &nbsp;&nbsp;&nbsp;&nbsp;</mat-icon>
+        Downlaod
+       </button>
 
       <div class="content">
         <p class="center">Offline users</p>

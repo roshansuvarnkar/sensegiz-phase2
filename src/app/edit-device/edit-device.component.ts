@@ -72,6 +72,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       coinId: [{value: '', disabled: true}, Validators.required],
       coinName: ['', Validators.required],
       gatewayId:['', Validators.required],
+      coinType:[{value:'',disabled: true}]
     });
 
     if(this.type=='finds'){
@@ -104,6 +105,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         coinId: this.deviceData.coinId,
         coinName: this.deviceData.coinName,
         gatewayId:this.deviceData.gatewayId,
+        coinType:this.deviceData.coinType
       });
     }
 

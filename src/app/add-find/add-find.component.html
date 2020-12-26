@@ -265,6 +265,20 @@
   <mat-horizontal-stepper  #stepper  >
     <form [formGroup]="coinForm" >
       <mat-step >
+        <ng-template matStepLabel class="stepper">Select coin Type</ng-template>
+        <mat-form-field>
+          <mat-label>Select Coin Type</mat-label>
+          <mat-select formControlName="coinType">
+            <mat-option value="LO">Location Coin</mat-option>
+            <mat-option value="AG">Aggregator Coin</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+  
+      <mat-step >
           <ng-template matStepLabel class="stepper">Fill out your coin name</ng-template>
           <mat-form-field>
             <mat-label>Coin name</mat-label>

@@ -25,7 +25,7 @@ export class ManageCoinsComponent implements OnInit {
   coindDataTemp:any=[]
   dataSource: any = [];
   inserted:any=[]
-  displayedColumns = ['i','coinId','coinName','gatewayId','batteryStatus',	'edit',	'delete'];
+  displayedColumns = ['i','coinId','coinName','coinType','gatewayId','batteryStatus',	'edit',	'delete'];
 
 
 constructor(public dialog: MatDialog,
@@ -81,6 +81,7 @@ constructor(public dialog: MatDialog,
               id:res.success[i].id,
               coinId: res.success[i].coinId,
               coinName: res.success[i].coinName,
+              coinType: res.success[i].coinType == 'LO'? 'Location Coin' : 'Aggregator Coin',
               gatewayId:res.success[i].gatewayId==''?'-':res.success[i].gatewayId,
               batteryStatus:res.success[i].batteryStatus,
               insertedOn:res.success[i].insertedOn,
@@ -105,21 +106,21 @@ getInsertedOn(value){
 return value
 }
   getBatteryStatus(value){
-    if(value == 5){
+    if((value.batteryStatus == 5 && value.coinType == 'LO') || (value.batteryStatus == 1 && value.coinType == 'AG')){
       var a = {
         'background-color':'green',
         'width':'31px'
       }
       return a
     }
-    else if(value == 6){
+    else if((value.batteryStatus == 6 && value.coinType == 'LO') || (value.batteryStatus == 2 && value.coinType == 'AG')){
       var a = {
         'background-color':'#ffc107',
         'width':'18px'
       }
       return a
     }
-    else if(value == 7){
+    else if((value.batteryStatus == 7 && value.coinType == 'LO') || (value.batteryStatus == 3 && value.coinType == 'AG')){
       var a = {
         'background-color':'red',
         'width':'10px'

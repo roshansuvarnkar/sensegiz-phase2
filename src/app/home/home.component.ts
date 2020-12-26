@@ -40,51 +40,51 @@ dataPoints:any=[]
 branch:boolean
 branch1:boolean
 
-option=[
-  { baseDevice: 120,
-    baseName: "User 120",
-    contactDevice: 305,
-    contactName: "User 305",
-    id: 1504927,
-    totTime: "07:40:41",
-    updatedOn: "2020-12-01T05:19:19.000Z",
-    userId: 35},
-    { baseDevice: 306,
-      baseName: "User 306",
-      contactDevice: 307,
-      contactName: "User 307",
-      id: 1504927,
-      totTime: "07:40:41",
-      updatedOn: "2020-12-01T05:19:19.000Z",
-      userId: 35},
-      { baseDevice: 306,
-        baseName: "User 306",
-        contactDevice: 308,
-        contactName: "User 308",
-        id: 1504927,
-        totTime: "07:40:41",
-        updatedOn: "2020-12-01T05:19:19.000Z",
-        userId: 35}
-  ]
+// option=[
+//   { baseDevice: 120,
+//     baseName: "User 120",
+//     contactDevice: 305,
+//     contactName: "User 305",
+//     id: 1504927,
+//     totTime: "07:40:41",
+//     updatedOn: "2020-12-01T05:19:19.000Z",
+//     userId: 35},
+//     { baseDevice: 306,
+//       baseName: "User 306",
+//       contactDevice: 307,
+//       contactName: "User 307",
+//       id: 1504927,
+//       totTime: "07:40:41",
+//       updatedOn: "2020-12-01T05:19:19.000Z",
+//       userId: 35},
+//       { baseDevice: 306,
+//         baseName: "User 306",
+//         contactDevice: 308,
+//         contactName: "User 308",
+//         id: 1504927,
+//         totTime: "07:40:41",
+//         updatedOn: "2020-12-01T05:19:19.000Z",
+//         userId: 35}
+//   ]
 
-  option1=[
-    { baseDevice: 305,
-      baseName: "User 305",
-      contactDevice: 309,
-      contactName: "User 309",
-      id: 1504927,
-      totTime: "07:40:41",
-      updatedOn: "2020-12-01T05:19:19.000Z",
-      userId: 35},
-      { baseDevice: 305,
-        baseName: "User 305",
-        contactDevice: 310,
-        contactName: "User 310",
-        id: 1504927,
-        totTime: "07:40:41",
-        updatedOn: "2020-12-01T05:19:19.000Z",
-        userId: 35}
-    ]
+//   option1=[
+//     { baseDevice: 305,
+//       baseName: "User 305",
+//       contactDevice: 309,
+//       contactName: "User 309",
+//       id: 1504927,
+//       totTime: "07:40:41",
+//       updatedOn: "2020-12-01T05:19:19.000Z",
+//       userId: 35},
+//       { baseDevice: 305,
+//         baseName: "User 305",
+//         contactDevice: 310,
+//         contactName: "User 310",
+//         id: 1504927,
+//         totTime: "07:40:41",
+//         updatedOn: "2020-12-01T05:19:19.000Z",
+//         userId: 35}
+//     ]
   constructor(private api: ApiService,
   private login:LoginCheckService,
   private router:Router,
@@ -157,29 +157,29 @@ refreshFinds(){
 
 
 
-refreshOnlineDevice(){
-  console.log("total empp==",this.totalEmp)
-  var date=new Date()
-  var data={
-    userId:this.loginData.userId,
-    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    zone:this.general.getZone(date),
-    type:'onlineUserData'
-  }
+// refreshOnlineDevice(){
+//   console.log("total empp==",this.totalEmp)
+//   var date=new Date()
+//   var data={
+//     userId:this.loginData.userId,
+//     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+//     zone:this.general.getZone(date),
+//     type:'onlineUserData'
+//   }
 
-  this.api.getOnlineCount(data).then((res:any)=>{
-    console.log("online data ======",res);
+//   this.api.getOnlineCount(data).then((res:any)=>{
+//     console.log("online data ======",res);
 
-    if(res.status ){
+//     if(res.status ){
 
-      this.onlineCount=res.success.length
-      this.offlineCount=this.totalEmp - res.success.length
-      console.log("online offline count===",this.totalEmp ,this.onlineCount,this.offlineCount)
-     }else {
-      this.offlineCount=this.totalEmp-0
-    }
-  })
-}
+//       this.onlineCount=res.success.length
+//       this.offlineCount=this.totalEmp - res.success.length
+//       console.log("online offline count===",this.totalEmp ,this.onlineCount,this.offlineCount)
+//      }else {
+//       this.offlineCount=this.totalEmp-0
+//     }
+//   })
+// }
 
 activeUser(){
   // console.log("Active users===",this.activeEmp)
@@ -214,7 +214,7 @@ offlineUser(){
 
   dialogRef.afterClosed().subscribe(result => {
     this.refreshFinds()
-    this.refreshOnlineDevice()
+    // this.refreshOnlineDevice()
 
   });
 
@@ -233,7 +233,7 @@ onlineUser(){
 
   dialogRef.afterClosed().subscribe(result => {
     this.refreshFinds()
-    this.refreshOnlineDevice()
+    // this.refreshOnlineDevice()
 
   });
 
@@ -298,7 +298,7 @@ refresh(){
   this.refreshSetting()
   this.maximumContactTime()
   this.repeatedContacts()
-  this.refreshOnlineDevice()
+  // this.refreshOnlineDevice()
   this.numOfcontactPerDay()
   this.refreshFinds()
 
@@ -315,13 +315,17 @@ refreshCount(){
     if(res.status){
       this.totalEmp = res.success[0].totalEmp
       this.infectedEmp = res.success[1].inectedEmp
-      this.normalEmp = res.success[2].normalEmp
-      this.activeEmp = res.success[3].activeEmp
-     this.refreshOnlineDevice()
+      // this.normalEmp = res.success[2].normalEmp
+      this.onlineCount=res.success[2].activeEmp
+      this.offlineCount=res.success[3].offlineEmp
+      this.activeEmp = res.success[4].registedEmp
+    
+    //  this.refreshOnlineDevice()
     }
   })
 
 }
+
 
 
 
@@ -368,7 +372,7 @@ maximumContactTime(){
       )
 
       }
-    }
+    }   
   })
 
 }
@@ -468,10 +472,10 @@ numOfcontactPerDay(){
  }
 
 
- showNext(data,count){
-   console.log("data===",data)
-   this.branch=(count==1 || count== 2) && data.baseName== this.option[0].baseName?true:false
-   this.branch1=count==2 && data.baseName== this.option1[0].baseName ?true:false
+//  showNext(data,count){
+//    console.log("data===",data)
+//    this.branch=(count==1 || count== 2) && data.baseName== this.option[0].baseName?true:false
+//    this.branch1=count==2 && data.baseName== this.option1[0].baseName ?true:false
 
- }
+//  }
 }
