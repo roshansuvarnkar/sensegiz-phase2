@@ -106,21 +106,22 @@ getInsertedOn(value){
 return value
 }
   getBatteryStatus(value){
-    if((value.batteryStatus == 5 && value.coinType == 'LO') || (value.batteryStatus == 1 && value.coinType == 'AG')){
+    console.log("status===",value)
+    if((value.batteryStatus == 5 && value.coinType == 'Location Coin') || (value.batteryStatus == 1 && value.coinType == 'Aggregator Coin')){
       var a = {
         'background-color':'green',
         'width':'31px'
       }
       return a
     }
-    else if((value.batteryStatus == 6 && value.coinType == 'LO') || (value.batteryStatus == 2 && value.coinType == 'AG')){
+    else if((value.batteryStatus == 6 && value.coinType == 'Location Coin') || (value.batteryStatus == 2 && value.coinType == 'Aggregator Coin')){
       var a = {
         'background-color':'#ffc107',
         'width':'18px'
       }
       return a
     }
-    else if((value.batteryStatus == 7 && value.coinType == 'LO') || (value.batteryStatus == 3 && value.coinType == 'AG')){
+    else if((value.batteryStatus == 7 && value.coinType == 'Location Coin') || (value.batteryStatus == 3 && value.coinType == 'Aggregator Coin')){
       var a = {
         'background-color':'red',
         'width':'10px'

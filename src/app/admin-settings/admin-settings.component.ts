@@ -143,12 +143,18 @@ export class AdminSettingsComponent implements OnInit {
             value:true,
             status:'Disable'
           }
+          this.inactivityForm.patchValue({
+            inactivity: res.success[0].inactivity
+         })
         }
         else{
           this.inactivityStatusValue = {
             value:false,
             status:'Enable'
           }
+          this.inactivityForm.patchValue({
+            inactivity: res.success[0].inactivity
+         })
         }
       }
     })
@@ -361,13 +367,14 @@ export class AdminSettingsComponent implements OnInit {
     }
   }
 
+  //scan count == meeting count
 
   onSubmitScanCountForm(data){
     // console.log("data==",data)
     if (this.scanCountForm.valid) {
       try {
         data.userId=this.dataGet.userId
-        this.api.updateScanCount(data).then((res:any)=>{
+        this.api.updateMeetingCount(data).then((res:any)=>{
           // console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()

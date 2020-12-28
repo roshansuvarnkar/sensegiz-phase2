@@ -480,13 +480,13 @@ updateScanningInterval(data){
 }
 
 
-updateScanCount(data){
+updateMeetingCount(data){
 
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  let url = this.host+'/setScanCount';
+  let url = this.host+'/setMeetingCount';
   return new Promise((resolve,reject)=>{
     this.http.post(url,data,httpOptions).subscribe(res=>{
       resolve(res);

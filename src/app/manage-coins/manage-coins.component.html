@@ -51,7 +51,7 @@
               <td mat-cell *matCellDef="let coin "  class="cursor">
                 <span  *ngIf=" getInsertedOn(coin.insertedOn)!='0000-00-00 00:00:00' && coin.batteryStatus!='0'" matTooltip="last synced time : {{getInsertedOn(coin.insertedOn) | date: 'medium'}}">
                   <div class="batteryContainer" >
-                    <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(coin.batteryStatus)" > </div></div>
+                    <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(coin)" > </div></div>
                     <div class="batteryBump"></div>
                     </div>
                   </span>
@@ -87,4 +87,4 @@
         <mat-paginator   pageSize="10" [pageSizeOptions] = "[5, 10, 25, 100]" showFirstLastButtons >
         </mat-paginator>
     </div>
-     </div>
+  </div>
