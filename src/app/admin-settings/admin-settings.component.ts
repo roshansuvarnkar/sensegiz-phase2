@@ -61,7 +61,7 @@ export class AdminSettingsComponent implements OnInit {
       seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
     })
     this.scanCountForm=this.fb.group({
-      count:['',[Validators.required,Validators.max(255), Validators.min(0)]],
+      count:['',[Validators.required,Validators.max(253), Validators.min(0)]],
     })
     this.timeForm=this.fb.group({
       minutes:[{value:'',disabled: false},Validators.required],
@@ -370,12 +370,12 @@ export class AdminSettingsComponent implements OnInit {
   //scan count == meeting count
 
   onSubmitScanCountForm(data){
-    // console.log("data==",data)
+    console.log("data==",data)
     if (this.scanCountForm.valid) {
       try {
         data.userId=this.dataGet.userId
         this.api.updateMeetingCount(data).then((res:any)=>{
-          // console.log("Scanning Interval===",res)
+          console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()
             var msg='Scan count updated Successfully'
