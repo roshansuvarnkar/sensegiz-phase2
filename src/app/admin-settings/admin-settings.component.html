@@ -32,7 +32,7 @@
   <mat-card-subtitle>
     Enter inactivity in minutes
   </mat-card-subtitle>
- 
+
   <mat-card-content>
     <form [formGroup]="inactivityForm" (ngSubmit)="onSubmitInactivityForm(inactivityForm.value)">
       <mat-slide-toggle color="primary" [checked]="inactivityStatusValue.value" formControlName="type" (change)="inactivityChange($event)" >{{inactivityStatusValue.status}}</mat-slide-toggle>
@@ -51,7 +51,7 @@
           Please provide a valid inactivity in minutes
         </mat-error>
       </mat-form-field> <br>
-      
+
       <br><br>
       <button class="btn-set" mat-raised-button [disabled]="!inactivityForm.valid" color="primary">Submit</button>
     </form>
@@ -85,7 +85,7 @@
 
   <mat-card>
     <mat-card-title>
-    Meeting Count
+    Merging Count
     </mat-card-title>
     <mat-card-subtitle>
      Enter count
