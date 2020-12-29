@@ -84,7 +84,9 @@ constructor(public dialog: MatDialog,
               coinType: res.success[i].coinType == 'LO'? 'Location Coin' : 'Aggregator Coin',
               gatewayId:res.success[i].gatewayId==''?'-':res.success[i].gatewayId,
               batteryStatus:res.success[i].batteryStatus,
-              insertedOn:res.success[i].insertedOn,
+              battryStatusUpdatedTime:res.success[i].battryStatusUpdatedTime,
+              latestStatus:res.success[i].latestStatus,
+              coinStatus:res.success[i].coinStatus,
               edit:'edit',
               delete:'delete',
 
@@ -102,11 +104,11 @@ constructor(public dialog: MatDialog,
       }
     })
   }
-getInsertedOn(value){
-return value
-}
+// getInsertedOn(value){
+// return value
+// }
   getBatteryStatus(value){
-    console.log("status===",value)
+    // console.log("status===",value)
     if((value.batteryStatus == 5 && value.coinType == 'Location Coin') || (value.batteryStatus == 1 && value.coinType == 'Aggregator Coin')){
       var a = {
         'background-color':'green',
