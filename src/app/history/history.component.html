@@ -262,21 +262,21 @@
         Summary Report of Infected User
       </mat-card-title>
       <mat-card-subtitle>
-        Enter infected person name and date range
+        Enter infected person name
       </mat-card-subtitle>
 
     </span>
     <mat-card-content>
-     
+
       <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
-        
+
           <mat-radio-group  color="primary" formControlName="status" class="infect" >
-            <mat-radio-button value="0" name="small" [checked]="true">Before marking Infected</mat-radio-button> 
+            <mat-radio-button value="0" name="small" [checked]="true">Before marking Infected</mat-radio-button>
             <mat-radio-button value="1" name="small" >After marking Infected</mat-radio-button>
           </mat-radio-group>
         <br><br>
         <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" 
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto"
           (keyup)="infectedSuggestion($event)" required>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let user of username" [value]="user">
