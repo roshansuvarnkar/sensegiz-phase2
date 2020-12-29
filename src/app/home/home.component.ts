@@ -317,9 +317,9 @@ refreshCount(){
       this.infectedEmp = res.success[1].inectedEmp
       // this.normalEmp = res.success[2].normalEmp
       this.onlineCount=res.success[2].activeEmp
-      this.offlineCount=res.success[3].offlineEmp
+      this.offlineCount=res.success[4].registedEmp - res.success[3].onlineCount
       this.activeEmp = res.success[4].registedEmp
-    
+
     //  this.refreshOnlineDevice()
     }
   })
@@ -372,7 +372,7 @@ maximumContactTime(){
       )
 
       }
-    }   
+    }
   })
 
 }
