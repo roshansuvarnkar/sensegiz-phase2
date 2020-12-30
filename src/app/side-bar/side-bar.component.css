@@ -45,7 +45,12 @@ td.mat-cell.cdk-cell.cdk-column-deviceName.mat-column-deviceName.ng-star-inserte
     letter-spacing: 1px;
     cursor: pointer;
 }
-
+p.online {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
 @media only screen and (max-width: 768px) {
 
   mat-sidenav.mat-drawer.mat-sidenav.ng-tns-c276-1.ng-trigger.ng-trigger-transform.mat-drawer-over.ng-star-inserted.mat-drawer-opened {

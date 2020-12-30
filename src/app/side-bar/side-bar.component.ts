@@ -28,16 +28,19 @@ export class SideBarComponent implements OnInit {
   date2:any
   date1:any
   index:any
+  onlineCount:any = 0;
   constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-    this.refreshFinds()
+    this.refreshFinds();
+    this.refreshCount();
     //this.checkPage()
     setInterval(()=>{
       if(this.loginData != '' && this.loginData != undefined)
-        this.refreshFinds()
+        this.refreshFinds();
+        this.refreshCount();
     },30*1000)
 
   }
@@ -62,6 +65,20 @@ export class SideBarComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
 
         })
+      }
+    })
+  }
+
+
+  refreshCount(){
+    var data={
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    }
+    this.api.getCountData(data).then((res:any)=>{
+      console.log("count data ======",res);
+      if(res.status){
+        this.onlineCount=res.success[3].onlineCount
       }
     })
   }
