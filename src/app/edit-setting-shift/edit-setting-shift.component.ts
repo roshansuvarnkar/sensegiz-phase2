@@ -120,7 +120,7 @@ export class EditSettingShiftComponent implements OnInit {
 		var min=times2[1]-times1[1]
     	var hour=Math.abs(times2[0]-times1[0])
 		console.log("minhour",min,hour)
-		if((hour >= 9 && min >= 0)){
+		if((hour >= 9 && min >= 0) || hour >9){
 			var dateobj=new Date()
 			var year = dateobj.getFullYear();
 			var month = dateobj.getMonth() + 1
