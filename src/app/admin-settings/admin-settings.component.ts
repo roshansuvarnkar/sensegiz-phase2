@@ -144,7 +144,8 @@ export class AdminSettingsComponent implements OnInit {
             status:'Disable'
           }
           this.inactivityForm.patchValue({
-            inactivity: res.success[0].inactivity
+            inactivity: res.success[0].inactivity,
+            type:2
          })
         }
         else{
@@ -153,7 +154,8 @@ export class AdminSettingsComponent implements OnInit {
             status:'Enable'
           }
           this.inactivityForm.patchValue({
-            inactivity: res.success[0].inactivity
+            inactivity: res.success[0].inactivity,
+            type:1
          })
         }
       }
@@ -425,15 +427,15 @@ export class AdminSettingsComponent implements OnInit {
     if((hour < 9 && (min>=0 && min<=59)) || (hour == 9 && min == 0)){
       this.timeExceed=false
       var dateobj=new Date()
-   
+
       var year = dateobj.getFullYear();
       var month = dateobj.getMonth() + 1
       var day = dateobj.getDate()
       var date = month + '/' + day + '/'  + year
-  
+
       var time1=date+" "+data.fromTime
       var time2=date+" "+data.toTime
-     
+
       time1=new Date(time1).toUTCString()
       time2=new Date(time2).toUTCString()
       var h=new Date(time1).getUTCHours()
@@ -444,12 +446,12 @@ export class AdminSettingsComponent implements OnInit {
       var mm = m <= 9 && m >= 0 ? "0"+m : m;
       var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
       var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
-  
+
       data.fromTime = hh + ':' + mm
       data.toTime = hh1 + ':' + mm1
       // console.log("data====",data)
-  
-  
+
+
        if (this.workingForm.valid) {
          try {
           //  console.log("time data===",data)
@@ -465,7 +467,7 @@ export class AdminSettingsComponent implements OnInit {
               this.multipleShift=true
              }
            })
-  
+
          } catch (err) {
          }
        }
@@ -556,7 +558,7 @@ export class AdminSettingsComponent implements OnInit {
 
    }
    inactivityChange(event){
-  
+     console.log("event===",event)
       if(event.checked == true){
         this.inactivityStatusValue = {
           value:true,
@@ -589,7 +591,7 @@ export class AdminSettingsComponent implements OnInit {
   //   }).catch(err=>{
   //    //  console.log("err===",err);
   //   })
-  
+
   }
    getMin(event){
     // console.log("event==",event)
