@@ -427,8 +427,8 @@ export class AdminSettingsComponent implements OnInit {
 
 		if(times1>times2){
 			console.log("yes")
-				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")		
-		
+				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")
+
 		}
 		console.log("false")
 		var times=moment(times2,"YYYY/MM/DD HH:mm:ss").diff(moment(times1,"YYYY/MM/DD HH:mm:ss"))
@@ -440,7 +440,7 @@ export class AdminSettingsComponent implements OnInit {
 
 		var minhour=(d.hours()+ ":" + d.minutes()).split(":")
     console.log("minhour==",minhour[0],minhour[1])
-    
+
 		if((parseInt(minhour[0]) >= 9 && (parseInt(minhour[1]) >= 0 && parseInt(minhour[1]) <=59)) ){
       this.timeExceed=false
       var dateobj=new Date()
@@ -476,11 +476,14 @@ export class AdminSettingsComponent implements OnInit {
            this.api.setTime(data).then((res:any)=>{
             //  console.log("time insrted or updated",res)
             if(res.status){
+              this.timeExceed=false
               this.multipleShift=false
               var msg = 'Shift time update Successfully'
               this.general.openSnackBar(msg,'')
+              this.workingForm.reset();
              }
              else{
+              this.timeExceed=false
               this.multipleShift=true
              }
            })
@@ -491,6 +494,7 @@ export class AdminSettingsComponent implements OnInit {
     }
     else if((parseInt(minhour[0]) == 9 && parseInt(minhour[1]) < 0 ) || parseInt(minhour[0]) < 9){
       this.timeExceed=true
+      this.multipleShift=false
     }
    }
 
