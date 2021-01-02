@@ -30,6 +30,9 @@ mat-card {
   bottom: 1rem;
   right: 7.5rem;
 }
+td.ng-star-inserted {
+    cursor: pointer;
+}
   @media only screen and (max-width: 768px){
     .setting {
       display: block;

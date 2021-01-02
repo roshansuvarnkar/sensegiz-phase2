@@ -145,7 +145,8 @@ export class AdminSettingsComponent implements OnInit {
             status:'Disable'
           }
           this.inactivityForm.patchValue({
-            inactivity: res.success[0].inactivity
+            inactivity: res.success[0].inactivity,
+            type:2
          })
         }
         else{
@@ -154,7 +155,8 @@ export class AdminSettingsComponent implements OnInit {
             status:'Enable'
           }
           this.inactivityForm.patchValue({
-            inactivity: res.success[0].inactivity
+            inactivity: res.success[0].inactivity,
+            type:1
          })
         }
       }
@@ -425,8 +427,8 @@ export class AdminSettingsComponent implements OnInit {
    
 		if(times1>times2 || (data.fromTime == "00:00" &&  data.toTime == "00:00")){
 			console.log("yes")
-				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")		
-		
+				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")
+
 		}
 		console.log("false")
 		var times=moment(times2,"YYYY/MM/DD HH:mm:ss").diff(moment(times1,"YYYY/MM/DD HH:mm:ss"))
@@ -438,19 +440,19 @@ export class AdminSettingsComponent implements OnInit {
 
 		var minhour=(d.hours()+ ":" + d.minutes()).split(":")
     console.log("minhour==",minhour[0],minhour[1])
-    
+
 		if((parseInt(minhour[0]) >= 9 && (parseInt(minhour[1]) >= 0 && parseInt(minhour[1]) <=59)) ){
       this.timeExceed=false
       var dateobj=new Date()
-   
+
       var year = dateobj.getFullYear();
       var month = dateobj.getMonth() + 1
       var day = dateobj.getDate()
       var date = month + '/' + day + '/'  + year
-  
+
       var time1=date+" "+data.fromTime
       var time2=date+" "+data.toTime
-     
+
       time1=new Date(time1).toUTCString()
       time2=new Date(time2).toUTCString()
       var h=new Date(time1).getUTCHours()
@@ -461,12 +463,12 @@ export class AdminSettingsComponent implements OnInit {
       var mm = m <= 9 && m >= 0 ? "0"+m : m;
       var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
       var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
-  
+
       data.fromTime = hh + ':' + mm
       data.toTime = hh1 + ':' + mm1
       // console.log("data====",data)
-  
-  
+
+
        if (this.workingForm.valid) {
          try {
           //  console.log("time data===",data)
@@ -474,21 +476,25 @@ export class AdminSettingsComponent implements OnInit {
            this.api.setTime(data).then((res:any)=>{
             //  console.log("time insrted or updated",res)
             if(res.status){
+              this.timeExceed=false
               this.multipleShift=false
               var msg = 'Shift time update Successfully'
               this.general.openSnackBar(msg,'')
+              this.workingForm.reset();
              }
              else{
+              this.timeExceed=false
               this.multipleShift=true
              }
            })
-  
+
          } catch (err) {
          }
        }
     }
     else if((parseInt(minhour[0]) == 9 && parseInt(minhour[1]) < 0 ) || parseInt(minhour[0]) < 9){
       this.timeExceed=true
+      this.multipleShift=false
     }
    }
 
@@ -573,7 +579,7 @@ export class AdminSettingsComponent implements OnInit {
 
    }
    inactivityChange(event){
-  
+     console.log("event===",event)
       if(event.checked == true){
         this.inactivityStatusValue = {
           value:true,
@@ -606,7 +612,7 @@ export class AdminSettingsComponent implements OnInit {
   //   }).catch(err=>{
   //    //  console.log("err===",err);
   //   })
-  
+
   }
    getMin(event){
     // console.log("event==",event)
