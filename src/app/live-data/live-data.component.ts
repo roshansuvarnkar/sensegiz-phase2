@@ -33,7 +33,7 @@ limit:any
 offset:any
 pageSet:any=10
 pageIndex:any=0
-displayedColumns: string[] = ['i','baseName','contactName','location','startTime', 'updatedOn','totalTime'];
+displayedColumns: string[] = ['i','baseName','contactName','department','location','startTime', 'updatedOn','totalTime'];
 selectMin:FormGroup
 totTime:any=[]
   constructor(
@@ -144,6 +144,7 @@ getTotalCount(val){
               i:i+1,
               baseName:res.success[i].baseName,
               contactName:res.success[i].contactName,
+              department:res.success[i].department,
               location:res.success[i].location,
               updatedOn:res.success[i].updatedOn,
               totalTime:res.success[i].totalTime,

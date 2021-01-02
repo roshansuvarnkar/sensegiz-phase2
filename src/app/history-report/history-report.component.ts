@@ -45,12 +45,14 @@ export class HistoryReportComponent implements OnInit {
   deviceName:any
   currentPageLength:any=10
   currentPageSize:any=10
-  displayedColumns: string[] = ['i','baseName','contactName','empId','location','startTime', 'updatedOn', 'totaltime'];
-  displayedColumns1: string[] = ['i','contactName','location', 'updatedOn', 'totaltime'];
+  displayedColumns: string[] = ['i','baseName','contactName','empId','department','location','startTime', 'updatedOn', 'totaltime'];
+  displayedColumns1: string[] = ['i','contactName','department','location', 'updatedOn', 'totaltime'];
   displayedColumns2: string[] = ['contactDeviceName','updatedOn'];
-  displayedColumns3: string[] = ['i','deviceName','inTime', 'outTime','totTime'];
-  displayedColumns4: string[] = ['i','coinName','geofenceStatus','inTime', 'outTime','totTime'];
-  displayedColumns5: string[] = ['i','username','count','totTime'];
+  displayedColumns3: string[] = ['i','deviceName','department','inTime', 'outTime','totTime'];
+  displayedColumns4: string[] = ['i','coinName','department','geofenceStatus','inTime', 'outTime','totTime'];
+  displayedColumns5: string[] = ['i','username','department','count','totTime'];
+  displayedColumns6: string[] = ['i','deviceId','deviceName','department','dataReceivedTime','updatedOnLoc'];
+
   fileName:any
   locationData:any=[]
   locationName:any
@@ -70,7 +72,7 @@ export class HistoryReportComponent implements OnInit {
   inoutTime:any
   deviceIdData:any
   status:any
-
+  customData:any
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -82,7 +84,7 @@ export class HistoryReportComponent implements OnInit {
        @Inject(MAT_DIALOG_DATA)  data,
     ) {
       this.type=data.type
-      // console.log("type==",this.type)
+      console.log("type==",this.type)
       this.liveData = data.data
       console.log("data==",data)
       this.from = data.fromDate
@@ -179,17 +181,16 @@ export class HistoryReportComponent implements OnInit {
       zone:this.general.getZone(this.date)
     }
 
-    this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
-      console.log("length of geo fence report on device name ======",res);
-      if(res.status){
-        // console.log('\nTotal response: ',res.success[0].count);
-        this.currentPageLength = parseInt(res.success[0].count);
-        // this.tempLen=this.currentPageLength
-      }
-    })
+      this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
+        console.log("length of geo fence report on device name ======",res);
+        if(res.status){
+          // console.log('\nTotal response: ',res.success[0].count);
+          this.currentPageLength = parseInt(res.success[0].count);
+          // this.tempLen=this.currentPageLength
+        }
+      })
 
-  }
-
+    }
 
   }
 
@@ -221,6 +222,7 @@ export class HistoryReportComponent implements OnInit {
           baseName:res.success[i].baseName,
           contactName:res.success[i].contactName,
           empId:res.success[i].empId==null || res.success[i].empId==''?'-':res.success[i].empId,
+          department:res.success[i].department,
           location:res.success[i].location,
           updatedOn:res.success[i].updatedOn,
           startTime:this.general.startTime(res.success[i].totalTime,res.success[i].updatedOn),
@@ -477,6 +479,7 @@ cummulativeReport(){
             i:i+1,
             username:res.data[i].baseDeviceName,
             count:res.data[i].count,
+            department:res.data[i].department,
             totTime:this.general.convertTime(res.data[i].totalTime)
 
           });
@@ -531,6 +534,7 @@ locationReport(limit,offset){
           this.liveData.push({
             i:i+1,
             deviceName:res.success[i].deviceName,
+            department:res.success[i].department,
             inTime:res.success[i].inTime == '0000-00-00 00:00:00' || res.success[i].inTime == null?'-':res.success[i].inTime,
             outTime:res.success[i].outTime == '0000-00-00 00:00:00'  || res.success[i].outTime == null?'-':res.success[i].outTime,
             totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime)
@@ -590,6 +594,7 @@ geofenceAndlocationReport(limit,offset){
         this.liveData.push({
           i:i+1,
           coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
+          department:res.success[i].department,
           inTime:res.success[i].inTime == '0000-00-00 00:00:00'|| res.success[i].inTime == null?'-':res.success[i].inTime,
           outTime:res.success[i].outTime == '0000-00-00 00:00:00' || res.success[i].outTime == null?'-':res.success[i].outTime,
           totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime),
@@ -620,6 +625,27 @@ geofenceAndlocationReport(limit,offset){
 })
 }
 
+
+customReport(){
+  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    type:this.liveData.type
+  }
+  console.log(" custom data======",data)
+  this.api.getCustomReport(data).then((res:any)=>{
+    console.log("Custom Report res==",res)
+    this.customData=[]
+    if(res.status){
+      this.customData=res.success
+      this.dataSource = new MatTableDataSource(this.customData);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator
+      })
+    }
+  })
+}
   loadData(limit=10,offset=0){
 
       if(this.type == 'basedOnDate'){
@@ -639,6 +665,10 @@ geofenceAndlocationReport(limit,offset){
       }
       if(this.type == 'geoFenceReport'){
         this.geofenceAndlocationReport(limit=limit,offset=offset)
+      }
+      if(this.type == 'custom'){
+        this.customReport()
+    
       }
 }
 
@@ -683,64 +713,20 @@ getPages(){
   var date=new Date()
 
 
- if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
-    if(this.type=='basedOnDate'){
-      data={
-      userId:this.loginData.userId,
-      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-      fromDate: this.from,
-      toDate:this.to,
-      zone:this.general.getZone(date),
-      type:this.type
-      }
-      fileName="GenericReport"
-  }
-  if(this.type=='basedOnFindName'){
-      data={
-      userId:this.loginData.userId,
-      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-      deviceName:this.deviceName,
-      fromDate: this.from,
-      toDate:this.to,
-      zone:this.general.getZone(date),
-      type:this.type
-    }
-    fileName="Report-of-Find- "+this.deviceName
-    }
-
-    console.log("data to send ======",data);
-
-    this.api.downloadReport(data,fileName).then((res:any)=>{
-
-      console.log("report data recieved ======",res);
-    })
- }
- if(this.type=='summaryReport'){
-    this.general.loadingFreez.next({status:true})
-    console.log("hi")
-    setTimeout(()=>{
-
-      this.openExcel()
-      this.general.loadingFreez.next({status:false})
-
-    },6000);
-
-  }
-  if(this.type=='locationReport' || this.type=='geoFenceReport' ){
-    if(this.type=='locationReport'){
+  if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
+      if(this.type=='basedOnDate'){
         data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-        coinId:this.locationId,
         fromDate: this.from,
         toDate:this.to,
         zone:this.general.getZone(date),
         type:this.type
-      }
-      fileName="Report-of-location- "+this.locationName
+        }
+        fileName="GenericReport"
     }
-    if(this.type=='geoFenceReport'){
-      data={
+    if(this.type=='basedOnFindName'){
+        data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         deviceName:this.deviceName,
@@ -749,36 +735,98 @@ getPages(){
         zone:this.general.getZone(date),
         type:this.type
       }
-      fileName="GeoFenceReport_of- "+this.deviceName
-    }
+      fileName="Report-of-Find- "+this.deviceName
+      }
 
-    console.log("data to send ======",data);
+      console.log("data to send ======",data);
 
-    this.api.downloadLtReport(data,fileName).then((res:any)=>{
+      this.api.downloadReport(data,fileName).then((res:any)=>{
 
-      console.log("report data recieved ======",res);
-
-    })
+        console.log("report data recieved ======",res);
+      })
   }
-  if(this.type=='cummulative'){
-    data={
-      userId:this.loginData.userId,
-      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-      fromDate: this.from,
-      toDate:this.to,
-      zone:this.general.getZone(date),
-      type:this.type
+  if(this.type=='summaryReport'){
+      this.general.loadingFreez.next({status:true})
+      console.log("hi")
+      setTimeout(()=>{
+
+        this.openExcel()
+        this.general.loadingFreez.next({status:false})
+
+      },6000);
+
     }
-    fileName="CummulativeReport"
-    console.log("data to send ======",data);
+    if(this.type=='locationReport' || this.type=='geoFenceReport' ){
+      if(this.type=='locationReport'){
+          data={
+          userId:this.loginData.userId,
+          subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+          coinId:this.locationId,
+          fromDate: this.from,
+          toDate:this.to,
+          zone:this.general.getZone(date),
+          type:this.type
+        }
+        fileName="Report-of-location- "+this.locationName
+      }
+      if(this.type=='geoFenceReport'){
+        data={
+          userId:this.loginData.userId,
+          subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+          deviceName:this.deviceName,
+          fromDate: this.from,
+          toDate:this.to,
+          zone:this.general.getZone(date),
+          type:this.type
+        }
+        fileName="GeoFenceReport_of- "+this.deviceName
+      }
 
-    //apicall
+      console.log("data to send ======",data);
 
-    this.api.downloadCummulative(data,fileName).then((res:any)=>{
+      this.api.downloadLtReport(data,fileName).then((res:any)=>{
 
-      console.log("report data recieved ======",res);
+        console.log("report data recieved ======",res);
 
-    })
+      })
+    }
+    if(this.type=='cummulative'){
+      data={
+        userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+        fromDate: this.from,
+        toDate:this.to,
+        zone:this.general.getZone(date),
+        type:this.type
+      }
+      fileName="CummulativeReport"
+      console.log("data to send ======",data);
+
+      //apicall
+
+      this.api.downloadCummulative(data,fileName).then((res:any)=>{
+
+        console.log("report data recieved ======",res);
+
+      })
+    }
+    if(this.type=='custom'){
+      data={
+        userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+        zone:this.general.getZone(date),
+        type:this.liveData.type
+      }
+      fileName="CustomReport"
+      console.log("data to send ======",data);
+
+      //apicall
+
+      this.api.downloadCustomReport(data,fileName).then((res:any)=>{
+
+        console.log("report data recieved ======",res);
+
+      })
     }
 
 }
