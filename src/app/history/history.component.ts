@@ -22,6 +22,7 @@ locationForm:FormGroup
 dateForm:FormGroup
 geoAndLocForm:FormGroup
 cummulativeForm:FormGroup
+customReport:FormGroup
 daysExceed:boolean=false
 finds:any=[]
 coinData:any=[]
@@ -90,6 +91,10 @@ infectedDate:any
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
+
+    this.customReport= this.fb.group({
+      type:['',Validators.required]
+    })
 
     this.refreshFinds()
     this.refreshCoins()
@@ -611,6 +616,21 @@ onSubmitSummaryReport(data){
       }
     })
   }
+  onSubmitCustomReport(data){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      type:"custom",
+      data:data,
+    }
+    const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshFinds()
+    });
+  }
 
 }

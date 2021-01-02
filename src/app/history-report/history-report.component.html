@@ -8,7 +8,6 @@
 <!-- based on date -->
 <div *ngIf="type =='basedOnDate'" id="htmlData">
 
-
   <div class="content">
     <p class="center">REPORT</p>
             <span  class="icon">
@@ -16,7 +15,6 @@
             <button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
           </span>
   </div> <br>
-  <div>
   <p  mat-dialog-title> From {{from1}} to {{to1}} </p>
     <!-- <form [formGroup]="selectMin">
     <mat-form-field>
@@ -61,6 +59,13 @@
               <td mat-cell *matCellDef="let live" (click)="orderContactOpen(live)"> {{live.contactName}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+              <td mat-cell *matCellDef="let live">
+                <span *ngIf="live.department == null">-</span>
+                <span *ngIf="live.department != null"> {{live.department}} </span>
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="location">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
@@ -89,14 +94,13 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     </div>
-  </div>
     <mat-paginator
-    (page)="getUpdate($event)"
-    [length] = "currentPageLength"
-    [pageSize]="currentPageSize"
-    [pageSizeOptions] = "[5, 10, 25, 100]"
-    showFirstLastButtons
-></mat-paginator>
+        (page)="getUpdate($event)"
+        [length] = "currentPageLength"
+        [pageSize]="currentPageSize"
+        [pageSizeOptions] = "[5, 10, 25, 100]"
+        showFirstLastButtons
+    ></mat-paginator>
 
 </div>
 
@@ -166,7 +170,6 @@
 
 <div *ngIf="type =='cummulative'" id="htmlData">
 
-
   <div class="content">
     <p class="center"> REPORT</p>
             <span  class="icon">
@@ -174,7 +177,6 @@
               <button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
           </span>
   </div> <br>
-  <div>
   <p  mat-dialog-title> From {{from1}} to {{to1}} </p>
   <!-- <form [formGroup]="selectMin">
     <mat-form-field>
@@ -207,6 +209,13 @@
               <td mat-cell *matCellDef="let live "> {{live.count}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+              <td mat-cell *matCellDef="let live">
+                <span *ngIf="live.department == null">-</span>
+                <span *ngIf="live.department != null"> {{live.department}} </span>
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="totTime">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Time (hh:mm:ss) </th>
@@ -220,9 +229,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
     </table>
     </div>
-  </div>
   <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 25,100]" showFirstLastButtons ></mat-paginator>
-
 
 </div>
 
@@ -268,6 +275,14 @@
             <ng-container matColumnDef="contactName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Person </th>
               <td mat-cell *matCellDef="let live " (click)="orderContactOpen(live)"> {{live.contactName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+              <td mat-cell *matCellDef="let live">
+                <span *ngIf="live.department == null">-</span>
+                <span *ngIf="live.department != null"> {{live.department}} </span>
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="location">
@@ -337,12 +352,14 @@
       <tr>
         <th>Sl No.</th>
         <th>Contacted User</th>
+        <th>Department</th>
         <th>Date Of contacts</th>
       </tr>
      </thead>
      <tr *ngFor = "let a of liveData;let i=index">
       <td>{{i+1}} </td>
       <td>{{a.data}}</td>
+      <td>{{a.department}}</td>
       <td>
         <!-- <span *ngFor = 'let b of a.date;let j=index'>
           {{b.updatedOn }}
@@ -371,10 +388,6 @@
     </div>
 
 </div>
-
-</div>
-
-
 
 
 <!-- location report -->
@@ -413,6 +426,13 @@
             <td mat-cell *matCellDef="let coin"> {{coin.deviceName}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+            <td mat-cell *matCellDef="let live">
+              <span *ngIf="live.department == null">-</span>
+              <span *ngIf="live.department != null"> {{live.department}} </span>
+            </td>
+          </ng-container>
 
           <ng-container matColumnDef="inTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Enter Time</th>
@@ -440,12 +460,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
       </table>
       <mat-paginator
-      (page)="getUpdate($event)"
-      [length] = "currentPageLength"
-      [pageSize]="currentPageSize"
-      [pageSizeOptions] = "[5, 10, 25, 100]"
-      showFirstLastButtons
-  ></mat-paginator>
+        (page)="getUpdate($event)"
+        [length] = "currentPageLength"
+        [pageSize]="currentPageSize"
+        [pageSizeOptions] = "[5, 10, 25, 100]"
+        showFirstLastButtons
+      ></mat-paginator>
     </div>
 
   </div>
@@ -484,6 +504,14 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Location </th>
               <td mat-cell *matCellDef="let coin"> {{coin.coinName}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+              <td mat-cell *matCellDef="let live">
+                <span *ngIf="live.department == null">-</span>
+                <span *ngIf="live.department != null"> {{live.department}} </span>
+              </td>
+            </ng-container>
   
             <ng-container matColumnDef="geofenceStatus">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Geofence </th>
@@ -515,13 +543,79 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
         </table>
-        <mat-paginator
-        (page)="getUpdate($event)"
-        [length] = "currentPageLength"
-        [pageSize]="currentPageSize"
-        [pageSizeOptions] = "[5, 10, 25, 100]"
-        showFirstLastButtons
-        ></mat-paginator>
+          <mat-paginator
+            (page)="getUpdate($event)"
+            [length] = "currentPageLength"
+            [pageSize]="currentPageSize"
+            [pageSizeOptions] = "[5, 10, 25, 100]"
+            showFirstLastButtons
+          ></mat-paginator>
        </div>
+  </div>
 
-    </div>
+
+  <div *ngIf="type =='custom'" id="htmlData">
+        <div class="content">
+            <p class="center"> CUSTOM REPORT </p>
+            <span class="icon">
+              <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
+              <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
+            </span>
+        </div> <br>
+
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort >
+ 
+                <ng-container matColumnDef="i">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
+                  <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="deviceId">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Device Id </th>
+                  <td mat-cell *matCellDef="let data"> {{data.deviceId}} </td>
+                </ng-container>
+      
+                <ng-container matColumnDef="deviceName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Device Name </th>
+                  <td mat-cell *matCellDef="let data"> {{data.deviceName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="department">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+                  <td mat-cell *matCellDef="let data">
+                    <span *ngIf="data.department == null">-</span>
+                    <span *ngIf="data.department != null"> {{data.department}} </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dataReceivedTime">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Sync Time</th>
+                  <td mat-cell *matCellDef="let data" >
+                    <span  *ngIf="data.dataReceivedTime!='-' && data.dataReceivedTime!='0000-00-00 00:00:00'">{{data.dataReceivedTime | date : 'medium' }}</span>
+                    <span  *ngIf="data.dataReceivedTime=='-' || data.dataReceivedTime=='0000-00-00 00:00:00'">-</span>
+                  </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="updatedOnLoc">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Seen Time</th>
+                  <td mat-cell *matCellDef="let data" >
+                    <span  *ngIf="data.updatedOnLoc!='-' && data.updatedOnLoc!='0000-00-00 00:00:00'">{{data.updatedOnLoc | date : 'medium' }}</span>
+                    <span  *ngIf="data.updatedOnLoc=='-' || data.updatedOnLoc=='0000-00-00 00:00:00'">-</span>
+                  </td>
+                </ng-container>
+    
+    
+              <tr mat-header-row *matHeaderRowDef="displayedColumns6"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns6;"></tr>
+            </table>
+              <mat-paginator
+      
+              pageSize="10"
+              [pageSizeOptions] = "[5, 10, 25, 100]"
+              showFirstLastButtons
+              ></mat-paginator>
+  </div>
+
+</div>
