@@ -32,7 +32,7 @@ index:any
 pageIndex:any
 pagesize:any
 fileName:any
-displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
+displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync'];
 
   constructor(private api: ApiService,
     private login:LoginCheckService,
@@ -157,7 +157,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
   getPages(){
     var dateObj=new Date()
     var data={}
-   
+
       if(this.type=='onlineUserData'){
         data={
         userId:this.loginData.userId,
@@ -176,14 +176,14 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName'];
       }
       this.fileName="offline Users"
     }
-    
+
       console.log("data to send ======",data);
-    
+
       this.api.downloadActiveOfflineUsers(data,this.fileName).then((res:any)=>{
-    
+
       console.log("report data recieved ======",res);
       })
-    
+
   }
 
 }
