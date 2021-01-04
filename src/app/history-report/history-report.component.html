@@ -327,7 +327,10 @@
         <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>
       </span>
     </div> <br>
-    <p class="center-head" mat-dialog-title>Infected User - {{deviceName | titlecase}}</p>
+    <p class="center-head" mat-dialog-title>
+      Infected User - {{deviceName | titlecase}} <br>
+      Department - {{department}}
+    </p>
 
     <div class="btn">
       <button mat-raised-button  class="btn-color" (click)="sendWarning()" >Send warning</button>
@@ -359,7 +362,11 @@
      <tr *ngFor = "let a of liveData;let i=index">
       <td>{{i+1}} </td>
       <td>{{a.data}}</td>
-      <td>{{a.department}}</td>
+      <td>
+        <span *ngIf="a.department == null">-</span>
+        <span *ngIf="a.department !   
+              []= null">{{a.department}}</span>
+      </td>
       <td>
         <!-- <span *ngFor = 'let b of a.date;let j=index'>
           {{b.updatedOn }}

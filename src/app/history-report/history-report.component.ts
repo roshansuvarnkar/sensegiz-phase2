@@ -52,7 +52,7 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns4: string[] = ['i','coinName','department','geofenceStatus','inTime', 'outTime','totTime'];
   displayedColumns5: string[] = ['i','username','department','count','totTime'];
   displayedColumns6: string[] = ['i','deviceId','deviceName','department','dataReceivedTime','updatedOnLoc'];
-
+  department:any
   fileName:any
   locationData:any=[]
   locationName:any
@@ -380,7 +380,12 @@ summaryReport(){
       this.locationData=this.location(res.success)
       console.log("locationData===",this.locationData)
       this.liveData = Object.keys(groupUser).map((data)=>{
-
+        for(let i=0;i<res.success.length;i++){
+          if(res.success[i].contactDeviceName ==this.deviceName || res.success[i].baseDeviceName ==this.deviceName ){
+            this.department=res.success[i].department != null? res.success[i].department: '-'
+            break;
+          }
+        }
         return {
           date : groupUser[data],
           data : data
