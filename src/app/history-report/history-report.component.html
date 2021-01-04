@@ -328,8 +328,8 @@
       </span>
     </div> <br>
     <p class="center-head" mat-dialog-title>
-      Infected User - {{deviceName | titlecase}} <br>
-      Department - {{department}}
+      Infected User : {{deviceName | titlecase}} <br>
+      Department : {{department}}
     </p>
 
     <div class="btn">
@@ -364,8 +364,7 @@
       <td>{{a.data}}</td>
       <td>
         <span *ngIf="a.department == null">-</span>
-        <span *ngIf="a.department !   
-              []= null">{{a.department}}</span>
+        <span *ngIf="a.department != null">{{a.department}}</span>
       </td>
       <td>
         <!-- <span *ngFor = 'let b of a.date;let j=index'>
