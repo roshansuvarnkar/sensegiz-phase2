@@ -146,7 +146,7 @@ export class AdminSettingsComponent implements OnInit {
           }
           this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity,
-            type:2
+           
          })
         }
         else{
@@ -156,7 +156,7 @@ export class AdminSettingsComponent implements OnInit {
           }
           this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity,
-            type:1
+            
          })
         }
       }
@@ -556,7 +556,7 @@ export class AdminSettingsComponent implements OnInit {
 
     if (this.inactivityForm.valid) {
       try {
-        // console.log("inactivity data==",value)
+        console.log("inactivity data==",value)
         value.inactivity= value.type == '2'? 0 : value.inactivity
         var data={
           userId : this.dataGet.userId,

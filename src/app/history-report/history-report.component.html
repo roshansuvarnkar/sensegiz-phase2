@@ -362,9 +362,12 @@
      <tr *ngFor = "let a of liveData;let i=index">
       <td>{{i+1}} </td>
       <td>{{a.data}}</td>
-      <td>
-        <span *ngIf="a.department == null">-</span>
-        <span *ngIf="a.department != null">{{a.department}}</span>
+      <td >
+
+        <span *ngFor = 'let b of departments(a.date)'>
+          <span>{{b}}</span>
+       
+        </span>
       </td>
       <td>
         <!-- <span *ngFor = 'let b of a.date;let j=index'>

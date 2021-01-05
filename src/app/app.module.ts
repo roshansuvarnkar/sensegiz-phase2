@@ -104,6 +104,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
   providers: [AuthGuard,
     BnNgIdleService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor,multi:true},
+    
   ],
   bootstrap: [AppComponent]
 })

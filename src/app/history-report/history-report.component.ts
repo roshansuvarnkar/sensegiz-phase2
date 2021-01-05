@@ -439,6 +439,25 @@ callUpdatedon(date){
   return a
 }
 
+departments(date){
+  var a=[]
+  var data=date.filter((obj,index)=>{
+    //  console.log(obj.updatedOn)
+    if(obj.department!= null){
+      if(!a.includes(obj.department)){
+      
+        a.push(obj.department)
+       
+     }
+  
+    }
+
+
+  })
+  // console.log("aaa dept==",a)
+  return a
+}
+
 location(loc){
   //  console.log("loc===",loc)
   var a=[]
