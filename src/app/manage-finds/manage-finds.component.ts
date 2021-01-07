@@ -26,7 +26,7 @@ loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName','empId','shift','infected','isolated','batteryStatus','emailId','mobileNum',	'edit',	'delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','isolated','batteryStatus','emailId','mobileNum',	'edit',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -42,6 +42,7 @@ isMobile:boolean
 isTablet:boolean
 isDesktopDevice:boolean
 deviceInfo=null
+departments:any
 @ViewChild('fileInput') fileInput:ElementRef
 constructor(public dialog: MatDialog,
   private api: ApiService,
@@ -84,6 +85,7 @@ ngOnInit(): void {
   })
   this.refreshFinds()
   this.refreshShift()
+  this.departmentList()
 }
 
 
@@ -107,6 +109,7 @@ refreshFinds(){
               deviceId: res.success[i].deviceId,
               deviceName: res.success[i].deviceName,
               shift: res.success[i].shiftName ,
+              department:res.success[i].department,
               infected: res.success[i].infected,
               isolated: res.success[i].isolated,
               batteryUpdatedOn:res.success[i].batteryUpdatedOn,
@@ -270,8 +273,38 @@ onShiftSelection(a){
   })
 }
 
+departmentList(){
+  var data = {
+    
+    userId:this.loginData.userId,
+   
+  }
+  this.api.getAllDepartment(data).then((res:any)=>{
+    this.departments=[]
+    console.log("department list======",res);
+    if(res.status){
+        this.departments=res.success
+    }
+  })
+}
+departmentSelect(a,b){
 
-
+  console.log("aa=",a,b)
+  var data = {
+    subUserId:a.id,
+    id:b.id,
+    userId:this.loginData.userId,
+   
+  }
+  this.api.setDeviceDepartment(data).then((res:any)=>{
+    console.log("department list======",res);
+    if(res.status){
+      this.refreshFinds()
+      var msg = 'Employee department updated Successfully'
+      this.general.openSnackBar(msg,'')
+    }
+  })
+}
 search(a){
   // console.log("a==",a)
   // if(a.length>0){

@@ -466,7 +466,7 @@ location(loc){
     var arr=loc[i].location.split(',')
     for(let j=0;j<arr.length;j++){
       // locArr.push(arr[j].toUpperCase())
-      if(!a.includes(arr[j].toUpperCase())){
+      if(!a.includes(arr[j])){
         if(arr[j]!='-' && arr[j] !='')
           {
             a.push(arr[j])

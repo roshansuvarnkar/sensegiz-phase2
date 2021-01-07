@@ -63,6 +63,8 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync
       console.log("data===",data)
 
       this.api.getHomeCountData(data).then((res:any)=>{
+        console.log("res===",res)
+
         if(res.status){
           this.activeData=res.success
           this.dataSource = new MatTableDataSource(this.activeData);
