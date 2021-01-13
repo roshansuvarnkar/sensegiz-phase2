@@ -305,16 +305,14 @@ onShiftSelection(a){
 
 departmentList(){
   var data = {
-
     userId:this.loginData.userId,
-
   }
   this.api.getAllDepartment(data).then((res:any)=>{
     this.departments=[]
     console.log("department list======",res);
     if(res.status){
-        this.departments=res.success
-        console.log("ihgkhskffhlkshgflkjghslfjgljs",this.departments)
+        this.departments=res.success;
+        this.departments.push({"id":0,"department":"None"})
     }
   })
 }
@@ -324,7 +322,6 @@ departmentSelect(a,b){
     subUserId:a.id,
     id:b.id,
     userId:this.loginData.userId,
-
   }
   this.api.setDeviceDepartment(data).then((res:any)=>{
     console.log("department list======",res);
