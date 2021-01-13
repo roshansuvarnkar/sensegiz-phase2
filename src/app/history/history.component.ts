@@ -44,7 +44,7 @@ infectedDate:any
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-   
+
 
     this.dateForm = this.fb.group({
       fromDate: ['', Validators.required],
@@ -77,7 +77,7 @@ infectedDate:any
     this.summaryReportForm = this.fb.group({
       deviceName: ['', Validators.required],
       status: ['0'],
- 
+
     });
 
     this.locationForm = this.fb.group({
@@ -268,7 +268,7 @@ onclickGeoLocation(data){
       // console.log("find data ======",res);
       if(res.status){
         this.finds=res.success
-      
+
       }
     })
   }
@@ -454,8 +454,8 @@ onSubmitSummaryReport(data){
         deviceName:data.deviceName,
         status:data.status
         // fromDate:from,
-        // toDate:to, 
-     
+        // toDate:to,
+
       }
       const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
@@ -536,7 +536,8 @@ onSubmitSummaryReport(data){
       deviceName:data.deviceName,
       fromDate:from,
       toDate:to,
-      date:date1
+      date:date1,
+
     }
     const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
 
