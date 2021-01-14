@@ -146,7 +146,7 @@ export class AdminSettingsComponent implements OnInit {
           }
           this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity,
-           
+            type : res.success[0].inactivityStatus
          })
         }
         else{
@@ -156,7 +156,7 @@ export class AdminSettingsComponent implements OnInit {
           }
           this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity,
-            
+            type : res.success[0].inactivityStatus
          })
         }
       }
@@ -424,7 +424,7 @@ export class AdminSettingsComponent implements OnInit {
 		var times1=moment(cdt1).format("YYYY/MM/DD HH:mm:ss")
 		var times2=moment(cdt2).format("YYYY/MM/DD HH:mm:ss")
 		console.log("times22==",times1>times2)
-   
+
 		if(times1>times2 || (data.fromTime == "00:00" &&  data.toTime == "00:00")){
 			console.log("yes")
 				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")
