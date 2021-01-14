@@ -22,11 +22,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class ManageFindsComponent implements OnInit {
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','isolated','batteryStatus','emailId','mobileNum',	'edit',	'delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','isolated','batteryStatus','emailId','mobileNum',	'edit','deallocate',	'delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -41,6 +42,7 @@ format:boolean=false
 isMobile:boolean
 isTablet:boolean
 isDesktopDevice:boolean
+check:boolean
 deviceInfo=null
 departments:any
 @ViewChild('fileInput') fileInput:ElementRef
@@ -112,6 +114,7 @@ refreshFinds(){
               department:res.success[i].department,
               infected: res.success[i].infected,
               isolated: res.success[i].isolated,
+              check:res.success[i].deviceId== res.success[i].deviceName?true:false,
               batteryUpdatedOn:res.success[i].batteryUpdatedOn,
               edit:'edit',
               delete:'delete',
@@ -253,7 +256,34 @@ isolated(a){
     }
 
   }
+  deallocate(event,a){
+    console.log("event====",event)
+    console.log("deallocated findDevice",a.deviceId)
+    if(a.deviceId!= a.deviceName){
+      var data={
+        userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+        deviceId:a.deviceId
+      }
+      this.api.deallocateDevice(data).then((res:any)=>{
+        console.log("deallocate resp",res)
 
+        if(res.status){
+          a.check=res.status
+          this.refreshFinds()
+        }
+        else{
+          a.check=false
+        }
+
+      })
+    }
+    else{
+      alert("You cannot allocate device")
+      this.refreshFinds()
+    }
+
+  }
 
 onShiftSelection(a){
   // console.log("a===",a)
@@ -275,26 +305,23 @@ onShiftSelection(a){
 
 departmentList(){
   var data = {
-    
     userId:this.loginData.userId,
-   
   }
   this.api.getAllDepartment(data).then((res:any)=>{
     this.departments=[]
     console.log("department list======",res);
     if(res.status){
-        this.departments=res.success
+        this.departments=res.success;
+        this.departments.push({"id":0,"department":"None"})
     }
   })
 }
 departmentSelect(a,b){
-
-  console.log("aa=",a,b)
+  console.log("a*********a=",a,b)
   var data = {
     subUserId:a.id,
     id:b.id,
     userId:this.loginData.userId,
-   
   }
   this.api.setDeviceDepartment(data).then((res:any)=>{
     console.log("department list======",res);

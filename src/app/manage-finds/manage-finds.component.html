@@ -207,6 +207,15 @@
          </span>
         </ng-container>
 
+        <ng-container matColumnDef="deallocate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Deallocate </th>
+          <td mat-cell *matCellDef="let live">
+             <span >
+              <mat-slide-toggle color="primary" #toggle [checked]="live.check" [disabled]="userType==3 || live.check" (change)="deallocate($event,live)"></mat-slide-toggle>
+            </span>
+           </td>
+        </ng-container>
+
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="userType==3" > Delete </th>
           <td mat-cell *matCellDef="let live"  (click)="delete(live)" class="cursor" [hidden]="userType==3" ><mat-icon>{{live.delete}}</mat-icon> </td>
