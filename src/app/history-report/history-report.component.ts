@@ -546,7 +546,6 @@ departmentReport(limit,offset){
     limit:limit,
     department:this.department,
     zone:this.general.getZone(date)
-
   }
   console.log("data3==",data)
   this.api.getDepartmentreport(data).then((res:any)=>{
