@@ -550,7 +550,7 @@ departmentReport(limit,offset){
   }
   console.log("data3==",data)
   this.api.getDepartmentreport(data).then((res:any)=>{
-    console.log("department history======",res);changes
+    console.log("department history======",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
