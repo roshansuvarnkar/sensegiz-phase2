@@ -52,6 +52,7 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns4: string[] = ['i','coinName','department','geofenceStatus','inTime', 'outTime','totTime'];
   displayedColumns5: string[] = ['i','username','department','count','totTime'];
   displayedColumns6: string[] = ['i','deviceId','deviceName','department','dataReceivedTime','updatedOnLoc'];
+  displayedColumns7: string[] = ['i','username','department','count','totTime'];
   department:any
   fileName:any
   locationData:any=[]
@@ -98,6 +99,7 @@ export class HistoryReportComponent implements OnInit {
       this.locationId=data.locationId
       this.date=data.date
       this.status=data.status
+      this.department=data.department
      }
 
   ngOnInit(): void {
@@ -364,7 +366,6 @@ summaryReport(){
     // toDate:this.to,
     type:this.status,
     zone:this.general.getZone(date)
-
   }
   console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
@@ -380,12 +381,12 @@ summaryReport(){
       this.locationData=this.location(res.success)
       console.log("locationData===",this.locationData)
       this.liveData = Object.keys(groupUser).map((data)=>{
-        for(let i=0;i<res.success.length;i++){
-          if(res.success[i].contactDeviceName ==this.deviceName || res.success[i].baseDeviceName ==this.deviceName ){
-            this.department=res.success[i].department != null? res.success[i].department: '-'
-            break;
-          }
-        }
+        // for(let i=0;i<res.success.length;i++){
+        //   if(res.success[i].contactDeviceName ==this.deviceName || res.success[i].baseDeviceName ==this.deviceName ){
+        //     this.department=res.success[i].department != null? res.success[i].department: '-'
+        //     break;
+        //   }
+        // }
         return {
           date : groupUser[data],
           data : data
@@ -445,11 +446,11 @@ departments(date){
     //  console.log(obj.updatedOn)
     if(obj.department!= null){
       if(!a.includes(obj.department)){
-      
+
         a.push(obj.department)
-       
+
      }
-  
+
     }
 
 
@@ -489,13 +490,13 @@ cummulativeReport(){
     zone:this.general.getZone(date)
 
   }
-  console.log("hvhs==",data)
+  console.log("hvhs======",data)
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
-    console.log("cummulative report==",res)
+    console.log("cummulative report==========",res)
     if(res.status){
-      this.totTime=res.data
+      this.totTime=res.data;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         console.log("this.selectMin.get('minute').value else===",this.selectMin.get('minute').value)
         for(let i=0;i<res.data.length;i++){
@@ -531,6 +532,68 @@ cummulativeReport(){
   })
 
 }
+
+
+
+departmentReport(limit,offset){
+  var date=new Date()
+  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    fromDate: this.from,
+    toDate:this.to,
+    offset:offset,
+    limit:limit,
+    department:this.department,
+    zone:this.general.getZone(date)
+
+  }
+  console.log("data3==",data)
+  this.api.getDepartmentreport(data).then((res:any)=>{
+    console.log("department history======",res);
+    console.log("deptment array====",res.data)
+    this.liveData=[]
+    this.totTime=[]
+    if(res.status){
+      this.totTime=res.data
+     // console.log("location ====",this.totTime)
+      // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
+        for(let i=0;i<res.data.length;i++){
+          this.liveData.push({
+            i:i+1,
+            username:res.data[i].baseDeviceName,
+            count:res.data[i].count,
+            department:res.data[i].department,
+            totTime:this.general.convertTime(res.data[i].totalTime)
+
+          });
+        }
+
+    this.dataSource = new MatTableDataSource(this.liveData);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      // this.dataSource.paginator = this.paginator
+      })
+    // }
+    // else{
+    //   this.totTime=res.success
+    //   console.log("this.tottttttt===",this.totTime)
+
+    //   if(this.selectMin.get('minute').value!=''){
+    //     console.log("this.selectMin.get('minute').value===",this.selectMin.get('minute').value)
+
+    //     this.filterTotTime(this.selectMin.get('minute').value)
+
+    //   }
+    // }
+
+   }
+})
+}
+
+
+
+
 
 locationReport(limit,offset){
 
@@ -692,7 +755,10 @@ customReport(){
       }
       if(this.type == 'custom'){
         this.customReport()
-    
+
+      }
+      if(this.type == 'deptcummulative'){
+        this.departmentReport(limit=limit,offset=offset)
       }
 }
 
@@ -834,6 +900,8 @@ getPages(){
 
       })
     }
+
+
     if(this.type=='custom'){
       data={
         userId:this.loginData.userId,
@@ -1156,4 +1224,29 @@ filterTotTime(event){
       console.log("infectedContactalert res===",res)
     })
   }
+
+
+
+  search(a){
+    // console.log("a==",a)
+    // if(a.length>0){
+    //   this.findData = this.elementsTemp.filter(obj=>{
+    //     return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)
+    //       || (obj.emailId.toString().toLowerCase().indexOf(a)>-1) || (obj.empId.toString().toLowerCase().indexOf(a)>-1))
+    //   })
+
+
+    // }
+    // else{
+    //   this.findData= this.elementsTemp
+
+    // }
+    this.dataSource = new MatTableDataSource(this.department);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filter =a.trim().toLowerCase()
+    })
+  }
+
 }

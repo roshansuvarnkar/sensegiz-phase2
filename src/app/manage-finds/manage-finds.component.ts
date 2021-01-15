@@ -258,25 +258,31 @@ isolated(a){
   }
   deallocate(event,a){
     console.log("event====",event)
-    console.log("deallocated findDevice",a.deviceId)
+    console.log("deallocated findDevice====",a)
+
     if(a.deviceId!= a.deviceName){
-      var data={
-        userId:this.loginData.userId,
-        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-        deviceId:a.deviceId
+      if(confirm(" This User Specific this User Details will be deleted expect the Department Assigned for the Find.?")){
+        var data={
+          userId:this.loginData.userId,
+          subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+          id:a.id,
+          deviceId:a.deviceId
+        }
+        this.api.deallocateDevice(data).then((res:any)=>{
+          console.log("deallocate resp",res)
+          if(res.status){
+            a.check=res.status
+            this.refreshFinds()
+          }
+          else{
+            a.check=false
+          }
+
+        })
+
       }
-      this.api.deallocateDevice(data).then((res:any)=>{
-        console.log("deallocate resp",res)
+      this.refreshFinds()
 
-        if(res.status){
-          a.check=res.status
-          this.refreshFinds()
-        }
-        else{
-          a.check=false
-        }
-
-      })
     }
     else{
       alert("You cannot allocate device")

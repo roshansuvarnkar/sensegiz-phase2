@@ -23,6 +23,7 @@ dateForm:FormGroup
 geoAndLocForm:FormGroup
 cummulativeForm:FormGroup
 customReport:FormGroup
+departmentcummulativeForm:FormGroup
 daysExceed:boolean=false
 finds:any=[]
 coinData:any=[]
@@ -32,6 +33,7 @@ username:any
 date1:any
 date2:any
 infectedDate:any
+departments:any=[]
 
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
@@ -44,15 +46,13 @@ infectedDate:any
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-
-
     this.dateForm = this.fb.group({
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
     this.cummulativeForm = this.fb.group({
       fromDate: ['', Validators.required],
-      toDate: ['', Validators.required]
+      toDate: ['', Validators.required],
     });
 
     this.findIdForm = this.fb.group({
@@ -95,6 +95,11 @@ infectedDate:any
     this.customReport= this.fb.group({
       type:['',Validators.required]
     })
+    this.departmentcummulativeForm = this.fb.group({
+      department:['',Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required],
+    });
 
     this.refreshFinds()
     this.refreshCoins()
@@ -144,6 +149,28 @@ infectedDate:any
     })
   }
 
+
+  departmentcummulate(data){
+    // console.log("data==",data)
+
+    var date = new Date();
+    var toDate = new Date();
+    var prevDate = date.setDate(date.getDate() - data);
+
+    var date = new Date(prevDate);
+    var year = date.getFullYear();
+    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+    var tot = year + '-' + month + '-'  + day
+
+    var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
+    this.departmentcummulativeForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
+  }
 // onclickFindId(data){
 //   // console.log("data==",data)
 
@@ -287,6 +314,12 @@ onclickGeoLocation(data){
 
       }
     })
+    this.api.getAllDepartment(data).then((res:any)=>{
+      console.log("department data========",res);
+      if(res.status){
+        this.departments=res.success
+      }
+    })
   }
 
 
@@ -330,6 +363,7 @@ onSubmitDateForm(data){
 }
 
   onSubmitcummulativeForm(data){
+    console.log("hello cumilated report-------",data)
     var date1=new Date(data.fromDate)
     var date2=new Date(data.toDate)
     var year = date1.getFullYear();
@@ -354,6 +388,45 @@ onSubmitDateForm(data){
       type:"cummulative",
       fromDate:from,
       toDate:to,
+      fromDate1:from1,
+      toDate1:to1,
+
+    }
+    const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshFinds()
+    });
+  }
+
+
+  onSubmitdeptcummulativeForm(data){
+    console.log("hello deptcumilated report-------",data)
+    var date1=new Date(data.fromDate)
+    var date2=new Date(data.toDate)
+    var year = date1.getFullYear();
+    var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+    var day = ("0" + date1.getDate()).slice(-2);
+    var from = year + '-' + month + '-'  + day
+    var from1 = day + '-' + month + '-'  + year
+
+
+    var year1 = date2.getFullYear();
+    var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+    var day1 = ("0" + date2.getDate()).slice(-2);
+    var to = year1 + '-' + month1 + '-'  + day1
+    var to1 = day1 + '-' + month1 + '-'  + year1
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '90vh';
+    dialogConfig.width = '75vw';
+    dialogConfig.data = {
+      type:"deptcummulative",
+      fromDate:from,
+      toDate:to,
+      department:data.department,
       fromDate1:from1,
       toDate1:to1,
 

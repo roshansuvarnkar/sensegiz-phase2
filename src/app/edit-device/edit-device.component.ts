@@ -52,8 +52,6 @@ preferredCountries: CountryISO[] = [CountryISO.India];
 
     });
 
-
-
     this.gatewayform = this.fb.group({
       deviceName: ['', Validators.required],
       deviceId: [{value: '', disabled: true}, Validators.required],
@@ -61,8 +59,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
 
     });
 
-
-
+    
     this.userform = this.fb.group({
       mobileNum: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
