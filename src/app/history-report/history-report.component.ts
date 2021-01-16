@@ -898,7 +898,33 @@ getPages(){
 
       })
     }
+/* ---------------- */
 
+if(this.type=='deptcummulative'){
+  data={
+    userId:this.loginData.userId,
+    subUserId:this.department,
+    fromDate: this.from,
+    toDate:this.to,
+    zone:this.general.getZone(date),
+    type:this.type
+  }
+  fileName="Department wise CummulativeReport"
+  console.log("data to send ======",data);
+
+  //apicall
+
+  this.api.downloadDeptCummulative(data,fileName).then((res:any)=>{
+
+    console.log("report data recieved ======",res);
+
+  })
+}
+
+
+
+
+/* ---------------------- */
 
     if(this.type=='custom'){
       data={
@@ -1046,6 +1072,40 @@ filterTotTime(event){
 
         })
     }
+
+    /* ----------------------------- */
+    if(this.type == 'deptcummulative' ){
+
+      this.totTime.filter((obj,index)=>{
+
+        if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
+          arr.push({
+            username:obj.baseDeviceName,
+            count:obj.count,
+            totTime:this.general.convertTime(obj.totalTime)
+
+            })
+            // console.log("arrr==",arr)
+            return arr
+          }
+
+
+        })
+
+
+        this.dataSource = new MatTableDataSource(arr);
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+
+        })
+    }
+
+
+
+
+
+
+    /* ------------------------------------------- */
     if(this.type=='geoFenceReport'){
 
       this.totTime.filter((obj,index)=>{

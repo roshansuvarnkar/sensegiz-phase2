@@ -261,7 +261,7 @@ isolated(a){
     console.log("deallocated findDevice====",a)
 
     if(a.deviceId!= a.deviceName){
-      if(confirm("By clicking Ok, This Specific User Details will be deleted expect the Department Assigned for the Find.?")){
+      if(confirm("By clicking Ok, This Specific User Details will be deleted expect the Department Assigned for the Find.")){
         var data={
           userId:this.loginData.userId,
           subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
