@@ -3,14 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  // apiHost:'http://sd2-api.sensegiz.com',
-
-  apiHost:'https://testdba.sensegiz.com:3000',
+// apiHost:'http://sd2-api.sensegiz.com',
+apiHost:'https://testdba.sensegiz.com:3000',
   // apiHost:'http://sd2-api.sensegiz.com:3000',
     // apiHost:'http://3.6.176.216:3000',
     // apiHost:'http://65.0.27.166:3000',
     //  apiHost:'http://3.6.7.251:3000',
   // apiHost:'http://65.0.60.192:3000',
+  // apiHost:'http://65.0.60.192:3000'
   production: false
 };
 

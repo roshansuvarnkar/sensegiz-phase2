@@ -539,7 +539,7 @@ departmentReport(limit,offset){
   var date=new Date()
   var data={
     userId:this.loginData.userId,
-    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    subUserId: this.department,
     fromDate: this.from,
     toDate:this.to,
     offset:offset,

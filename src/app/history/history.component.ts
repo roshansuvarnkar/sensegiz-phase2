@@ -427,6 +427,7 @@ onSubmitDateForm(data){
       fromDate:from,
       toDate:to,
       department:data.department,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       fromDate1:from1,
       toDate1:to1,
 
