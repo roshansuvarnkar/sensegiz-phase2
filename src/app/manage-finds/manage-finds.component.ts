@@ -395,7 +395,7 @@ getBatteryUpdatedOn(value){
 
 
 fileChange(files){
-  // alert("Format should be: Name*, employeeId, deviceId*, mobileNumber, emailId ")
+alert("Format should be: Name, employeeId, deviceId, emailId,mobileNumber ")
   this.loading=false
   this.format=false
 
