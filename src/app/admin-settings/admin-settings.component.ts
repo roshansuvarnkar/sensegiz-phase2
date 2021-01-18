@@ -149,7 +149,7 @@ export class AdminSettingsComponent implements OnInit {
             type : res.success[0].inactivityStatus
          })
         }
-        else{
+       /*  else{
           this.inactivityStatusValue = {
             value:false,
             status:'Enable'
@@ -157,6 +157,15 @@ export class AdminSettingsComponent implements OnInit {
           this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity,
             type : res.success[0].inactivityStatus
+         })
+        } */
+        if( res.success[0].inactivityStatus == 2){
+          this.inactivityStatusValue = {
+            value:false,
+            status:'Enable'
+          }
+          this.inactivityForm.patchValue({
+            inactivity: res.success[0].inactivity
          })
         }
       }
@@ -580,24 +589,24 @@ export class AdminSettingsComponent implements OnInit {
    }
    inactivityChange(event){
      console.log("event===",event)
-      if(event.checked == true){
-        this.inactivityStatusValue = {
-          value:true,
-          status:'Disable'
-        }
-        this.inactivityForm.patchValue({
-          type:1
-        })
+     if(event.checked == true){
+      this.inactivityStatusValue = {
+        value:true,
+        status:'Disable'
       }
-      else if(event.checked == false){
-        this.inactivityStatusValue = {
-          value:false,
-          status:'Enable'
-        }
-        this.inactivityForm.patchValue({
-          type:2
-        })
+      this.inactivityForm.patchValue({
+        type:1
+      })
+    }
+    else if(event.checked == false){
+      this.inactivityStatusValue = {
+        value:false,
+        status:'Enable'
       }
+      this.inactivityForm.patchValue({
+        type:2
+      })
+    }
   //   var data={
   //     userId : this.dataGet.userId,
   //     status : checked

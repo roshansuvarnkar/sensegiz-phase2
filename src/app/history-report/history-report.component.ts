@@ -1134,7 +1134,6 @@ filterTotTime(event){
 
       })
 
-
     }
     if(this.type=='locationReport'){
 
@@ -1151,8 +1150,6 @@ filterTotTime(event){
           console.log("arrr==",arr)
           return arr
         }
-
-
       })
 
 
