@@ -34,7 +34,7 @@ date1:any
 date2:any
 infectedDate:any
 departments:any=[]
-
+userType:any
   constructor(public dialog: MatDialog,
               private fb:FormBuilder,
               private api:ApiService,
@@ -45,7 +45,8 @@ departments:any=[]
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-
+    this.userType=this.loginData.type
+    
     this.dateForm = this.fb.group({
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
