@@ -1305,15 +1305,6 @@ filterTotTime(event){
 
 
 
-  search(a){
-    console.log("department")
-    this.dataSource = new MatTableDataSource(this.liveData);
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.filter =a.trim().toLowerCase()
-    })
 
-  }
 
 }
