@@ -7,14 +7,14 @@ table.mat-table {
 }
 thead {
   border-bottom: 1px solid #80808029;
-  
+
 }
 .tab-align {
   border: 1px solid #8080800a;
   box-shadow: 1px 1px 1px 1px #8080802e;
 }
 .btn {
-  display: flex; 
+  display: flex;
   justify-content: flex-end;
   margin-right: -1rem;
 }
@@ -38,7 +38,7 @@ p.center{
   /* font-family: serif; */
   margin: 0 auto;
   padding-left: 4rem;
- 
+
 }
 .content {
   display: flex;
@@ -56,6 +56,10 @@ td.mat-cell.cdk-cell.cdk-column-contactName.mat-column-contactName.ng-star-inser
 
 .download2{
   display: none;
+}
+.search{
+  top: 1rem;
+  left: 48rem;color: #ef6c00;
 }
 @media only screen and (max-width: 768px) {
   .main,.download2{
@@ -103,5 +107,5 @@ element.style {
 .mat-select-panel {
   max-width: fit-content;
   margin: auto;
-} 
+}
 }

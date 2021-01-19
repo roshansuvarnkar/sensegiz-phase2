@@ -25,7 +25,7 @@ table.mat-table {
   justify-content:center;
   font-weight: 500;
   font-size: 0.9rem;
-  
+
 }
 .center {
   text-align: center;
@@ -34,14 +34,13 @@ table.mat-table {
   font-weight: 500;
 }
 .search{
-	position: absolute;
-    top: 2rem;
-    right: 1rem;color: #ef6c00;
+    top: 1rem;
+    left: 3rem;color: #ef6c00;
 }
 .upload {
    position: absolute;
    top: 3rem;
-  
+
 }
 .upload-mob-btn{
   display: none;
@@ -103,7 +102,7 @@ table.mat-table {
     position: absolute;
     top: 0.5rem;
     margin-left: 1.2rem;
-   } 
+   }
     /* .upload-btn{
       display: none;
     } */
@@ -114,6 +113,6 @@ table.mat-table {
         margin-left: 1.2rem;
 
     }
-  
+
 
 }
