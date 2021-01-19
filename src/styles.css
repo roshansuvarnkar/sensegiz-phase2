@@ -84,7 +84,7 @@ tr {
 .cursor{
   cursor: pointer;
 }
-  
+
 @media only screen and (max-width: 768px) {
   /* .container-fluid {
     width: 110%;

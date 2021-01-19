@@ -862,10 +862,8 @@ getPages(){
       this.general.loadingFreez.next({status:true})
       console.log("hi")
       setTimeout(()=>{
-
         this.openExcel()
         this.general.loadingFreez.next({status:false})
-
       },6000);
 
     }
@@ -923,7 +921,7 @@ getPages(){
 
       })
     }
-/* ---------------- */
+
 
 if(this.type=='deptcummulative'){
   data={
@@ -946,10 +944,6 @@ if(this.type=='deptcummulative'){
   })
 }
 
-
-
-
-/* ---------------------- */
 
     if(this.type=='custom'){
       data={

@@ -64,7 +64,10 @@ mat-card.mat-card.mat-focus-indicator.geoReport {
 .radio.radio2 {
     /* margin-top: 3rem; */
     margin-left: 1rem;
-} 
+}
+.mat-form-filed{
+  margin-top: -50px !important;
+}
 @media only screen and (max-width: 768px) {
     /* .history{
         margin-left: 2rem;

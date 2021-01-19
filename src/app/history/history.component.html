@@ -153,7 +153,7 @@
         <mat-radio-button [value]="1" name="small" (change)="onclickFindName(7)">Last week</mat-radio-button>
         <mat-radio-button [value]="2" name="small" (change)="onclickFindName(14)">Last two weeks</mat-radio-button>
       </mat-radio-group>
-    </div><br>
+    </div>
       <form [formGroup]="findNameForm" (ngSubmit)="onSubmitFindName(findNameForm.value)">
 
         <mat-form-field class="full-width-input">
@@ -254,44 +254,61 @@
       </form>
     </mat-card-content>
   </mat-card> -->
-
-  <mat-card >
+  <mat-card *ngIf="userType!==4">
     <span class="card-head">
       <mat-card-title color="primary">
-        Summary Report of Infected User
+        Department wise cummulative
       </mat-card-title>
       <mat-card-subtitle>
-        Enter infected person name
+        Enter date range
       </mat-card-subtitle>
-
-    </span>
+    </span> <br>
     <mat-card-content>
-
-      <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
-
-          <mat-radio-group  color="primary" formControlName="status" class="infect" >
-            <mat-radio-button value="0" name="small" [checked]="true">Before marking Infected</mat-radio-button>
-            <mat-radio-button value="1" name="small" >After marking Infected</mat-radio-button>
-          </mat-radio-group>
-        <br><br>
-        <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto"
-          (keyup)="infectedSuggestion($event)" required>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let user of username" [value]="user">
-              {{user}}
-            </mat-option>
-          </mat-autocomplete>
+      <div class="radio">
+      <mat-radio-group  color="primary" class="radio">
+        <mat-radio-button [value]="1" name="small" (click)="departmentcummulate(7)">Last week</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (click)="departmentcummulate(14)">Last two weeks</mat-radio-button>
+      </mat-radio-group>
+    </div>
+   <br>
+      <form [formGroup]="departmentcummulativeForm" (ngSubmit)="onSubmitdeptcummulativeForm(departmentcummulativeForm.value)">
+     <!--    <mat-form-field class="full-width-input">
+          <mat-label>Select Location Name</mat-label>
+          <mat-select  formControlName="coinSelect">
+            <mat-option *ngFor="let coin of departments" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field>
+          <mat-label>Select Department Name</mat-label>
+          <mat-select  formControlName="department">
+            <mat-option *ngFor="let dept of departments" [value]="dept.id">{{dept.department}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker13" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker13"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker13></mat-datepicker>
           <mat-error>
-            Please provide a valid user name
+            Please provide a valid from date
           </mat-error>
         </mat-form-field>
-
-        <br> <br><br>
-        <button class="btn-set" mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker14" formControlName="toDate" required>
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker14"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker14></mat-datepicker>
+          <mat-error>
+            Please provide a valid to date
+          </mat-error>
+        </mat-form-field>
+  <br>
+  <br><br>
+        <button class="btn-set" mat-raised-button [disabled]="!departmentcummulativeForm.valid" color="primary" >Submit</button>
       </form>
     </mat-card-content>
   </mat-card>
+
 
 
   <mat-card >
@@ -304,8 +321,8 @@
       </mat-card-subtitle>
     </span>
     <mat-card-content>
-      <div class="radio radio2">
-      <mat-radio-group  color="primary" class="radio">
+      <div class="radio">
+      <mat-radio-group  color="primary">
         <mat-radio-button [value]="1" name="small" (change)="onclickLocation(7)">Last week</mat-radio-button>
         <mat-radio-button [value]="2" name="small" (change)="onclickLocation(14)">Last two weeks</mat-radio-button>
       </mat-radio-group>
@@ -359,7 +376,7 @@
         <mat-radio-button [value]="1" name="small" (change)="onclickGeoLocation(7)">Last week</mat-radio-button>
         <mat-radio-button [value]="2" name="small" (change)="onclickGeoLocation(14)">Last two weeks</mat-radio-button>
       </mat-radio-group>
-      </div><br>
+      </div>
       <form [formGroup]="geoAndLocForm" (ngSubmit)="onSubmitGeoAndLocForm(geoAndLocForm.value)">
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" (keyup)="geofenceuserSuggestion($event)" required>
@@ -397,7 +414,43 @@
       </form>
     </mat-card-content>
   </mat-card>
+  <mat-card >
+    <span class="card-head">
+      <mat-card-title color="primary">
+        Summary Report of Infected User
+      </mat-card-title>
+      <mat-card-subtitle>
+        Enter infected person name
+      </mat-card-subtitle>
 
+    </span>
+    <mat-card-content>
+
+      <form [formGroup]="summaryReportForm" (ngSubmit)="onSubmitSummaryReport(summaryReportForm.value)">
+
+          <mat-radio-group  color="primary" formControlName="status" class="infect" >
+            <mat-radio-button value="0" name="small" [checked]="true">Before marking Infected</mat-radio-button>
+            <mat-radio-button value="1" name="small" >After marking Infected</mat-radio-button>
+          </mat-radio-group>
+        <br>
+        <mat-form-field class="full-width-input">
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto"
+          (keyup)="infectedSuggestion($event)" required>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let user of username" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error>
+            Please provide a valid user name
+          </mat-error>
+        </mat-form-field>
+
+        <br> <br><br>
+        <button class="btn-set" mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 
   <mat-card>
     <span class="card-head">
@@ -424,59 +477,6 @@
   </mat-card>
 
 
-  <mat-card *ngIf="userType!==4">
-    <span class="card-head">
-      <mat-card-title color="primary">
-        Department wise cummulative report
-      </mat-card-title>
-      <mat-card-subtitle>
-        Enter date range
-      </mat-card-subtitle>
-    </span> <br>
-    <mat-card-content>
-    <div class="radio">
-      <mat-radio-group  color="primary" >
-        <mat-radio-button [value]="1" name="small" (click)="departmentcummulate(7)">Last week</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (click)="departmentcummulate(14)">Last two weeks</mat-radio-button>
-      </mat-radio-group>
-    </div>
-   <br>
-      <form [formGroup]="departmentcummulativeForm" (ngSubmit)="onSubmitdeptcummulativeForm(departmentcummulativeForm.value)">
-     <!--    <mat-form-field class="full-width-input">
-          <mat-label>Select Location Name</mat-label>
-          <mat-select  formControlName="coinSelect">
-            <mat-option *ngFor="let coin of departments" [value]="coin.coinId">{{coin.coinName}}</mat-option>
-          </mat-select>
-        </mat-form-field> -->
-        <mat-form-field>
-          <mat-label>Select Department Name</mat-label>
-          <mat-select  formControlName="department">
-            <mat-option *ngFor="let dept of departments" [value]="dept.id">{{dept.department}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>From date</mat-label>
-          <input matInput [matDatepicker]="myDatepicker13" formControlName="fromDate" required>
-          <mat-datepicker-toggle matSuffix [for]="myDatepicker13"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker13></mat-datepicker>
-          <mat-error>
-            Please provide a valid from date
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>To date</mat-label>
-          <input matInput [matDatepicker]="myDatepicker14" formControlName="toDate" required>
-          <mat-datepicker-toggle matSuffix [for]="myDatepicker14"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker14></mat-datepicker>
-          <mat-error>
-            Please provide a valid to date
-          </mat-error>
-        </mat-form-field>
-  <br>
-  <br><br>
-        <button class="btn-set" mat-raised-button [disabled]="!departmentcummulativeForm.valid" color="primary" >Submit</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+
 
 </div>
