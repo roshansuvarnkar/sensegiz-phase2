@@ -257,20 +257,19 @@
   <mat-card *ngIf="userType!==4">
     <span class="card-head">
       <mat-card-title color="primary">
-        Department wise cummulative
+        Department wise cummulative Report
       </mat-card-title>
       <mat-card-subtitle>
         Enter date range
       </mat-card-subtitle>
-    </span> <br>
+    </span>
     <mat-card-content>
       <div class="radio">
-      <mat-radio-group  color="primary" class="radio">
+      <mat-radio-group  color="primary" >
         <mat-radio-button [value]="1" name="small" (click)="departmentcummulate(7)">Last week</mat-radio-button>
         <mat-radio-button [value]="2" name="small" (click)="departmentcummulate(14)">Last two weeks</mat-radio-button>
       </mat-radio-group>
     </div>
-   <br>
       <form [formGroup]="departmentcummulativeForm" (ngSubmit)="onSubmitdeptcummulativeForm(departmentcummulativeForm.value)">
      <!--    <mat-form-field class="full-width-input">
           <mat-label>Select Location Name</mat-label>
