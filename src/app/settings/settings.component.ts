@@ -995,4 +995,10 @@ export class SettingsComponent implements OnInit {
    }
 
   }
+  onclickenableShift(a){
+    if(1==a){
+      alert(a)
+    }
+
+  }
 }

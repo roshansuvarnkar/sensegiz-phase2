@@ -52,7 +52,6 @@
               <mat-option value="60">60</mat-option>
               <mat-option value="80">80</mat-option>
               <mat-option value="100">100</mat-option>
-
             </mat-select>
             <mat-error  >
               Please enter value
@@ -531,4 +530,49 @@
     </form>
   </mat-card-content>
 </mat-card>
+<!-- -------------------- -->
+<mat-card>
+  <mat-card-title>
+    Multishift Select
+  </mat-card-title>
+  <!-- <mat-card-subtitle>
+    Enter coin name and maximum limit
+  </mat-card-subtitle> -->
+   <br>
+  <mat-card-content>
+    <br>
+
+    <div class="radio">
+      <mat-radio-group  color="primary">
+        <mat-radio-button [value]="1" name="small" (change)="onclickenableShift(1)">Enable shift for all the Finds</mat-radio-button>
+        <mat-radio-button [value]="2" name="small" (change)="onclickenableShift(2)">Enable shift for specific Find</mat-radio-button>
+        <mat-radio-button [value]="3" name="small" (change)="onclickenableShift(3)" [checked]='true'>Disable Shift</mat-radio-button>
+      </mat-radio-group>
+      </div>
+
+    <form [formGroup]="overCrowedForm" (ngSubmit)="onSubmitoverCrowedForm(overCrowedForm.value)" >
+      <mat-form-field  >
+          <mat-label>Coin Name</mat-label>
+          <mat-select  formControlName="coinSelect" multiple required>
+            <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+    <div class="maxlimit" >
+      <mat-form-field>
+        <input type='number' min="0"  matInput placeholder="Max Limit" formControlName="maxLimit"  required>
+        <mat-error>
+          Please provide a limit
+        </mat-error>
+      </mat-form-field>
+    </div>
+      <br><br> <br> <br>
+    <div class="btn-set-grp">
+      <button mat-raised-button [disabled]="!overCrowedForm.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+      <button type="button" mat-raised-button (click)="openOvercrowdDialog()" color="primary">Info</button>
+    </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
 </div>

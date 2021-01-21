@@ -27,7 +27,7 @@ loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','isolated','batteryStatus','emailId','mobileNum',	'edit','deallocate',	'delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','isolated','batteryStatus','emailId','mobileNum',	'edit','deallocate','delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -300,7 +300,7 @@ onShiftSelection(a){
     deviceId:a.deviceId
   }
   this.api.editShift(data).then((res:any)=>{
-    // console.log("shift update data ======",res);
+     console.log("shift update data ======",res);
     if(res.status){
       this.refreshFinds()
       var msg = 'Employee Shift updated Successfully'

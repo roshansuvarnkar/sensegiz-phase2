@@ -26,6 +26,7 @@ activeData:any
 infectedData:any
 onlineData:any
 offlineData:any
+deallocate:any
 deviceName:any
 dataSource:any
 index:any
@@ -54,7 +55,6 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync
     var date=new Date()
     var data={}
     if(this.type=='activeUserData'){
-
        data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -154,6 +154,30 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync
       })
 
     }
+    if(this.type == 'deallocatedDevices'){
+      data={
+         userId:this.loginData.userId,
+         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+         type:'deallocate',
+       }
+       console.log(" deallocate  data",data)
+
+       this.api.getDeallocatedDevice(data).then((res:any)=>{
+         if(res.status){
+           console.log("deallocate *****",res)
+           this.deallocate=res.data
+           this.dataSource = new MatTableDataSource(this.deallocate);
+
+           setTimeout(() => {
+             this.dataSource.sort = this.sort;
+             this.dataSource.paginator = this.paginator;
+
+           })
+
+         }
+       })
+
+     }
   }
 
   getPages(){

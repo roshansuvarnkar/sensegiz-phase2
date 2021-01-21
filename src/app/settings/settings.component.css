@@ -41,7 +41,7 @@ mat-card-content.mat-card-content.shift {
 }
 input.input-file {
   margin-left: 3.5rem;
-  
+
 }
 .wearable {
   display: flex;
@@ -53,9 +53,12 @@ input.input-file {
   font-size: smaller;
   margin-left: -1rem;
 }
+.infect{
+  display: contents !important;
+}
 .marquee {
   margin:1rem 0 0 0;
-/*  
+/*
   height: 30px;
   white-space: nowrap;
   overflow: hidden;
@@ -63,7 +66,7 @@ input.input-file {
   position: relative;
   width:fit-content;
   display: flex;*/
-  line-height: 30px; 
+  line-height: 30px;
   font-weight: 500 !important;
   font-size: x-large !important;
   /* font-family: sans-serif !important; */
@@ -85,7 +88,7 @@ input.input-file {
 @media only screen and (max-width: 768px){
   .marquee {
     margin:1rem 0 0 0;
-  /*  
+  /*
     height: 30px;
     white-space: nowrap;
     overflow: hidden;
@@ -93,7 +96,7 @@ input.input-file {
     position: relative;
     width:fit-content;
     display: flex;*/
-    line-height: 30px; 
+    line-height: 30px;
     font-weight: 500 !important;
     font-size: small !important;
     /* font-family: sans-serif !important; */

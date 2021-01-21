@@ -27,6 +27,7 @@ totalEmp = 0;
 infectedEmp = 0;
 normalEmp = 0;
 activeEmp = 0;
+deallocateEmp =0;
 dates:any=[]
 month:any=[]
 day:any=[]
@@ -260,7 +261,21 @@ infectedUser(){
        });
 
 }
+deAllocate(){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.height = '90vh';
+  dialogConfig.width = '75vw';
+  dialogConfig.data = {
+    type:"deallocatedDevices",
 
+  }
+  const dialogRef = this.dialog.open(HomeCountViewComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    this.refreshFinds()
+  });
+}
 
 normalUser(){
   var data={
@@ -317,6 +332,7 @@ refreshCount(){
       this.infectedEmp = res.success[1].inectedEmp
       // this.normalEmp = res.success[2].normalEmp
       this.onlineCount=res.success[2].activeEmp
+      this.deallocateEmp =res.success[5].deallocatedDevices
       this.offlineCount=res.success[4].registedEmp - res.success[3].onlineCount
       this.activeEmp = res.success[4].registedEmp
 
@@ -324,7 +340,7 @@ refreshCount(){
     }
   })
 
-} 
+}
 
 
 
