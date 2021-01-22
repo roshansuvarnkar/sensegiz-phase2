@@ -114,9 +114,11 @@ refreshFinds(){
               department:res.success[i].department,
               infected: res.success[i].infected,
               isolated: res.success[i].isolated,
-              check:res.success[i].deviceId== res.success[i].deviceName?true:false,
+
               batteryUpdatedOn:res.success[i].batteryUpdatedOn,
               edit:'edit',
+              check:res.success[i].deviceId== res.success[i].deviceName?true:false,
+              deallocate:res.success[i].deviceId== res.success[i].deviceName,
               delete:'delete',
               batteryStatus:res.success[i].batteryStatus,
               emailId:res.success[i].emailId == '' || res.success[i].emailId == 'NULL' ||res.success[i].emailId == 'undefined' ? '-' : res.success[i].emailId,
@@ -124,6 +126,7 @@ refreshFinds(){
               empId:res.success[i].empId == ''||res.success[i].empId == 'NULL' || res.success[i].empId == 'undefined' ? '-' : res.success[i].empId
           });
       }
+      console.log("",this.findData)
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;

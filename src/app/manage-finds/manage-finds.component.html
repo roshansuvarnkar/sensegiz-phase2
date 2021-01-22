@@ -129,6 +129,7 @@
         </ng-container>
 
         <ng-container matColumnDef="department">
+
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
           <td mat-cell *matCellDef="let live">
             <mat-form-field>
@@ -207,10 +208,11 @@
          </span>
         </ng-container>
 
+
         <ng-container matColumnDef="deallocate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="userType==3"> Deallocate </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Deallocate </th>
           <td mat-cell *matCellDef="let live">
-             <span >
+             <span>
               <mat-slide-toggle color="primary" #toggle [checked]="live.check" [disabled]="userType==3 || live.check" (change)="deallocate($event,live)"></mat-slide-toggle>
             </span>
            </td>

@@ -333,7 +333,7 @@ refreshCount(){
       // this.normalEmp = res.success[2].normalEmp
       this.onlineCount=res.success[2].activeEmp
       this.deallocateEmp =res.success[5].deallocatedDevices
-      this.offlineCount=res.success[4].registedEmp - res.success[3].onlineCount
+      this.offlineCount=res.success[3].offlineEmp
       this.activeEmp = res.success[4].registedEmp
 
     //  this.refreshOnlineDevice()

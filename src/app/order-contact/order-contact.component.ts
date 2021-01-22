@@ -90,7 +90,7 @@ export class OrderContactComponent implements OnInit {
     //this.loginData = JSON.parse(this.loginData)
   }
 
-
+ 
   getTotalLength(){
     var data={
       userId:this.loginData.userId,
@@ -160,7 +160,7 @@ export class OrderContactComponent implements OnInit {
     });
   }
 
- 
+
   getUpdate(event) {
     // console.log("paginator event",event);
     // console.log("paginator event length", this.currentPageLength);

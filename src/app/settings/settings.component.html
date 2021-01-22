@@ -551,14 +551,20 @@
       </div>
 
     <form [formGroup]="overCrowedForm" (ngSubmit)="onSubmitoverCrowedForm(overCrowedForm.value)" >
-      <mat-form-field  >
+      <mat-form-field  *ngIf="allfind">
+        <mat-label>Coin Name</mat-label>
+        <mat-select  formControlName="coinSelect" multiple required>
+          <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+      <mat-form-field  *ngIf="shift">
           <mat-label>Coin Name</mat-label>
           <mat-select  formControlName="coinSelect" multiple required>
             <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
           </mat-select>
       </mat-form-field>
     <div class="maxlimit" >
-      <mat-form-field>
+      <mat-form-field *ngIf="shift">
         <input type='number' min="0"  matInput placeholder="Max Limit" formControlName="maxLimit"  required>
         <mat-error>
           Please provide a limit

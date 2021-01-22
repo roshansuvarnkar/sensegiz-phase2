@@ -995,9 +995,21 @@ export class SettingsComponent implements OnInit {
    }
 
   }
+  shift:boolean=false;
+  allfind:boolean=false;
   onclickenableShift(a){
     if(1==a){
+      this.shift=false
+      this.allfind=true;
+      alert("if")
+    }else if(2==a){
+      alert("else")
+      this.allfind=false
+      this.shift=true
+    }else{
       alert(a)
+      this.allfind=false
+      this.shift=false
     }
 
   }
