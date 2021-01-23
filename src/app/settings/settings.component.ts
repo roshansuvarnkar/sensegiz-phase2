@@ -36,6 +36,7 @@ export class SettingsComponent implements OnInit {
   buzzerTimeForm:FormGroup
   buzzerConfigForm:FormGroup
   maxDistanceForm:FormGroup
+  multishiftingselect:FormGroup
   loginData:any
   setting:any
   duration:any
@@ -128,6 +129,13 @@ export class SettingsComponent implements OnInit {
     coinSelect:['',Validators.required],
     maxLimit:['',Validators.required],
     groupName:['',Validators.required]
+    })
+
+    this.multishiftingselect=this.fb.group({
+      shiftName:['',Validators.required],
+      deviceId:['',Validators.required],
+      status:['',Validators.required],
+      type:['',Validators.required]
     })
     // this.timeForm=this.fb.group({
     //   minutes:[{value:'',disabled: false},Validators.required],
@@ -820,7 +828,18 @@ export class SettingsComponent implements OnInit {
   //   }
 
   // }
+  onMultiShiftselect(data){
+      if(this.multishiftingselect.valid){
+       /*  try{
+          if(data.statu=='0'){
 
+          }
+        } */
+      }
+
+
+
+  }
 
   measurement(event){
     console.log("event==",event)
@@ -995,22 +1014,5 @@ export class SettingsComponent implements OnInit {
    }
 
   }
-  shift:boolean=false;
-  allfind:boolean=false;
-  onclickenableShift(a){
-    if(1==a){
-      this.shift=false
-      this.allfind=true;
-      alert("if")
-    }else if(2==a){
-      alert("else")
-      this.allfind=false
-      this.shift=true
-    }else{
-      alert(a)
-      this.allfind=false
-      this.shift=false
-    }
 
-  }
 }

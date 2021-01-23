@@ -542,38 +542,36 @@
   <mat-card-content>
     <br>
 
-    <div class="radio">
-      <mat-radio-group  color="primary">
-        <mat-radio-button [value]="1" name="small" (change)="onclickenableShift(1)">Enable shift for all the Finds</mat-radio-button>
-        <mat-radio-button [value]="2" name="small" (change)="onclickenableShift(2)">Enable shift for specific Find</mat-radio-button>
-        <mat-radio-button [value]="3" name="small" (change)="onclickenableShift(3)" [checked]='true'>Disable Shift</mat-radio-button>
-      </mat-radio-group>
-      </div>
-
-    <form [formGroup]="overCrowedForm" (ngSubmit)="onSubmitoverCrowedForm(overCrowedForm.value)" >
-      <mat-form-field  *ngIf="allfind">
-        <mat-label>Coin Name</mat-label>
-        <mat-select  formControlName="coinSelect" multiple required>
-          <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
+    <form [formGroup]="multishiftingselect" (ngSubmit)="onMultiShiftselect(multishiftingselect.value)" >
+      <mat-radio-group  color="primary" formControlName="status"  class="wearable">
+        <mat-radio-button value="1" name="small" >Enable</mat-radio-button>
+        <mat-radio-button value="0" name="small" >Disable</mat-radio-button>
+      </mat-radio-group><br>
+      <mat-radio-group  color="primary" formControlName="type"  class="wearable">
+        <mat-radio-button value="1" name="small" >All</mat-radio-button>
+        <mat-radio-button value="2" name="small" >Specific Finds</mat-radio-button>
+      </mat-radio-group><br>
+      <mat-form-field>
+        <mat-label>Shift Name</mat-label>
+        <mat-select  formControlName="shiftName" name="shiftName" required>
+          <mat-option value="General">General</mat-option>
+          <mat-option value="Morning">Morning</mat-option>
+          <mat-option value="Evening">Evening</mat-option>
+          <mat-option value="Night">Night</mat-option>
         </mat-select>
     </mat-form-field>
-      <mat-form-field  *ngIf="shift">
+      <mat-form-field >
           <mat-label>Coin Name</mat-label>
-          <mat-select  formControlName="coinSelect" multiple required>
+          <mat-select  formControlName="deviceId" multiple required>
             <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
           </mat-select>
       </mat-form-field>
-    <div class="maxlimit" >
-      <mat-form-field *ngIf="shift">
-        <input type='number' min="0"  matInput placeholder="Max Limit" formControlName="maxLimit"  required>
-        <mat-error>
-          Please provide a limit
-        </mat-error>
-      </mat-form-field>
+    <div class="maxlimit">
+
     </div>
       <br><br> <br> <br>
     <div class="btn-set-grp">
-      <button mat-raised-button [disabled]="!overCrowedForm.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+      <button mat-raised-button [disabled]="!multishiftingselect.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
       <button type="button" mat-raised-button (click)="openOvercrowdDialog()" color="primary">Info</button>
     </div>
 
