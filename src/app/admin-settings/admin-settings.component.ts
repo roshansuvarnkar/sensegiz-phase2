@@ -24,9 +24,11 @@ export class AdminSettingsComponent implements OnInit {
   bufferForm:FormGroup
   workingForm:FormGroup
   sendDataForm:FormGroup
+  multishiftingselect:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
+  shifts:any=[]
   inactivityStatusValue:any=[]
   dataGet:any
   statusCustomise:boolean=false
@@ -41,6 +43,7 @@ export class AdminSettingsComponent implements OnInit {
   bufferValue:boolean=false
   multipleShift:boolean=false
   timeExceed:boolean=false
+  selectfind:boolean=false
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -84,15 +87,37 @@ export class AdminSettingsComponent implements OnInit {
       type:['']
     });
 
+    this.multishiftingselect=this.fb.group({
+      shiftName:[''],
+      deviceId:[''],
+      status:['',Validators.required],
+      type:['',Validators.required]
+    })
+
     this.route.queryParams.subscribe(params => {
       this.dataGet = JSON.parse(params.record) ;
       // console.log("data==",this.dataGet.userId)
   })
+
   this. refreshSetting()
   this.minThresholdMinsec()
-
+  this.refreshShift()
   }
 
+  refreshShift(){
+    var data={
+      userId:this.dataGet.userId,
+      subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+      tblName:'deviceShift'
+    }
+
+    this.api.getData(data).then((res:any)=>{
+       console.log("shift  data ======",res);
+      if(res.status){
+        this.shifts=res.success
+      }
+    })
+  }
   refreshSetting(){
     var data={
       userId:this.dataGet.userId,
@@ -101,9 +126,9 @@ export class AdminSettingsComponent implements OnInit {
     console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
       console.log("setting data page ======",res);
+
       if(res.status){
         this.setting = res.success[0]
-
         this.bufferForm.patchValue({
           buffer: res.success[0].buffer,
         })
@@ -623,6 +648,71 @@ export class AdminSettingsComponent implements OnInit {
   //   })
 
   }
+
+
+
+  onMultiShiftselect(values){
+    if(this.multishiftingselect.valid){
+    try{
+      var data={
+        userId : this.dataGet.userId,
+        shiftId : values.shiftName.id,
+        shiftName : values.shiftName.shiftName,
+        deviceId : values.deviceId,
+        status: values.status,
+        type :values.type,
+        }
+          console.log(data)
+          this.api.setDeviceMultiShift(data).then((res:any)=>{
+            // console.log("Scanning Interval===",res)
+            if(res.status){
+              this.refreshSetting()
+              var msg='Multishift Select updated Successfully'
+              this.general.openSnackBar(msg,'')
+            }
+          }).catch(err=>{
+            console.log("err===",err);
+          })
+    }catch (err) {
+
+    }
+    }
+
+
+
+}
+
+username:any=[]
+  userSuggestion(event){
+    //console.log("data=",event)
+    var data={
+      value:event.target.value,
+      userId:this.dataGet.userId,
+      subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+      tblName:'deviceData'
+    }
+    console.log("data==",data)
+    this.api.getAssignedDevices(data).then((res:any)=>{
+    //  console.log("res==******",res)
+      if(res.status){
+        this.username=[]
+       for(let i=0;i<res.success.length;i++){
+        this.username.push(res.success[i])
+       }
+      }
+    })
+
+  }
+
+selectfinds(event){
+  this.selectfind=event.value='1' || '2'?false:true;
+  console.log(this.selectfind)
+
+}
+
+
+
+
    getMin(event){
     // console.log("event==",event)
     if(event.value=="none"){

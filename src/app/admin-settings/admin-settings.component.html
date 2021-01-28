@@ -382,10 +382,17 @@
           </mat-error>
           <form [formGroup]="workingForm" (ngSubmit)="onSubmitWorkForm(workingForm.value)">
             <mat-form-field>
-              <input matInput placeholder="Shift name" formControlName="shift"  required>
-              <mat-error>
+              <mat-label>Shift Name</mat-label>
+              <mat-select formControlName="shift" required>
+                <mat-option value="general">General</mat-option>
+                <mat-option value="morning">Morning</mat-option>
+                <mat-option value="evening">Evening</mat-option>
+                <mat-option value="night">Night</mat-option>
+              </mat-select>
+             <!--  <input matInput placeholder="Shift name" formControlName="shift"  required>
+             <mat-error>
                 Please provide a valid shift name
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
             <mat-form-field class="full-width-input">
               <input type='time' matInput placeholder="From time" formControlName="fromTime" required>
@@ -407,6 +414,62 @@
            </div>
           </form>
         </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-title>
+          Multishift Select
+        </mat-card-title>
+        <!-- <mat-card-subtitle>
+          Enter coin name and maximum limit
+        </mat-card-subtitle> -->
+         <br>
+        <mat-card-content>
+          <br>
+
+          <form [formGroup]="multishiftingselect" (ngSubmit)="onMultiShiftselect(multishiftingselect.value)" >
+            <mat-radio-group  color="primary" formControlName="status"  class="wearable">
+              <mat-radio-button value="1" name="small" >Enable</mat-radio-button>
+              <mat-radio-button value="0" name="small" >Disable</mat-radio-button>
+            </mat-radio-group><br>
+            <mat-radio-group  color="primary" formControlName="type"  class="wearable" >
+              <mat-radio-button value="1" name="small"  (change)="selectfinds($event)">All</mat-radio-button>
+              <mat-radio-button value="2" name="small" (change)="selectfinds($event)">Specific Finds</mat-radio-button>
+            </mat-radio-group><br>
+            <mat-form-field *ngIf="(multishiftingselect.get('status').value == 1)">
+              <mat-label>Shift Name</mat-label>
+              <mat-select formControlName="shiftName" name="shiftName">
+                <mat-option *ngFor="let b of shifts" [value]="b">
+                  {{b.shiftName}}
+                </mat-option>
+               <!--  <mat-option value="General">General</mat-option>
+                <mat-option value="Morning">Morning</mat-option>
+                <mat-option value="Evening">Evening</mat-option>
+                <mat-option value="Night">Night</mat-option> -->
+              </mat-select>
+
+          </mat-form-field>
+          <mat-form-field class="full-width-input" *ngIf="(multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 1 || multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 0)">
+            <input type='text' matInput placeholder="Device Id" formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let user of username" [value]="user.deviceId">
+                {{user.deviceId}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>
+              Please provide a valid user name
+            </mat-error>
+          </mat-form-field>
+            <div class="maxlimit">
+            </div>
+              <br><br> <br> <br>
+            <div class="btn-set-grp">
+              <button mat-raised-button [disabled]="!multishiftingselect.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+              <button type="button" mat-raised-button (click)="openDialog()"  color="primary">Info</button>
+            </div>
+
+            </form>
+        </mat-card-content>
+
       </mat-card>
 
 </div>

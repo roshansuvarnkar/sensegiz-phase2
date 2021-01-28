@@ -76,9 +76,9 @@ export class SideBarComponent implements OnInit {
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
     this.api.getCountData(data).then((res:any)=>{
-      console.log("count data ======",res);
+      console.log("count data ======***",res);
       if(res.status){
-        this.onlineCount=res.success[3].onlineCount
+        this.onlineCount=res.success[6].onlineCount
       }
     })
   }

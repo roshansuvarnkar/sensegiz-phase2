@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
   buzzerTimeForm:FormGroup
   buzzerConfigForm:FormGroup
   maxDistanceForm:FormGroup
-  multishiftingselect:FormGroup
+  //multishiftingselect:FormGroup
   loginData:any
   setting:any
   duration:any
@@ -54,6 +54,8 @@ export class SettingsComponent implements OnInit {
   measureStatus:boolean=false
   multipleshift:boolean=false
   grouped:boolean=false
+  enableDisanle:boolean=true
+  //selectfind:boolean=false
   twoStepAuthStatus:any=[]
   inactivityStatusValue:any=[]
   coinData:any=[]
@@ -62,6 +64,7 @@ export class SettingsComponent implements OnInit {
   coin:any=[]
   min:any=[]
   sec:any=[]
+  shifts:any=[]
   loading:boolean=false
   tempImagePath:any
   type:any
@@ -81,7 +84,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-
+   // this.refreshShift()
     this.refreshCoins()
     this.refreshSetting()
     // this.minThresholdMinsec()
@@ -131,12 +134,12 @@ export class SettingsComponent implements OnInit {
     groupName:['',Validators.required]
     })
 
-    this.multishiftingselect=this.fb.group({
-      shiftName:['',Validators.required],
-      deviceId:['',Validators.required],
+ /*    this.multishiftingselect=this.fb.group({
+      shiftName:[''],
+      deviceId:[''],
       status:['',Validators.required],
-      type:['',Validators.required]
-    })
+      type:[,Validators.required]
+    }) */
     // this.timeForm=this.fb.group({
     //   minutes:[{value:'',disabled: false},Validators.required],
     //   seconds:[{value:'',disabled: false},Validators.required]
@@ -173,6 +176,20 @@ export class SettingsComponent implements OnInit {
   alert("Please contact SenseGiz Team for this setting")
 
   }
+ /*  refreshShift(){
+    var data={
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+      tblName:'deviceShift'
+    }
+
+    this.api.getData(data).then((res:any)=>{
+       console.log("shift  data ======",res);
+      if(res.status){
+        this.shifts=res.success
+      }
+    })
+  }*/
 
   refreshCoins(){
     var data={
@@ -186,8 +203,6 @@ export class SettingsComponent implements OnInit {
       if(res.status){
         this.coinData=res.success
         this.grouped=false
-
-
       }
     })
   }
@@ -408,7 +423,7 @@ export class SettingsComponent implements OnInit {
 
 
   onSubmitDistanceForm(data) {
-    // console.log("data=",data)
+   console.log("data=",data)
 
      if (this.distanceForm.valid) {
        try {
@@ -828,19 +843,69 @@ export class SettingsComponent implements OnInit {
   //   }
 
   // }
-  onMultiShiftselect(data){
-      if(this.multishiftingselect.valid){
-       /*  try{
-          if(data.statu=='0'){
 
-          }
-        } */
+ /*  onMultiShiftselect(values){
+      if(this.multishiftingselect.valid){
+      try{
+          var data={
+            userId : this.loginData.userId,
+            shiftId : values.shiftName.id,
+            shiftName : values.shiftName.shiftName,
+            deviceId : values.deviceId,
+            status: values.status,
+            type :values.type,
+            }
+            console.log(data)
+            this.api.setDeviceMultiShift(data).then((res:any)=>{
+              // console.log("Scanning Interval===",res)
+              if(res.status){
+                this.refreshSetting()
+                var msg='Multishift Select updated Successfully'
+                this.general.openSnackBar(msg,'')
+              }
+            }).catch(err=>{
+              console.log("err===",err);
+            })
+      }catch (err) {
+
+      }
       }
 
 
 
   }
+username:any=[]
+  userSuggestion(event){
+  //  console.log("data=",event)
+    var data={
+      value:event.target.value,
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+      tblName:'deviceData'
+    }
+    console.log("data==",data)
+    this.api.getAssignedDevices(data).then((res:any)=>{
+    //  console.log("res==******",res)
+      if(res.status){
+        this.username=[]
+       for(let i=0;i<res.success.length;i++){
+        this.username.push(res.success[i])
+       }
+       console.log("username==",this.username)
 
+      }
+    })
+
+  }
+
+
+
+
+  selectfinds(event){
+      this.selectfind=event.value='1' || '2'?false:true;
+      console.log(this.selectfind)
+
+  } */
   measurement(event){
     console.log("event==",event)
     this.measureStatus=event.value=='meter'?false:true

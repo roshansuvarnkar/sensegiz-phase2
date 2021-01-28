@@ -1398,13 +1398,12 @@ getDepartmentreport(data){
   });
 }
 
-/* http://testdba.sensegiz.com:3000//setDeviceMultiShift */
+
 
 setDeviceMultiShift(data){
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-
   let url = this.host+'/setDeviceMultiShift';
   return new Promise((resolve,reject)=>{
     this.http.post(url,data,httpOptions).subscribe(res=>{

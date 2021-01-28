@@ -147,7 +147,7 @@ refreshShift(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    // console.log("shift  data ======",res);
+   console.log("shift  data ======",res);
     if(res.status){
       this.shifts=res.success
     }
@@ -302,6 +302,7 @@ onShiftSelection(a){
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceId:a.deviceId
   }
+  console.log("shift data",data)
   this.api.editShift(data).then((res:any)=>{
      console.log("shift update data ======",res);
     if(res.status){

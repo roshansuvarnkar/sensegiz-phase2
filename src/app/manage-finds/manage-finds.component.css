@@ -34,8 +34,9 @@ table.mat-table {
   font-weight: 500;
 }
 .search{
-    top: 1rem;
-    left: 3rem;color: #ef6c00;
+    position: absolute;
+    top: 2rem;
+    left: 55rem;color: #ef6c00;
 }
 .upload {
    position: absolute;
