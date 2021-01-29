@@ -51,7 +51,6 @@
             Please provide a valid inactivity in minutes
           </mat-error>
         </mat-form-field> <br>
-
         <br><br>
         <button class="btn-set" mat-raised-button [disabled]="!inactivityForm.valid" color="primary">Submit</button>
       </form>
@@ -335,7 +334,7 @@
 
           <form [formGroup]="timeForm" (ngSubmit)="onSubmitTimeForm(timeForm.value)" >
             <!-- <div *ngIf="!minStatus"> -->
-            <mat-form-field  >
+            <mat-form-field>
 
                 <mat-label>Minutes</mat-label>
                 <mat-select  formControlName="minutes" [disabled]="minStatus" (selectionChange)="getMin($event)" [required]="requiredStatus1">

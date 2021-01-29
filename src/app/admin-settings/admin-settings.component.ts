@@ -112,7 +112,7 @@ export class AdminSettingsComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-       console.log("shift  data ======",res);
+       console.log("shift data ======",res);
       if(res.status){
         this.shifts=res.success
       }
@@ -189,9 +189,9 @@ export class AdminSettingsComponent implements OnInit {
             value:false,
             status:'Enable'
           }
-          this.inactivityForm.patchValue({
+         /*  this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity
-         })
+         }) */
         }
       }
     })
@@ -408,7 +408,7 @@ export class AdminSettingsComponent implements OnInit {
 
   onSubmitScanCountForm(data){
     console.log("data==",data)
-    if (this.scanCountForm.valid) {
+    if (this.scanCountForm.valid){
       try {
         data.userId=this.dataGet.userId
         this.api.updateMeetingCount(data).then((res:any)=>{
@@ -533,7 +533,7 @@ export class AdminSettingsComponent implements OnInit {
    }
 
    onSubmitSendDataForm(data){
-    if (this.scanningForm.valid) {
+    if (this.scanningForm.valid){
       try {
         data.userId=this.dataGet.userId
         this.api.setGatewayDataRate(data).then((res:any)=>{
@@ -581,9 +581,7 @@ export class AdminSettingsComponent implements OnInit {
    }
    bufferval(event){
      console.log(event.target.value)
-
       this.bufferValue=event.target.value>5?true:false
-
    }
 
    onSubmitInactivityForm(value){
@@ -662,9 +660,8 @@ export class AdminSettingsComponent implements OnInit {
         status: values.status,
         type :values.type,
         }
-          console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-            // console.log("Scanning Interval===",res)
+            console.log("multishift data sent===",res)
             if(res.status){
               this.refreshSetting()
               var msg='Multishift Select updated Successfully'

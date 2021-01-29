@@ -6,7 +6,6 @@ import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { GeneralMaterialsService } from '../general-materials.service';
-
 import { Timestamp } from 'rxjs';
 
 @Component({
@@ -33,7 +32,7 @@ index:any
 pageIndex:any
 pagesize:any
 fileName:any
-displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync'];
+displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','dataReceivedTime'];
 
   constructor(private api: ApiService,
     private login:LoginCheckService,
@@ -64,15 +63,25 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync
 
       this.api.getHomeCountData(data).then((res:any)=>{
         console.log("res===",res)
-
+        this.findData=[]
         if(res.status){
-          this.activeData=res.success
-          this.dataSource = new MatTableDataSource(this.activeData);
+          for (let i = 0; i <res.success.length; i++) {
+            this.findData.push(
+              {
+              i: i+1,
+              deviceId:res.success[i].deviceId,
+              deviceName:res.success[i].deviceName,
+              updatedOnLoc:res.success[i].updatedOnLoc,
+              dataReceivedTime:res.success[i].dataReceivedTime,
+            })
+          }
+        /*   this.activeData=res.success */
+          this.dataSource = new MatTableDataSource(this.findData);
+          //this.dataSource = new MatTableDataSource(this.activeData);
 
           setTimeout(() => {
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-
           })
 
         }
@@ -211,7 +220,6 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync
       console.log("data to send ======",data);
 
     this.api.downloadActiveOfflineUsers(data,this.fileName).then((res:any)=>{
-
     console.log("report data recieved ======",res);
     })
     }
@@ -223,9 +231,11 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','lastSeen','lastSync
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       type:this.type
     }
-    this.fileName="Deallocate Users"
-    this.api.downloadDeallocatedDevice(data,this.fileName).then((res:any)=>{
 
+    this.fileName="Deallocate Users"
+    console.log("data to deallocate ======",data);
+
+    this.api.downloadDeallocatedDevice(data,this.fileName).then((res:any)=>{
       console.log("deallocate data recieved ======",res);
       })
   }

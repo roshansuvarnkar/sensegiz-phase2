@@ -360,20 +360,20 @@
       <tr>
         <th>Sl No.</th>
         <th>Contacted User</th>
-        <th>Department</th>
+       <!--  <th>Department</th> -->
         <th>Date Of contacts</th>
       </tr>
      </thead>
      <tr *ngFor = "let a of liveData;let i=index">
       <td>{{i+1}} </td>
       <td>{{a.data}}</td>
-      <td >
+    <!--   <td >
 
         <span *ngFor = 'let b of departments(a.date)'>
           <span>{{b}}</span>
 
         </span>
-      </td>
+      </td> -->
       <td>
         <!-- <span *ngFor = 'let b of a.date;let j=index'>
           {{b.updatedOn }}

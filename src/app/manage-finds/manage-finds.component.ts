@@ -126,7 +126,7 @@ refreshFinds(){
               empId:res.success[i].empId == ''||res.success[i].empId == 'NULL' || res.success[i].empId == 'undefined' ? '-' : res.success[i].empId
           });
       }
-      console.log("",this.findData)
+     // console.log("",this.findData)
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;

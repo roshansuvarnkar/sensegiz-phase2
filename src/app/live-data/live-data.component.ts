@@ -55,6 +55,7 @@ totTime:any=[]
     this.getTotalCount(0)
     // console.log("count",this.count)
     this.timeout=setInterval(()=>{ this.refresh()},30*1000)
+
   }
   ngOnDestroy() {
     clearInterval(this.timeout)
@@ -104,22 +105,20 @@ getTotalCount(val){
     count:val,
     zone:this.general.getZone(date)
   }
-
   this.api.getLiveDataTotalCount(data).then((res:any)=>{
     // console.log("live data ======",res);
     if(res.status){
       console.log('\nTotal response: ',res.success[0].count);
       this.currentPageSize= parseInt(res.success[0].count);
-
-
     }
   })
 }
-
-
   refreshData(value,limit=10,offset=0){
     this.liveData=[]
-    var date=new Date()
+    var date=new Date('01/28/2021 12:00:00')
+    console.log(date)
+     var date1=new Date('01/28/2021 12:00:00')
+    console.log(date1)
     var data={
       userId:this.loginData.userId,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -129,7 +128,6 @@ getTotalCount(val){
       offset:offset,
       limit:limit
     }
-
     console.log("live data====",data)
     this.api.getLiveData(data).then((res:any)=>{
 
