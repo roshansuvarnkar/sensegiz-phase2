@@ -30,18 +30,18 @@
 
             <ng-container matColumnDef="coinName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Name </th>
-              <td mat-cell *matCellDef="let coin" class="cursor"> 
+              <td mat-cell *matCellDef="let coin" class="cursor">
                 <span  *ngIf="coin.latestStatus!='0000-00-00 00:00:00'&& coin.coinStatus == 0" matTooltip="Coin Status : {{coin.latestStatus | date: 'medium'}} , Offline">
-                  {{coin.coinName}} 
+                  {{coin.coinName}}
                 </span>
                 <span  *ngIf="coin.latestStatus!='0000-00-00 00:00:00'&& coin.coinStatus == 1" matTooltip="Coin Status : {{coin.latestStatus | date: 'medium'}} , Online">
-                  {{coin.coinName}} 
+                  {{coin.coinName}}
                 </span>
-                <span  *ngIf="coin.latestStatus=='0000-00-00 00:00:00'" >
-                  {{coin.coinName}} 
+                <span  *ngIf="coin.latestStatus =='0000-00-00 00:00:00'" >
+                  {{coin.coinName}}
                 </span>
             </td>
-            </ng-container> 
+            </ng-container>
 
             <ng-container matColumnDef="coinType">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Coin Type </th>

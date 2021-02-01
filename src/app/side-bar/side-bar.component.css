@@ -51,6 +51,9 @@ p.online {
     font-weight: 500;
     letter-spacing: 1px;
 }
+mat-paginator{
+  margin-left:-20px;
+}
 @media only screen and (max-width: 768px) {
 
   mat-sidenav.mat-drawer.mat-sidenav.ng-tns-c276-1.ng-trigger.ng-trigger-transform.mat-drawer-over.ng-star-inserted.mat-drawer-opened {

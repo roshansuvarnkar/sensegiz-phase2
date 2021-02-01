@@ -191,7 +191,6 @@ coinSubmit(data){
   if (this.coinForm.valid) {
     try {
       console.log("this.loginData",this.loginData);
-
       if(this.loginData.hasOwnProperty('id') && this.loginData.id!=0 && this.loginData.type==4){
         data.subUserId=this.loginData.id
       }

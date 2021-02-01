@@ -378,7 +378,6 @@ maximumContactTime(){
         var hms = res.success[i].totTime
         var a = hms.split(':')
          this.totmin = Math.round((+a[0]*60) + (+a[1] ) + ((+a[2])/60) )
-
         this.contactTimeMax.push(
           {
             baseName:res.success[i].baseName,
