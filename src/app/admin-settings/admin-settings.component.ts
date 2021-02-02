@@ -158,9 +158,9 @@ export class AdminSettingsComponent implements OnInit {
         this.scanningForm.patchValue({
           seconds:res.success[0].scanningInterval.toString()
         })
-        this.scanCountForm.patchValue({
+      /*   this.scanCountForm.patchValue({
           count:res.success[0].scanCount.toString()
-        })
+        }) */
         this.sendDataForm.patchValue({
           rate:res.success[0].gatewayDataRate.toString()
         })
@@ -393,6 +393,7 @@ export class AdminSettingsComponent implements OnInit {
           // console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()
+            this.meetingcount()
             var msg='Interval second updated Successfully'
             this.general.openSnackBar(msg,'')
           }
@@ -415,7 +416,8 @@ export class AdminSettingsComponent implements OnInit {
           console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()
-            var msg='Scan count updated Successfully'
+            this.scanCountForm.reset()
+          var msg='Scan count updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
@@ -425,7 +427,19 @@ export class AdminSettingsComponent implements OnInit {
       }
     }
   }
-
+ meetingcount(){
+    var data={
+      userId:this.dataGet.userId,
+      tblName:'deviceSetting'
+    }
+    this.api.getData(data).then((res:any)=>{
+      if(res.status){
+        this.scanCountForm.patchValue({
+          count:res.success[0].scanCount.toString()
+        })
+      }
+    })
+  }
 
   onSubmitTimeForm(data){
     //  console.log(" time data===",data);
@@ -664,6 +678,7 @@ export class AdminSettingsComponent implements OnInit {
             console.log("multishift data sent===",res)
             if(res.status){
               this.refreshSetting()
+              this.multishiftingselect.reset()
               var msg='Multishift Select updated Successfully'
               this.general.openSnackBar(msg,'')
             }

@@ -76,7 +76,7 @@ refreshGateway(){
               gatewayName: res.success[i].gatewayName,
               currentVersion:res.success[i].currentVersion,
               gatewayType: res.success[i].gatewayType =='ethernet'?'Ethernet Gateway':'WiFi Gateway',
-
+              pingAlertTime:res.success[i].pingAlertTime,
               // bleVersion:res.success[i].bleVersion,
               edit:'edit',
               delete:'delete'
