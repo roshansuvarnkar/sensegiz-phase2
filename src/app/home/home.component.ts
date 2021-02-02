@@ -424,11 +424,10 @@ numOfcontactPerDay(){
     zone:this.general.getZone(date)
   }
   this.api.getPerDayCount(data).then((res:any)=>{
-    // console.log("repeated contacts data ======",res);
+     console.log("repeated contacts data ======",res);
     if(res.status){
       this.dataPoints=[]
       this.countPerday = res.success.reverse()
-
       for (let i = 0; i < this.countPerday.length; i++) {
         var months=['Jan','Feb', 'Mar','Apr','May','Jun','Jul','Aug','sep','Oct','Nov','Dec']
           var dateObj=this.countPerday[i].updatedOn.split('T')

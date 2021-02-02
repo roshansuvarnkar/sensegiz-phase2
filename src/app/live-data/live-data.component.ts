@@ -115,10 +115,7 @@ getTotalCount(val){
 }
   refreshData(value,limit=10,offset=0){
     this.liveData=[]
-    var date=new Date('01/28/2021 12:00:00')
-    console.log(date)
-     var date1=new Date('01/28/2021 12:00:00')
-    console.log(date1)
+    var date=new Date()
     var data={
       userId:this.loginData.userId,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
