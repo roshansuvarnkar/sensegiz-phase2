@@ -77,11 +77,13 @@ refreshGateway(){
               currentVersion:res.success[i].currentVersion,
               gatewayType: res.success[i].gatewayType =='ethernet'?'Ethernet Gateway':'WiFi Gateway',
               pingAlertTime:res.success[i].pingAlertTime,
+              pingAlertStatus:this.general.pingAlertStatus(res.success[i].pingAlertTime),
               // bleVersion:res.success[i].bleVersion,
               edit:'edit',
               delete:'delete'
           });
       }
+      console.log("gateway",this.gatewayData)
       this.dataSource = new MatTableDataSource(this.gatewayData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
@@ -151,6 +153,26 @@ search(a){
 
   })
 }
-
+GatewaypgiAlret(value){
+  if(value < 10){
+    var a = {
+      'width':'31px',
+        'color':'green',
+        'position':'absolute'
+    }
+    return a
+  }
+  else if(value > 10){
+    var a = {
+      'width':'18px',
+      'color':'red',
+      'position':'absolute'
+    }
+    return a
+  }
+  else{
+    return {}
+  }
+}
 
 }

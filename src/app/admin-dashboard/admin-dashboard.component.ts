@@ -7,7 +7,7 @@ import { GeneralMaterialsService } from '../general-materials.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { AdminAddBleIdComponent } from '../admin-add-ble-id/admin-add-ble-id.component';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
-
+import {WebsocketService} from '../websocket.service'
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -32,8 +32,9 @@ export class AdminDashboardComponent implements OnInit {
       private router: Router,
       private login: LoginCheckService,
       private api: ApiService,
-      private general: GeneralMaterialsService
-    ) {
+      private general: GeneralMaterialsService,
+       private ws:WebsocketService
+      ) {
     }
 
     // Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/) 	letter,digit,special character
@@ -44,13 +45,13 @@ export class AdminDashboardComponent implements OnInit {
       mobileNum:['',Validators.required],
       zone:[''],
       portalPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
-        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/)
       ]],
       mobilePassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
-        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/)
       ]],
       userPassword: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20),
-        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/) 	
+        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).*$/)
       ]]
     });
     this.refreshAdminData()
@@ -74,7 +75,7 @@ export class AdminDashboardComponent implements OnInit {
 			}else{
         this.registered=true
       }
-        })      	
+        })
       } catch (err) {
       }
     }
@@ -125,20 +126,23 @@ refreshAdminData(){
  		isDeleted : a.isDeleted == 'Y' ? 'N' : 'Y'
  	}
 
+
  	this.api.deleteAdminUser(data).then((res:any)=>{
     	// console.log("data===",res)
 		if(res.status){
 			var msg = "User updated successfully"
 			this.general.openSnackBar(msg,'')
-			this.refreshAdminData()
+      this.refreshAdminData()
+     this.ws.isDeletedws("disconnect",data)
 		}
     })
+
  }
 
 getZone(){
   this.zoneData=[]
   this.api.getCountryZone().then((res:any)=>{
-    console.log("data===",res)
+
   if(res){
     this.zoneData=res
   }

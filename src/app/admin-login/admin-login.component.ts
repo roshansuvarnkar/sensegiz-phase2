@@ -27,7 +27,7 @@ export class AdminLoginComponent implements OnInit {
     ) {
     }
 
- 
+
   ngOnInit(): void {
     this.login.loginStatusMenu()
     this.adminLoginform = this.fb.group({
@@ -44,7 +44,6 @@ export class AdminLoginComponent implements OnInit {
         this.api.adminLogin(data).then((res:any)=>{
         	// console.log("admin res===",res)
           if(res.status){
-   
           	res.success.role='admin'
             if(this.login.login(JSON.stringify(res.success))){
               this.login.authCheck.next(true)

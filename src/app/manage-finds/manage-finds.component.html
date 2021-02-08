@@ -180,15 +180,13 @@
 
             <span  *ngIf="getBatteryUpdatedOn(live.batteryUpdatedOn)=='0000-00-00 00:00:00' || live.batteryStatus=='0'" >
               <div class="batteryContainer">
-                <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(live.batteryStatus)" > </div></div>
+                <div class="batteryOuter"><div id="batteryLevel"  [ngStyle]="getBatteryStatus(live.batteryStatus)"> </div></div>
                 <div class="batteryBump"></div>
               </div>
             </span>
-
         </td>
 
       </ng-container>
-
         <ng-container matColumnDef="emailId"  >
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Email ID </th>
           <td mat-cell *matCellDef="let live" > {{live.emailId}} </td>
