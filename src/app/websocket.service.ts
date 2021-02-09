@@ -9,10 +9,10 @@ import { environment } from '../environments/environment'
 })
 export class WebsocketService {
   host:string = environment.websocket
-  socket:any= io(this.host)
+  socket;
 
   constructor() {
-
+this.socket=io(this.host)
    // this.socket=new WebSocket(this.host)
  console.log("socket=====",this.socket)
  /*    this.socket.on('connection', (socket) => {
@@ -25,16 +25,33 @@ export class WebsocketService {
 
   }
 
-isDeletedws(eventName,data){
-return new Promise((resolve,reject)=>{
-  this.socket.on('disconnect',(Socket)=>{
-    Socket.emit(data).subscribe((data)=>{
-      resolve(data)
-    })
-  })
-})
-}
 
+isDeletedws(eventName,data){
+  console.log(data)
+return new Promise((resolve,reject)=>{
+  this.socket= io(this.host)
+  if(data.isDeleted=="Y"){
+    this.socket.on('disconnect',(Socket) =>{
+      console.log(data)
+      Socket.emit(data).subscribe((data)=>{
+        this.socket.disconnected()
+        resolve(data)
+      })
+    })
+  }else{
+    this.socket.on('connect',(Socket) =>{
+      console.log(data)
+      Socket.emit(data).subscribe((data)=>{
+        this.socket.connected()
+        resolve(data)
+      })
+    })
+  }
+  console.log(this.socket)
+
+})
+
+}
 /* --------
 
 
