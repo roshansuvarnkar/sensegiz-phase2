@@ -11,7 +11,6 @@ apiHost:'https://testdba.sensegiz.com:3000',
     //  apiHost:'http://3.6.7.251:3000',
   // apiHost:'http://65.0.60.192:3000',
   // apiHost:'http://65.0.60.192:3000'
-  websocket:'ws://localhost:4200',
   production: false
 };
 
