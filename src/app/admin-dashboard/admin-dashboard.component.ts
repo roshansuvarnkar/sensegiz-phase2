@@ -133,7 +133,7 @@ refreshAdminData(){
 			var msg = "User updated successfully"
 			this.general.openSnackBar(msg,'')
       this.refreshAdminData()
-  
+   //this.ws.isDeletedws('disconnect',data)
 		}
     })
 
