@@ -30,7 +30,7 @@ isDeletedws(eventName,data){
   console.log(data)
 return new Promise((resolve,reject)=>{
   this.socket= io(this.host)
-  if(data.isDeleted=="Y"){
+ /*  if(data.isDeleted=="Y"){
     this.socket.on('disconnect',(Socket) =>{
       console.log(data)
       Socket.emit(data).subscribe((data)=>{
@@ -46,7 +46,7 @@ return new Promise((resolve,reject)=>{
         resolve(data)
       })
     })
-  }
+  } */
   console.log(this.socket)
 
 })
