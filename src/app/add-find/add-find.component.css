@@ -23,7 +23,7 @@
   }
   ::ng-deep input#primaryPhoneInput{
     border: none;
-    
+
   }
   ::ng-deep .focus{
   outline: unset !important;
@@ -36,7 +36,7 @@
     position: absolute;
     z-index: auto;
   }
- 
+
   ::ng-deep .btn.focus, .btn:focus {
     outline: 0;
     box-shadow: 0 !important;
@@ -62,7 +62,7 @@
   ::ng-deep input#phone:focus:hover:visited:active:focus-within:focus-visible {
       border: none !important;
       outline-width: 0 !important;
-  
+
   }
   .mob{
       border: 1px solid #cac6c3 !important;
@@ -70,7 +70,7 @@
       width: 11rem !important;
       margin-left: 0rem !important;
   }
-  
+
   .error{
     margin-top: -1rem;
     font-size: smaller;

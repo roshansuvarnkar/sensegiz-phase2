@@ -12,7 +12,6 @@ export class WebsocketService {
   socket:any= io(this.host)
 
   constructor() {
-
    // this.socket=new WebSocket(this.host)
  console.log("socket=====",this.socket)
  /*    this.socket.on('connection', (socket) => {
