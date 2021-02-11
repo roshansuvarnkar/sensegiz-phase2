@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
-
+import { WebsocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
       private router: Router,
       private login: LoginCheckService,
       private api: ApiService,
-      private general: GeneralMaterialsService
+      private general: GeneralMaterialsService,
+      private socket :WebsocketService
     ) {
     }
 
@@ -99,6 +100,20 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/two-step-auth'],{ queryParams: { type: JSON.stringify(this.forgetPwd) } })
   }
 
-
+  joinRoom(){
+    this.socket.joinRoom()
+  }
+  // socketconnectRoomaksh(){
+  //   this.socket.socketconnectRoomaksh('akamungare4420@gmail.com')
+  // }
+  // leaveRoomAnu(){
+  //   this.socket.leaveRoomAnu('anudeep43@sensegiz.com')
+  // }
+  // leaveRoomAkash(){
+  //   this.socket.leaveRoomAnu('akamungare4420@gmail.com')
+  // }
+  // getjoinRoom(){
+  //   this.socket.getjoinRoom('hi roshan here')
+  // }
 
 }

@@ -146,7 +146,10 @@ export class LoginCheckService {
 
   logout(){
     localStorage.clear()
-    return true
+    this.loginCheckStatus.next(false)
+    this.loginCred.next(false)
+    this.authCheck.next(false)
+    this.router.navigate(['/login'])
   }
 
 }
