@@ -98,7 +98,4 @@ export class AppComponent {
   logout(){
     this.login.logout()
   }
-  joinRoom(){
-    this.socket.joinRoom()
-  }
 }
