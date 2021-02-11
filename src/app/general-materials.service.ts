@@ -173,7 +173,7 @@ totalTime(inTime,outTime){
 pingAlertStatus(inTime){
   var pigTime=moment(inTime)
   var date=moment(new Date())
- var pigsplt=(moment(pigTime).diff(moment(date)))
+ var pigsplt=(moment(date).diff(moment(pigTime)))
   var pigArt= moment.duration(pigsplt)
 var momemts=Math.floor(pigArt.asMinutes())
 console.log("pingAlertStatus in mints",momemts)
