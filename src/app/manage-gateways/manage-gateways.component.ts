@@ -159,6 +159,7 @@ GatewaypgiAlret(value){
       'width':'31px',
         'color':'green',
         'position':'absolute',
+        'background-color':'green',
         'margin-left':'-33px',
         'margin-top':'-2px',
     }
@@ -169,6 +170,7 @@ GatewaypgiAlret(value){
       'width':'18px',
       'color':'red',
       'position':'absolute',
+      'background-color':'red',
       'margin-left':'-30px',
       'margin-top':'-2px',
     }
