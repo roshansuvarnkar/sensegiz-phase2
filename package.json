@@ -35,7 +35,7 @@
     "file-saver": "^2.0.2",
     "filesaver": "0.0.13",
     "google-libphonenumber": "^3.2.13",
-    "intl-tel-input": "^17.0.3",
+    "intl-tel-input": "^17.0.11",
     "jspdf": "^1.5.3",
     "moment": "^2.27.0",
     "ng-circle-progress": "^1.5.1",
