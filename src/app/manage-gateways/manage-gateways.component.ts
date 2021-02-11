@@ -154,7 +154,7 @@ search(a){
   })
 }
 GatewaypgiAlret(value){
-  if(value < 10){
+  if(value < 10 || -value<10){
     var a = {
       'width':'31px',
         'color':'green',
@@ -164,7 +164,7 @@ GatewaypgiAlret(value){
     }
     return a
   }
-  else if(value > 10){
+  else if(value > 10 || -value>10){
     var a = {
       'width':'18px',
       'color':'red',

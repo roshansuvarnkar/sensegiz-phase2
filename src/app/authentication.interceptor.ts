@@ -32,7 +32,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         this.login.loginCheckStatus.next(false)
         this.login.loginCred.next(false)
         this.login.authCheck.next(false)
-        console.log("rajeshlogin==========================",request)
+
         return EMPTY
       }
       else{
