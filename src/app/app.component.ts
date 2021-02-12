@@ -30,7 +30,7 @@ export class AppComponent {
   twoStepAuth:any
 
   deviceInfo = null;
-  host:any = environment.socketHost
+  host:any = environment.apiHost
 
   constructor(
     private socket :WebsocketService,

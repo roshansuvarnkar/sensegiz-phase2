@@ -13,7 +13,6 @@ export const environment = {
 
  //apiHost:'http://35.154.8.192:3000',
   socketHost:'http://35.154.8.192:3000',
-
   production: false
 }
 
