@@ -84,6 +84,10 @@ export class ExceptionComponent implements OnInit {
             // this.paginator.length = this.currentPageSize
           })
 
+        }else{
+          if(res.code=='403'){
+            this.login.logout()
+          }
         }
       })
     }

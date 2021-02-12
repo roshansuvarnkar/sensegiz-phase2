@@ -73,6 +73,10 @@ export class GeoFenceComponent implements OnInit {
       if(res.status){
         this.coinData=res.success
 
+      }else{
+        if(res.code=='403'){
+          this.login.logout()
+        }
       }
     })
   }

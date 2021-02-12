@@ -135,6 +135,10 @@ refreshFinds(){
       })
       this.elementsTemp = this.findData
 
+    }else{
+      if(res.code=='403'){
+        this.login.logout()
+      }
     }
   })
 }

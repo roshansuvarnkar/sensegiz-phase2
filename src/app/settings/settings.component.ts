@@ -310,6 +310,10 @@ export class SettingsComponent implements OnInit {
             status:true
           }
         }
+      }else{
+          if(res.code=='403'){
+            this.login.logout()
+          }
       }
     });
   }
