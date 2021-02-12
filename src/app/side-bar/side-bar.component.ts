@@ -82,7 +82,7 @@ export class SideBarComponent implements OnInit {
     this.api.getCountData(data).then((res:any)=>{
       console.log("count data ======***",res);
       if(res.status){
-        this.onlineCount=res.success[6].onlineCount
+        //this.onlineCount=res.success[6].onlineCount
       }
     })
   }
