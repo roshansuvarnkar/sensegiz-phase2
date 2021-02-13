@@ -8,11 +8,6 @@ import { LoginCheckService } from './login-check.service';
   providedIn: 'root',
 })
 export class WebsocketService {
-<<<<<<< HEAD
- 
-
-  constructor() {
-=======
   host: string = environment.socketHost;
   socket: any;
   constructor(
@@ -69,6 +64,5 @@ export class WebsocketService {
 
   getjoinRoom(data){
     this.socket.emit("allRooms");
->>>>>>> 19529941a38a65f7d41793b1310c7e6f43447e64
   }
 }
