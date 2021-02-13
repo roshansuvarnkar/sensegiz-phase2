@@ -117,6 +117,10 @@ export class AdminDashboardComponent implements OnInit {
       console.log('data===', res);
       if (res.status) {
         this.adminData = res.success;
+      }else{
+        if(res.code=='403'){
+          this.login.logout()
+        }
       }
     });
   }

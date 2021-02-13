@@ -174,6 +174,9 @@ getTotalCount(val){
           //this.dataSource.paginator = this.paginator;
           // this.paginator.length = this.currentPageSize
         })
+          if(res.code=='403'){
+            this.login.logout()
+          }
       }
     })
 
