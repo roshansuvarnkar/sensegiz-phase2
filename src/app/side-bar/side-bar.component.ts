@@ -65,6 +65,10 @@ export class SideBarComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
 
         })
+      }else{
+          if(res.code=='403'){
+            this.login.logout()
+          }
       }
     })
   }

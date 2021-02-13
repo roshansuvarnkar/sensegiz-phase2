@@ -132,6 +132,10 @@ refreshSubUserData(){
     console.log("data===",res)
     if(res.status){
       this.subUser=res.success
+    }else{
+      if(res.code=='403'){
+        this.login.logout()
+      }
     }
   })
 }

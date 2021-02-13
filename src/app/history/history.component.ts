@@ -46,7 +46,7 @@ userType:any
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.userType=this.loginData.type
-    
+
     this.dateForm = this.fb.group({
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
@@ -297,6 +297,10 @@ onclickGeoLocation(data){
       if(res.status){
         this.finds=res.success
 
+      }else{
+        if(res.code=='403'){
+          this.login.logout()
+        }
       }
     })
   }

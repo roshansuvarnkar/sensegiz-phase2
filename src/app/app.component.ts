@@ -4,6 +4,8 @@ import { Router , ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { environment } from '../environments/environment'
 import { GeneralMaterialsService } from './general-materials.service';
+import { WebsocketService } from './websocket.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,6 +33,7 @@ export class AppComponent {
   host:any = environment.apiHost
 
   constructor(
+    private socket :WebsocketService,
     private login:LoginCheckService,
     private router:Router,
     private route:ActivatedRoute,
@@ -93,10 +96,6 @@ export class AppComponent {
   }
 
   logout(){
-    localStorage.clear()
-    this.login.loginCheckStatus.next(false)
-    this.login.loginCred.next(false)
-    this.login.authCheck.next(false)
-    this.router.navigate(['/login'])
+    this.login.logout()
   }
 }

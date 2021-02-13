@@ -1,5 +1,3 @@
-
-
 <div>
   <mat-card class="login">
     <mat-card-title>Log In</mat-card-title>
@@ -17,27 +15,27 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width-input">
-          <input matInput  [type]="passwordType" placeholder="Password" formControlName="password" matInput required >
+          <input matInput [type]="passwordType" placeholder="Password" formControlName="password" matInput required>
           <mat-icon matSuffix (click)="hideShowPassword()">{{passwordIcon}}</mat-icon>
           <mat-error>
             Please provide a valid password
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button  [disabled]="!Loginform.valid" color="primary" >Login</button> <br>
+        <button mat-raised-button [disabled]="!Loginform.valid" color="primary">Login</button> <br>
 
       </form>
 
       <div class="set-pwd">
-        <span (click)="forgetPassword()"class="line" >Forget password</span> <br>
+        <span (click)="forgetPassword()" class="line">Forget password</span> <br>
         <span *ngIf="newPassword" class="set-new">
           <span class="pwd-error">your password expired </span><br>
-           Set new password <span  (click)="forgetPassword()" class="line">here</span>
+          Set new password <span (click)="forgetPassword()" class="line">here</span>
         </span>
-     </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
-  <div class="version">
-    <p>version 4.5.0</p>
-  </div>
+<div class="version">
+  <p>version 4.5.0</p>
+</div>

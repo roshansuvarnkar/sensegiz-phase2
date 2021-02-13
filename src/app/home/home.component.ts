@@ -354,9 +354,13 @@ refreshSetting(){
     tblName:'deviceSetting'
   }
   this.api.getData(data).then((res:any)=>{
-    // console.log("setting data ======",res);
+     console.log("setting data ======",res);
     if(res.status){
       this.setting = res.success[0]
+    }else{
+      if(res.code=='403'){
+        this.login.logout()
+      }
     }
   })
 }

@@ -101,6 +101,10 @@ constructor(public dialog: MatDialog,
         // this.paginator.length = this.currentPageSize
       })
       this.coindDataTemp=this.coinData
+      }else{
+        if(res.code=='403'){
+          this.login.logout()
+        }
       }
     })
   }

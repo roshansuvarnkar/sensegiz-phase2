@@ -528,9 +528,9 @@
     </mat-card-subtitle><br>
     <mat-card-content>
       <form action="" [formGroup]="uploadForm" (ngSubmit)="formSubmit(uploadForm.value)">
-        <input class="input-file" type="file" #fileInput  (change)="fileChange($event.target.files);"/><br><br>
+      <!--   <input class="input-file" type="file" #fileInput  (change)="fileChange($event.target.files);"/><br><br> -->
+        <input class="input-file" id="Upload" type="file" #fileInput  (change)="fileChange($event.target.files);"/>
         <span *ngIf="loading" style="color:red">Please choose jpg/jpeg/png*</span>
-
         <br><br> <br>
       <button class="btn-set" mat-raised-button color="primary">Submit</button>
     </form>
