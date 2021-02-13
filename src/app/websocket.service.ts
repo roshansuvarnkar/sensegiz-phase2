@@ -13,6 +13,7 @@ export class WebsocketService {
   constructor(
     private login:LoginCheckService,
   ) {
+    console.log(this.host)
     this.setupSocketConnection()
   }
 
@@ -48,7 +49,7 @@ export class WebsocketService {
       // if(data.userName == )
     });
   }
-  
+
   joinRoom(){
     let data = this.login.loginData();
     console.log("data login===",data);
@@ -57,7 +58,7 @@ export class WebsocketService {
 
   leaveRoom(data){
     console.log("leave room emit==",data);
-    
+
     this.socket.emit("leaveRoom",data);
   }
 
