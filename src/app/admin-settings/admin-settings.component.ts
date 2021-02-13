@@ -193,6 +193,10 @@ export class AdminSettingsComponent implements OnInit {
             inactivity: res.success[0].inactivity
          }) */
         }
+      }else{
+        if(res.code == '403'){
+          this.login.logout()
+        }
       }
     })
   }
@@ -695,6 +699,7 @@ export class AdminSettingsComponent implements OnInit {
 }
 
 username:any=[]
+
   userSuggestion(event){
     //console.log("data=",event)
     var data={
@@ -705,11 +710,12 @@ username:any=[]
     }
     console.log("data==",data)
     this.api.getAssignedDevices(data).then((res:any)=>{
-    //  console.log("res==******",res)
+     console.log("getAssignedDevices res==******",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i])
+        this.refreshSetting()
        }
       }
     })
