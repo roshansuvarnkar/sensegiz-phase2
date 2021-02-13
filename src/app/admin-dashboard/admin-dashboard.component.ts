@@ -132,47 +132,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   openDialog(data): void {
-<<<<<<< HEAD
-	  const dialogConfig = new MatDialogConfig();
-	  dialogConfig.disableClose = true;
-	  dialogConfig.autoFocus = true;
-	  dialogConfig.height = '70vh';
-	  dialogConfig.width = '70vw';
-	  dialogConfig.data = {
-	    type:"addBle",
-	    data:data
-	  }
-	  const dialogRef = this.dialog.open(AdminAddBleIdComponent, dialogConfig);
-
-	  dialogRef.afterClosed().subscribe(result => {
-	  });
- }
-
- openSetting(data){
-  this.router.navigate(['/admin-settings'], { queryParams: { record: JSON.stringify(data) } });
- }
-
-
- delete(a){
- 	// console.log("delete==",a)
- 	var data={
- 		userId : a.userId,
- 		isDeleted : a.isDeleted == 'Y' ? 'N' : 'Y'
- 	}
-
-
- 	this.api.deleteAdminUser(data).then((res:any)=>{
-    	// console.log("data===",res)
-		if(res.status){
-			var msg = "User updated successfully"
-			this.general.openSnackBar(msg,'')
-      this.refreshAdminData()
-
-		}
-    })
-
- }
-=======
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -186,7 +145,6 @@ export class AdminDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {});
   }
->>>>>>> 19529941a38a65f7d41793b1310c7e6f43447e64
 
   openSetting(data) {
     this.router.navigate(['/admin-settings'], {
