@@ -79,7 +79,9 @@ export class LoginComponent implements OnInit {
                 });
               }
             } else {
+
               this.loginInvalid = true;
+              localStorage.clear()
             }
           })
           .catch((err) => {
