@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
   buzzerTimeForm:FormGroup
   buzzerConfigForm:FormGroup
   maxDistanceForm:FormGroup
-  //multishiftingselect:FormGroup
+  multishiftingselect:FormGroup
   loginData:any
   setting:any
   duration:any
@@ -55,7 +55,7 @@ export class SettingsComponent implements OnInit {
   multipleshift:boolean=false
   grouped:boolean=false
   enableDisanle:boolean=true
-  //selectfind:boolean=false
+  selectfind:boolean=false
   twoStepAuthStatus:any=[]
   inactivityStatusValue:any=[]
   coinData:any=[]
@@ -848,7 +848,7 @@ export class SettingsComponent implements OnInit {
 
   // }
 
- /*  onMultiShiftselect(values){
+  onMultiShiftselect(values){
       if(this.multishiftingselect.valid){
       try{
           var data={
@@ -874,7 +874,6 @@ export class SettingsComponent implements OnInit {
 
       }
       }
-
 
 
   }
@@ -909,7 +908,7 @@ username:any=[]
       this.selectfind=event.value='1' || '2'?false:true;
       console.log(this.selectfind)
 
-  } */
+  }
   measurement(event){
     console.log("event==",event)
     this.measureStatus=event.value=='meter'?false:true
@@ -987,6 +986,21 @@ username:any=[]
     dialogConfig.width = '70vw';
     dialogConfig.data = {
       type:"shifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  
+  openDialogmultishifting(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"multishifts"
     }
     const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
 

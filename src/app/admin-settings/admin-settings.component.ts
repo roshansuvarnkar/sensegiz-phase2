@@ -29,6 +29,7 @@ export class AdminSettingsComponent implements OnInit {
   min:any=[]
   sec:any=[]
   shifts:any=[]
+  multishift:any=[]
   inactivityStatusValue:any=[]
   dataGet:any
   statusCustomise:boolean=false
@@ -115,6 +116,10 @@ export class AdminSettingsComponent implements OnInit {
        console.log("shift data ======",res);
       if(res.status){
         this.shifts=res.success
+        this.multishift=res.success
+        this.multishiftingselect.patchValue({
+          shiftName:this.multishift[0]
+        })
       }
     })
   }
@@ -678,6 +683,7 @@ export class AdminSettingsComponent implements OnInit {
         status: values.status,
         type :values.type,
         }
+        console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
             console.log("multishift data sent===",res)
             if(res.status){
@@ -780,6 +786,20 @@ selectfinds(event){
     dialogConfig.width = '70vw';
     dialogConfig.data = {
       type:"shifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  openDialog1(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"multishifts"
     }
     const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
 

@@ -337,7 +337,7 @@
             <mat-form-field>
 
                 <mat-label>Minutes</mat-label>
-                <mat-select  formControlName="minutes" [disabled]="minStatus" (selectionChange)="getMin($event)" [required]="requiredStatus1">
+                <mat-select  formControlName="minutes"  (selectionChange)="getMin($event)" [required]="requiredStatus1">
                   <mat-option *ngFor="let a of min"  [value]="a">{{a}}</mat-option>
                 </mat-select>
 
@@ -350,7 +350,7 @@
             <mat-form-field  >
 
               <mat-label>Seconds</mat-label>
-              <mat-select  formControlName="seconds"  [disabled]="secStatus" (selectionChange)="getSec($event)" [required]="requiredStatus2" >
+              <mat-select  formControlName="seconds"  (selectionChange)="getSec($event)" [required]="requiredStatus2" >
                 <mat-option *ngFor="let b of sec" [value]="b">{{b}}</mat-option>
               </mat-select>
 
@@ -437,7 +437,7 @@
             <mat-form-field *ngIf="(multishiftingselect.get('status').value == 1)">
               <mat-label>Shift Name</mat-label>
               <mat-select formControlName="shiftName" name="shiftName">
-                <mat-option *ngFor="let b of shifts" [value]="b">
+                <mat-option *ngFor="let b of multishift" [value]="b">
                   {{b.shiftName}}
                 </mat-option>
                <!--  <mat-option value="General">General</mat-option>
@@ -463,7 +463,7 @@
               <br><br> <br> <br>
             <div class="btn-set-grp">
               <button mat-raised-button [disabled]="!multishiftingselect.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
-              <button type="button" mat-raised-button (click)="openDialog()"  color="primary">Info</button>
+              <button type="button" mat-raised-button (click)="openDialog1()"  color="primary">Info</button>
             </div>
 
             </form>

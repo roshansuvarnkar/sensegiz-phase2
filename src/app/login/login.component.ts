@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
                 });
               }
             } else {
+              localStorage.clear()
               this.loginInvalid = true;
             }
           })
