@@ -29,6 +29,7 @@ export class AdminSettingsComponent implements OnInit {
   min:any=[]
   sec:any=[]
   shifts:any=[]
+  allshiftDIsable:any;
   inactivityStatusValue:any=[]
   dataGet:any
   statusCustomise:boolean=false
@@ -115,6 +116,10 @@ export class AdminSettingsComponent implements OnInit {
        console.log("shift data ======",res);
       if(res.status){
         this.shifts=res.success
+       this.multishiftingselect.patchValue({
+         shiftName:this.shifts[0].shiftName
+       })
+
       }
     })
   }
@@ -123,7 +128,6 @@ export class AdminSettingsComponent implements OnInit {
       userId:this.dataGet.userId,
       tblName:'deviceSetting'
     }
-    console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
       console.log("setting data page ======",res);
 
@@ -326,6 +330,7 @@ export class AdminSettingsComponent implements OnInit {
         })
       }
     }
+
     if(event.value==1){
       this.distanceForm.patchValue({
         wearable:"1"
@@ -679,6 +684,7 @@ export class AdminSettingsComponent implements OnInit {
         type :values.type,
         }
           this.api.setDeviceMultiShift(data).then((res:any)=>{
+            console.log("multishift data sent===",data)
             console.log("multishift data sent===",res)
             if(res.status){
               this.refreshSetting()
