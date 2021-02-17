@@ -687,8 +687,8 @@ export class AdminSettingsComponent implements OnInit {
           this.api.setDeviceMultiShift(data).then((res:any)=>{
             console.log("multishift data sent===",res)
             if(res.status){
-              this.refreshShift()
               this.multishiftingselect.reset()
+              this.refreshShift()
               var msg='Multishift Select updated Successfully'
               this.general.openSnackBar(msg,'')
             }
