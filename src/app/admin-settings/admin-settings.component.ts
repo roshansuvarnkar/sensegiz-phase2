@@ -130,7 +130,8 @@ export class AdminSettingsComponent implements OnInit {
     }
     console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-     // console.log("setting data page ======",res);
+      console.log("setting data page ======",res);
+
       if(res.status){
         this.setting = res.success[0]
         this.bufferForm.patchValue({
@@ -687,6 +688,7 @@ export class AdminSettingsComponent implements OnInit {
             console.log("multishift data sent===",res)
             if(res.status){
               this.refreshSetting()
+              this.refreshShift()
               this.multishiftingselect.reset()
               var msg='Multishift Select updated Successfully'
               this.general.openSnackBar(msg,'')
@@ -723,6 +725,7 @@ username:any=[]
        }
       }
     })
+
   }
 
 selectfinds(event){
