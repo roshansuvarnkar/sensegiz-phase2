@@ -130,8 +130,7 @@ export class AdminSettingsComponent implements OnInit {
     }
     console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-      console.log("setting data page ======",res);
-
+     // console.log("setting data page ======",res);
       if(res.status){
         this.setting = res.success[0]
         this.bufferForm.patchValue({
@@ -721,7 +720,6 @@ username:any=[]
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i])
-        this.refreshSetting()
        }
       }
     })
