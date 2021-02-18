@@ -848,60 +848,6 @@ export class SettingsComponent implements OnInit {
 
   // }
 
-  onMultiShiftselect(values){
-      if(this.multishiftingselect.valid){
-      try{
-          var data={
-            userId : this.loginData.userId,
-            shiftId : values.shiftName.id,
-            shiftName : values.shiftName.shiftName,
-            deviceId : values.deviceId,
-            status: values.status,
-            type :values.type,
-            }
-            console.log(data)
-            this.api.setDeviceMultiShift(data).then((res:any)=>{
-              // console.log("Scanning Interval===",res)
-              if(res.status){
-                this.refreshSetting()
-                var msg='Multishift Select updated Successfully'
-                this.general.openSnackBar(msg,'')
-              }
-            }).catch(err=>{
-              console.log("err===",err);
-            })
-      }catch (err) {
-
-      }
-      }
-
-
-  }
-username:any=[]
-  userSuggestion(event){
-  //  console.log("data=",event)
-    var data={
-      value:event.target.value,
-      userId:this.loginData.userId,
-      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-      tblName:'deviceData'
-    }
-    console.log("data==",data)
-    this.api.getAssignedDevices(data).then((res:any)=>{
-    //  console.log("res==******",res)
-      if(res.status){
-        this.username=[]
-       for(let i=0;i<res.success.length;i++){
-        this.username.push(res.success[i])
-       }
-       console.log("username==",this.username)
-
-      }
-    })
-
-  }
-
-
 
 
   selectfinds(event){
@@ -992,21 +938,8 @@ username:any=[]
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-  
-  openDialogmultishifting(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = '60vh';
-    dialogConfig.width = '70vw';
-    dialogConfig.data = {
-      type:"multishifts"
-    }
-    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
+ 
 
   openOvercrowdDialog(): void {
     const dialogConfig = new MatDialogConfig();
