@@ -164,6 +164,7 @@ export class AdminDashboardComponent implements OnInit {
       if (res.status) {
         var msg = 'User updated successfully';
         this.socket.leaveRoom(data);
+        console.log(this.socket.leaveRoom(data))
         this.general.openSnackBar(msg, '');
         this.refreshAdminData();
       }

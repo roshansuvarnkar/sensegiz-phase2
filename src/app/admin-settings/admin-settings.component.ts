@@ -45,6 +45,8 @@ export class AdminSettingsComponent implements OnInit {
   multipleShift:boolean=false
   timeExceed:boolean=false
   selectfind:boolean=false
+  custom:boolean=false
+  standered:boolean=true
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -63,7 +65,7 @@ export class AdminSettingsComponent implements OnInit {
 
     });
     this.scanningForm=this.fb.group({
-      seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
+      seconds:['',[Validators.required,Validators.max(75), Validators.min(1)]],
     })
     this.scanCountForm=this.fb.group({
       count:['',[Validators.required,Validators.max(253), Validators.min(0)]],
@@ -670,8 +672,6 @@ export class AdminSettingsComponent implements OnInit {
 
   }
 
-
-
   onMultiShiftselect(values){
     if(this.multishiftingselect.valid){
     try{
@@ -805,6 +805,16 @@ selectfinds(event){
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  scannIntravaleLimit(valees){
+    if(valees==1){
+      this.custom=false
+      this.standered=true
+    }else{
+      this.custom=true
+      this.standered=false
+    }
   }
 
 }

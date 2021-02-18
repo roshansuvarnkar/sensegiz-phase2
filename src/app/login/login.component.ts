@@ -56,10 +56,7 @@ export class LoginComponent implements OnInit {
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
               if (
-                this.login.login(JSON.stringify(res.success)) &&
-                res.success.twoStepAuth != 'Y' &&
-                !passwordExpiry
-              ) {
+                this.login.login(JSON.stringify(res.success)) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
                 this.login.authCheck.next(true);
                 this.socket.joinRoom();
                 this.router.navigate(['/home']);
