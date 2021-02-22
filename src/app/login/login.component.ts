@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit {
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
              this.encryption=CryptoJS.AES.encrypt(JSON.stringify(res.success),this.ENCRYPT_KEY).toString()
-           /*  this.decryption=CryptoJS.AES.decrypt(this.encryption,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+          /*   this.decryption=CryptoJS.AES.decrypt(this.encryption,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
                var decry=JSON.parse(this.decryption)
-                console.log(decry)*/
+                console.log(decry) */
               if (this.login.login(JSON.stringify(this.encryption)) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
                 this.login.authCheck.next(true);
                 this.socket.joinRoom();
