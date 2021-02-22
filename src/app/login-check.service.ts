@@ -13,7 +13,9 @@ export class LoginCheckService {
   public pageCheck = new Subject<any>()
   public authCheck = new Subject<any>()
 
+  
   ENCRYPT_KEY:string=environment.ENCRYPTKEY
+
   decryption:string;
   constructor(private router:Router,private bnIdle: BnNgIdleService) {
       // this.loginStatus()
@@ -30,11 +32,11 @@ export class LoginCheckService {
 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
-    /*
-    var getdata=localStorage.getItem('sensegizlogin')
-      var parsedata=JSON.parse(getdata)
-       var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-     */
+
+  //  var getdata=localStorage.getItem('sensegizlogin')
+     // var parsedata=JSON.parse(getdata)
+       //var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+
     var passwordExpiry=JSON.parse(status)
     if(status  && status!='undefined' || passwordExpiry.passwordExpiry==false){
       this.loginCheckStatus.next(true)
@@ -49,12 +51,12 @@ export class LoginCheckService {
 
   loginData(){
     var status = JSON.parse(localStorage.getItem('sensegizlogin'))
-     /*
-    var getdata=localStorage.getItem('sensegizlogin')
-      var parsedata=JSON.parse(getdata)
-       this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-       var status=  var parsedata=JSON.parse(this.decryption)
-     */
+
+    //var getdata=localStorage.getItem('sensegizlogin')
+     // var parsedata=JSON.parse(getdata)
+      // this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     //  var status=  var parsedata=JSON.parse(this.decryption)
+
     console.log("statsu======",status)
     if(status!=null){
       console.log("enter")
@@ -68,12 +70,12 @@ export class LoginCheckService {
 
   authData(){
     var status = JSON.parse(localStorage.getItem('sensegizlogin'))
- /*
-    var getdata=localStorage.getItem('sensegizlogin')
-      var parsedata=JSON.parse(getdata)
-       this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-       var status=  var parsedata=JSON.parse(this.decryption)
-     */
+
+   // var getdata=localStorage.getItem('sensegizlogin')
+    //  var parsedata=JSON.parse(getdata)
+    //   this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     // var status=  var parsedata=JSON.parse(this.decryption)
+
 
 
 
@@ -153,11 +155,11 @@ export class LoginCheckService {
 
   Getlogin(){
     var status = localStorage.getItem('sensegizlogin')
-     /*
-    var getdata=localStorage.getItem('sensegizlogin')
-      var parsedata=JSON.parse(getdata)
-      var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-     */
+
+    //var getdata=localStorage.getItem('sensegizlogin')
+     // var parsedata=JSON.parse(getdata)
+     // var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+
     if(status  && status!='undefined'){
       return status
     }
