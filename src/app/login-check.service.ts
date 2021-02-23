@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs'
 import { Router , ActivatedRoute } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { environment } from '../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,7 @@ export class LoginCheckService {
   public authCheck = new Subject<any>()
 
 
-  ENCRYPT_KEY:string=environment.ENCRYPTKEY
+
 
   decryption:string;
   constructor(private router:Router,private bnIdle: BnNgIdleService) {
@@ -30,11 +29,13 @@ export class LoginCheckService {
        });
    }
 
+
+
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
   //  var getdata=localStorage.getItem('sensegizlogin')
-     // var parsedata=JSON.parse(getdata)
-       //var status=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  // var parsedata=JSON.parse(getdata)
+  //var status=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
 
     var passwordExpiry=JSON.parse(status)
     if(status  && status!='undefined' || passwordExpiry.passwordExpiry==false){

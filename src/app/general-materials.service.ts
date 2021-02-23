@@ -6,6 +6,9 @@ import{Observable, BehaviorSubject} from 'rxjs'
 import { map } from  'rxjs/operators';
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
+import * as CryptoJS from 'crypto-js'
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +20,10 @@ export class GeneralMaterialsService {
   date2:any
   time:any
 
+encryption:string;
+decryption:string;
+
+  ENCRYPT_KEY:string=environment.ENCRYPTKEY
   public loadingFreez : BehaviorSubject<any> = new BehaviorSubject<any>([])
   constructor(private _snackBar: MatSnackBar,private http: HttpClient) {}
 
@@ -205,5 +212,13 @@ getZone(date){
   }
 
   return timeZone
+}
+
+decrypt(data){
+
+}
+encrypt(data){
+   this.encryption=CryptoJS.AES.encrypt(JSON.stringify(data),this.ENCRYPT_KEY).toString()
+    console.log("encryption$$$$$",this.encryption)
 }
 }
