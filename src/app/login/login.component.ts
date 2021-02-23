@@ -56,36 +56,21 @@ export class LoginComponent implements OnInit {
           .send(data)
           .then((res: any) => {
             console.log('logged in==', res);
-            /*    this.decryption = CryptoJS.AES.decrypt(res.data,'KeYiSGDQdtgUbfu7LpHpGY8G4VzCczMG').toString(CryptoJS.enc.Utf8);
-            this.decryptedData = JSON.parse(this.decryption)
-            console.log("data====",this.decryptedData) */
 
             localStorage.setItem('token', JSON.stringify(res.token));
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
             console.log(passwordExpiry);
             if (res.status) {
-              // this.newPassword=false
+            
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
 
-              this.encryption = CryptoJS.AES.encrypt(
-                JSON.stringify(res.success),
-                this.ENCRYPT_KEY
-              ).toString();
-              /*   this.decryption=CryptoJS.AES.decrypt(this.encryption,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-               var decry=JSON.parse(this.decryption)
-                console.log(decry) */
-
-              if (
-                this.login.login(JSON.stringify(this.encryption)) &&
-                res.success.twoStepAuth != 'Y' &&
-                !passwordExpiry
-              ) {
+                if (this.login.login(res.success) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
                 this.login.authCheck.next(true);
                 this.socket.joinRoom();
                 this.router.navigate(['/home']);
               } else if (
-                this.login.login(JSON.stringify(this.encryption)) &&
+                this.login.login(res.success) &&
                 passwordExpiry == true
               ) {
                 console.log('expired');

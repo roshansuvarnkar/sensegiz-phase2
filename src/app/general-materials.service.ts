@@ -12,7 +12,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
-import * as CryptoJS from 'crypto-js'
+import * as CryptoJS from 'crypto-js';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,6 +25,10 @@ export class GeneralMaterialsService {
   date2: any;
   time: any;
 
+  encryption: string;
+  decryption: string;
+
+  ENCRYPT_KEY: string = environment.ENCRYPTKEY;
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
@@ -62,7 +67,7 @@ export class GeneralMaterialsService {
   }
 
   getObject(key) {
-    return JSON.parse(localStorage.getItem(key));
+    return this.decrypt(localStorage.getItem(key));
   }
 
   updateItem(key, property, value) {
@@ -209,19 +214,24 @@ export class GeneralMaterialsService {
     return timeZone;
   }
 
-  encrypt(data: any) {
-    let encryptInfo = CryptoJS.AES.encrypt(JSON.stringify(data), this.getToken()).toString();
-    return encryptInfo
+  decrypt(data) {
+    if(data){
+      var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
+      return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
+    }
+    else{
+      return null;
+    }
   }
 
-  decrypt(data: any) {
-    let deData = CryptoJS.AES.decrypt(data, this.getToken());
-    let decryptedInfo = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
-    return decryptedInfo
+  encrypt(data) {
+    return CryptoJS.AES.encrypt(
+      JSON.stringify(data),
+      this.ENCRYPT_KEY
+    ).toString();
   }
 
-  getToken(){
-    return JSON.parse(localStorage.getItem('token'))
+  getToken() {
+    return JSON.parse(localStorage.getItem('token'));
   }
-
 }

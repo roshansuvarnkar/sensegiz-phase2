@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs'
 import { Router , ActivatedRoute } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { environment } from '../environments/environment'
+import { GeneralMaterialsService } from './general-materials.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,11 @@ export class LoginCheckService {
   public pageCheck = new Subject<any>()
   public authCheck = new Subject<any>()
 
-  
-  ENCRYPT_KEY:string=environment.ENCRYPTKEY
+
+
 
   decryption:string;
-  constructor(private router:Router,private bnIdle: BnNgIdleService) {
+  constructor(private router:Router,private bnIdle: BnNgIdleService,private general : GeneralMaterialsService) {
       // this.loginStatus()
       // this.authData()
       console.log("init login")
@@ -30,12 +30,13 @@ export class LoginCheckService {
        });
    }
 
-  loginStatus(){
-    var status = localStorage.getItem('sensegizlogin')
 
+
+  loginStatus(){
+    var status = this.general.decrypt(localStorage.getItem('sensegizlogin'))
   //  var getdata=localStorage.getItem('sensegizlogin')
-     // var parsedata=JSON.parse(getdata)
-       //var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  // var parsedata=JSON.parse(getdata)
+  //var status=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
 
     var passwordExpiry=JSON.parse(status)
     if(status  && status!='undefined' || passwordExpiry.passwordExpiry==false){
@@ -50,11 +51,10 @@ export class LoginCheckService {
 
 
   loginData(){
-    var status = JSON.parse(localStorage.getItem('sensegizlogin'))
-
+    var status = this.general.decrypt(localStorage.getItem('sensegizlogin'))
     //var getdata=localStorage.getItem('sensegizlogin')
      // var parsedata=JSON.parse(getdata)
-      // this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+      // this.decryption=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
      //  var status=  var parsedata=JSON.parse(this.decryption)
 
     console.log("statsu======",status)
@@ -69,12 +69,11 @@ export class LoginCheckService {
   }
 
   authData(){
-    var status = JSON.parse(localStorage.getItem('sensegizlogin'))
-
+    var status = this.general.decrypt(localStorage.getItem('sensegizlogin'))
    // var getdata=localStorage.getItem('sensegizlogin')
     //  var parsedata=JSON.parse(getdata)
-    //   this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-     // var status=  var parsedata=JSON.parse(this.decryption)
+    //   this.decryption=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     // var status=JSON.parse(this.decryption)
 
 
 
@@ -139,7 +138,7 @@ export class LoginCheckService {
 
   }
   loginStatusMenu(){
-    var status = localStorage.getItem('sensegizlogin')
+    var status = this.general.decrypt(localStorage.getItem('sensegizlogin'))
     var route = window.location.pathname
     // console.log("route==",route)
     if(route !='/login' && route!='/admin-login' ){
@@ -154,11 +153,10 @@ export class LoginCheckService {
 
 
   Getlogin(){
-    var status = localStorage.getItem('sensegizlogin')
-
+    var status = JSON.stringify(this.general.decrypt(localStorage.getItem('sensegizlogin')))
     //var getdata=localStorage.getItem('sensegizlogin')
      // var parsedata=JSON.parse(getdata)
-     // var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     // var status=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
 
     if(status  && status!='undefined'){
       return status
@@ -170,7 +168,10 @@ export class LoginCheckService {
 
 
   login(data){
-    localStorage.setItem('sensegizlogin',data)
+    let storage = this.general.encrypt(data);
+    console.log("storage===",storage);
+    
+    localStorage.setItem('sensegizlogin',storage);
     return true
   }
 
