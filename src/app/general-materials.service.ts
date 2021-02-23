@@ -215,13 +215,6 @@ getZone(date){
 }
 
 
-decrypt(data){
-    this.decryption = CryptoJS.AES.decrypt(data,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-    console.log('decrpt',this.decryption)
-}
-encrypt(data){
-   this.encryption=CryptoJS.AES.encrypt(JSON.stringify(data),this.ENCRYPT_KEY).toString()
-    console.log("encrypt",this.encryption)
-}
+
 
 }

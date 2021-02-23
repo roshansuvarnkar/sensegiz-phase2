@@ -53,16 +53,12 @@ export class LoginComponent implements OnInit {
         this.api.send(data).then((res: any) => {
             console.log('logged in==', res);
 
-            localStorage.setItem("token",JSON.stringify(res.token))
+             localStorage.setItem("token",JSON.stringify(res.token))
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
             console.log(passwordExpiry);
             if (res.status) {
-            
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
-
-              this.encryption=CryptoJS.AES.encrypt(JSON.stringify(res.success),this.ENCRYPT_KEY).toString()
-
                 if (this.login.login(JSON.stringify(res.success)) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
                 this.login.authCheck.next(true);
                 this.socket.joinRoom();
