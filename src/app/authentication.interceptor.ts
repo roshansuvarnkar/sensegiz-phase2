@@ -26,7 +26,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   constructor(
     private login:LoginCheckService,
     private router:Router,
-    private general:GeneralMaterialsService,
+    private general:GeneralMaterialsService
   ) {
 
   }
@@ -38,7 +38,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       (take(1),
       catchError((error: any) => {
-        // console.log("erooorr=", error)
         if (error.status === 403 || error.status === 401) {
             this.login.logout()
         }
@@ -87,6 +86,7 @@ private  addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     setHeaders: { Authorization: `${token}`}
 })
 if (request instanceof HttpRequest) {
+
   // console.log("http request==", request);
   if(this.loginData ){
     console.log("in interceptor===",this.loginData)
@@ -97,6 +97,14 @@ if (request instanceof HttpRequest) {
       this.login.authCheck.next(false)
       console.log(this.loginData)
     }
+    let authHeaders = request.headers.get('authorization');
+   if (authHeaders) {
+    let body = request.body;
+    if (body) {
+      // request.body = {}
+      request.body.data = this.general.encrypt(body.data);
+    }
+  }
     else{
       return request
     }
@@ -105,16 +113,6 @@ if (request instanceof HttpRequest) {
     return request;
   }
 }
-  let authHeaders = request.headers.get('authorization');
-  if (authHeaders) {
-    let body = request.body;
-    if (body) {
-      // request.body = {}
-      request.body.data = this.general.encrypt(body.data);
-    }
-  } else {
-    return request;
-  }
 }
 return request;
 }
