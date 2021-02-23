@@ -13,7 +13,7 @@ export class LoginCheckService {
   public pageCheck = new Subject<any>()
   public authCheck = new Subject<any>()
 
-  
+
   ENCRYPT_KEY:string=environment.ENCRYPTKEY
 
   decryption:string;
@@ -32,10 +32,9 @@ export class LoginCheckService {
 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
-
   //  var getdata=localStorage.getItem('sensegizlogin')
      // var parsedata=JSON.parse(getdata)
-       //var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+       //var status=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
 
     var passwordExpiry=JSON.parse(status)
     if(status  && status!='undefined' || passwordExpiry.passwordExpiry==false){
@@ -51,10 +50,9 @@ export class LoginCheckService {
 
   loginData(){
     var status = JSON.parse(localStorage.getItem('sensegizlogin'))
-
     //var getdata=localStorage.getItem('sensegizlogin')
      // var parsedata=JSON.parse(getdata)
-      // this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+      // this.decryption=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
      //  var status=  var parsedata=JSON.parse(this.decryption)
 
     console.log("statsu======",status)
@@ -70,11 +68,10 @@ export class LoginCheckService {
 
   authData(){
     var status = JSON.parse(localStorage.getItem('sensegizlogin'))
-
    // var getdata=localStorage.getItem('sensegizlogin')
     //  var parsedata=JSON.parse(getdata)
-    //   this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-     // var status=  var parsedata=JSON.parse(this.decryption)
+    //   this.decryption=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     // var status=JSON.parse(this.decryption)
 
 
 
@@ -155,10 +152,9 @@ export class LoginCheckService {
 
   Getlogin(){
     var status = localStorage.getItem('sensegizlogin')
-
     //var getdata=localStorage.getItem('sensegizlogin')
      // var parsedata=JSON.parse(getdata)
-     // var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     // var status=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
 
     if(status  && status!='undefined'){
       return status

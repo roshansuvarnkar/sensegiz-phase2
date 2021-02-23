@@ -69,12 +69,12 @@ export class LoginComponent implements OnInit {
                var decry=JSON.parse(this.decryption)
                 console.log(decry) */
 
-                if (this.login.login(JSON.stringify(this.encryption)) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
+                if (this.login.login(JSON.stringify(res.success)) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
                 this.login.authCheck.next(true);
                 this.socket.joinRoom();
                 this.router.navigate(['/home']);
               } else if (
-                this.login.login(JSON.stringify(this.encryption)) &&
+                this.login.login(JSON.stringify(res.success)) &&
                 passwordExpiry == true
               ) {
                 console.log('expired');
