@@ -55,7 +55,6 @@ export class ManageGatewaysComponent implements OnInit {
   }
 
 
-
 refreshGateway(){
   var data={
       userId:this.loginData.userId,

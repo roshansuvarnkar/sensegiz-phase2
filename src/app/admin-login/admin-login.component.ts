@@ -50,9 +50,12 @@ export class AdminLoginComponent implements OnInit {
               this.login.authCheck.next(true)
               this.router.navigate(['/admin-dashboard'])
             }
+          }else{
+            localStorage.clear()
           }
         })
       } catch (err) {
+
         this.loginInvalid = true;
       }
     }

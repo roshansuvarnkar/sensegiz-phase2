@@ -796,36 +796,11 @@ getUpdate(event) {
 }
 
 
-
-// getPages() {
-
-//   var tempLen=this.currentPageLength
-//   // console.log("paginator event length",this.currentPageLength);
-//   this.loadData(tempLen,0,1)
-//   var msg = 'Downloading'
-//   this.general.openSnackBar(msg,'')
-// //  setTimeout(()=>{
-// //     this.downloadPDF()
-// //   },5000);
-
-//   setTimeout(()=>{
-
-//     this.openExcel()
-
-//   },6000);
-
-//   setTimeout(()=>{
-//     this.loadData(10,0,0)
-//   },8000)
-//  clearTimeout(8*1000)
-// }
-
 getPages(){
   var data={}
   var fileName=''
   var date=new Date()
-
-
+  
   if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
       if(this.type=='basedOnDate'){
         data={

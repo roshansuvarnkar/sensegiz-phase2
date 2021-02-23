@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Subject } from 'rxjs'
 import { Router , ActivatedRoute } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-
+import { environment } from '../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,10 @@ export class LoginCheckService {
   public pageCheck = new Subject<any>()
   public authCheck = new Subject<any>()
 
+  
+  ENCRYPT_KEY:string=environment.ENCRYPTKEY
 
+  decryption:string;
   constructor(private router:Router,private bnIdle: BnNgIdleService) {
       // this.loginStatus()
       // this.authData()
@@ -29,6 +32,11 @@ export class LoginCheckService {
 
   loginStatus(){
     var status = localStorage.getItem('sensegizlogin')
+
+  //  var getdata=localStorage.getItem('sensegizlogin')
+     // var parsedata=JSON.parse(getdata)
+       //var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+
     var passwordExpiry=JSON.parse(status)
     if(status  && status!='undefined' || passwordExpiry.passwordExpiry==false){
       this.loginCheckStatus.next(true)
@@ -43,6 +51,12 @@ export class LoginCheckService {
 
   loginData(){
     var status = JSON.parse(localStorage.getItem('sensegizlogin'))
+
+    //var getdata=localStorage.getItem('sensegizlogin')
+     // var parsedata=JSON.parse(getdata)
+      // this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     //  var status=  var parsedata=JSON.parse(this.decryption)
+
     console.log("statsu======",status)
     if(status!=null){
       console.log("enter")
@@ -56,6 +70,15 @@ export class LoginCheckService {
 
   authData(){
     var status = JSON.parse(localStorage.getItem('sensegizlogin'))
+
+   // var getdata=localStorage.getItem('sensegizlogin')
+    //  var parsedata=JSON.parse(getdata)
+    //   this.decryption=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+     // var status=  var parsedata=JSON.parse(this.decryption)
+
+
+
+
     // var auth=JSON.parse(status)==null?'N':JSON.parse(status)
     // console.log("inside auth==",JSON.parse(status))
     // if( auth.twoStepAuth=="N" || auth.twoStepAuth=="Y" ){
@@ -66,6 +89,8 @@ export class LoginCheckService {
     //   this.authCheck.next(false)
     //   return false
     // }
+
+
     console.log("status of authdata==",status)
 
     if(status != null){
@@ -130,6 +155,11 @@ export class LoginCheckService {
 
   Getlogin(){
     var status = localStorage.getItem('sensegizlogin')
+
+    //var getdata=localStorage.getItem('sensegizlogin')
+     // var parsedata=JSON.parse(getdata)
+     // var status=CryptoJS.AES.decrypt(res['result'],this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+
     if(status  && status!='undefined'){
       return status
     }

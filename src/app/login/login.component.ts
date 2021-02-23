@@ -5,6 +5,8 @@ import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import { WebsocketService } from '../websocket.service';
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,10 @@ export class LoginComponent implements OnInit {
   passwordIcon: string = 'visibility_off';
   newPassword: boolean = false;
   forgetPwd: any;
+  decryptedData: any;
+  ENCRYPT_KEY: string = environment.ENCRYPTKEY;
+  encryption: string;
+  decryption: string;
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +47,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit(data) {
     this.loginInvalid = false;
+    console.log("log data==",data);
+    
     if (this.Loginform.valid) {
       try {
         data.system = 'portal';
@@ -48,15 +56,28 @@ export class LoginComponent implements OnInit {
           .send(data)
           .then((res: any) => {
             console.log('logged in==', res);
-            localStorage.setItem("token",JSON.stringify(res.token))
+            /*    this.decryption = CryptoJS.AES.decrypt(res.data,'KeYiSGDQdtgUbfu7LpHpGY8G4VzCczMG').toString(CryptoJS.enc.Utf8);
+            this.decryptedData = JSON.parse(this.decryption)
+            console.log("data====",this.decryptedData) */
+
+            localStorage.setItem('token', JSON.stringify(res.token));
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
             console.log(passwordExpiry);
             if (res.status) {
               // this.newPassword=false
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
+
+              this.encryption = CryptoJS.AES.encrypt(
+                JSON.stringify(res.success),
+                this.ENCRYPT_KEY
+              ).toString();
+              /*   this.decryption=CryptoJS.AES.decrypt(this.encryption,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+               var decry=JSON.parse(this.decryption)
+                console.log(decry) */
+
               if (
-                this.login.login(JSON.stringify(res.success)) &&
+                this.login.login(JSON.stringify(this.encryption)) &&
                 res.success.twoStepAuth != 'Y' &&
                 !passwordExpiry
               ) {
@@ -64,7 +85,7 @@ export class LoginComponent implements OnInit {
                 this.socket.joinRoom();
                 this.router.navigate(['/home']);
               } else if (
-                this.login.login(JSON.stringify(res.success)) &&
+                this.login.login(JSON.stringify(this.encryption)) &&
                 passwordExpiry == true
               ) {
                 console.log('expired');
@@ -80,6 +101,7 @@ export class LoginComponent implements OnInit {
               }
             } else {
               this.loginInvalid = true;
+              localStorage.clear();
             }
           })
           .catch((err) => {

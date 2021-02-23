@@ -29,6 +29,7 @@ export class AdminSettingsComponent implements OnInit {
   min:any=[]
   sec:any=[]
   shifts:any=[]
+  multishift:any=[]
   inactivityStatusValue:any=[]
   dataGet:any
   statusCustomise:boolean=false
@@ -44,6 +45,8 @@ export class AdminSettingsComponent implements OnInit {
   multipleShift:boolean=false
   timeExceed:boolean=false
   selectfind:boolean=false
+  custom:boolean=false
+  standered:boolean=true
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -62,7 +65,7 @@ export class AdminSettingsComponent implements OnInit {
 
     });
     this.scanningForm=this.fb.group({
-      seconds:['',[Validators.required,Validators.max(60), Validators.min(1)]],
+      seconds:['',[Validators.required,Validators.max(75), Validators.min(1)]],
     })
     this.scanCountForm=this.fb.group({
       count:['',[Validators.required,Validators.max(253), Validators.min(0)]],
@@ -115,6 +118,10 @@ export class AdminSettingsComponent implements OnInit {
        console.log("shift data ======",res);
       if(res.status){
         this.shifts=res.success
+        this.multishift=res.success
+        this.multishiftingselect.patchValue({
+          shiftName:this.multishift[0]
+        })
       }
     })
   }
@@ -665,8 +672,6 @@ export class AdminSettingsComponent implements OnInit {
 
   }
 
-
-
   onMultiShiftselect(values){
     if(this.multishiftingselect.valid){
     try{
@@ -678,11 +683,12 @@ export class AdminSettingsComponent implements OnInit {
         status: values.status,
         type :values.type,
         }
+        console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
             console.log("multishift data sent===",res)
             if(res.status){
-              this.refreshSetting()
               this.multishiftingselect.reset()
+              this.refreshShift()
               var msg='Multishift Select updated Successfully'
               this.general.openSnackBar(msg,'')
             }
@@ -715,7 +721,6 @@ username:any=[]
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i])
-        this.refreshSetting()
        }
       }
     })
@@ -785,6 +790,31 @@ selectfinds(event){
 
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+  openDialog1(): void {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"multishifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  scannIntravaleLimit(valees){
+    if(valees==1){
+      this.custom=false
+      this.standered=true
+    }else{
+      this.custom=true
+      this.standered=false
+    }
   }
 
 }

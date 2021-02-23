@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginCheckService } from './login-check.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import * as CryptoJS from 'crypto-js';
 import {
   HttpRequest,
   HttpHandler,
@@ -14,6 +14,9 @@ import * as moment from 'moment';
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
   loginData: any;
+  encryption: string;
+  decryption: string;
+
   constructor(private login: LoginCheckService, private router: Router) {}
 
   intercept(
@@ -26,33 +29,28 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: { Authorization: `${token}` },
       });
-      if (this.loginData) {
-        this.loginData = JSON.parse(this.loginData);
-        console.log('in interceptor===', this.loginData);
-        console.log(
-          'moment ==',
-          moment(this.loginData.expiryDate).format('YYYY-MM-DD hh:mm:ss'),
-          'today date> ',
-          moment().format('YYYY-MM-DD hh:mm:ss')
-        );
-        if (
-          this.loginData.role == 'user' &&
-          moment(this.loginData.expiryDate).format('YYYY-MM-DD hh:mm:ss') <=
-            moment().format('YYYY-MM-DD hh:mm:ss')
-        ) {
-          localStorage.clear();
-          this.login.loginCheckStatus.next(false);
-          this.login.loginCred.next(false);
-          this.login.authCheck.next(false);
-          console.log(this.loginData);
-          return EMPTY;
-        } else {
-          return next.handle(request);
-        }
-      } else {
-        return next.handle(request);
-      }
     }
-    return next.handle(request);
+
+    if (this.loginData) {
+      /* this.decryption=CryptoJS.AES.decrypt(this.loginData,'sensegiz').toString(CryptoJS.enc.Utf8); */
+      this.loginData = JSON.parse(this.loginData);
+      console.log('in interceptor===', this.loginData);
+      /* this.encryption=CryptoJS.AES.encrypt(JSON.stringify(this.loginData),"sensegiz").toString()
+    console.log("encryption$$$$$",this.encryption)  */
+
+      if (
+        this.loginData.role == 'user' &&
+        moment(this.loginData.expiryDate).format('YYYY-MM-DD hh:mm:ss') <=
+          moment().format('YYYY-MM-DD hh:mm:ss')
+      ) {
+        localStorage.clear();
+        this.login.loginCheckStatus.next(false);
+        this.login.loginCred.next(false);
+        this.login.authCheck.next(false);
+        console.log(this.loginData);
+        return EMPTY;
+      }
+      return next.handle(request);
+    }
   }
 }

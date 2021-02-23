@@ -18,6 +18,7 @@ export class EditSettingShiftComponent implements OnInit {
 	overCrowdForm:FormGroup
 	type:any
 	shifts:any
+  multishift:any
 	coinData:any
 	loginData:any
 	gateway:any
@@ -40,7 +41,7 @@ export class EditSettingShiftComponent implements OnInit {
 		  items:this.fb.array([])
 		});
 
-		
+
   	}
 
 	ngOnInit(): void {
@@ -49,9 +50,9 @@ export class EditSettingShiftComponent implements OnInit {
 	  this.route.queryParams.subscribe(params => {
 		this.dataGet = JSON.parse(params.record) ;
 	  })
-	
+
 	  this.refreshShift()
-	 
+
 	//   this.refreshGateway()
 	}
 
@@ -65,20 +66,20 @@ export class EditSettingShiftComponent implements OnInit {
 	    console.log("shift  data ======",res);
 	    if(res.status){
 		  this.shifts=res.success
-		  
+
 	  	for(let i=0;i<res.success.length;i++){
 			var dateobj=new Date()
 			var year = dateobj.getFullYear();
 			var month = dateobj.getMonth() + 1
 			var day = dateobj.getDate()
 			var date = month + '/' + day + '/'  + year
-		  
+
 			var time1=date+" "+this.shifts[i].fromTime+':00 UTC'
 			var time2=date+" "+this.shifts[i].toTime+':00 UTC'
 			time1=new Date(time1).toString()
 			time2=new Date(time2).toString()
-			
-		
+
+
 			var h=new Date(time1).getHours()
 			var m=new Date(time1).getMinutes()
 			var h1=new Date(time2).getHours()
@@ -87,12 +88,12 @@ export class EditSettingShiftComponent implements OnInit {
 			var mm = m <= 9 && m >= 0 ? "0"+m : m;
 			var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
 			var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
-			
-	  
+
+
 		  this.shifts[i].fromTime=(hh+':'+mm)
 		  this.shifts[i].toTime=(hh1+':'+mm1)
 	  }
-		
+
 
   		    const control = <FormArray>this.shiftForm.controls.items;
 			control.controls = [];
@@ -124,8 +125,8 @@ export class EditSettingShiftComponent implements OnInit {
 
 		if(times1>times2){
 			console.log("yes")
-				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")		
-		
+				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")
+
 		}
 		console.log("false")
 		var times=moment(times2,"YYYY/MM/DD HH:mm:ss").diff(moment(times1,"YYYY/MM/DD HH:mm:ss"))
@@ -142,7 +143,7 @@ export class EditSettingShiftComponent implements OnInit {
 			var month = dateobj.getMonth() + 1
 			var day = dateobj.getDate()
 			var date = month + '/' + day + '/'  + year
-		
+
 			var time1=date+" "+a.fromTime
 			var time2=date+" "+a.toTime
 			time1=new Date(time1).toUTCString()
@@ -155,12 +156,12 @@ export class EditSettingShiftComponent implements OnInit {
 			var mm = m <= 9 && m >= 0 ? "0"+m : m;
 			var hh1 = h1 <= 9 && h1 >= 0 ? "0"+h1 : h1;
 			var mm1 = m1 <= 9 && m1 >= 0 ? "0"+m1 : m1;
-	
+
 			a.fromTime = hh + ':' + mm
-			a.toTime = hh1 + ':' + mm1  
+			a.toTime = hh1 + ':' + mm1
 			console.log("a===",a)
 
-		
+
 			this.api.editSettingShift(a).then((res:any)=>{
 			// console.log("shift edit==",res)
 			if(res.status){
