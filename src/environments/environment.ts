@@ -4,14 +4,14 @@
 
 export const environment = {
 // apiHost:'http://sd2-api.sensegiz.com',
- apiHost:'https://testdba.sensegiz.com:3000',
+// apiHost:'https://testdba.sensegiz.com:3000',
   // apiHost:'http://sd2-api.sensegiz.com:3000',
     // apiHost:'http://3.6.176.216:3000',
     // apiHost:'http://65.0.27.166:3000',
     //  apiHost:'http://3.6.7.251:3000',
   // apiHost:'http://65.0.60.192:3000',
 
-  //apiHost:'http://65.0.73.157:3000',
+  apiHost:'http://65.0.73.157:3000',
   socketHost:'http://35.154.8.192:3000',
   ENCRYPTKEY:"KeYiSGDQdtgUbfu7LpHpGY8G4VzCczMG",
   production: false
