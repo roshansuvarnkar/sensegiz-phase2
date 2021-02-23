@@ -5,6 +5,8 @@ import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import { WebsocketService } from '../websocket.service';
+import * as CryptoJS from 'crypto-js';
+
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,11 @@ export class LoginComponent implements OnInit {
   passwordIcon: string = 'visibility_off';
   newPassword: boolean = false;
   forgetPwd: any;
+  delication:string;
+
+
+  encryption:string;
+  decryption:string;
 
   constructor(
     private fb: FormBuilder,
@@ -38,12 +45,14 @@ export class LoginComponent implements OnInit {
     });
     localStorage.clear();
   }
-
+  encPassword:string
   onSubmit(data) {
     this.loginInvalid = false;
     if (this.Loginform.valid) {
       try {
         data.system = 'portal';
+        var delication=CryptoJS.AES.encrypt(JSON.stringify(data),"sensegiz").toString()
+        console.log("encrypoction$$$$$$$44",delication.toString)
         this.api
           .send(data)
           .then((res: any) => {
