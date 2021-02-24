@@ -173,7 +173,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
 
        this.api.getDeallocatedDevice(data).then((res:any)=>{
          if(res.status){
-         //  console.log("deallocate *****",res)
+           //console.log("deallocate *****",res)
            this.deallocate=res.success;
            this.dataSource = new MatTableDataSource(this.deallocate);
 

@@ -90,7 +90,7 @@ export class GeoFenceComponent implements OnInit {
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
     this.api.getGeofenceData(data).then((res:any)=>{
-    // console.log("Geo fence device get data ======",res);
+    //console.log("Geo fence device get data ======",res);
 
       if(res.status && res.success.length>=0){
         this.geofenceData=[]
