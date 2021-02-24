@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
             localStorage.setItem('token', JSON.stringify(res.token));
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
-            console.log(passwordExpiry);
+            //console.log(passwordExpiry);
             if (res.status) {
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
                 this.login.login(res.success) &&
                 passwordExpiry == true
               ) {
-                console.log('expired');
+                //console.log('expired');
                 this.newPassword = true;
               } else {
                 this.newPassword = false;
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
             }
           })
           .catch((err) => {
-            console.log('err======', err);
+           // console.log('err======', err);
           });
       } catch (err) {
         this.loginInvalid = true;

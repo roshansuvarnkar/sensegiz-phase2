@@ -73,7 +73,7 @@ export class EditOverCrowdComponent implements OnInit {
 		}
 
 		this.api.getData(data).then((res:any)=>{
-		 console.log("coin dataaa ======",res);
+		 //console.log("coin dataaa ======",res);
 		  if(res.status){
 			this.coinDatatemp=res.success
 			const control = <FormArray>this.overCrowdForm.controls.data;
@@ -91,7 +91,7 @@ export class EditOverCrowdComponent implements OnInit {
 				}
 			));
 		  }
-		  console.log("control==",this.coinDatatemp)
+		 // console.log("control==",this.coinDatatemp)
 		}
 	})
  }
@@ -110,7 +110,7 @@ export class EditOverCrowdComponent implements OnInit {
       if(res.status){
         this.groupCoinData = res.success;
         this.coinData = res.success;
-        console.log("this.coinData===",this.coinData)
+       // console.log("this.coinData===",this.coinData)
         var groupData=this.dataDateReduce(this.groupCoinData)
         // console.log("groupData===",groupData)
 
@@ -141,12 +141,12 @@ export class EditOverCrowdComponent implements OnInit {
                 data:this.setData(this.groupNotNull[i])
               })
             )
-            console.log("control.controls[i].get('coinName')===",control.controls[i].get('coinName'))
+          //  console.log("control.controls[i].get('coinName')===",control.controls[i].get('coinName'))
             control.controls[i].get('coinName').setValue(this.setCoinSelect(this.coinData,this.groupNotNull[i].name,control))
           }
 
         }
-        console.log("this.overCrowdGroupForm==",this.overCrowdGroupForm);
+       // console.log("this.overCrowdGroupForm==",this.overCrowdGroupForm);
 		    // console.log("this.overCrowdGroupForm11111==",this.overCrowdGroupForm);
 
         // for(var j=0 ; j<this.groupCoinData[i].data ; i++){
@@ -213,7 +213,7 @@ setData(x) {
 
 
 setCoinSelect(data,group,control){
-  console.log("control===",control)
+ // console.log("control===",control)
   let arr = [];
   data.forEach(x=>{
     if(group==x.groupName){
@@ -255,16 +255,16 @@ filterCoin(data){
   return a;
 }
 submit(data,i){
-  console.log("data======",data)
+ // console.log("data======",data)
   var value={
     userId:data.items[i].userId,
     groupName:data.items[i].name,
     groupMaxlimit:data.items[i].maxLimit,
     coinId:this.filterCoin(data.items[i])
   }
-  console.log("value======",value)
+ // console.log("value======",value)
   this.api.updateGroupName(value).then((res:any)=>{
-    console.log("group maxlimit response===",res)
+  //  console.log("group maxlimit response===",res)
     if(res.status){
       // this.refreshSetting()
       var msg='Group updated Successfully'
@@ -274,7 +274,7 @@ submit(data,i){
     }
 
   }).catch(err=>{
-    console.log("err===",err);
+    //console.log("err===",err);
   })
 }
 
@@ -302,9 +302,9 @@ submit(data,i){
     coinId:value.coinId,
 		tblName:'coinMaxLimitInfo'
     }
-    console.log("data delete===",data)
+   // console.log("data delete===",data)
 	  this.api.deleteOvercrowding(data).then((res:any)=>{
-		console.log("delete data ======",res);
+	//	console.log("delete data ======",res);
 		if(res.status){
 		  this.refreshCoins()
 		  var msg = 'Coin Deleted Successfully'
@@ -314,13 +314,13 @@ submit(data,i){
 
   }
   deleteGroupOverCrowd(value,i){
-    console.log("delete",value)
+  //  console.log("delete",value)
     var data={
       userId:this.loginData.userId,
       groupName:value.items[i].name,
       coinId:this.filterCoin(value.items[i])
     }
-    console.log("delete data ======",data);
+   // console.log("delete data ======",data);
 
     this.api.deleteGroupName(data).then((res:any)=>{
       if(res.status){

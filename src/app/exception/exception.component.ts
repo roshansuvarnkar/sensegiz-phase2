@@ -41,9 +41,9 @@ export class ExceptionComponent implements OnInit {
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
-      console.log("data exception==",data)
+    //  console.log("data exception==",data)
       this.api.getExceptionDataRowCount(data).then((res:any)=>{
-        console.log("length of exception report on date ======",res);
+      //  console.log("length of exception report on date ======",res);
         if(res.status){
           // console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
@@ -55,7 +55,7 @@ export class ExceptionComponent implements OnInit {
   }
   refreshException(limit=10,offset=0){
 
-    console.log("data exception==",data)
+    //console.log("data exception==",data)
       var data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -63,9 +63,9 @@ export class ExceptionComponent implements OnInit {
         offset:offset
       }
 
-    console.log("data===",data)
+   // console.log("data===",data)
       this.api.getExceptionData(data).then((res:any)=>{
-        console.log("Exception ======",res);
+       // console.log("Exception ======",res);
         if(res.status){
           this.exception=[]
           for(let i=0;i<res.success.length;i++){
@@ -99,7 +99,7 @@ getUpdate(event) {
   // console.log("paginator event length", this.currentPageLength);
   var limit = event.pageSize
   var offset = event.pageIndex*event.pageSize
-  console.log("limit==",limit,"offset==",offset)
+ // console.log("limit==",limit,"offset==",offset)
   this.refreshException(limit,offset)
 }
 

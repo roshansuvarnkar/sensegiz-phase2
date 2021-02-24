@@ -199,7 +199,7 @@ export class SettingsComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("coin data in setting ======",res);
+     // console.log("coin data in setting ======",res);
       if(res.status){
         this.coinData=res.success
         this.grouped=false
@@ -340,12 +340,12 @@ export class SettingsComponent implements OnInit {
   // }
 
   onSubmitTwoAuth(data){
-    console.log(" data===",data)
+   // console.log(" data===",data)
       var value={
         userId:this.loginData.userId,
         twoStepAuth:data==true?'Y':'N'
       }
-      console.log("value===",value)
+     // console.log("value===",value)
       this.api.twoStepAuth(value).then((res:any)=>{
 
         if(res.status){
@@ -363,7 +363,7 @@ export class SettingsComponent implements OnInit {
  }
 
  twoStepAuthchange(event){
-   console.log(event)
+ //  console.log(event)
    if(event.checked==true){
      this.twoStepAuthStatus={
        value:'Disable',
@@ -427,7 +427,7 @@ export class SettingsComponent implements OnInit {
 
 
   onSubmitDistanceForm(data) {
-   console.log("data=",data)
+   //console.log("data=",data)
 
      if (this.distanceForm.valid) {
        try {
@@ -455,9 +455,9 @@ export class SettingsComponent implements OnInit {
           }
         }
          data.userId = this.loginData.userId
-         console.log("distance ===",data)
+       //  console.log("distance ===",data)
          this.api.addDistance(data).then((res:any)=>{
-           console.log("distance insrted or updated",res)
+          // console.log("distance insrted or updated",res)
            if(res.status){
              this.refreshSetting()
              this.api.updateWearableType(data).then((res:any)=>{
@@ -498,7 +498,7 @@ export class SettingsComponent implements OnInit {
         //  console.log("threshold ===",data)
          data.userId = this.loginData.userId
          this.api.addTxPower(data).then((res:any)=>{
-           console.log("tx power updated",res)
+          // console.log("tx power updated",res)
            if(res.status){
              this.refreshSetting()
              var msg = 'Transmission power updated Successfully'
@@ -566,14 +566,14 @@ export class SettingsComponent implements OnInit {
     }
    }
    bufferval(event){
-     console.log(event.target.value)
+     //console.log(event.target.value)
 
       this.bufferValue=event.target.value>5?true:false
 
    }
 
    onSubmitoverCrowedForm(value){
-      console.log("value==",value)
+      //console.log("value==",value)
     if (this.overCrowedForm.valid) {
       try {
 
@@ -592,7 +592,7 @@ export class SettingsComponent implements OnInit {
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
-          console.log("err===",err);
+         /// console.log("err===",err);
         })
       } catch (err) {
       }
@@ -610,9 +610,9 @@ export class SettingsComponent implements OnInit {
           groupMaxlimit:value.maxLimit,
           groupName:value.groupName
         }
-        console.log("group over crowd==",data)
+        //console.log("group over crowd==",data)
         this.api.setMaxLimit(data).then((res:any)=>{
-          console.log("group maxlimit response===",res)
+         // console.log("group maxlimit response===",res)
           if(res.status){
             // this.refreshSetting()
             this.refreshCoins();
@@ -622,7 +622,7 @@ export class SettingsComponent implements OnInit {
           }
 
         }).catch(err=>{
-          console.log("err===",err);
+         // console.log("err===",err);
         })
       } catch (err) {
       }
@@ -710,7 +710,7 @@ export class SettingsComponent implements OnInit {
 
 
   option(data){
-    console.log("option===",data.target.value)
+    //console.log("option===",data.target.value)
     if(data.target.value == '' || data.target.value == 'undefined' || data.target.value == null){
       this.buzzerConfigForm.patchValue({
         durationSec:10
@@ -739,7 +739,7 @@ export class SettingsComponent implements OnInit {
           }
 
         }).catch(err=>{
-          console.log("err===",err);
+         // console.log("err===",err);
         })
       } catch (err) {
       }
@@ -759,7 +759,7 @@ export class SettingsComponent implements OnInit {
             this.general.openSnackBar(msg,'')
           }
         }).catch(err=>{
-          console.log("err===",err);
+          //console.log("err===",err);
         })
       } catch (err) {
       }
@@ -767,7 +767,7 @@ export class SettingsComponent implements OnInit {
 
   }
   onSubmitmaxDistanceForm(data){
-      console.log("data==",data)
+     // console.log("data==",data)
       if (this.maxDistanceForm.valid) {
         try {
           data.userId=this.loginData.userId
@@ -779,7 +779,7 @@ export class SettingsComponent implements OnInit {
               this.general.openSnackBar(msg,'')
             }
           }).catch(err=>{
-            console.log("err===",err);
+           // console.log("err===",err);
           })
         } catch (err) {
         }
@@ -911,7 +911,7 @@ username:any=[]
 
   } */
   measurement(event){
-    console.log("event==",event)
+    //console.log("event==",event)
     this.measureStatus=event.value=='meter'?false:true
 
   }
@@ -1035,10 +1035,10 @@ username:any=[]
 
       let file = files[0];
       reader.readAsDataURL(file);
-      console.log("file===",file)
+     // console.log("file===",file)
       reader.onload = ()=>{
         this.tempImagePath = reader.result;
-        console.log("\nReader result",reader.result);
+        //console.log("\nReader result",reader.result);
 
         this.uploadForm.get('fileData').setValue({
           filename: file.name ,
@@ -1067,10 +1067,10 @@ username:any=[]
   formSubmit(data){
     data.userId =  this.loginData.userId
     data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
-    console.log("file===",data)
+   // console.log("file===",data)
    if(data.fileData.filetype=='image/jpg'||data.fileData.filetype=='image/jpeg'||data.fileData.filetype=='image/png'){
     this.api.uploadLogo(data).then((res:any)=>{
-      console.log("res img===",res)
+    //  console.log("res img===",res)
       this.general.updateItem('sensegizlogin','logo',data.fileData.filename)
       this.clearFile()
       setTimeout(()=>{

@@ -92,12 +92,12 @@ export class AdminDashboardComponent implements OnInit {
 
   onSubmit(data) {
     //  data.mobileNum=data.mobileNum.replace(/\s/g,'')
-    console.log('admin register==', data);
+  //  console.log('admin register==', data);
     data.mobileNum = data.mobileNum != null ? data.mobileNum.e164Number : '';
     if (this.adminAddUserform.valid) {
       try {
         this.api.createUser(data).then((res: any) => {
-          console.log('created==', res);
+         // console.log('created==', res);
           if (res.status) {
             this.registered = false;
             var msg = 'User Created successfully';
@@ -114,7 +114,7 @@ export class AdminDashboardComponent implements OnInit {
 
   refreshAdminData() {
     this.api.getAdminData().then((res: any) => {
-      console.log('data===', res);
+     // console.log('data===', res);
       if (res.status) {
         this.adminData = res.success;
       }else{
@@ -164,7 +164,7 @@ export class AdminDashboardComponent implements OnInit {
       if (res.status) {
         var msg = 'User updated successfully';
         this.socket.leaveRoom(data);
-        console.log(this.socket.leaveRoom(data))
+      //  console.log(this.socket.leaveRoom(data))
         this.general.openSnackBar(msg, '');
         this.refreshAdminData();
       }

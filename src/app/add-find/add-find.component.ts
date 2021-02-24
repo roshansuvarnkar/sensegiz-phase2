@@ -102,8 +102,8 @@ onNoClick(): void {
 }
 
 Findsubmit(data){
-  console.log("this.findform===",this.Findform)
-  console.log("find submit data==",data)
+//  console.log("this.findform===",this.Findform)
+ // console.log("find submit data==",data)
   if (this.Findform.valid) {
     try {
       data.tblName ='deviceRegistration'
@@ -112,9 +112,9 @@ Findsubmit(data){
       }
       data.userId=this.loginData.userId
       data.mobileNum=data.mobileNum!=null?data.mobileNum.e164Number:''
-      console.log("data of finds====",data)
+     // console.log("data of finds====",data)
       this.api.deviceRegister(data).then((res:any)=>{
-        console.log("find res data====",res);
+      //  console.log("find res data====",res);
         if(res.status){
           var msg = 'Find Registered Successfully'
           this.general.openSnackBar(msg,'')
@@ -125,7 +125,7 @@ Findsubmit(data){
         }
       })
     } catch (err) {
-      console.log("erroe==",err)
+     // console.log("erroe==",err)
     }
   }
 }
@@ -141,7 +141,7 @@ Gatewaysubmit(data){
       }
       data.userId=this.loginData.userId
       data.gatewayType=data.type == '0'?'ethernet':'wifi'
-      console.log("gateway insert data==",data)
+     // console.log("gateway insert data==",data)
 
       this.api.deviceRegister(data).then((res:any)=>{
         // console.log("gateway submit==",res)
@@ -187,17 +187,17 @@ Usersubmit(data){
 }
 
 coinSubmit(data){
-  console.log("data======",data)
+ // console.log("data======",data)
   if (this.coinForm.valid) {
     try {
-      console.log("this.loginData",this.loginData);
+    //  console.log("this.loginData",this.loginData);
       if(this.loginData.hasOwnProperty('id') && this.loginData.id!=0 && this.loginData.type==4){
         data.subUserId=this.loginData.id
       }
       data.userId=this.loginData.userId
-      console.log(" coin insert data======",data)
+     // console.log(" coin insert data======",data)
       this.api.coinRegister(data).then((res:any)=>{
-        console.log("coin submit==",res)
+      //  console.log("coin submit==",res)
         if(res.status){
           var msg = 'Coin Registered Successfully'
           this.general.openSnackBar(msg,'')
@@ -220,7 +220,7 @@ coinSubmit(data){
       }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("gateway data ======",res);
+     // console.log("gateway data ======",res);
       if(res.status){
         this.gateway=res.success
 

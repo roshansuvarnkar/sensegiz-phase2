@@ -85,9 +85,9 @@ export class HistoryReportComponent implements OnInit {
        @Inject(MAT_DIALOG_DATA)  data,
     ) {
       this.type=data.type
-      console.log("type==",this.type)
+     // console.log("type==",this.type)
       this.liveData = data.data
-      console.log("data==",data)
+     // console.log("data==",data)
       this.from = data.fromDate
       this.to = data.toDate
       this.from1 = data.fromDate1
@@ -123,7 +123,7 @@ export class HistoryReportComponent implements OnInit {
       }
 
       this.api.getHistoryDateReportTotalCount(data).then((res:any)=>{
-        console.log("length of report on date ======",res);
+      //  console.log("length of report on date ======",res);
         if(res.status){
           // console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
@@ -143,7 +143,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
-      console.log("length of report on device name ======",res);
+    //  console.log("length of report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -164,7 +164,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
-      console.log("length of location report on device name ======",res);
+   //  console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -184,7 +184,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
       this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
-        console.log("length of geo fence report on device name ======",res);
+       // console.log("length of geo fence report on device name ======",res);
         if(res.status){
           // console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
@@ -207,7 +207,7 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.getDepartmentReportTotalCount(data6).then((res:any)=>{
-          console.log("length of deportment wise report on device name ======",res);
+        //  console.log("length of deportment wise report on device name ======",res);
           if(res.status){
             this.currentPageLength=parseInt(res.count)
           // console.log('\nTotal response: ',res.count);
@@ -224,7 +224,7 @@ export class HistoryReportComponent implements OnInit {
 
 
   basedOnDate(limit,offset){
-    console.log(limit,offset)
+   // console.log(limit,offset)
     var data={
       userId:this.loginData.userId,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -234,9 +234,9 @@ export class HistoryReportComponent implements OnInit {
       offset:offset,
       zone:this.general.getZone(this.date)
     }
-    console.log("data==",data)
+   // console.log("data==",data)
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
-      console.log("find data based on date ======",res);
+    //  console.log("find data based on date ======",res);
       this.liveData=[]
       this.totTime=[]
       if(res.status){
@@ -297,7 +297,7 @@ export class HistoryReportComponent implements OnInit {
     this.liveData=[]
     this.totTime=[]
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
-      console.log("find data based on name ======",res);
+    //  console.log("find data based on name ======",res);
 
       if(res.status){
 
@@ -392,9 +392,9 @@ summaryReport(){
     type:this.status,
     zone:this.general.getZone(date)
   }
-  console.log("Sumaary data==",data)
+ // console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
-    console.log("summary report======",res);
+  //  console.log("summary report======",res);
 
     this.liveData=[]
     this.locationData=[]
@@ -404,7 +404,7 @@ summaryReport(){
       this.deviceIdData=this.deviceId(res.success)
       var groupUser = this.dataDateReduce(res.success)
       this.locationData=this.location(res.success)
-      console.log("locationData===",this.locationData)
+    //  console.log("locationData===",this.locationData)
       this.liveData = Object.keys(groupUser).map((data)=>{
         // for(let i=0;i<res.success.length;i++){
         //   if(res.success[i].contactDeviceName ==this.deviceName || res.success[i].baseDeviceName ==this.deviceName ){
@@ -447,7 +447,7 @@ dataDateReduce(data){
       }
       group[name].push(obj)
     }
-    console.log("group==",group , name)
+   // console.log("group==",group , name)
     return group
 
   },{})
@@ -515,15 +515,15 @@ cummulativeReport(){
     zone:this.general.getZone(date)
 
   }
-  console.log("hvhs======",data)
+ // console.log("hvhs======",data)
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
-    console.log("cummulative report==========",res)
+ //   console.log("cummulative report==========",res)
     if(res.status){
       this.totTime=res.data;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
-        console.log("this.selectMin.get('minute').value else===",this.selectMin.get('minute').value)
+        //console.log("this.selectMin.get('minute').value else===",this.selectMin.get('minute').value)
         for(let i=0;i<res.data.length;i++){
           this.liveData.push({
             i:i+1,
@@ -572,9 +572,9 @@ departmentReport(limit,offset){
     department:this.department,
     zone:this.general.getZone(date)
   }
-  console.log("data3==",data)
+ // console.log("data3==",data)
   this.api.getDepartmentreport(data).then((res:any)=>{
-    console.log("department history======",res);
+ //   console.log("department history======",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
@@ -631,14 +631,14 @@ locationReport(limit,offset){
       zone:this.general.getZone(this.date)
 
     }
-    console.log("data3==",data)
+   // console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
-      console.log("LocatSion history======",res);
+     // console.log("LocatSion history======",res);
       this.liveData=[]
       this.totTime=[]
       if(res.status){
         this.totTime=res.success
-        console.log("location ====",this.totTime)
+      //  console.log("location ====",this.totTime)
         // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
         for(let i=0;i<res.success.length;i++){
           this.liveData.push({
@@ -693,7 +693,7 @@ geofenceAndlocationReport(limit,offset){
   }
   // console.log("data3==",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
-    console.log("Location and geo fence history======",res);
+   // console.log("Location and geo fence history======",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
@@ -742,9 +742,9 @@ customReport(){
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     type:this.liveData.type
   }
-  console.log(" custom data======",data)
+ // console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
-    console.log("Custom Report res==",res)
+  //  console.log("Custom Report res==",res)
     this.customData=[]
     if(res.status){
       this.customData=res.success
@@ -800,7 +800,7 @@ getPages(){
   var data={}
   var fileName=''
   var date=new Date()
-  
+
   if(this.type=='basedOnDate' || this.type=='basedOnFindName'){
       if(this.type=='basedOnDate'){
         data={
@@ -826,16 +826,16 @@ getPages(){
       fileName="Report-of-Find- "+this.deviceName
       }
 
-      console.log("data to send ======",data);
+     // console.log("data to send ======",data);
 
       this.api.downloadReport(data,fileName).then((res:any)=>{
 
-        console.log("report data recieved ======",res);
+       // console.log("report data recieved ======",res);
       })
   }
   if(this.type=='summaryReport'){
       this.general.loadingFreez.next({status:true})
-      console.log("hi")
+     // console.log("hi")
       setTimeout(()=>{
         this.openExcel()
         this.general.loadingFreez.next({status:false})
@@ -868,11 +868,11 @@ getPages(){
         fileName="GeoFenceReport_of- "+this.deviceName
       }
 
-      console.log("data to send ======",data);
+     // console.log("data to send ======",data);
 
       this.api.downloadLtReport(data,fileName).then((res:any)=>{
 
-        console.log("report data recieved ======",res);
+       // console.log("report data recieved ======",res);
 
       })
     }
@@ -886,13 +886,13 @@ getPages(){
         type:this.type
       }
       fileName="CummulativeReport"
-      console.log("data to send ======",data);
+     // console.log("data to send ======",data);
 
       //apicall
 
       this.api.downloadCummulative(data,fileName).then((res:any)=>{
 
-        console.log("report data recieved ======",res);
+       // console.log("report data recieved ======",res);
 
       })
     }
@@ -908,13 +908,13 @@ if(this.type=='deptcummulative'){
     type:this.type
   }
   fileName="Department wise CummulativeReport"
-  console.log("data to send ======",data);
+ // console.log("data to send ======",data);
 
   //apicall
 
   this.api.downloadDeptCummulative(data,fileName).then((res:any)=>{
 
-    console.log("report data recieved ======",res);
+   // console.log("report data recieved ======",res);
 
   })
 }
@@ -928,13 +928,13 @@ if(this.type=='deptcummulative'){
         type:this.liveData.type
       }
       fileName="CustomReport"
-      console.log("data to send ======",data);
+      //console.log("data to send ======",data);
 
       //apicall
 
       this.api.downloadCustomReport(data,fileName).then((res:any)=>{
 
-        console.log("report data recieved ======",res);
+      //  console.log("report data recieved ======",res);
 
       })
     }
@@ -984,7 +984,7 @@ if(this.type=='deptcummulative'){
   }
 
 filterTotTime(event){
-    console.log("event value===",event.value)
+   // console.log("event value===",event.value)
     var arr=[]
 
   if(event.value !="0"){
@@ -1139,7 +1139,7 @@ filterTotTime(event){
           totTime:this.general.totalTime(obj.inTime,obj.outTime),
 
           })
-          console.log("arrr==",arr)
+         // console.log("arrr==",arr)
           return arr
         }
       })
@@ -1213,7 +1213,7 @@ filterTotTime(event){
   }
   returnTotTime(inTime,outTime){
 
-    console.log("time===",inTime,outTime)
+   // console.log("time===",inTime,outTime)
     var date=new Date()
      this.inDate  = new Date(inTime)
      this.outDate = outTime==null? new Date('0000-00-00 00:00:00'):new Date(outTime)
@@ -1266,10 +1266,10 @@ filterTotTime(event){
       infectedPersonName:this.deviceName,
       adminEmailId:this.loginData.userName
     }
-    console.log("sendwarning data=====",data)
+   // console.log("sendwarning data=====",data)
     this.api.infectedContactalert(data).then((res:any)=>{
       if(res.status){
-        console.log("infectedContactalert res===",res)
+       // console.log("infectedContactalert res===",res)
         var msg = 'Warning Sent Successfully'
         this.general.openSnackBar(msg,'')
       }

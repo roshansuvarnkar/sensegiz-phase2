@@ -61,7 +61,7 @@ totTime:any=[]
     clearInterval(this.timeout)
   }
 refresh(){
-  console.log("pagination==",this.pageSet,this.pageIndex)
+ // console.log("pagination==",this.pageSet,this.pageIndex)
   this.refreshData(this.count,this.pageSet,this.pageIndex)
   this.getTotalCount(this.count)
 }
@@ -108,7 +108,7 @@ getTotalCount(val){
   this.api.getLiveDataTotalCount(data).then((res:any)=>{
     // console.log("live data ======",res);
     if(res.status){
-      console.log('\nTotal response: ',res.success[0].count);
+    //  console.log('\nTotal response: ',res.success[0].count);
       this.currentPageSize= parseInt(res.success[0].count);
     }
   })
@@ -125,10 +125,10 @@ getTotalCount(val){
       offset:offset,
       limit:limit
     }
-    console.log("live data====",data)
+    //console.log("live data====",data)
     this.api.getLiveData(data).then((res:any)=>{
 
-      console.log("live data ======",res);
+      //console.log("live data ======",res);
       if(res.status){
         this.liveData=[]
         this.totTime=[]
@@ -220,7 +220,7 @@ getTotalCount(val){
 // }
 
   getUpdate(event) {
-      console.log("paginator event",event);
+      //console.log("paginator event",event);
       // console.log("paginator event length", this.currentPageLength);
      this.limit = event.pageSize
       this.offset = event.pageIndex*event.pageSize
@@ -232,12 +232,12 @@ getTotalCount(val){
   }
 
   filterTotTime(event){
-      console.log("event value===",event,"  tot===", this.totTime)
+     // console.log("event value===",event,"  tot===", this.totTime)
       var arr=[]
 
     if(event.value !="0" && this.selectMin.get('minute').value!=''){
 
-        console.log("tot===", this.totTime)
+       // console.log("tot===", this.totTime)
         this.totTime.filter((obj,index)=>{
 
           if((parseInt(obj.totalTime.split(':')[1])>=parseInt(event.value) )|| (parseInt(obj.totalTime.split(':')[1])>=parseInt(this.selectMin.get('minute').value))){
@@ -251,7 +251,7 @@ getTotalCount(val){
               totalTime:obj.totalTime
 
             })
-            console.log("arrr==",arr)
+           // console.log("arrr==",arr)
             return arr
           }
       })

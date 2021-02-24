@@ -68,7 +68,7 @@ constructor(public dialog: MatDialog,
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("coin data ======",res);
+     // console.log("coin data ======",res);
       if(res.status){
 
         this.coinData=[]
@@ -158,7 +158,7 @@ edit(data){
 
 delete(value){
   if(confirm('Are you sure you want to delete the device')){
-    console.log("yes",value)
+    //console.log("yes",value)
     var data = {
       id:value.id,
       tblName:'coinRegistration',
@@ -166,9 +166,9 @@ delete(value){
       coinId:value.coinId,
       coinName:value.coinName
     }
-    console.log("delete coin===",data)
+  //  console.log("delete coin===",data)
     this.api.deletedeviceandUser(data).then((res:any)=>{
-      console.log("coin data ======",res);
+      //console.log("coin data ======",res);
       if(res.status){
         this.refreshCoins()
         var msg = 'Coin deleted Successfully'
