@@ -5,7 +5,7 @@ export const environment = {
     // apiHost:'http://44.234.23.217:3000',
     apiHost:'https://testdba.sensegiz.com:3000',
     socketHost:'https://testdba.sensegiz.com:3010',
-  
+    ENCRYPTKEY:"KeYiSGDQdtgUbfu7LpHpGY8G4VzCczMG",
     production: true
   };
   
