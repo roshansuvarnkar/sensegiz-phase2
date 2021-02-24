@@ -42,7 +42,7 @@ export class AppComponent {
     // this.loginData = this.login.loginStatus()
     this.loginDataInfo = this.login.loginData()
     this.twoStepAuth=this.login.authData()
-    console.log("auth dT==",this.login.authData())
+   // console.log("auth dT==",this.login.authData())
     this.login.loginCred.subscribe(res=>{
       // console.log("login data===",res)
       this.twoStepAuth=this.login.authData()
@@ -53,8 +53,8 @@ export class AppComponent {
       this.loginDataInfo = this.login.loginData()
     })
     this.loginDataInfo = this.login.loginData()
-  //  console.log("loginDataInfo===",this.loginDataInfo);
-   console.log("loginDataInfo===",this.loginDataInfo);
+  //console.log("loginDataInfo===",this.loginDataInfo);
+  // console.log("loginDataInfo===",this.loginDataInfo);
 
   this.login.loginCheckStatus.subscribe(res=>{
     // console.log("login data1===",res)
@@ -73,7 +73,7 @@ export class AppComponent {
   })
 
   this.general.loadingFreez.subscribe((res:any)=>{
-    console.log("statusfreeze==",res)
+  //  console.log("statusfreeze==",res)
     this.statusFreeze = res.status
   })
 

@@ -54,7 +54,7 @@ export class SideBarComponent implements OnInit {
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
-      console.log("find data side bar ======",res);
+     // console.log("find data side bar ======",res);
       if(res.status){
         this.findData=[]
 
@@ -80,7 +80,7 @@ export class SideBarComponent implements OnInit {
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
     this.api.getCountData(data).then((res:any)=>{
-      console.log("count data ======***",res);
+    //  console.log("count data ======***",res);
       if(res.status){
         this.onlineCount=res.success[6].onlineCount
       }
@@ -89,7 +89,7 @@ export class SideBarComponent implements OnInit {
 
 
   clickDevice(data){
-    console.log("data====",data)
+  //  console.log("data====",data)
     this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
   }
 

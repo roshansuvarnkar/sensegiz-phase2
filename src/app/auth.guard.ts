@@ -16,7 +16,7 @@ constructor(private router: Router, private login: LoginCheckService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log("next.data==",next.data,state)
+    //  console.log("next.data==",next.data,state)
       this.loginData = this.login.Getlogin()
       this.loginData = JSON.parse(this.loginData)
       var status = this.login.authData()

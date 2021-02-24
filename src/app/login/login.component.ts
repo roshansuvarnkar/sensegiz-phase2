@@ -5,8 +5,8 @@ import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import { WebsocketService } from '../websocket.service';
-import * as CryptoJS from 'crypto-js'
-import { environment } from 'src/environments/environment'
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   passwordIcon: string = 'visibility_off';
   newPassword: boolean = false;
   forgetPwd: any;
-  decryptedData:any
-  ENCRYPT_KEY:string=environment.ENCRYPTKEY
-  encryption:string;
-  decryption:string;
+  decryptedData: any;
+  ENCRYPT_KEY: string = environment.ENCRYPTKEY;
+  encryption: string;
+  decryption: string;
 
   constructor(
     private fb: FormBuilder,
@@ -47,24 +47,29 @@ export class LoginComponent implements OnInit {
 
   onSubmit(data) {
     this.loginInvalid = false;
+   // console.log("log data==",data);
+
     if (this.Loginform.valid) {
       try {
         data.system = 'portal';
-        this.api.send(data).then((res: any) => {
-            console.log('logged in==', res);
+        this.api
+          .send(data)
+          .then((res: any) => {
+          //  console.log('logged in==', res);
 
-             localStorage.setItem("token",JSON.stringify(res.token))
+            localStorage.setItem('token', JSON.stringify(res.token));
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
             console.log(passwordExpiry);
             if (res.status) {
               res.success.role = 'user';
               res.success.passwordExpiry = passwordExpiry;
-                if (this.login.login(JSON.stringify(res.success)) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
+
+                if (this.login.login(res.success) && res.success.twoStepAuth != 'Y' && !passwordExpiry ) {
                 this.login.authCheck.next(true);
                 this.socket.joinRoom();
                 this.router.navigate(['/home']);
               } else if (
-                this.login.login(JSON.stringify(res.success)) &&
+                this.login.login(res.success) &&
                 passwordExpiry == true
               ) {
                 console.log('expired');
@@ -79,9 +84,8 @@ export class LoginComponent implements OnInit {
                 });
               }
             } else {
-
               this.loginInvalid = true;
-              localStorage.clear()
+              localStorage.clear();
             }
           })
           .catch((err) => {
