@@ -1067,11 +1067,12 @@ export class ApiService {
   }
 
   uploadLogo(data) {
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     let body = {
-      data: "data",
+      data: data,
     };
     let url = this.host + '/upload-image';
     return new Promise((resolve, reject) => {

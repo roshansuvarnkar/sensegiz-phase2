@@ -90,17 +90,17 @@ export class GeoFenceComponent implements OnInit {
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
     this.api.getGeofenceData(data).then((res:any)=>{
-    //  console.log("Geo fence device get data ======",res);
+    // console.log("Geo fence device get data ======",res);
 
-      if(res.status && res.data.length>=0){
+      if(res.status && res.success.length>=0){
         this.geofenceData=[]
-         for(let i=0;i<res.data.length;i++){
+         for(let i=0;i<res.success.length;i++){
            this.geofenceData.push({
              i:i+1,
-             id:res.data[i].id,
-             deviceName:res.data[i].deviceName,
-             coinName:res.data[i].coinName,
-             coinId:res.data[i].geofence,
+             id:res.success[i].id,
+             deviceName:res.success[i].deviceName,
+             coinName:res.success[i].coinName,
+             coinId:res.success[i].geofence,
              delete:'delete'
            })
          }
@@ -145,7 +145,7 @@ export class GeoFenceComponent implements OnInit {
     }
    //  console.log("data1==",data1)
      this.api.setGeofenceData(data1).then((res:any)=>{
-    //  console.log("Geo fence device set data ======",res);
+    // console.log("Geo fence device set data ======",res);
       if(res.status){
 
         this.refreshGeoFence()
