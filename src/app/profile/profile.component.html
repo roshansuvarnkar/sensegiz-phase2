@@ -17,7 +17,7 @@
 				 <form [formGroup]="subAddUserform" (ngSubmit)="onSubmit(subAddUserform.value)">
 					 <mat-form-field appearance="fill">
 						<mat-label>User type</mat-label>
-						<mat-select  formControlName="type" required>
+						<mat-select  formControlName="type" required autocomplete="off">
 							<mat-option *ngFor="let a of userType" [value]="a.value">
 								{{a.name}}
 							</mat-option>
@@ -25,7 +25,7 @@
 					</mat-form-field>
 
 					<mat-form-field class="full-width-input" *ngIf="subAddUserform.get('type').value==4">
-					  <input matInput placeholder="Department" formControlName="department" required>
+					  <input matInput placeholder="Department" formControlName="department" autocomplete="off" required>
 					  <mat-error>
 						Please provide a valid department
 					  </mat-error>
@@ -33,7 +33,7 @@
 
 
 					<mat-form-field class="full-width-input">
-					  <input matInput placeholder="Email" formControlName="subUserName" required>
+					  <input matInput placeholder="Email" formControlName="subUserName" autocomplete="off" required>
 					  <mat-error>
 						Please provide a valid email address
 					  </mat-error>
@@ -57,7 +57,7 @@
 							 [phoneValidation]="true"
 							 [separateDialCode]="false"
 							 name="mobileNum"
-							 formControlName="mobileNum">
+							 formControlName="mobileNum" autocomplete="off">
 						 </ngx-intl-tel-input>
 						 <hr class="mob">
 						 <mat-error *ngIf="subAddUserform.get('mobileNum').status=='INVALID'  && subAddUserform.get('mobileNum').touched==true" class="error" >
@@ -67,7 +67,7 @@
 					</div>
 
 					<mat-form-field class="full-width-input">
-					  <input matInput  placeholder="Portal Password" formControlName="portalPassword" matInput required >
+					  <input matInput  placeholder="Portal Password" formControlName="portalPassword" autocomplete="off" matInput required >
 					  <mat-error>
 						<p 	matTooltip="Password must contain at least one lowercase letter, one uppercase letter, one number and special character,
 						should be minimum of 8 characters and maximum 20 characters are allowed"
@@ -88,7 +88,7 @@
 
 
 					<mat-form-field class="full-width-input">
-						<input matInput  placeholder="User Password" formControlName="userPassword" matInput required >
+						<input matInput  placeholder="User Password" formControlName="userPassword" autocomplete="off" matInput required >
 						<mat-error>
 						<p 	matTooltip="Password must contain at least one lowercase letter, one uppercase letter, one number and special character,
 						should be minimum of 8 characters and maximum 20 characters are allowed"

@@ -1580,7 +1580,7 @@ export class ApiService {
   }
   getDepartmentreport(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
     };
 
     let url = this.host + '/departmentCTReport';
