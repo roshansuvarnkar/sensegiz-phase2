@@ -62,15 +62,19 @@ export class GeneralMaterialsService {
   }
 
   setObject(key, obj) {
-    localStorage.setItem(key, JSON.stringify(obj));
+    console.log(obj)
+    localStorage.setItem(key, this.encrypt(obj));
    //console.log('get==', this.getObject('sensegizlogin'));
   }
 
   getObject(key) {
+   // var d =localStorage.getItem('sensegizlogin');
+    //console.log(d)
     return this.decrypt(localStorage.getItem(key));
   }
 
   updateItem(key, property, value) {
+    console.log(key,property,value)
     var obj = this.getObject(key);
     obj[property] = value;
     console.log('obj===', obj);

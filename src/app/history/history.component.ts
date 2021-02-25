@@ -345,7 +345,7 @@ onSubmitDateForm(data){
       var day1 = ("0" + date2.getDate()).slice(-2);
       var to = year1 + '-' + month1 + '-'  + day1
       var to1 = day1 + '-' + month1 + '-'  + year1
-      
+
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;

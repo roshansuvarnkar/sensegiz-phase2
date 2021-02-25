@@ -207,7 +207,7 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.getDepartmentReportTotalCount(data6).then((res:any)=>{
-        //  console.log("length of deportment wise report on device name ======",res);
+        // console.log("length of deportment wise report on device name ======",res);
           if(res.status){
             this.currentPageLength=parseInt(res.count)
           // console.log('\nTotal response: ',res.count);
@@ -297,7 +297,7 @@ export class HistoryReportComponent implements OnInit {
     this.liveData=[]
     this.totTime=[]
     this.api.getDeviceHistoryBasedOnDeviceName(data).then((res:any)=>{
-    //  console.log("find data based on name ======",res);
+    // console.log("find data based on name ======",res);
 
       if(res.status){
 
@@ -519,7 +519,7 @@ cummulativeReport(){
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
-  // console.log("cummulative report==========",res)
+   console.log("cummulative report==========",res)
     if(res.status){
       this.totTime=res.success;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
@@ -572,22 +572,22 @@ departmentReport(limit,offset){
     department:this.department,
     zone:this.general.getZone(date)
   }
- // console.log("data3==",data)
+ console.log("data3==",data)
   this.api.getDepartmentreport(data).then((res:any)=>{
- //   console.log("department history======",res);
+      console.log("department history====== ***",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
-      this.totTime=res.data
+      this.totTime=res.success
      // console.log("location ====",this.totTime)
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
-        for(let i=0;i<res.data.length;i++){
+        for(let i=0;i<res.success.length;i++){
           this.liveData.push({
             i:i+1,
-            username:res.data[i].baseDeviceName,
-            count:res.data[i].count,
-            department:res.data[i].department,
-            totTime:this.general.convertTime(res.data[i].totalTime)
+            username:res.success[i].baseDeviceName,
+            count:res.success[i].count,
+            department:res.success[i].department,
+            totTime:this.general.convertTime(res.success[i].totalTime)
 
           });
         }
@@ -633,7 +633,7 @@ locationReport(limit,offset){
     }
    // console.log("data3==",data)
     this.api.getLocationHistory(data).then((res:any)=>{
-     // console.log("LocatSion history======",res);
+     console.log("LocatSion history======",res);
       this.liveData=[]
       this.totTime=[]
       if(res.status){
@@ -693,7 +693,7 @@ geofenceAndlocationReport(limit,offset){
   }
   // console.log("data3==",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
-   // console.log("Location and geo fence history======",res);
+   console.log("Location and geo fence history======",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
@@ -744,7 +744,7 @@ customReport(){
   }
  // console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
-  //  console.log("Custom Report res==",res)
+    console.log("Custom Report res==",res)
     this.customData=[]
     if(res.status){
       this.customData=res.success
