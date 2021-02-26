@@ -791,12 +791,8 @@ selectfinds(event){
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-<<<<<<< HEAD
-  openDialog1(){
-=======
   openDialog1(): void {
 
->>>>>>> 8815e1ae7cbb65141f1f238ea1589b4c747b8338
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -806,27 +802,11 @@ selectfinds(event){
       type:"multishifts"
     }
     const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
-<<<<<<< HEAD
-=======
 
     dialogRef.afterClosed().subscribe(result => {
     });
   }
 
-  scannIntravaleLimit(valees){
-    if(valees==1){
-      this.custom=false
-      this.standered=true
-    }else{
-      this.custom=true
-      this.standered=false
-    }
-  }
->>>>>>> 8815e1ae7cbb65141f1f238ea1589b4c747b8338
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
   scannIntravaleLimit(valees){
     if(valees==1){
       this.custom=false
