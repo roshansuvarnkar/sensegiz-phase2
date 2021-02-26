@@ -313,14 +313,14 @@ onclickGeoLocation(data){
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("coin data ======",res);
+     // console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
 
       }
     })
     this.api.getAllDepartment(data).then((res:any)=>{
-      console.log("department data========",res);
+     // console.log("department data========",res);
       if(res.status){
         this.departments=res.success
       }
@@ -368,7 +368,7 @@ onSubmitDateForm(data){
 }
 
   onSubmitcummulativeForm(data){
-    console.log("hello cumilated report-------",data)
+   // console.log("hello cumilated report-------",data)
     var date1=new Date(data.fromDate)
     var date2=new Date(data.toDate)
     var year = date1.getFullYear();
@@ -406,7 +406,7 @@ onSubmitDateForm(data){
 
 
   onSubmitdeptcummulativeForm(data){
-    console.log("hello deptcumilated report-------",data)
+  //  console.log("hello deptcumilated report-------",data)
     var date1=new Date(data.fromDate)
     var date2=new Date(data.toDate)
     var year = date1.getFullYear();
@@ -504,7 +504,7 @@ onSubmitDateForm(data){
 
 
 onSubmitSummaryReport(data){
-  console.log("data====",data)
+ // console.log("data====",data)
     //   this.date1=new Date(data.fromDate)
     //   this.date2 =new Date(data.toDate)
     //   var diffTime = Math.abs(this.date2 - this.date1);
@@ -562,11 +562,11 @@ onSubmitSummaryReport(data){
     var day1 = ("0" + date2.getDate()).slice(-2);
     var to = year1 + '-' + month1 + '-'  + day1
 
-    console.log("data====",data)
+   // console.log("data====",data)
     var value=this.coinData.filter((element)=>{
       return data.coinSelect==element.coinId
     });
-    console.log("value==",value)
+    //console.log("value==",value)
     if(value.length>0){
       this.coin=value[0].coinName
     }
@@ -627,7 +627,7 @@ onSubmitSummaryReport(data){
   }
 
   userSuggestion(event){
-    console.log("data=",event)
+    //console.log("data=",event)
 
     var data={
       value:event.target.value,
@@ -635,15 +635,15 @@ onSubmitSummaryReport(data){
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceData'
     }
-    console.log("data==",data)
+   // console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
-      console.log("res==",res)
+    //  console.log("res==",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i].baseDeviceName)
        }
-       console.log("username==",this.username)
+      // console.log("username==",this.username)
 
       }
     })
@@ -651,7 +651,7 @@ onSubmitSummaryReport(data){
   }
 
   infectedSuggestion(event){
-    console.log("data=",event)
+   // console.log("data=",event)
 
     var data={
       value:event.target.value.toString(),
@@ -660,22 +660,22 @@ onSubmitSummaryReport(data){
       tblName:'deviceRegistration'
 
     }
-    console.log("data==",data)
+  //  console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
-      console.log("res==",res)
+     // console.log("res==",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i].deviceName)
        }
-       console.log("username==",this.username)
+     //  console.log("username==",this.username)
       }
     })
 
   }
   geofenceuserSuggestion(event){
 
-    console.log("data=",event)
+    //console.log("data=",event)
 
     var data={
       value:event.target.value,
@@ -684,15 +684,15 @@ onSubmitSummaryReport(data){
       tblName:'deviceDataPhase2'
 
     }
-    console.log("data==",data)
+    //console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
-      console.log("res==",res)
+     // console.log("res==",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i].deviceName)
        }
-       console.log("username==",this.username)
+      // console.log("username==",this.username)
       }
     })
   }

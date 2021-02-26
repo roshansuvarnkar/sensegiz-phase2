@@ -20,9 +20,9 @@ export class LoginCheckService {
   constructor(private router:Router,private bnIdle: BnNgIdleService,private general : GeneralMaterialsService) {
       // this.loginStatus()
       // this.authData()
-      console.log("init login")
+     // console.log("init login")
        this.bnIdle.startWatching(600).subscribe((isTimedOut: boolean) => {
-         console.log('session expired',isTimedOut);
+        // console.log('session expired',isTimedOut);
          if (isTimedOut) {
            localStorage.clear();
            this.router.navigate(['/login']);
@@ -57,13 +57,13 @@ export class LoginCheckService {
       // this.decryption=CryptoJS.AES.decrypt(parsedata,this.ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
      //  var status=  var parsedata=JSON.parse(this.decryption)
 
-    console.log("statsu======",status)
+   // console.log("statsu======",status)
     if(status!=null){
-      console.log("enter")
+     // console.log("enter")
       return status
     }
     else{
-      console.log("did not ")
+     // console.log("did not ")
       return false
     }
   }
@@ -90,7 +90,7 @@ export class LoginCheckService {
     // }
 
 
-    console.log("status of authdata==",status)
+   // console.log("status of authdata==",status)
 
     if(status != null){
       if(status.role=='user' ){
@@ -169,8 +169,8 @@ export class LoginCheckService {
 
   login(data){
     let storage = this.general.encrypt(data);
-    console.log("storage===",storage);
-    
+  //  console.log("storage===",storage);
+
     localStorage.setItem('sensegizlogin',storage);
     return true
   }

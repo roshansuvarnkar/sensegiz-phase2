@@ -42,11 +42,11 @@ export class AdminLoginComponent implements OnInit {
     if (this.adminLoginform.valid){
       try {
         this.api.adminLogin(data).then((res:any)=>{
-        	console.log("admin res===",res)
+        //	console.log("admin res===",res)
           localStorage.setItem("token",JSON.stringify(res.token))
           if(res.status){
           	res.success.role='admin'
-            if(this.login.login(JSON.stringify(res.success))){
+            if(this.login.login(res.success)){
               this.login.authCheck.next(true)
               this.router.navigate(['/admin-dashboard'])
             }

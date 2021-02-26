@@ -36,7 +36,7 @@ export class EditSettingShiftComponent implements OnInit {
 
   	){
 		this.type=data.type
-		console.log("type==",this.type)
+		//console.log("type==",this.type)
 		this.shiftForm = this.fb.group({
 		  items:this.fb.array([])
 		});
@@ -63,7 +63,7 @@ export class EditSettingShiftComponent implements OnInit {
 	  }
 
 	  this.api.getData(data).then((res:any)=>{
-	    console.log("shift  data ======",res);
+	    //console.log("shift  data ======",res);
 	    if(res.status){
 		  this.shifts=res.success
 
@@ -116,27 +116,27 @@ export class EditSettingShiftComponent implements OnInit {
 
 
 	submit(a){
-		console.log(a)
+	//	console.log(a)
 		var cdt1= moment(a.fromTime, 'HH:mm:ss')
 		var cdt2= moment(a.toTime, 'HH:mm:ss')
 		var times1=moment(cdt1).format("YYYY/MM/DD HH:mm:ss")
 		var times2=moment(cdt2).format("YYYY/MM/DD HH:mm:ss")
-		console.log("times22==",times1>times2)
+	//	console.log("times22==",times1>times2)
 
 		if(times1>times2){
-			console.log("yes")
+		//	console.log("yes")
 				times2=moment(cdt2).add(1,'days').format("YYYY/MM/DD HH:mm:ss")
 
 		}
-		console.log("false")
+	//	console.log("false")
 		var times=moment(times2,"YYYY/MM/DD HH:mm:ss").diff(moment(times1,"YYYY/MM/DD HH:mm:ss"))
 
-		console.log("times==",times1,times2,times)
+	//	console.log("times==",times1,times2,times)
 
 		var d = moment.duration(times)
-		console.log("dd==",d)
+	//	console.log("dd==",d)
 		var minhour=(d.hours()+ ":" + d.minutes()).split(":")
-		console.log("minhour==",minhour[0],minhour[1])
+	//	console.log("minhour==",minhour[0],minhour[1])
 		if((parseInt(minhour[0]) >= 9 && (parseInt(minhour[1]) >= 0 && parseInt(minhour[1]) <=59)) ){
 			var dateobj=new Date()
 			var year = dateobj.getFullYear();
@@ -159,7 +159,7 @@ export class EditSettingShiftComponent implements OnInit {
 
 			a.fromTime = hh + ':' + mm
 			a.toTime = hh1 + ':' + mm1
-			console.log("a===",a)
+		//	console.log("a===",a)
 
 
 			this.api.editSettingShift(a).then((res:any)=>{

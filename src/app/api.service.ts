@@ -17,7 +17,7 @@ export class ApiService {
   ) {}
   //   dataa:any
   send(data) {
-    console.log('data-===', data);
+  //  console.log('data-===', data);
 
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -837,6 +837,7 @@ export class ApiService {
     let url = this.host + '/departmentCTReportCount';
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe((res: any) => {
+
         resolve(res.data);
       });
     });
@@ -1067,6 +1068,7 @@ export class ApiService {
   }
 
   uploadLogo(data) {
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
@@ -1324,7 +1326,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+           //console.log('err==', err);
           }
         );
     });
@@ -1352,7 +1354,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+           // console.log('err==', err);
           }
         );
     });
@@ -1381,7 +1383,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            //console.log('err==', err);
           }
         );
     });
@@ -1409,7 +1411,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+           // console.log('err==', err);
           }
         );
     });
@@ -1437,7 +1439,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            //console.log('err==', err);
           }
         );
     });
@@ -1466,7 +1468,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            //console.log('err==', err);
           }
         );
     });
@@ -1495,7 +1497,7 @@ export class ApiService {
             resolve(true);
           },
           (err) => {
-            console.log('err==', err);
+            //console.log('err==', err);
           }
         );
     });
@@ -1535,7 +1537,7 @@ export class ApiService {
     return new Promise((resolve, reject) => {
       this.http.get('../../assets/zone.json').subscribe(
         (res: any) => {
-          console.log('responceZone====******', res);
+         // console.log('responceZone====******', res);
           resolve(res.zone);
         },
         (err) => {
@@ -1578,7 +1580,7 @@ export class ApiService {
   }
   getDepartmentreport(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
     };
 
     let url = this.host + '/departmentCTReport';
@@ -1587,6 +1589,7 @@ export class ApiService {
     };
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        console.log(res.data)
         resolve(res.data);
       });
     });

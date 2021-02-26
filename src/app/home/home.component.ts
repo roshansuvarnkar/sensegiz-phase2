@@ -96,7 +96,7 @@ branch1:boolean
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-    console.log("this.loginData===",this.loginData)
+  //  console.log("this.loginData===",this.loginData)
     // this.checkUrl = this.router.url
 
     this.refreshFinds()
@@ -326,7 +326,7 @@ refreshCount(){
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
   }
   this.api.getCountData(data).then((res:any)=>{
-    console.log("count data ======",res);
+   // console.log("count data ======",res);
     if(res.status){
       this.totalEmp = res.success[0].totalEmp
       this.infectedEmp = res.success[1].inectedEmp
@@ -354,7 +354,7 @@ refreshSetting(){
     tblName:'deviceSetting'
   }
   this.api.getData(data).then((res:any)=>{
-     console.log("setting data ======",res);
+   //  console.log("setting data ======",res);
     if(res.status){
       this.setting = res.success[0]
     }else{
@@ -375,7 +375,7 @@ maximumContactTime(){
     zone:this.general.getZone(date)
   }
   this.api.getMaxTimeContact(data).then((res:any)=>{
-    console.log("max contact time ======",res);
+  //  console.log("max contact time ======",res);
     if(res.status){
       this.contactTimeMax = []
       for(var i=0;i<res.success.length;i++){
@@ -428,7 +428,7 @@ numOfcontactPerDay(){
     zone:this.general.getZone(date)
   }
   this.api.getPerDayCount(data).then((res:any)=>{
-     console.log("repeated contacts data ======",res);
+   //  console.log("repeated contacts data ======",res);
     if(res.status){
       this.dataPoints=[]
       this.countPerday = res.success.reverse()

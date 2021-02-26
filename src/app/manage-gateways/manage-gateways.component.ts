@@ -63,7 +63,7 @@ refreshGateway(){
     }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("gateway data ======",res);
+   // console.log("gateway data ======",res);
     if(res.status){
       this.gatewayData=[]
 
@@ -82,7 +82,7 @@ refreshGateway(){
               delete:'delete'
           });
       }
-      console.log("gateway",this.gatewayData)
+     // console.log("gateway",this.gatewayData)
       this.dataSource = new MatTableDataSource(this.gatewayData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;

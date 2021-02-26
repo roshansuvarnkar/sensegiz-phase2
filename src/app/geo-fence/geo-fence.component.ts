@@ -53,7 +53,7 @@ export class GeoFenceComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("find device data ======",res);
+    //  console.log("find device data ======",res);
       if(res.status){
         this.findData=res.success
 
@@ -69,7 +69,7 @@ export class GeoFenceComponent implements OnInit {
     }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("coin data ======",res);
+     // console.log("coin data ======",res);
       if(res.status){
         this.coinData=res.success
 
@@ -90,17 +90,17 @@ export class GeoFenceComponent implements OnInit {
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
     this.api.getGeofenceData(data).then((res:any)=>{
-      console.log("Geo fence device get data ======",res);
+    //console.log("Geo fence device get data ======",res);
 
-      if(res.status && res.data.length>=0){
+      if(res.status && res.success.length>=0){
         this.geofenceData=[]
-         for(let i=0;i<res.data.length;i++){
+         for(let i=0;i<res.success.length;i++){
            this.geofenceData.push({
              i:i+1,
-             id:res.data[i].id,
-             deviceName:res.data[i].deviceName,
-             coinName:res.data[i].coinName,
-             coinId:res.data[i].geofence,
+             id:res.success[i].id,
+             deviceName:res.success[i].deviceName,
+             coinName:res.success[i].coinName,
+             coinId:res.success[i].geofence,
              delete:'delete'
            })
          }
@@ -121,7 +121,7 @@ export class GeoFenceComponent implements OnInit {
 
 
   submit(data){
-    console.log("data====",data)
+   // console.log("data====",data)
 
     var msg = 'Geofence updated Successfully'
         this.general.openSnackBar(msg,'')
@@ -143,9 +143,9 @@ export class GeoFenceComponent implements OnInit {
       coinName:this.coin,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     }
-     console.log("data1==",data1)
+   //  console.log("data1==",data1)
      this.api.setGeofenceData(data1).then((res:any)=>{
-      console.log("Geo fence device set data ======",res);
+    // console.log("Geo fence device set data ======",res);
       if(res.status){
 
         this.refreshGeoFence()
@@ -158,7 +158,7 @@ export class GeoFenceComponent implements OnInit {
   }
 
  delete(value){
-   console.log("delete geofence===",value)
+//   console.log("delete geofence===",value)
  if(confirm("Do you sure want to deassign geofence?")){
   var data={
     id:value.id,
@@ -167,9 +167,9 @@ export class GeoFenceComponent implements OnInit {
     coinName:value.coinName.split(','),
 
   }
-  console.log("delete geofence data===",data)
+ // console.log("delete geofence data===",data)
   this.api.deleteGeofence(data).then((res:any)=>{
-   console.log("Geo fence device set data ======",res);
+  // console.log("Geo fence device set data ======",res);
    if(res.status){
       var msg = 'Geofence Deassigned Successfully'
       this.general.openSnackBar(msg,'')

@@ -33,7 +33,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
     private login:LoginCheckService,
     private general:GeneralMaterialsService
   ) {
-    console.log("data===",data)
+    //console.log("data===",data)
     this.type=data.type
     this.deviceData=data.data
   }
@@ -59,7 +59,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
 
     });
 
-    
+
     this.userform = this.fb.group({
       mobileNum: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(14)]],
       emailId: ['',[Validators.email]]
@@ -114,7 +114,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
   Findsubmit(data){
     if (this.Findform.valid) {
       try {
-         console.log("find edit===",data)
+        // console.log("find edit===",data)
         //  var mobNum=data.mobileNum.replace(/\s/g,'')
           // console.log("mon num==",mobNum)
         data.tblName='deviceRegistration'
@@ -124,9 +124,9 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.deviceId=this.deviceData.deviceId
         data.mobileNum=data.mobileNum!=null ||data.mobileNum!=undefined  ?data.mobileNum.e164Number:''
-        console.log("find update data===",data)
+       // console.log("find update data===",data)
         this.api.editDeviceRegister(data).then((res:any)=>{
-          console.log("find submit====",res);
+         // console.log("find submit====",res);
           if(res.status){
             var msg = 'Device Updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -154,10 +154,10 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         data.userId=this.loginData.userId
         data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.deviceId= this.deviceData.gatewayId
-        console.log("gateway data==",data)
+       // console.log("gateway data==",data)
 
         this.api.editDeviceRegister(data).then((res:any)=>{
-          console.log("gateway submit==",res)
+         // console.log("gateway submit==",res)
           if(res.status){
          var msg = 'Gateway Updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -207,9 +207,9 @@ preferredCountries: CountryISO[] = [CountryISO.India];
         data.subUserId=(this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0;
         data.coinId=this.deviceData.coinId,
         data.coinName=data.coinName
-        console.log("coin send data==",data)
+       // console.log("coin send data==",data)
         this.api.editCoinRegister(data).then((res:any)=>{
-          console.log("coin submit==",res)
+         // console.log("coin submit==",res)
           if(res.status){
 
             var msg = 'Coin Updated Successfully'
@@ -233,7 +233,7 @@ preferredCountries: CountryISO[] = [CountryISO.India];
       }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("gateway data ======",res);
+     // console.log("gateway data ======",res);
       if(res.status){
         this.gateway=res.success
 

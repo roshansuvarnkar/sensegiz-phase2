@@ -39,7 +39,7 @@ export class TwoStepAuthComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData);
     this.route.queryParams.subscribe((params) => {
       this.forgetPwd = JSON.parse(params.type);
-      console.log('records=', this.forgetPwd);
+    //  console.log('records=', this.forgetPwd);
     });
 
     this.twoStepAuthForm = this.fb.group({
@@ -82,14 +82,14 @@ export class TwoStepAuthComponent implements OnInit {
   sendOtp(value) {
     this.sendOTP = false;
 
-    console.log('value==', value);
-    console.log('hey');
+  //  console.log('value==', value);
+   // console.log('hey');
     var data = {
       userId: this.loginData.userId,
       username: value,
     };
     this.api.sendOtp(data).then((res: any) => {
-      console.log('send opt==', res);
+     // console.log('send opt==', res);
 
       if (res.status) {
         this.invalidUser = false;
@@ -104,9 +104,9 @@ export class TwoStepAuthComponent implements OnInit {
   submit(data) {
     data.userId = this.loginData.userId;
     data.OTP = data.otp1 + data.otp2 + data.otp3 + data.otp4;
-    console.log('confirm', data, this.forgetPwd);
+   // console.log('confirm', data, this.forgetPwd);
     this.api.confirmOtp(data).then((res: any) => {
-      console.log('submit==', res);
+    //  console.log('submit==', res);
       var otpExpiry = res.hasOwnProperty('failure');
       this.otpExpired = otpExpiry == true ? true : false;
 

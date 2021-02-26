@@ -62,15 +62,19 @@ export class GeneralMaterialsService {
   }
 
   setObject(key, obj) {
-    localStorage.setItem(key, JSON.stringify(obj));
-    console.log('get==', this.getObject('sensegizlogin'));
+    console.log(obj)
+    localStorage.setItem(key, this.encrypt(obj));
+   //console.log('get==', this.getObject('sensegizlogin'));
   }
 
   getObject(key) {
+   // var d =localStorage.getItem('sensegizlogin');
+    //console.log(d)
     return this.decrypt(localStorage.getItem(key));
   }
 
   updateItem(key, property, value) {
+    console.log(key,property,value)
     var obj = this.getObject(key);
     obj[property] = value;
     console.log('obj===', obj);
@@ -146,13 +150,13 @@ export class GeneralMaterialsService {
   }
 
   totalTime(inTime, outTime) {
-    console.log('time===', inTime, outTime);
+   // console.log('time===', inTime, outTime);
 
     this.date1 = new Date(inTime);
     this.date2 =
       outTime == null ? new Date('0000-00-00 00:00:00') : new Date(outTime);
 
-    console.log('time2===', this.date1, this.date2);
+    //console.log('time2===', this.date1, this.date2);
 
     if (this.date1 != 'Invalid Date') {
       if (this.date2 != 'Invalid Date') {
@@ -185,13 +189,13 @@ export class GeneralMaterialsService {
     var pigsplt = moment(date).diff(moment(pigTime));
     var pigArt = moment.duration(pigsplt);
     var momemts = Math.floor(pigArt.asMinutes());
-    console.log('pingAlertStatus in mints', momemts);
+   // console.log('pingAlertStatus in mints', momemts);
     return momemts;
   }
 
   getZone(date) {
     var timezone = date.getTimezoneOffset();
-    console.log('time zone==', timezone);
+   // console.log('time zone==', timezone);
 
     let m = timezone % 60;
     // console.log("m==",m)

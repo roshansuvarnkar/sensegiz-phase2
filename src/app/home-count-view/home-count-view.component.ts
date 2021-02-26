@@ -59,10 +59,10 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         type:'active',
       }
-      console.log("data===",data)
+      //console.log("data===",data)
 
       this.api.getHomeCountData(data).then((res:any)=>{
-        console.log("res===",res)
+       // console.log("res===",res)
         this.findData=[]
         if(res.status){
           for (let i = 0; i <res.success.length; i++) {
@@ -95,7 +95,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         type:'infected',
       }
-      console.log("data===",data)
+    //  console.log("data===",data)
 
       this.api.getHomeCountData(data).then((res:any)=>{
         if(res.status){
@@ -120,10 +120,10 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
         zone:this.general.getZone(date)
 
       }
-      console.log("data===",data)
+      //console.log("data===",data)
 
       this.api.getOnlineCount(data).then((res:any)=>{
-        console.log("online==",res)
+        //console.log("online==",res)
         if(res.status){
           this.onlineData=res.success
           this.dataSource = new MatTableDataSource(this.onlineData);
@@ -145,10 +145,10 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
         type:'offlineUserData',
         zone:this.general.getZone(date)
       }
-      console.log("data===",data)
+     // console.log("data===",data)
 
       this.api.getOnlineCount(data).then((res:any)=>{
-        console.log("offline==",res)
+      //  console.log("offline==",res)
         if(res.status){
           this.offlineData=res.success
           this.dataSource = new MatTableDataSource(this.offlineData);
@@ -169,12 +169,12 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
          subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
          type:'deallocate',
        }
-       console.log(" deallocate  data",data)
+      // console.log(" deallocate  data",data)
 
        this.api.getDeallocatedDevice(data).then((res:any)=>{
          if(res.status){
-           console.log("deallocate *****",res)
-           this.deallocate=res.data
+           //console.log("deallocate *****",res)
+           this.deallocate=res.success;
            this.dataSource = new MatTableDataSource(this.deallocate);
 
            setTimeout(() => {
@@ -201,11 +201,11 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
         type:this.type
         }
         this.fileName="Online Users"
-        console.log("data to send ======",data);
+      //  console.log("data to send ======",data);
 
         this.api.downloadActiveOfflineUsers(data,this.fileName).then((res:any)=>{
 
-        console.log("report data recieved ======",res);
+       // console.log("report data recieved ======",res);
         })
 
       }
@@ -217,10 +217,10 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
         type:this.type
       }
       this.fileName="offline Users"
-      console.log("data to send ======",data);
+     // console.log("data to send ======",data);
 
     this.api.downloadActiveOfflineUsers(data,this.fileName).then((res:any)=>{
-    console.log("report data recieved ======",res);
+   // console.log("report data recieved ======",res);
     })
     }
 
@@ -233,10 +233,10 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
     }
 
     this.fileName="Deallocate Users"
-    console.log("data to deallocate ======",data);
+   // console.log("data to deallocate ======",data);
 
     this.api.downloadDeallocatedDevice(data,this.fileName).then((res:any)=>{
-      console.log("deallocate data recieved ======",res);
+     // console.log("deallocate data recieved ======",res);
       })
   }
 

@@ -100,7 +100,7 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-    console.log("find device data ======",res);
+    //console.log("find device data ======",res);
     if(res.status){
      this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
@@ -151,7 +151,7 @@ refreshShift(){
   }
 
   this.api.getData(data).then((res:any)=>{
-   console.log("shift  data ======",res);
+   //console.log("shift  data ======",res);
     if(res.status){
       this.shifts=res.success
     }
@@ -186,7 +186,7 @@ delete(a){
       userId:this.loginData.userId,
       deviceId:a.deviceId
     }
-    console.log("delete device==",data)
+    //console.log("delete device==",data)
     this.api.deletedeviceandUser(data).then((res:any)=>{
       // console.log("find data ======",res);
       if(res.status){
@@ -203,7 +203,7 @@ delete(a){
 infected(a){
 
     if(confirm('Are you sure to do this operation')){
-      console.log("yes",a)
+     // console.log("yes",a)
 
         var inf = a.infected == 0 ? 1 :0
         var data = {
@@ -233,7 +233,7 @@ isolated(a){
   var data={}
   var isolate = a.isolated == 0 ? 1 :0
     if(confirm('Are you sure to do this operation')){
-      console.log("yes",a)
+     // console.log("yes",a)
 
       if(a.infected == 0){
 
@@ -243,9 +243,9 @@ isolated(a){
 	        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
           isolated:isolate
         }
-        console.log("isolate data===",data)
+      //  console.log("isolate data===",data)
         this.api.editIsolation(data).then((res:any)=>{
-          console.log("isolated data ======",res);
+         // console.log("isolated data ======",res);
           if(res.status){
             this.refreshFinds()
             var msg = 'Employee updated Successfully'
@@ -264,8 +264,8 @@ isolated(a){
 
   }
   deallocate(event,a){
-    console.log("event====",event)
-    console.log("deallocated findDevice====",a)
+   // console.log("event====",event)
+    //console.log("deallocated findDevice====",a)
 
     if(a.deviceId!= a.deviceName){
       if(confirm("By clicking Ok, This Specific User Details will be deleted expect the Department Assigned for the Find.")){
@@ -276,7 +276,7 @@ isolated(a){
           deviceId:a.deviceId
         }
         this.api.deallocateDevice(data).then((res:any)=>{
-          console.log("deallocate resp",res)
+          //console.log("deallocate resp",res)
           if(res.status){
             a.check=res.status
             this.refreshFinds()
@@ -306,9 +306,9 @@ onShiftSelection(a){
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceId:a.deviceId
   }
-  console.log("shift data",data)
+  //console.log("shift data",data)
   this.api.editShift(data).then((res:any)=>{
-     console.log("shift update data ======",res);
+    // console.log("shift update data ======",res);
     if(res.status){
       this.refreshFinds()
       var msg = 'Employee Shift updated Successfully'
@@ -323,7 +323,7 @@ departmentList(){
   }
   this.api.getAllDepartment(data).then((res:any)=>{
     this.departments=[]
-    console.log("department list======",res);
+   // console.log("department list======",res);
     if(res.status){
         this.departments=res.success;
         this.departments.push({"id":0,"department":"None"})
@@ -331,14 +331,14 @@ departmentList(){
   })
 }
 departmentSelect(a,b){
-  console.log("a*********a=",a,b)
+ // console.log("a*********a=",a,b)
   var data = {
     subUserId:a.id,
     id:b.id,
     userId:this.loginData.userId,
   }
   this.api.setDeviceDepartment(data).then((res:any)=>{
-    console.log("department list======",res);
+   // console.log("department list======",res);
     if(res.status){
       this.refreshFinds()
       var msg = 'Employee department updated Successfully'
@@ -413,7 +413,7 @@ alert("Format should be: Name, employeeId, deviceId, emailId,mobileNumber ")
 
    let file = files[0];
    reader.readAsDataURL(file);
-   console.log("file===",file)
+   //console.log("file===",file)
    reader.onload = ()=>{
      this.tempImagePath = reader.result;
     //  console.log("\nReader result",reader.result);
@@ -451,7 +451,7 @@ readExcel(file) {
 
   }
   readFile.readAsArrayBuffer(file);
-  console.log(this.fileupload)
+ // console.log(this.fileupload)
   var msg = 'Uploading file'
   this.general.openSnackBar(msg,'')
   setTimeout(()=>{this.fileSubmit(this.fileupload.value)},6*1000)
@@ -474,10 +474,10 @@ randomNumber(min=1, max=20) {
 
 
 fileSubmit(data){
-  console.log("file upload data",data)
+  //console.log("file upload data",data)
 
   var type=data.fileData.filename.split('.')
-  console.log("type==",type[type.length-1].toString())
+  //console.log("type==",type[type.length-1].toString())
   if(type[type.length-1]=='xlsx'.toString() || type[type.length-1]=='xls'){
 
     this.loading=false
@@ -489,10 +489,10 @@ fileSubmit(data){
       data.userId =  this.loginData.userId
       data.subUserId = (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       data.fileData.filename = this.loginData.userId.toString() + parseInt(this.randomNumber().toString()) + data.fileData.filename
-        console.log("file===",data)
+       // console.log("file===",data)
       this.api.uploadDeviceFile(data).then((res:any)=>{
         if(res.status){
-          console.log("res file ===",res)
+         // console.log("res file ===",res)
           this.clearFile()
           var msg = 'uploaded'
           this.general.openSnackBar(msg,'')

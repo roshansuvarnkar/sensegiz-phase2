@@ -34,19 +34,19 @@ export class LocationComponent implements OnInit {
     this.getTotalCount()
   }
 
-  
+
 
   getTotalCount(){
     var data={
       userId:this.loginData.userId,
     }
-  
+
     this.api.getLocationDashBoardRowCount(data).then((res:any)=>{
-      console.log("location count======",res);
+     // console.log("location count======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength= parseInt(res.success[0].count);
-  
+
       }
     })
   }
@@ -61,11 +61,11 @@ export class LocationComponent implements OnInit {
      }
 
      this.api.getLocationData(data).then((res:any)=>{
-       console.log("location data ======",res);
+      // console.log("location data ======",res);
        if(res.status){
          this.locationData=[]
         for(let i=0;i<res.success.length;i++){
-        
+
           this.locationData.push({
             i:i+1,
             deviceName:res.success[i].deviceName,
