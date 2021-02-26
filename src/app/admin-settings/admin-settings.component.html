@@ -109,7 +109,8 @@
          <mat-error  >
            Please enter value between 1-75
          </mat-error>
-     </mat-form-field>
+     </mat-form-field><br><br>
+     <span class="note">Note: For New Stack, Enter values <b> only</b> in multiples of 5.</span>
      </div>
 
        <br><br><br>
@@ -387,7 +388,7 @@
             <mat-form-field  >
 
               <mat-label>Seconds</mat-label>
-              <mat-select  formControlName="seconds"  (selectionChange)="getSec($event)" [required]="requiredStatus2" >
+              <mat-select  formControlName="seconds"   (selectionChange)="getSec($event)" [required]="requiredStatus2" >
                 <mat-option *ngFor="let b of sec" [value]="b">{{b}}</mat-option>
               </mat-select>
 
@@ -477,10 +478,7 @@
                 <mat-option *ngFor="let b of multishift" [value]="b">
                   {{b.shiftName}}
                 </mat-option>
-               <!--  <mat-option value="General">General</mat-option>
-                <mat-option value="Morning">Morning</mat-option>
-                <mat-option value="Evening">Evening</mat-option>
-                <mat-option value="Night">Night</mat-option> -->
+
               </mat-select>
 
           </mat-form-field>

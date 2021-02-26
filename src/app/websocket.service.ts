@@ -13,7 +13,6 @@ export class WebsocketService {
   constructor(
     private login:LoginCheckService,
   ) {
-    console.log(this.host)
     this.setupSocketConnection()
   }
 

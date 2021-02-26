@@ -1,1414 +1,1610 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { environment } from '../environments/environment'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../environments/environment';
 import { identifierModuleUrl } from '@angular/compiler';
 import { GeneralMaterialsService } from './general-materials.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
+  host: string = environment.apiHost;
 
-  host:string = environment.apiHost
+  id: string;
+  constructor(
+    private http: HttpClient,
+    private general: GeneralMaterialsService
+  ) {}
+  //   dataa:any
+  send(data) {
+    console.log('data-===', data);
 
-  constructor(private http:HttpClient, private general:GeneralMaterialsService) { }
-
-  send(data){
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/login';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    })
-  }
-
-
-  deviceRegister(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    let url = this.host + '/login';
+    let body = {
+      data: data,
     };
-    let url = this.host+'/deviceRegistration';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  deallocateDevice(data){
+  deviceRegister(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-    let url = this.host+'/deallocateDevice';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deviceRegistration';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  coinRegister(data){
+  deallocateDevice(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/coinRegistration';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deallocateDevice';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  editDeviceRegister(data){
+  coinRegister(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/updateDeviceDetails';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/coinRegistration';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  editCoinRegister(data){
+  editDeviceRegister(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/setCoinList';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateDeviceDetails';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  EditUserRegister(data){
+  editCoinRegister(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/updateUserDetails';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setCoinList';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  UserRegister(data){
+  EditUserRegister(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/userDetails';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateUserDetails';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-
-
-  deletedeviceandUser(data){
+  UserRegister(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/deleteDeviceDetails';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/userDetails';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-
-
-  getData(data){
+  deletedeviceandUser(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/getData';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-
-
-  }
-
-
-
-
-  getDeviceData(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    let body = {
+      data: data,
     };
-
-    let url = this.host+'/getDeviceData';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let url = this.host + '/deleteDeviceDetails';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  getDeviceDataCount(data){
+  getData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/getDeviceDataCount';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getData';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  setTime(data){
+  getDeviceData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/deviceShift';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getDeviceData';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-  addDistance(data){
+  getDeviceDataCount(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/deviceSetting';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getDeviceDataCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  setDeviceRssi(data){
+  setTime(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/setDeviceRssi';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-  }
- deleteGeofence(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    let body = {
+      data: data,
     };
-
-    let url = this.host+'/deleteDeviceGeofence';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let url = this.host + '/deviceShift';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-  editInfectedPerson(data){
+  addDistance(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/updateInfected';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deviceSetting';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  getCountData(data){
+  setDeviceRssi(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/getPortalHome';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setDeviceRssi';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  deleteGeofence(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deleteDeviceGeofence';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-
-  addMaxContactThreshold(data){
+  editInfectedPerson(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/deviceSettingThreshold';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateInfected';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  getAssignedDevices(data){
+  getCountData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/appAdminAssignView';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getPortalHome';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-  getLiveData(data){
+  addMaxContactThreshold(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/getData';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deviceSettingThreshold';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  getExceptionData(data){
+  getAssignedDevices(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/exceptionDashBoard';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/appAdminAssignView';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  getExceptionDataRowCount(data){
+  getLiveData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/exceptionDashBoardRowCount';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getData';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  getLocationData(data){
+  getExceptionData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/locationDashboard';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/exceptionDashBoard';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  getDeviceHistoryBasedOnDate(data){
+  getExceptionDataRowCount(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/deviceHistory';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-  }
-  getDeviceHistoryBasedOnDeviceId(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    let body = {
+      data: data,
     };
-
-    let url = this.host+'/historyBasedOnDeviceId';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-  }
-  getDeviceHistoryBasedOnDeviceName(data){
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-
-    let url = this.host+'/historyBasedOnDeviceName';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let url = this.host + '/exceptionDashBoardRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-// max Time Contact
-
-  getMaxTimeContact(data){
+  getLocationData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/maxTimeContact';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/locationDashboard';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-  getMaxContactDevice(data){
+  getDeviceHistoryBasedOnDate(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deviceHistory';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getDeviceHistoryBasedOnDeviceId(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
 
-    let url = this.host+'/maxContactDevice';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let url = this.host + '/historyBasedOnDeviceId';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getDeviceHistoryBasedOnDeviceName(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/historyBasedOnDeviceName';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
+  // max Time Contact
 
-  getPerDayCount(data){
+  getMaxTimeContact(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/perDayCount';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/maxTimeContact';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-
-
-  getHomeCountData(data){
+  getMaxContactDevice(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/getDataType';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
-    });
-  }
-/* ********************** */
-
-getDeallocatedDevice(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/getDeallocatedDevice';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-
-/* ************************** */
-
-
-  setGatewayDataRate(data)
-  {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    let body = {
+      data: data,
     };
-
-    let url = this.host+'/setGatewayDataRate';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let url = this.host + '/maxContactDevice';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-
-   editShift(data){
+  getPerDayCount(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-    let url = this.host+'/updateDeviceShift';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/perDayCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-updateScanningInterval(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setScanningInterval';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-
-updateMeetingCount(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setMeetingCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-
-getGeofenceReport(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/geofenceReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-getCustomReport(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/getOnlineOfflineReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-showWarning(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-
-   let url = this.host+'/deviceWarning';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
- editSettingShift(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-
-   let url = this.host+'/updateSettingsShift';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
-
-
-  adminLogin(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-
-   let url = this.host+'/adminLogin';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
- getAdminData(){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   var data = ""
-   let url = this.host+'/getUser';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
- createUser(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   let url = this.host+'/createUser';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
- deleteAdminUser(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   let url = this.host+'/deleteUser';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
- updateBleMac(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   let url = this.host+'/updateMacId';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-getTotalRowCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/getRowCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-getLocationDashBoardRowCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/locationDashboardRowCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-getGeofenceReportRowCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/geofenceReportRowCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-getLocationHistoryRowCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/locationHistoryRowCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
- addTxPower(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   let url = this.host+'/setTxPower';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
- deleteShift(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   let url = this.host+'/deleteDeviceShift';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
-
-
- getLiveDataTotalCount(data){
-   const httpOptions = {
-     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-   };
-   let url = this.host+'/getRowCount';
-   return new Promise((resolve,reject)=>{
-     this.http.post(url,data,httpOptions).subscribe(res=>{
-       resolve(res);
-     })
-   });
- }
-
- getHistoryDateReportTotalCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/deviceHistoryRowCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-getHistoryNameReportTotalCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/historyBasedOnDeviceNameRowCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-/* ------------ */
-getDepartmentReportTotalCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/departmentCTReportCount';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-/* -------------- */
-getSummaryReport(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/infectedDeviceName';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-// updateBuzzerControl(data){
-//   const httpOptions = {
-//     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-//   };
-//   let url = this.host+'/setBuzzerControl';
-//   return new Promise((resolve,reject)=>{
-//     this.http.post(url,data,httpOptions).subscribe(res=>{
-//       resolve(res);
-//     })
-//   });
-// }
-updateBuzzerConfig(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/setBuzzerConfiguration';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-// getInactivityDeviceSetting(data){
-//   const httpOptions = {
-//     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-//   };
-//   let url = this.host+'/inactivityDeviceSetting';
-//   return new Promise((resolve,reject)=>{
-//     this.http.post(url,data,httpOptions).subscribe(res=>{
-//       resolve(res);
-//     })
-//   });
-// }
-
-getInactivityDeviceSetting(data){
+  getHomeCountData(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-    let url = this.host+'/updateInactivity';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getDataType';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
   }
 
-  downloadActiveOfflineUsers(data,fileName){
-    this.general.loadingFreez.next({status:true})
-
-    let url = this.host+'/downloadActiveOfflineUsers';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-        if(res.status==200)
-        this.downloadFile(res,fileName)
-
-        resolve(true);
-      },
-      err=>{
-        console.log("err==",err)
-      })
+  getDeallocatedDevice(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getDeallocatedDevice';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
-
-  }
-  downloadDeallocatedDevice(data,fileName){
-    this.general.loadingFreez.next({status:true})
-
-    let url = this.host+'/downloadDeallocatedDevice';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-        if(res.status==200)
-        this.downloadFile(res,fileName)
-
-        resolve(true);
-      },
-      err=>{
-        console.log("err==",err)
-      })
-    });
-
   }
 
-getBufferDeviceSetting(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/bufferDeviceSetting';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-updateWearableType(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/setWearableType';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-// updateInactivityStatus(data){
-//   const httpOptions = {
-//     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-//   };
-//   let url = this.host+'/inactivityStatus';
-//   return new Promise((resolve,reject)=>{
-//     this.http.post(url,data,httpOptions).subscribe(res=>{
-//       resolve(res);
-//     })
-//   });
-// }
-
-
-setGeofenceData(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setDeviceGeofence';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-getGeofenceData(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/getDeviceGeofence';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-maxLimit(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setOverCrowdingLimit';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-
-setMaxLimit(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setGroupmaxlimit';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-getGroupData(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/getGroupmaxlimit';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-getLocationHistory(data){
-
+  setGatewayDataRate(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-    let url = this.host+'/locationHistory';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setGatewayDataRate';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
     });
-}
+  }
 
-
-getDurationThreshold(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/durationThreshold';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-getUsernameSuggestion(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/fetchUserNames';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-uploadLogo(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/upload-image';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-uploadDeviceFile(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/upload-file';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-getMaxDistance(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setmaxDistance';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-twoStepAuth(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setTwostepAuth';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-sendOtp(data){
-
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/sendOTP';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-confirmOtp(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/confirmOTP';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-updatePassword(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/updatePassword';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-
-createSubUser(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/createSubUser';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-getSubUser(data){
+  editShift(data) {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateDeviceShift';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  updateScanningInterval(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setScanningInterval';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  updateMeetingCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setMeetingCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getGeofenceReport(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/geofenceReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getCustomReport(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getOnlineOfflineReport';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  showWarning(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deviceWarning';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  editSettingShift(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateSettingsShift';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  adminLogin(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/adminLogin';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getAdminData() {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: '',
+    };
+    let url = this.host + '/getUser';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  createUser(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/createUser';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  deleteAdminUser(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deleteUser';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  updateBleMac(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateMacId';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getTotalRowCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getLocationDashBoardRowCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/locationDashboardRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getGeofenceReportRowCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/geofenceReportRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getLocationHistoryRowCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/locationHistoryRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  addTxPower(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setTxPower';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  deleteShift(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deleteDeviceShift';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getLiveDataTotalCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getHistoryDateReportTotalCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deviceHistoryRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getHistoryNameReportTotalCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/historyBasedOnDeviceNameRowCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getDepartmentReportTotalCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/departmentCTReportCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getSummaryReport(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/infectedDeviceName';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  // updateBuzzerControl(data){
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   };
+  //   let url = this.host+'/setBuzzerControl';
+  //   return new Promise((resolve,reject)=>{
+  //     this.http.post(url,data,httpOptions).subscribe(res=>{
+  //       resolve(res);
+  //     })
+  //   });
+  // }
+  updateBuzzerConfig(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setBuzzerConfiguration';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  // getInactivityDeviceSetting(data){
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   };
+  //   let url = this.host+'/inactivityDeviceSetting';
+  //   return new Promise((resolve,reject)=>{
+  //     this.http.post(url,data,httpOptions).subscribe(res=>{
+  //       resolve(res);
+  //     })
+  //   });
+  // }
+
+  getInactivityDeviceSetting(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateInactivity';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getBufferDeviceSetting(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/bufferDeviceSetting';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  updateWearableType(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setWearableType';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  // updateInactivityStatus(data){
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   };
+  //   let url = this.host+'/inactivityStatus';
+  //   return new Promise((resolve,reject)=>{
+  //     this.http.post(url,data,httpOptions).subscribe(res=>{
+  //       resolve(res);
+  //     })
+  //   });
+  // }
+
+  setGeofenceData(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setDeviceGeofence';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getGeofenceData(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getDeviceGeofence';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  maxLimit(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setOverCrowdingLimit';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  setMaxLimit(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setGroupmaxlimit';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getGroupData(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getGroupmaxlimit';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getLocationHistory(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/locationHistory';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getDurationThreshold(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/durationThreshold';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getUsernameSuggestion(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/fetchUserNames';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  uploadLogo(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/upload-image';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  uploadDeviceFile(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/upload-file';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getMaxDistance(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setmaxDistance';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  twoStepAuth(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/setTwostepAuth';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  sendOtp(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/sendOTP';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  confirmOtp(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/confirmOTP';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  updatePassword(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updatePassword';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  createSubUser(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/createSubUser';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getSubUser(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getSubUser';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  deleteSubUser(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deleteSubUser';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  deleteGroupName(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deletegroupName';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  updateGroupName(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updategroupName';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getOnlineCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getOnlinedevice';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  deleteOvercrowding(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/deleteOverCrowding';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  infectedContactalert(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/infectedContactAlert';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  downloadFile(response, fileName) {
+    let body = response.body;
+    let dataType = body.type;
+    let binaryData = [];
+    binaryData.push(body);
+    this.general.loadingFreez.next({ status: false });
+    let downloadLink = document.createElement('a');
+    downloadLink.href = window.URL.createObjectURL(
+      new Blob(binaryData, { type: dataType })
+    );
+    downloadLink.setAttribute('download', fileName);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
+  /* --------------------------------- */
+
+  downloadActiveOfflineUsers(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
+
+    let url = this.host + '/downloadActiveOfflineUsers';
+    let body = {
+      data: data,
     };
 
-    let url = this.host+'/getSubUser';
-    return new Promise((resolve,reject)=>{
-      this.http.post(url,data,httpOptions).subscribe(res=>{
-        resolve(res);
-      })
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
+
+            if (res.status == 200) this.downloadFile(res, fileName);
+
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
     });
+  }
+  downloadDeallocatedDevice(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
 
-}
+    let url = this.host + '/downloadDeallocatedDevice';
+    let body = {
+      data: data,
+    };
 
-deleteSubUser(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
 
-  let url = this.host+'/deleteSubUser';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
+            if (res.status == 200) this.downloadFile(res, fileName);
 
-}
-deleteGroupName(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
+    });
+  }
 
-  let url = this.host+'/deletegroupName';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
+  downloadReport(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
 
-}
-updateGroupName(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+    let url = this.host + '/download';
+    let body = {
+      data: data,
+    };
 
-  let url = this.host+'/updategroupName';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-getOnlineCount(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
 
-  let url = this.host+'/getOnlinedevice';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
+            if (res.status == 200) this.downloadFile(res, fileName);
 
-}
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
+    });
+  }
+  downloadLtReport(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
 
-deleteOvercrowding(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+    let url = this.host + '/download-lt';
+    let body = {
+      data: data,
+    };
 
-  let url = this.host+'/deleteOverCrowding';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
 
-}
-infectedContactalert(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+            if (res.status == 200) this.downloadFile(res, fileName);
 
-  let url = this.host+'/infectedContactAlert';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
+    });
+  }
+  downloadCummulative(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
 
-}
-downloadFile(response,fileName){
-  let body = response.body
-  let dataType = body.type;
-  let binaryData = [];
-  binaryData.push(body);
-  this.general.loadingFreez.next({status:false})
-  let downloadLink = document.createElement('a');
-  downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-  downloadLink.setAttribute('download', fileName);
-  document.body.appendChild(downloadLink);
-  downloadLink.click();
-}
+    let url = this.host + '/downloadCTReport';
+    let body = {
+      data: data,
+    };
 
-downloadReport(data,fileName){
-  this.general.loadingFreez.next({status:true})
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
 
-  let url = this.host+'/download';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-      if(res.status==200)
-      this.downloadFile(res,fileName)
+            if (res.status == 200) this.downloadFile(res, fileName);
 
-      resolve(true);
-    },
-    err=>{
-      console.log("err==",err)
-    })
-  });
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
+    });
+  }
 
-}
-downloadLtReport(data,fileName){
+  downloadDeptCummulative(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
 
-  this.general.loadingFreez.next({status:true})
+    let url = this.host + '/departmentDownloadCTReport';
+    let body = {
+      data: data,
+    };
 
-  let url = this.host+'/download-lt';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-      // console.log("nam--",res)
-      if(res.status==200)
-      this.downloadFile(res,fileName)
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
 
-      resolve(true);
-    },
-    err=>{
-      console.log("err==",err)
-    })
-  });
+            if (res.status == 200) this.downloadFile(res, fileName);
 
-}
-downloadCummulative(data,fileName){
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
+    });
+  }
 
-  this.general.loadingFreez.next({status:true})
+  downloadCustomReport(data, fileName) {
+    this.general.loadingFreez.next({ status: true });
 
-  let url = this.host+'/downloadCTReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-      // console.log("nam--",res)
-      if(res.status==200)
-      this.downloadFile(res,fileName)
+    let url = this.host + '/downloadOnlineOfflineReport';
+    let body = {
+      data: data,
+    };
 
-      resolve(true);
-    },
-    err=>{
-      console.log("err==",err)
-    })
-  });
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
 
-}
+            if (res.status == 200) this.downloadFile(res, fileName);
 
+            resolve(true);
+          },
+          (err) => {
+            console.log('err==', err);
+          }
+        );
+    });
+  }
+  viewCTReport(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
-downloadDeptCummulative(data,fileName){
+    let url = this.host + '/viewCTReport';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  editIsolation(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
-  this.general.loadingFreez.next({status:true})
+    let url = this.host + '/makePersonIsolated';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  /* --------------------------------------------------------------------------- */
+  getCountryZone() {
+    return new Promise((resolve, reject) => {
+      this.http.get('../../assets/zone.json').subscribe(
+        (res: any) => {
+          console.log('responceZone====******', res);
+          resolve(res.zone);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  }
+  /* ----------------------------------------------------------------------------------------- */
+  getAllDepartment(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
-  let url = this.host+'/departmentDownloadCTReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-      // console.log("nam--",res)
-      if(res.status==200)
-      this.downloadFile(res,fileName)
+    let url = this.host + '/getAllDepartment';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
 
-      resolve(true);
-    },
-    err=>{
-      console.log("err==",err)
-    })
-  });
+  setDeviceDepartment(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
-}
+    let url = this.host + '/setDeviceDepartment';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getDepartmentreport(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
+    let url = this.host + '/departmentCTReport';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
 
-downloadCustomReport(data,fileName){
-  this.general.loadingFreez.next({status:true})
+  setDeviceMultiShift(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
-  let url = this.host+'/downloadOnlineOfflineReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe(res=>{
-      // console.log("nam--",res)
-      if(res.status==200)
-      this.downloadFile(res,fileName)
-
-      resolve(true);
-    },
-    err=>{
-      console.log("err==",err)
-    })
-  });
-
-}
-viewCTReport(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/viewCTReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-
-}
-editIsolation(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/makePersonIsolated';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-getCountryZone(){
-  return new Promise((resolve,reject)=>{
-    this.http.get('../../assets/zone.json').subscribe((res:any)=>{
-      resolve(res.zone)
-    },
-    err=>{
-      reject(err)
-    })
-  })
-}
-
-getAllDepartment(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/getAllDepartment';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-setDeviceDepartment(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/setDeviceDepartment';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-getDepartmentreport(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  let url = this.host+'/departmentCTReport';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
-
-
-setDeviceMultiShift(data){
-  const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-  let url = this.host+'/setDeviceMultiShift';
-  return new Promise((resolve,reject)=>{
-    this.http.post(url,data,httpOptions).subscribe(res=>{
-      resolve(res);
-    })
-  });
-}
-
+    let url = this.host + '/setDeviceMultiShift';
+    let body = {
+      data: data,
+    };
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
 }
