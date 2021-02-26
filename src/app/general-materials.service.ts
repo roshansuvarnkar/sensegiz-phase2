@@ -78,7 +78,6 @@ export class GeneralMaterialsService {
     var obj = this.getObject(key);
     obj[property] = value;
     console.log('obj===', obj);
-
     this.setObject(key, obj);
   }
 
