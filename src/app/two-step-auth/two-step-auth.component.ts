@@ -36,7 +36,8 @@ export class TwoStepAuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin();
-    this.loginData = JSON.parse(this.loginData);
+    console.log("rajesh",this.loginData)
+    //this.loginData = JSON.parse(this.loginData);
     this.route.queryParams.subscribe((params) => {
       this.forgetPwd = JSON.parse(params.type);
     //  console.log('records=', this.forgetPwd);
@@ -89,7 +90,7 @@ export class TwoStepAuthComponent implements OnInit {
       username: value,
     };
     this.api.sendOtp(data).then((res: any) => {
-     // console.log('send opt==', res);
+      console.log('send opt==', res);
 
       if (res.status) {
         this.invalidUser = false;
