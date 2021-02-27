@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { identifierModuleUrl } from '@angular/compiler';
 import { GeneralMaterialsService } from './general-materials.service';
-
+import {CryptoJS} from 'crypto-js'
 @Injectable({
   providedIn: 'root',
 })
@@ -1578,18 +1578,20 @@ export class ApiService {
       });
     });
   }
+
   getDepartmentreport(data) {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     };
 
+
     let url = this.host + '/departmentCTReport';
     let body = {
       data: data,
     };
+
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe((res: any) => {
-        console.log(res.data)
         resolve(res.data);
       });
     });

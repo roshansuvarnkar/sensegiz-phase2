@@ -45,10 +45,10 @@ export class LoginComponent implements OnInit {
     localStorage.clear();
   }
 
+
   onSubmit(data) {
     this.loginInvalid = false;
    // console.log("log data==",data);
-
     if (this.Loginform.valid) {
       try {
         data.system = 'portal';
@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
           .send(data)
           .then((res: any) => {
         //  console.log('logged in==', res);
-
             localStorage.setItem('token', JSON.stringify(res.token));
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
             //console.log(passwordExpiry);

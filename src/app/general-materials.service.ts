@@ -219,6 +219,7 @@ export class GeneralMaterialsService {
 
   decrypt(data) {
     if(data){
+
       var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
       return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
@@ -226,12 +227,8 @@ export class GeneralMaterialsService {
       return null;
     }
   }
-
   encrypt(data) {
-    return CryptoJS.AES.encrypt(
-      JSON.stringify(data),
-      this.ENCRYPT_KEY
-    ).toString();
+    return CryptoJS.AES.encrypt(JSON.stringify(data), this.ENCRYPT_KEY).toString();
   }
 
   getToken() {
