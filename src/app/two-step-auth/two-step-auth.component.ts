@@ -36,7 +36,6 @@ export class TwoStepAuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin();
-    console.log("rajesh",this.loginData)
     //this.loginData = JSON.parse(this.loginData);
     this.route.queryParams.subscribe((params) => {
       this.forgetPwd = JSON.parse(params.type);
