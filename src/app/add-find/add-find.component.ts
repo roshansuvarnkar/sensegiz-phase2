@@ -103,7 +103,7 @@ onNoClick(): void {
 
 Findsubmit(data){
 //  console.log("this.findform===",this.Findform)
- // console.log("find submit data==",data)
+// console.log("find submit data==",data)
   if (this.Findform.valid) {
     try {
       data.tblName ='deviceRegistration'

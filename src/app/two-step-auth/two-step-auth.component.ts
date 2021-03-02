@@ -89,7 +89,7 @@ export class TwoStepAuthComponent implements OnInit {
       username: value,
     };
     this.api.sendOtp(data).then((res: any) => {
-     // console.log('send opt==', res);
+      console.log('send opt==', res);
 
       if (res.status) {
         this.invalidUser = false;

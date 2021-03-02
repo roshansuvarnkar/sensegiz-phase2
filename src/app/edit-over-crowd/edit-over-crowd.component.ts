@@ -122,7 +122,7 @@ export class EditOverCrowdComponent implements OnInit {
           }
         })
 
-        console.log("this.groupCoinData==",this.groupCoinData)
+        //console.log("this.groupCoinData==",this.groupCoinData)
 
         const control = <FormArray>this.overCrowdGroupForm.controls.items;
         control.controls = [];

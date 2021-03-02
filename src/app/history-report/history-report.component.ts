@@ -208,11 +208,14 @@ export class HistoryReportComponent implements OnInit {
 
         this.api.getDepartmentReportTotalCount(data6).then((res:any)=>{
          console.log("length of deportment wise report on device name ======",res);
+
           if(res.status){
             this.currentPageLength=parseInt(res.count)
-          // console.log('\nTotal response: ',res.count);
+           console.log('\nTotal response: ',res.count);
            // this.currentPageLength = parseInt(res.success[0].count);
             // this.tempLen=this.currentPageLength
+          }else{
+            this.currentPageLength=parseInt(res.count)
           }
         })
 
@@ -519,7 +522,7 @@ cummulativeReport(){
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
-   console.log("cummulative report==========",res)
+  //console.log("cummulative report==========",res)
     if(res.status){
       this.totTime=res.success;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
@@ -574,6 +577,7 @@ departmentReport(limit,offset){
   }
 
         console.log("data3==",data)
+
   this.api.getDepartmentreport(data).then((res:any)=>{
       console.log("department history======",res);
     this.liveData=[]
@@ -915,7 +919,7 @@ if(this.type=='deptcummulative'){
 
   this.api.downloadDeptCummulative(data,fileName).then((res:any)=>{
 
-   // console.log("report data recieved ======",res);
+    console.log("report data recieved ======",res);
 
   })
 }
@@ -1080,7 +1084,7 @@ filterTotTime(event){
             totTime:this.general.convertTime(obj.totalTime)
 
             })
-            // console.log("arrr==",arr)
+             console.log("arrr==",arr)
             return arr
           }
 

@@ -18,8 +18,7 @@ import { throwError, BehaviorSubject, of, pipe } from 'rxjs';
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
   loginData: any;
-  encryption: string;
-  decryption: string;
+  
 
   constructor(
     private login: LoginCheckService,
