@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(data) {
     this.loginInvalid = false;
-     console.log("log data==",data);
+   //  console.log("log data==",data);
     if (this.Loginform.valid) {
       try {
         data.system = 'portal';
