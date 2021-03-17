@@ -24,6 +24,7 @@ export class AdminSettingsComponent implements OnInit {
   bufferForm:FormGroup
   workingForm:FormGroup
   sendDataForm:FormGroup
+  maxDistanceForm:FormGroup
   multishiftingselect:FormGroup
   setting:any=[]
   min:any=[]
@@ -53,6 +54,9 @@ export class AdminSettingsComponent implements OnInit {
     this.bufferForm = this.fb.group({
       buffer: ['',[Validators.required, Validators.min(0)]]
     })
+    this.maxDistanceForm = this.fb.group({
+      maxDistance:['',Validators.required]
+    });
 
     this.txPowerForm = this.fb.group({
       txPower: ['', Validators.required],
@@ -94,7 +98,8 @@ export class AdminSettingsComponent implements OnInit {
       shiftName:[''],
       deviceId:[''],
       status:['',Validators.required],
-      type:['',Validators.required]
+      type:['',Validators.required],
+     // earanshift:['']
     })
 
     this.route.queryParams.subscribe(params => {
@@ -132,13 +137,14 @@ export class AdminSettingsComponent implements OnInit {
     }
    // console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-    //  console.log("setting data page ======",res);
+  console.log("setting data page ======",res);
 
       if(res.status){
         this.setting = res.success[0]
         this.bufferForm.patchValue({
           buffer: res.success[0].buffer,
         })
+
         if(res.success[0].durationThreshold<=55){
           this.minStatus=true
           this.timeFormStatus=false
@@ -181,6 +187,9 @@ export class AdminSettingsComponent implements OnInit {
             type : res.success[0].inactivityStatus
          })
         }
+        this.maxDistanceForm.patchValue({
+          maxDistance:res.success[0].maxDistance.toString()
+        })
        /*  else{
           this.inactivityStatusValue = {
             value:false,
@@ -228,6 +237,30 @@ export class AdminSettingsComponent implements OnInit {
       }
     }
   }
+
+
+  onSubmitmaxDistanceForm(data){
+    // console.log("data==",data)
+     if (this.maxDistanceForm.valid) {
+       try {
+         data.userId=this.dataGet.userId
+         this.api.getMaxDistance(data).then((res:any)=>{
+           // console.log("Scanning Interval===",res)
+           if(res.status){
+             this.refreshSetting()
+             var msg='Maximum distance updated Successfully'
+             this.general.openSnackBar(msg,'')
+           }
+         }).catch(err=>{
+          // console.log("err===",err);
+         })
+       } catch (err) {
+       }
+     }
+
+ }
+
+
 
 
   onSubmitDistanceForm(data) {
@@ -682,6 +715,7 @@ export class AdminSettingsComponent implements OnInit {
         deviceId : values.deviceId,
         status: values.status,
         type :values.type,
+       // earanshift:values.earanshift,
         }
         //console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{

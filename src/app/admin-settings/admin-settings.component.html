@@ -27,6 +27,39 @@
 
   <mat-card>
     <mat-card-title>
+      Define Maximum Range
+    </mat-card-title>
+    <mat-card-subtitle>
+     Enter maximum Coin to Find range
+    </mat-card-subtitle><br>
+    <mat-card-content>
+
+      <form [formGroup]="maxDistanceForm" (ngSubmit)="onSubmitmaxDistanceForm(maxDistanceForm.value)" >
+        <mat-form-field  >
+            <mat-label>Enter Range</mat-label>
+            <mat-select class="select-panel" formControlName="maxDistance"  required >
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="20">20</mat-option>
+              <mat-option value="30">30</mat-option>
+              <mat-option value="40">40</mat-option>
+              <mat-option value="60">60</mat-option>
+              <mat-option value="80">80</mat-option>
+              <mat-option value="100">100</mat-option>
+            </mat-select>
+            <mat-error  >
+              Please enter value
+            </mat-error>
+        </mat-form-field>
+        <br><br><br>
+        <button class="btn-set" mat-raised-button [disabled]="!maxDistanceForm.valid"  color="primary">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card>
+    <mat-card-title>
        Define Inactivity
     </mat-card-title>
     <mat-card-subtitle>
@@ -473,6 +506,10 @@
               <mat-radio-button value="1" name="small"  (change)="selectfinds($event)">All</mat-radio-button>
               <mat-radio-button value="2" name="small" (change)="selectfinds($event)">Specific Finds</mat-radio-button>
             </mat-radio-group><br>
+          <!--   <mat-radio-group  color="primary" formControlName="earanshift"  class="wearable">
+              <mat-radio-button value="1" name="small" *ngIf="(multishiftingselect.get('status').value == 1 && multishiftingselect.get('type').value == 1)">Earanshift</mat-radio-button>
+              <mat-radio-button value="2" name="small" *ngIf="(multishiftingselect.get('status').value == 1 && multishiftingselect.get('type').value == 2)">Earanshift</mat-radio-button>
+            </mat-radio-group><br> -->
             <mat-form-field *ngIf="(multishiftingselect.get('status').value == 1)">
               <mat-label>Shift Name</mat-label>
               <mat-select formControlName="shiftName" name="shiftName">

@@ -25,8 +25,6 @@ export class GeneralMaterialsService {
   date2: any;
   time: any;
 
-  encryption: string;
-  decryption: string;
 
   ENCRYPT_KEY: string = environment.ENCRYPTKEY;
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
@@ -150,7 +148,6 @@ export class GeneralMaterialsService {
 
   totalTime(inTime, outTime) {
    // console.log('time===', inTime, outTime);
-
     this.date1 = new Date(inTime);
     this.date2 =
       outTime == null ? new Date('0000-00-00 00:00:00') : new Date(outTime);
@@ -193,8 +190,9 @@ export class GeneralMaterialsService {
   }
 
   getZone(date) {
+   // console.log('time zone==', date);
     var timezone = date.getTimezoneOffset();
-   // console.log('time zone==', timezone);
+  //console.log('time zone==', timezone);
 
     let m = timezone % 60;
     // console.log("m==",m)
@@ -202,16 +200,18 @@ export class GeneralMaterialsService {
     let h = timezone;
     // console.log("h==",m)
 
-    let mm = m <= 9 && m >= 0 ? '0' + m : m;
-    let hh = h <= 9 && h >= 0 ? '0' + h : h;
+    let mm = m <= 9 && m >= 5 ? '0' + m : m;
+    let hh = h <= 9 && h >= 5 ? '0' + h : h;
 
     var timezones = -timezone;
-    // console.log("time zone==",time1zone)
+   //console.log("time zone==",timezones)
 
     if (timezones < 0) {
       var timeZone = '-' + (hh + ':' + mm).toString();
+
     } else {
       timeZone = '+' + (-hh + ':' + -mm).toString();
+
     }
 
     return timeZone;
@@ -219,7 +219,6 @@ export class GeneralMaterialsService {
 
   decrypt(data) {
     if(data){
-
       var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
       return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }

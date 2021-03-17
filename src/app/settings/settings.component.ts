@@ -168,7 +168,7 @@ export class SettingsComponent implements OnInit {
     });
 
     this.maxDistanceForm = this.fb.group({
-      maxDistance:['',Validators.required]
+      maxDistance:[{value:'',disabled: true},Validators.required]
     });
 
   }

@@ -83,7 +83,6 @@ refresh(){
   nextDayData(){
     this.liveData=[]
     this.paginator.pageIndex=0
-
     this.paginator.pageSize=10
     this.pageSet=10
     this.pageIndex=0

@@ -31,7 +31,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+  <mat-card (click)="contactTeam()">
     <mat-card-title>
       Define Maximum Range
     </mat-card-title>
@@ -58,7 +58,7 @@
             </mat-error>
         </mat-form-field>
         <br><br><br>
-        <button class="btn-set" mat-raised-button [disabled]="!maxDistanceForm.valid"  color="primary">Submit</button>
+        <button class="btn-set" mat-raised-button disabled  color="primary">Submit</button>
       </form>
     </mat-card-content>
   </mat-card>

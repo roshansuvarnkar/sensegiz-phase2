@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.api
           .send(data)
           .then((res: any) => {
-        //  console.log('logged in==', res);
+         //console.log('logged in==', res);
             localStorage.setItem('token', JSON.stringify(res.token));
             var passwordExpiry = res.hasOwnProperty('alreadyExisted');
             //console.log(passwordExpiry);

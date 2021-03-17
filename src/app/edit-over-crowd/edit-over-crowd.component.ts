@@ -265,7 +265,7 @@ submit(data,i){
   }
  // console.log("value======",value)
   this.api.updateGroupName(value).then((res:any)=>{
-  //  console.log("group maxlimit response===",res)
+   //console.log("group maxlimit response===",res)
     if(res.status){
       // this.refreshSetting()
       var msg='Group updated Successfully'
@@ -296,7 +296,6 @@ submit(data,i){
   }
 
   deleteOvercrowd(value){
-
 	  var data = {
     id:value.id,
     userId:this.loginData.userId,
