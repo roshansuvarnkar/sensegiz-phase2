@@ -500,7 +500,7 @@ export class AdminSettingsComponent implements OnInit {
      //console.log("data1==",data1)
 
      this.api.getDurationThreshold(data1).then((res:any)=>{
-       console.log("duration==",res)
+       //console.log("duration==",res)
       if(res.status){
 
         this.refreshSetting()
