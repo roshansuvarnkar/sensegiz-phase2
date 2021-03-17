@@ -137,7 +137,7 @@ export class AdminSettingsComponent implements OnInit {
     }
    // console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-  console.log("setting data page ======",res);
+  //console.log("setting data page ======",res);
 
       if(res.status){
         this.setting = res.success[0]
