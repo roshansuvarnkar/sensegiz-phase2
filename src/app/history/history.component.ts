@@ -24,6 +24,7 @@ geoAndLocForm:FormGroup
 cummulativeForm:FormGroup
 customReport:FormGroup
 departmentcummulativeForm:FormGroup
+temparature:FormGroup
 daysExceed:boolean=false
 finds:any=[]
 coinData:any=[]
@@ -92,6 +93,14 @@ userType:any
       fromDate: ['', Validators.required],
       toDate: ['', Validators.required]
     });
+
+    /* -------------------------------- */
+    this.temparature=this.fb.group({
+      deviceName:['', Validators.required],
+      fromDate: ['', Validators.required],
+      toDate: ['', Validators.required]
+    })
+    /* ------------------------------------------ */
 
     this.customReport= this.fb.group({
       type:['',Validators.required]
@@ -281,6 +290,26 @@ onclickGeoLocation(data){
   var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
 
    this.geoAndLocForm.patchValue({
+      fromDate:tot,
+      toDate:todayDate
+    })
+
+}
+onclickTemperature(data){
+  var date = new Date();
+  var toDate = new Date();
+  var prevDate = date.setDate(date.getDate() - data);
+
+  var date = new Date(prevDate);
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+
+  var tot = year + '-' + month + '-'  + day
+
+  var todayDate = toDate.getFullYear() + '-' +  ("0" + (toDate.getMonth() + 1)).slice(-2) + '-'  + ("0" + toDate.getDate()).slice(-2)
+
+   this.temparature.patchValue({
       fromDate:tot,
       toDate:todayDate
     })
@@ -625,7 +654,44 @@ onSubmitSummaryReport(data){
     });
 
   }
+/*  ------------------------------------------------*/
+onSubmitTemperature(data){
+  var date1=new Date(data.fromDate)
+  var date2=new Date(data.toDate)
+  var year = date1.getFullYear();
+  var month = ("0" + (date1.getMonth() + 1)).slice(-2);
+  var day = ("0" + date1.getDate()).slice(-2);
+  var from = year + '-' + month + '-'  + day
 
+  var year1 = date2.getFullYear();
+  var month1 = ("0" + (date2.getMonth() + 1)).slice(-2);
+  var day1 = ("0" + date2.getDate()).slice(-2);
+  var to = year1 + '-' + month1 + '-'  + day1
+
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.height = '90vh';
+  dialogConfig.width = '75vw';
+  dialogConfig.data = {
+    type:"temperature",
+    deviceName:data.deviceName,
+    fromDate:from,
+    toDate:to,
+    date:date1,
+
+  }
+  const dialogRef = this.dialog.open(HistoryReportComponent, dialogConfig);
+
+  dialogRef.afterClosed().subscribe(result => {
+    this.refreshCoins()
+  });
+
+}
+
+
+
+/* ------------------------------------------------ */
   userSuggestion(event){
     //console.log("data=",event)
 
@@ -696,6 +762,7 @@ onSubmitSummaryReport(data){
       }
     })
   }
+
   onSubmitCustomReport(data){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

@@ -14,6 +14,7 @@ import * as XLSX from 'xlsx';
 import * as moment from 'moment';
 import * as CryptoJS from 'crypto-js';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -60,7 +61,7 @@ export class GeneralMaterialsService {
   }
 
   setObject(key, obj) {
-    console.log(obj)
+    //console.log(obj)
     localStorage.setItem(key, this.encrypt(obj));
    //console.log('get==', this.getObject('sensegizlogin'));
   }
@@ -72,7 +73,6 @@ export class GeneralMaterialsService {
   }
 
   updateItem(key, property, value) {
-    console.log(key,property,value)
     var obj = this.getObject(key);
     obj[property] = value;
     console.log('obj===', obj);
@@ -145,7 +145,6 @@ export class GeneralMaterialsService {
     }
     return date;
   }
-
   totalTime(inTime, outTime) {
    // console.log('time===', inTime, outTime);
     this.date1 = new Date(inTime);
@@ -216,7 +215,26 @@ export class GeneralMaterialsService {
 
     return timeZone;
   }
+/* ------------------------------------------------------------------------ */
+  cof:any;
+  temperatureconver(val,formate){
+   // console.log(val,formate)
+    if(formate == "C"){
+      return val
+    }else{
+      if(val=="NA"){
+        return val
+      }else{
+        let temp = Number(val) * 1.8 + 32;
+        this.cof = Math.floor(temp * 10) / 10;
+        return this.cof
+      }
 
+    }
+
+     }
+
+/* ------------------------------------------------------- ------------------------*/
   decrypt(data) {
     if(data){
       var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
@@ -233,4 +251,6 @@ export class GeneralMaterialsService {
   getToken() {
     return JSON.parse(localStorage.getItem('token'));
   }
+
+
 }

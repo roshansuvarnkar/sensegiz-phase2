@@ -27,7 +27,7 @@ loginData:any
 findData:any=[]
 findDataTemp:any
 dataSource: any = [];
-displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','isolated','batteryStatus','emailId','mobileNum',	'edit','deallocate','delete'];
+displayedColumns = ['i','deviceId','deviceName','empId','shift','department','infected','temperature','isolated','batteryStatus','emailId','mobileNum',	'edit','deallocate','delete'];
 shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
@@ -72,7 +72,6 @@ openDialog(): void {
 
 
 ngOnInit(): void {
-
   this.deviceInfo = this.deviceService.getDeviceInfo();
   this.isMobile = this.deviceService.isMobile();
   this.isTablet = this.deviceService.isTablet();
@@ -90,8 +89,6 @@ ngOnInit(): void {
   this.departmentList()
 }
 
-
-
 refreshFinds(){
   var data={
     userId:this.loginData.userId,
@@ -100,7 +97,7 @@ refreshFinds(){
   }
 
   this.api.getData(data).then((res:any)=>{
-   // console.log("find device data ======",res);
+  // console.log("find device data ======",res);
     if(res.status){
      this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
@@ -113,8 +110,10 @@ refreshFinds(){
               shift: res.success[i].shiftName ,
               department:res.success[i].department,
               infected: res.success[i].infected,
+              temperature:this.general.temperatureconver(res.success[i].temperature,this.loginData.temperature),
+              temperatureTimestamp:res.success[i].temperatureTimestamp,
               isolated: res.success[i].isolated,
-
+              loginData:this.loginData.temperature,
               batteryUpdatedOn:res.success[i].batteryUpdatedOn,
               edit:'edit',
               check:res.success[i].deviceId== res.success[i].deviceName?true:false,
@@ -126,7 +125,7 @@ refreshFinds(){
               empId:res.success[i].empId == ''||res.success[i].empId == 'NULL' || res.success[i].empId == 'undefined' ? '-' : res.success[i].empId
           });
       }
-     // console.log("",this.findData)
+
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
@@ -399,7 +398,27 @@ getBatteryStatus(value){
 getBatteryUpdatedOn(value){
   return value
 }
-
+temperatureValue(value){
+ // console.log(value)
+  return value
+}
+temapraturecolors(val){
+  if(val < 38){
+    var a = {
+        'color':'green',
+    }
+    return a
+  }
+  else if(val >= 38){
+    var a = {
+      'color':'red',
+    }
+    return a
+  }
+  else{
+    return {}
+  }
+}
 
 
 fileChange(files){

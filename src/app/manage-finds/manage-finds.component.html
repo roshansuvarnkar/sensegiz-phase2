@@ -154,6 +154,12 @@
           </span>
         </td>
         </ng-container>
+        <ng-container matColumnDef="temperature" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Temparature </th>
+          <td mat-cell *matCellDef="let live " class="cursor">
+            <span *ngIf="temperatureValue(live.temperatureTimestamp)!='0000-00-00 00:00:00' " [ngStyle]="temapraturecolors(live.temperature)" matTooltip="Temperature : {{temperatureValue(live.temperatureTimestamp) | date: 'medium'}}" >{{live.temperature}}</span>
+            <span *ngIf="temperatureValue(live.temperatureTimestamp) =='0000-00-00 00:00:00'">{{live.temperature}}</span></td>
+        </ng-container>
 
         <ng-container matColumnDef="isolated">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Isolated </th>
