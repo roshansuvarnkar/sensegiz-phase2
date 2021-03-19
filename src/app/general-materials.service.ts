@@ -25,7 +25,7 @@ export class GeneralMaterialsService {
   date1: any;
   date2: any;
   time: any;
-
+  cof:any;
 
   ENCRYPT_KEY: string = environment.ENCRYPTKEY;
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
@@ -216,18 +216,22 @@ export class GeneralMaterialsService {
     return timeZone;
   }
 /* ------------------------------------------------------------------------ */
-  cof:any;
+
   temperatureconver(val,formate){
    // console.log(val,formate)
     if(formate == "C"){
-      return val
+      if(val == 'NA'){
+        return val
+      }else{
+        return val+'°C'
+      }
     }else{
       if(val=="NA"){
         return val
       }else{
         let temp = Number(val) * 1.8 + 32;
-        this.cof = Math.floor(temp * 10) / 10;
-        return this.cof
+        this.cof = Math.round(temp * 10) / 10;
+        return this.cof+"°F"
       }
 
     }

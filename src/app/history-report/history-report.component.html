@@ -323,7 +323,7 @@
 <!-- -------------------------------------------------------------------------------------------------- -->
 <div *ngIf="type =='temperature'" id="htmlData">
   <div class="content">
-    <p class="center"> REPORT OF Temperature</p>
+    <p class="center"> REPORT OF TEMPERATURE</p>
     <span class="icon">
       <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
 
@@ -360,12 +360,15 @@
           </ng-container>
 
           <ng-container matColumnDef="temperature">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> temperature </th>
-            <td mat-cell *matCellDef="let live"> {{live.temperature}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+            <td mat-cell *matCellDef="let live">
+              <span [ngStyle]="temapraturecolors(live.temp)">{{live.temperature}}</span>
+
+              </td>
           </ng-container>
 
           <ng-container matColumnDef="temperatureTimestamp">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Updated On </th>
             <td mat-cell *matCellDef="let live"> {{live.temperatureTimestamp | date:'medium'}} </td>
           </ng-container>
 

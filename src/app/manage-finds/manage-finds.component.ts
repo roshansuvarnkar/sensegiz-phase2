@@ -112,8 +112,8 @@ refreshFinds(){
               infected: res.success[i].infected,
               temperature:this.general.temperatureconver(res.success[i].temperature,this.loginData.temperature),
               temperatureTimestamp:res.success[i].temperatureTimestamp,
+              temp:res.success[i].temperature,
               isolated: res.success[i].isolated,
-              loginData:this.loginData.temperature,
               batteryUpdatedOn:res.success[i].batteryUpdatedOn,
               edit:'edit',
               check:res.success[i].deviceId== res.success[i].deviceName?true:false,
@@ -403,21 +403,35 @@ temperatureValue(value){
   return value
 }
 temapraturecolors(val){
-  if(val < 38){
-    var a = {
-        'color':'green',
+  var cof=this.loginData.temperature
+  if(cof=="C"){
+    if(val < 38){
+      var a = {
+          'color':'green',
+      }
+      return a
     }
-    return a
-  }
-  else if(val >= 38){
-    var a = {
-      'color':'red',
+    else if(val >=38){
+      var a = {
+        'color':'red',
+      }
+      return a
     }
-    return a
+  }else{
+    if(val < 100.4){
+      var a = {
+          'color':'green',
+      }
+      return a
+    }
+    else if(val >=100.4){
+      var a = {
+        'color':'red',
+      }
+      return a
+    }
   }
-  else{
-    return {}
-  }
+
 }
 
 

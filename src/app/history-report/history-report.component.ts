@@ -777,7 +777,7 @@ temperatureData(limit,offset){
 
  // console.log(data)
   this.api.temperatureData(data).then((res:any)=>{
-    //console.log(res)
+  console.log(res)
     this.liveData=[]
     this.totTime=[]
     for(let i=0;i<res.success.length;i++){
@@ -786,7 +786,9 @@ temperatureData(limit,offset){
         i:i+1,
         deviceName:res.success[i].deviceName,
         temperature:this.general.temperatureconver(res.success[i].temperature,this.loginData.temperature),
+        temp:res.success[i].temperature,
         temperatureTimestamp:res.success[i].timestamp,
+
 
       /*   i:i+1,
         coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
@@ -1367,6 +1369,39 @@ filterTotTime(event){
 
     })
   }
+
+  temapraturecolors(val){
+  var cof=this.loginData.temperature
+  console.log(cof)
+    if(cof == "C"){
+      if(val < 38){
+        var a = {
+            'color':'green',
+        }
+        return a
+      }
+      else if(val >=38){
+        var a = {
+          'color':'red',
+        }
+        return a
+      }
+    }else{
+      if(val < 100.4){
+        var a = {
+            'color':'green',
+        }
+        return a
+      }
+      else if(val >=100.4){
+        var a = {
+          'color':'red',
+        }
+        return a
+      }
+    }
+  }
+
 
 
 
