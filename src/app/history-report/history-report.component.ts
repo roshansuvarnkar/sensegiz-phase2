@@ -210,7 +210,7 @@ export class HistoryReportComponent implements OnInit {
           if(res.status){
             // console.log('\nTotal response: ',res.success[0].count);
             this.currentPageLength = parseInt(res.success[0].count);
-           // console.log( this.currentPageLength)
+          // console.log( this.currentPageLength)
             // this.tempLen=this.currentPageLength
           }else{
             this.currentPageLength = parseInt(res.success[0].count);
@@ -777,7 +777,7 @@ temperatureData(limit,offset){
 
  // console.log(data)
   this.api.temperatureData(data).then((res:any)=>{
-  console.log(res)
+  //console.log(res)
     this.liveData=[]
     this.totTime=[]
     for(let i=0;i<res.success.length;i++){
@@ -1372,7 +1372,6 @@ filterTotTime(event){
 
   temapraturecolors(val){
   var cof=this.loginData.temperature
-  console.log(cof)
     if(cof == "C"){
       if(val < 38){
         var a = {

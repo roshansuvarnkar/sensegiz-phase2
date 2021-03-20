@@ -1675,9 +1675,7 @@ export class ApiService {
         .subscribe(
           (res: any) => {
             // resolve(decry);
-            console.log(res)
             if (res.status == 200) this.downloadFile(res, fileName);
-
             resolve(true);
           },
           (err) => {

@@ -701,15 +701,15 @@ onSubmitTemperature(data){
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       tblName:'deviceData'
     }
-   // console.log("data==",data)
+    //console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
-    //  console.log("res==",res)
+      //console.log("res==",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i].baseDeviceName)
        }
-      // console.log("username==",this.username)
+       //console.log("username==",this.username)
 
       }
     })
@@ -726,7 +726,7 @@ onSubmitTemperature(data){
       tblName:'deviceRegistration'
 
     }
-  //  console.log("data==",data)
+  // console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
      // console.log("res==",res)
       if(res.status){
@@ -734,7 +734,7 @@ onSubmitTemperature(data){
        for(let i=0;i<res.success.length;i++){
         this.username.push(res.success[i].deviceName)
        }
-     //  console.log("username==",this.username)
+       //console.log("username==",this.username)
       }
     })
 
@@ -750,9 +750,9 @@ onSubmitTemperature(data){
       tblName:'deviceDataPhase2'
 
     }
-    //console.log("data==",data)
+   //console.log("data==",data)
     this.api.getUsernameSuggestion(data).then((res:any)=>{
-     // console.log("res==",res)
+      //console.log("res==",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){

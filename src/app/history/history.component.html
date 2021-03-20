@@ -494,7 +494,7 @@
       </div>
       <form [formGroup]="temparature" (ngSubmit)="onSubmitTemperature(temparature.value)">
         <mat-form-field class="full-width-input">
-          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" (keyup)="geofenceuserSuggestion($event)" required>
+          <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto" (keyup)="userSuggestion($event)" required>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let user of username" [value]="user">
               {{user}}
