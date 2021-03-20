@@ -211,7 +211,7 @@ export class HistoryReportComponent implements OnInit {
           if(res.status){
             // console.log('\nTotal response: ',res.success[0].count);
             this.currentPageLength=parseInt(res.success[0].count);
-           
+
            console.log( this.currentPageLength)
             // this.tempLen=this.currentPageLength
           }
@@ -802,7 +802,7 @@ temperatureData(limit,offset){
     this.dataSource = new MatTableDataSource(this.liveData);
     setTimeout(() => {
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator
+    //  this.dataSource.paginator = this.paginator
        })
   }
   })
