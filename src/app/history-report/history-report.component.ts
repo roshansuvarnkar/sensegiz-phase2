@@ -207,11 +207,11 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.getDepartmentReportTotalCount(data6).then((res:any)=>{
-         console.log("length of deportment wise report on device name ======",res);
+         //console.log("length of deportment wise report on device name ======",res);
 
           if(res.status){
             this.currentPageLength=parseInt(res.count)
-           console.log('\nTotal response: ',res.count);
+           //console.log('\nTotal response: ',res.count);
            // this.currentPageLength = parseInt(res.success[0].count);
             // this.tempLen=this.currentPageLength
           }else{
@@ -440,7 +440,7 @@ summaryReport(){
 
 dataDateReduce(data){
   return data.reduce((group,obj)=>{
-    console.log(obj.contactDeviceName.toLowerCase() == this.deviceName.toLowerCase())
+   // console.log(obj.contactDeviceName.toLowerCase() == this.deviceName.toLowerCase())
   const name = obj.contactDeviceName.toLowerCase().trim() == this.deviceName.toLowerCase().trim()?obj.baseDeviceName.trim(): obj.contactDeviceName.trim()
 
   // console.log("this.deviceName====",this.deviceName)
@@ -576,10 +576,10 @@ departmentReport(limit,offset){
     zone:this.general.getZone(date),
   }
 
-        console.log("data3==",data)
+       // console.log("data3==",data)
 
   this.api.getDepartmentreport(data).then((res:any)=>{
-      console.log("department history======",res);
+      //console.log("department history======",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
@@ -919,7 +919,7 @@ if(this.type=='deptcummulative'){
 
   this.api.downloadDeptCummulative(data,fileName).then((res:any)=>{
 
-    console.log("report data recieved ======",res);
+   // console.log("report data recieved ======",res);
 
   })
 }
@@ -1084,7 +1084,7 @@ filterTotTime(event){
             totTime:this.general.convertTime(obj.totalTime)
 
             })
-             console.log("arrr==",arr)
+            // console.log("arrr==",arr)
             return arr
           }
 
