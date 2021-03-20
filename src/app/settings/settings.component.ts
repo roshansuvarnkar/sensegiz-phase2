@@ -68,6 +68,7 @@ export class SettingsComponent implements OnInit {
   shifts:any=[]
   loading:boolean=false
   tempImagePath:any
+  temperaterpatch:any
   type:any
   uploadForm: FormGroup;
 
@@ -85,6 +86,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
+    this.temperaterpatch=this.loginData.temperature
    // this.refreshShift()
     this.refreshCoins()
     this.refreshSetting()
@@ -174,7 +176,9 @@ export class SettingsComponent implements OnInit {
     this.Temperaturescale=this.fb.group({
       temperatureFormat:['',Validators.required]
     })
-
+      this.Temperaturescale.patchValue({
+        temperatureFormat: this.temperaterpatch
+      })
   }
   contactTeam(){
   alert("Please contact SenseGiz Team for this setting")
