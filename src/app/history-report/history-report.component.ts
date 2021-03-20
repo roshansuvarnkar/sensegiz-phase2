@@ -1371,8 +1371,6 @@ filterTotTime(event){
   }
 
   temapraturecolors(val){
-  var cof=this.loginData.temperature
-    if(cof == "C"){
       if(val < 38){
         var a = {
             'color':'green',
@@ -1385,25 +1383,5 @@ filterTotTime(event){
         }
         return a
       }
-    }else{
-      if(val < 100.4){
-        var a = {
-            'color':'green',
-        }
-        return a
-      }
-      else if(val >=100.4){
-        var a = {
-          'color':'red',
-        }
-        return a
-      }
-    }
   }
-
-
-
-
-
-
 }
