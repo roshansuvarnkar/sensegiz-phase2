@@ -762,7 +762,30 @@ onSubmitTemperature(data){
       }
     })
   }
+  /* ---------------------------------------------------------------------- */
+  temperatureSuggestion(event){
+    // console.log("data=",event)
 
+     var data={
+       value:event.target.value.toString(),
+       userId:this.loginData.userId,
+       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+       tblName:'temperatureData'
+
+     }
+    console.log("data==",data)
+     this.api.getUsernameSuggestion(data).then((res:any)=>{
+      // console.log("res==",res)
+       if(res.status){
+         this.username=[]
+        for(let i=0;i<res.success.length;i++){
+         this.username.push(res.success[i].deviceName)
+        }
+        //console.log("username==",this.username)
+       }
+     })
+
+   }
   onSubmitCustomReport(data){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

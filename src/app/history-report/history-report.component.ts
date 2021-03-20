@@ -195,6 +195,7 @@ export class HistoryReportComponent implements OnInit {
       })
 
     }
+
      if(this.type=='temperature'){
       var data5={
         userId:this.loginData.userId,
@@ -206,14 +207,13 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.temperatureDataCount(data5).then((res:any)=>{
-        //console.log("length of geo fence report on device name ======",res);
+        console.log("length of geo fence report on device name ======",res);
           if(res.status){
             // console.log('\nTotal response: ',res.success[0].count);
-            this.currentPageLength = parseInt(res.success[0].count);
-          // console.log( this.currentPageLength)
+            this.currentPageLength=parseInt(res.success[0].count);
+           
+           console.log( this.currentPageLength)
             // this.tempLen=this.currentPageLength
-          }else{
-            this.currentPageLength = parseInt(res.success[0].count);
           }
         })
 
