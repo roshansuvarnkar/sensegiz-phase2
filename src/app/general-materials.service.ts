@@ -229,8 +229,8 @@ export class GeneralMaterialsService {
       if(val=="NA"){
         return val
       }else{
-        let temp = Number(val) * 1.8 + 32;
-        this.cof = Math.round(temp * 10) / 10;
+        let temp = (Number(val) * 9/5)+ 32;
+        this.cof = Math.floor(temp * 100) / 100;
         return this.cof+"°F"
       }
 
