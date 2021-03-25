@@ -8,7 +8,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject,Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
@@ -29,6 +29,7 @@ export class GeneralMaterialsService {
 
   ENCRYPT_KEY: string = environment.ENCRYPTKEY;
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public deviceHistory = new Subject<any>()
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
   openSnackBar(message: string, action: string) {
@@ -229,9 +230,9 @@ export class GeneralMaterialsService {
       if(val=="NA"){
         return val
       }else{
-        let temp = Number(val) * 1.8 + 32;
-        this.cof = Math.round(temp * 10) / 10;
-        return this.cof+"°F"
+        let temp = (Number(val) * 9/5) + 32;
+        this.cof = Math.floor(temp * 100) / 100;
+        return temp+"°F"
       }
 
     }

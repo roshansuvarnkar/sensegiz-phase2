@@ -49,7 +49,7 @@ import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
 import { AuthenticationInterceptor } from './authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BnNgIdleService } from 'bn-ng-idle';
-
+import {NgxCaptchaModule} from 'ngx-captcha'
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +96,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
     HttpClientModule,
     InternationalPhoneNumber2Module,
     NgxIntlTelInputModule,
+    NgxCaptchaModule,
     NgCircleProgressModule.forRoot({}),
     MDBBootstrapModule.forRoot(),
     DeviceDetectorModule.forRoot(),

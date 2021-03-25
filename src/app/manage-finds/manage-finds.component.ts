@@ -403,8 +403,6 @@ temperatureValue(value){
   return value
 }
 temapraturecolors(val){
-  console.log("value====",val)
-  var cof=this.loginData.temperature
     if(val < 38){
       var a = {
           'color':'green',

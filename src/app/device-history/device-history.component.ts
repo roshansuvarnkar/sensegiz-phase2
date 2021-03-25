@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
+import {GeneralMaterialsService} from '../general-materials.service'
 @Component({
   selector: 'app-device-history',
   templateUrl: './device-history.component.html',
@@ -24,7 +25,7 @@ export class DeviceHistoryComponent implements OnInit {
   currentPageSize:any=10
   displayedColumns: string[] = ['i','deviceName', 'contactDeviceName', 'updatedOn'];
 
-  constructor(private api: ApiService,private login:LoginCheckService,private route: ActivatedRoute) { }
+  constructor(private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -32,24 +33,26 @@ export class DeviceHistoryComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
 
 
-    this.route.queryParams.subscribe(params => {
-        this.deviceData = JSON.parse(params.record) ;
+   // this.route.queryParams.subscribe(params => {
+        //this.deviceData = JSON.parse(params.record) ;
         // console.log("records=",this.deviceData )
-        this.getTotalCount()
-        this.refreshFinds()
-    })
+        this.general.deviceHistory.subscribe(res=>{
+          this.deviceData =res
+          this.getTotalCount()
+          this.refreshFinds()
+        })
+    //
     //setInterval(()=>{this.refreshFinds()},60*1000)
   }
 
-
   refreshFinds(limit=10,offset=0){
-
    var data={
     userId:this.loginData.userId,
     deviceName:this.deviceData.deviceName,
     limit:limit,
     offset:offset
    }
+  // console.log("find data ======",data);
     this.api.getDeviceData(data).then((res:any)=>{
     //  console.log("find data ======",res);
       this.findData=[]

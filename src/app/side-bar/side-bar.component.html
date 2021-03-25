@@ -22,7 +22,7 @@
 
           <ng-container matColumnDef="deviceName">
             <th mat-header-cell *matHeaderCellDef ></th>
-            <td mat-cell *matCellDef="let live"    (click)="clickDevice(live)">
+            <td mat-cell *matCellDef="let live" (click)="clickDevice(live)">
 							<span *ngIf="live.updatedOnLoc!='0000-00-00 00:00:00'"  matTooltip="last seen time: {{live.updatedOnLoc | date : 'medium'}}">{{live.deviceName}}</span>
 							<span *ngIf="live.updatedOnLoc=='0000-00-00 00:00:00'" >{{live.deviceName}}</span>
 						</td>

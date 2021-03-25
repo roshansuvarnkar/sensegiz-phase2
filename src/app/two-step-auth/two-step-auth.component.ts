@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginComponent } from '../login/login.component';
@@ -6,6 +6,7 @@ import { LoginComponent } from '../login/login.component';
 import { LoginCheckService } from '../login-check.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebsocketService } from '../websocket.service';
+import { ReCaptchaV3Service,ReCaptcha2Component } from 'ngx-captcha';
 
 @Component({
   selector: 'app-two-step-auth',
@@ -25,14 +26,22 @@ export class TwoStepAuthComponent implements OnInit {
   otpExpired: boolean = false;
   type: boolean = false;
 
+  @ViewChild('captchaRef') public captchaRef: ReCaptcha2Component;
+  siteKey:string;
+  theme:string;
+  size:string;
+
   constructor(
     private fb: FormBuilder,
     private login: LoginCheckService,
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private socket: WebsocketService
-  ) {}
+    private socket: WebsocketService,
+    private reCaptchaV3Service: ReCaptchaV3Service
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin();
@@ -44,11 +53,13 @@ export class TwoStepAuthComponent implements OnInit {
 
     this.twoStepAuthForm = this.fb.group({
       username: ['', Validators.required],
+      recaptcha:['',Validators.required],
       otp1: ['', Validators.required],
       otp2: ['', Validators.required],
       otp3: ['', Validators.required],
       otp4: ['', Validators.required],
     });
+    this.captchavalidation()
   }
 
   getCodeBoxElement(index) {
@@ -137,4 +148,21 @@ export class TwoStepAuthComponent implements OnInit {
       this.type = false;
     }
   }
+
+
+
+captchavalidation(){
+  this.siteKey="6LcVn4saAAAAAIpWPJ5vcB5sSa7ZHG7dCdP-3KFS"
+  this.theme= 'Normal'
+  this.size='Normal'
+  this.reCaptchaV3Service.execute(this.siteKey, 'homepage', (token) => {
+    //console.log('This is your token: ', token);
+  }, {
+      useGlobalDomain: false
+  });
+}
+handleSuccess(a){
+console.log(a)
+}
+
 }

@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   Loginform: FormGroup;
   public loginInvalid: boolean;
+  public block:boolean=false
   passwordType: string = 'password';
   passwordIcon: string = 'visibility_off';
   newPassword: boolean = false;
@@ -85,6 +86,11 @@ export class LoginComponent implements OnInit {
             } else {
               this.loginInvalid = true;
               localStorage.clear();
+              if(res.code){
+                this.loginInvalid = false;
+                this.block=true
+                localStorage.clear();
+              }
             }
           })
           .catch((err) => {

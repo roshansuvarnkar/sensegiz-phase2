@@ -5,7 +5,7 @@ import { LoginCheckService } from '../login-check.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatMenuTrigger} from '@angular/material/menu';
-
+import {GeneralMaterialsService } from '../general-materials.service'
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
@@ -29,7 +29,10 @@ export class SideBarComponent implements OnInit {
   date1:any
   index:any
   onlineCount:any = 0;
-  constructor(private api: ApiService,private login:LoginCheckService,private router:Router) { }
+  constructor(private api: ApiService,
+    private login:LoginCheckService,
+    private general:GeneralMaterialsService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
@@ -54,10 +57,9 @@ export class SideBarComponent implements OnInit {
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
-     // console.log("find data side bar ======",res);
+     console.log("find data side bar ======",res);
       if(res.status){
         this.findData=[]
-
         this.findData=res.success
         this.findDataTemp=res.success
         this.dataSource = new MatTableDataSource(this.findData)
@@ -89,8 +91,9 @@ export class SideBarComponent implements OnInit {
 
 
   clickDevice(data){
-  //  console.log("data====",data)
-    this.router.navigate(['/device-history'], { queryParams: { record: JSON.stringify(data) } });
+    console.log("data====",data)
+    this.general.deviceHistory.next(data)
+    this.router.navigate(['/device-history']);
   }
 
 
