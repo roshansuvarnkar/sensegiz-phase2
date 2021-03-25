@@ -230,9 +230,9 @@ export class GeneralMaterialsService {
       if(val=="NA"){
         return val
       }else{
-        let temp = (Number(val) * 9/5) + 32;
+        let temp = (Number(val) * 9/5)+ 32;
         this.cof = Math.floor(temp * 100) / 100;
-        return temp+"°F"
+        return this.cof+"°F"
       }
 
     }

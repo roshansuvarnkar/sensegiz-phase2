@@ -155,8 +155,8 @@ captchavalidation(){
   this.siteKey="6LcVn4saAAAAAIpWPJ5vcB5sSa7ZHG7dCdP-3KFS"
   this.theme= 'Normal'
   this.size='Normal'
-  this.reCaptchaV3Service.execute(this.siteKey, 'homepage', (token) => {
-    //console.log('This is your token: ', token);
+  this.reCaptchaV3Service.execute(this.siteKey, 'submit', (token) => {
+   // console.log('This is your token: ', token);
   }, {
       useGlobalDomain: false
   });
@@ -164,5 +164,6 @@ captchavalidation(){
 handleSuccess(a){
 console.log(a)
 }
+
 
 }
