@@ -2,7 +2,7 @@
     <mat-card class="auth-card">
         <mat-card-subtitle>Two Step Authentication</mat-card-subtitle>
         <mat-card-content class="auth-content">
-            <form [formGroup]="twoStepAuthForm" >
+            <form [formGroup]="twoStepAuthForm" (ngSubmit)="sendOtp(twoStepAuthForm.value)">
                 <mat-form-field class="inputField">
                     <input matInput type="text"  formControlName="username" placeholder="Enter Email Id / Mobile Number" autocomplete="off" (keyup)="validate($event)" required>
                 </mat-form-field> <br>
@@ -18,9 +18,9 @@
                   [useGlobalDomain]="false"
                   [size]='size'
                   (success)="handleSuccess($event)"
+
                 formControlName="recaptcha">
-               </ngx-recaptcha2>
-               <br>
+               </ngx-recaptcha2><br>
 
                 <span class="dail" *ngIf="type">Note* : Please provide registered mobile number with valid country dail code
                     if you are authenticating through mobile number to get OTP.
@@ -49,12 +49,12 @@
                 </mat-error>
 
                 <div class="btn-otp">
-                    <button *ngIf="sendOTP" class="sendotp" mat-raised-button color="primary" (click)="sendOtp(twoStepAuthForm.value.username)">Send OTP</button>&nbsp;&nbsp;
+                    <button *ngIf="sendOTP" class="sendotp" mat-raised-button color="primary" [disabled]="!twoStepAuthForm.valid">Send OTP</button>&nbsp;&nbsp;
                     <button class="btn-sub" mat-raised-button color="primary" [disabled]="!twoStepAuthForm.valid" *ngIf="otpField" (click)="submit(twoStepAuthForm.value)">Submit</button>&nbsp;&nbsp;
 
                 </div>
 
-                <span><p (click)="sendOtp(twoStepAuthForm.value.username)" class="resend">Resend OTP</p></span>
+                <span><p (click)="sendOtp(twoStepAuthForm.value)" class="resend">Resend OTP</p></span>
             </form>
         </mat-card-content>
 

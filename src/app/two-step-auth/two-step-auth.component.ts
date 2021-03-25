@@ -45,7 +45,7 @@ export class TwoStepAuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin();
-    //this.loginData = JSON.parse(this.loginData);
+   // this.loginData = JSON.parse(this.loginData);
     this.route.queryParams.subscribe((params) => {
       this.forgetPwd = JSON.parse(params.type);
     //  console.log('records=', this.forgetPwd);
@@ -54,10 +54,10 @@ export class TwoStepAuthComponent implements OnInit {
     this.twoStepAuthForm = this.fb.group({
       username: ['', Validators.required],
       recaptcha:['',Validators.required],
-      otp1: ['', Validators.required],
-      otp2: ['', Validators.required],
-      otp3: ['', Validators.required],
-      otp4: ['', Validators.required],
+      otp1: [''],
+      otp2: [''],
+      otp3: [''],
+      otp4: [''],
     });
     this.captchavalidation()
   }
@@ -91,25 +91,28 @@ export class TwoStepAuthComponent implements OnInit {
   // }
 
   sendOtp(value) {
-    this.sendOTP = false;
+    if(this.twoStepAuthForm.valid){
+      this.sendOTP = false;
+      //  console.log('value==', value);
+       // console.log('hey');
+        var data = {
+          userId: this.loginData.userId,
+          username: value.username,
+        };
+        this.api.sendOtp(data).then((res: any) => {
+          console.log('send opt==', res);
 
-  //  console.log('value==', value);
-   // console.log('hey');
-    var data = {
-      userId: this.loginData.userId,
-      username: value,
-    };
-    this.api.sendOtp(data).then((res: any) => {
-      console.log('send opt==', res);
+          if (res.status) {
+            this.invalidUser = false;
 
-      if (res.status) {
-        this.invalidUser = false;
+            this.otpField = res.status == true ? true : false;
+          } else {
+            this.invalidUser = true;
+          }
+        });
+    }
 
-        this.otpField = res.status == true ? true : false;
-      } else {
-        this.invalidUser = true;
-      }
-    });
+
   }
 
   submit(data) {
@@ -164,6 +167,5 @@ captchavalidation(){
 handleSuccess(a){
 console.log(a)
 }
-
 
 }
