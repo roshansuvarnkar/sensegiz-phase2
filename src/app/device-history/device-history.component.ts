@@ -17,6 +17,7 @@ export class DeviceHistoryComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   index:any
   deviceData:any=[]
+  device:any=[]
   finds:any=[]
   findData:any=[]
   loginData:any
@@ -32,15 +33,16 @@ export class DeviceHistoryComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
 
-
    // this.route.queryParams.subscribe(params => {
         //this.deviceData = JSON.parse(params.record) ;
         // console.log("records=",this.deviceData )
-        this.general.deviceHistory.subscribe(res=>{
-          this.deviceData =res
-          this.getTotalCount()
+        this.general.deviceHistory.subscribe((res:any)=>{
+          this.device =res
           this.refreshFinds()
+          this.getTotalCount()
         })
+        
+        this.deviceData=this.device
     //
     //setInterval(()=>{this.refreshFinds()},60*1000)
   }
@@ -54,9 +56,8 @@ export class DeviceHistoryComponent implements OnInit {
    }
   // console.log("find data ======",data);
     this.api.getDeviceData(data).then((res:any)=>{
-    //  console.log("find data ======",res);
+      console.log("find data ======",res);
       this.findData=[]
-
       if(res.status){
         this.finds=res.success
         for(let i=0;i<res.success.length;i++){
@@ -69,12 +70,10 @@ export class DeviceHistoryComponent implements OnInit {
 
         }
       }
-
         this.dataSource = new MatTableDataSource(this.findData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           // this.dataSource.paginator = this.paginator;
-
         });
 
 

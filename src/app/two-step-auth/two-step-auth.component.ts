@@ -155,14 +155,14 @@ export class TwoStepAuthComponent implements OnInit {
 
 
 captchavalidation(){
-  this.siteKey="6LcVn4saAAAAAIpWPJ5vcB5sSa7ZHG7dCdP-3KFS"
+  this.siteKey="6LdtT48aAAAAAPzCPoqLaXawfJ0UeZ6E6pPOdpJk"
   this.theme= 'Normal'
   this.size='Normal'
-  this.reCaptchaV3Service.execute(this.siteKey, 'submit', (token) => {
+ /*  this.reCaptchaV3Service.execute(this.siteKey, 'submit', (token) => {
    // console.log('This is your token: ', token);
   }, {
       useGlobalDomain: false
-  });
+  }); */
 }
 handleSuccess(a){
 console.log(a)
