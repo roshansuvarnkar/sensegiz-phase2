@@ -17,7 +17,6 @@ export class DeviceHistoryComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   index:any
   deviceData:any=[]
-  device:any=[]
   finds:any=[]
   findData:any=[]
   loginData:any
@@ -37,13 +36,12 @@ export class DeviceHistoryComponent implements OnInit {
         //this.deviceData = JSON.parse(params.record) ;
         // console.log("records=",this.deviceData )
         this.general.deviceHistory.subscribe((res:any)=>{
-          this.device =res
+          this.deviceData =res
           this.refreshFinds()
           this.getTotalCount()
         })
-        
-        this.deviceData=this.device
-    //
+
+
     //setInterval(()=>{this.refreshFinds()},60*1000)
   }
 
