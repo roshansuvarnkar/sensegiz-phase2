@@ -57,7 +57,7 @@ export class SideBarComponent implements OnInit {
     }
 
     this.api.getAssignedDevices(data).then((res:any)=>{
-     console.log("find data side bar ======",res);
+     //console.log("find data side bar ======",res);
       if(res.status){
         this.findData=[]
         this.findData=res.success
@@ -91,9 +91,9 @@ export class SideBarComponent implements OnInit {
 
 
   clickDevice(data){
-    console.log("data====",data)
-    this.general.deviceHistory.next(data)
+   // console.log("data====",data)
     this.router.navigate(['/device-history']);
+    this.general.deviceHistory.next(data)
   }
 
 

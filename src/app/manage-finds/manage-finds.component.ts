@@ -32,6 +32,10 @@ shift = new FormControl('');
 shifts:any=[]
 elementsTemp:any=[]
 tempImagePath:any=''
+currentPageLength:any=10
+currentPageSize:any=10
+limit:any
+offset:any
 header:any
 worksheet:any
 storeData:any
@@ -66,7 +70,8 @@ openDialog(): void {
   const dialogRef = this.dialog.open(AddFindComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(result => {
-    this.refreshFinds()
+    //this.refreshFinds()
+    this.loadData()
   });
 }
 
@@ -84,18 +89,26 @@ ngOnInit(): void {
     type:'devices',
     header:['']
   })
-  this.refreshFinds()
+ // this.refreshFinds()
+ this.loadData()
   this.refreshShift()
   this.departmentList()
-}
+  this.getDataCount()
 
-refreshFinds(){
+}
+loadData(limit=10,offset=0){
+  this.refreshFinds(limit=limit,offset=offset)
+
+  }
+refreshFinds(limit,offset){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    limit:limit,
+    offset:offset,
     tblName:'deviceRegistration'
   }
-
+   // console.log(data)
   this.api.getData(data).then((res:any)=>{
   // console.log("find device data ======",res);
     if(res.status){
@@ -129,7 +142,7 @@ refreshFinds(){
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+       // this.dataSource.paginator = this.paginator;
         // this.paginator.length = this.currentPageSize
       })
       this.elementsTemp = this.findData
@@ -146,17 +159,16 @@ refreshShift(){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    tblName:'deviceShift'
+    tblName:'deviceShift',
   }
-
+console.log(data)
   this.api.getData(data).then((res:any)=>{
-   //console.log("shift  data ======",res);
+  // console.log("shift  data ======",res);
     if(res.status){
       this.shifts=res.success
     }
   })
 }
-
 
 edit(data){
   const dialogConfig = new MatDialogConfig();
@@ -171,7 +183,8 @@ edit(data){
   const dialogRef = this.dialog.open(EditDeviceComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(result => {
-    this.refreshFinds()
+    //this.refreshFinds()
+    this.loadData()
   });
 }
 
@@ -189,7 +202,8 @@ delete(a){
     this.api.deletedeviceandUser(data).then((res:any)=>{
       // console.log("find data ======",res);
       if(res.status){
-        this.refreshFinds()
+        //this.refreshFinds()
+        this.loadData()
         var msg = 'Device Deleted Successfully'
         this.general.openSnackBar(msg,'')
       }
@@ -214,14 +228,16 @@ infected(a){
         this.api.editInfectedPerson(data).then((res:any)=>{
           // console.log("infected data ======",res);
           if(res.status){
-            this.refreshFinds()
+          //  this.refreshFinds()
+          this.loadData()
             var msg = 'Employee updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         })
       }
     else{
-      this.refreshFinds()
+      this.loadData()
+      //this.refreshFinds()
     }
 
 }
@@ -246,7 +262,8 @@ isolated(a){
         this.api.editIsolation(data).then((res:any)=>{
          // console.log("isolated data ======",res);
           if(res.status){
-            this.refreshFinds()
+            this.loadData()
+            //this.refreshFinds()
             var msg = 'Employee updated Successfully'
             this.general.openSnackBar(msg,'')
           }
@@ -254,11 +271,13 @@ isolated(a){
       }
       else{
         alert("You cannot isolate infected person.")
-        this.refreshFinds()
+        this.loadData()
+       // this.refreshFinds()
       }
     }
     else{
-      this.refreshFinds()
+      this.loadData()
+      //this.refreshFinds()
     }
 
   }
@@ -278,7 +297,8 @@ isolated(a){
           //console.log("deallocate resp",res)
           if(res.status){
             a.check=res.status
-            this.refreshFinds()
+            this.loadData()
+            //this.refreshFinds()
           }
           else{
             a.check=false
@@ -287,12 +307,14 @@ isolated(a){
         })
 
       }
-      this.refreshFinds()
+      this.loadData()
+      //this.refreshFinds()
 
     }
     else{
       alert("You cannot allocate device")
-      this.refreshFinds()
+      this.loadData()
+     // this.refreshFinds()
     }
 
   }
@@ -309,7 +331,8 @@ onShiftSelection(a){
   this.api.editShift(data).then((res:any)=>{
     // console.log("shift update data ======",res);
     if(res.status){
-      this.refreshFinds()
+      //this.refreshFinds()
+      this.loadData()
       var msg = 'Employee Shift updated Successfully'
       this.general.openSnackBar(msg,'')
     }
@@ -339,7 +362,8 @@ departmentSelect(a,b){
   this.api.setDeviceDepartment(data).then((res:any)=>{
    // console.log("department list======",res);
     if(res.status){
-      this.refreshFinds()
+      this.loadData()
+      //this.refreshFinds()
       var msg = 'Employee department updated Successfully'
       this.general.openSnackBar(msg,'')
     }
@@ -542,4 +566,28 @@ fileSubmit(data){
  }
 
 
+
+ getUpdate(event) {
+  // console.log("paginator event",event);
+  // console.log("paginator event length", this.currentPageLength);
+  this.limit = event.pageSize
+ this.offset = event.pageIndex*event.pageSize
+  // console.log("limit==",limit,"offset==",offset)
+ this.loadData(this.limit,this.offset)
+}
+getDataCount(){
+  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    tblName:'deviceRegistration'
+  }
+  this.api.getDataCount(data).then((res:any)=>{
+      console.log("length of location report on device name ======",res);
+       if(res.status){
+         console.log('\nTotal response: ',res.success[0].count);
+         this.currentPageLength = parseInt(res.success[0].count);
+
+       }
+     })
+}
 }

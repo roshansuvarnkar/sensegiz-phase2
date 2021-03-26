@@ -102,7 +102,6 @@ this.captchavalidation()
 
           if (res.status) {
             this.invalidUser = false;
-
             this.otpField = res.status == true ? true : false;
           } else {
             this.invalidUser = true;

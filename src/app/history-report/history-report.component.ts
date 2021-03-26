@@ -261,7 +261,7 @@ export class HistoryReportComponent implements OnInit {
       offset:offset,
       zone:this.general.getZone(this.date)
     }
-   // console.log("data==",data)
+    console.log("data==",data)
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
     //  console.log("find data based on date ======",res);
       this.liveData=[]
