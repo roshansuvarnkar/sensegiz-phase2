@@ -23,6 +23,10 @@ export class ManageGatewaysComponent implements OnInit {
   gatewayData:any=[]
   elementsTemp:any=[]
   dataSource: any = [];
+  currentPageLength:any=10
+  currentPageSize:any=10
+  limit:any
+  offset:any
   displayedColumns = ['i','gatewayId','gatewayName','gatewayType','currentVersion','edit','delete']; //'bleVersion',
   // ,'currentVersion'
   constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
@@ -52,14 +56,22 @@ export class ManageGatewaysComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.userType=this.loginData.type
     this.refreshGateway()
+    this.getDataCount()
   }
 
+  refreshGateway(limit=10,offset=0){
+    this.loadData(limit=limit,offset=offset)
+  //this.refreshFinds(limit=limit,offset=offset)
 
-refreshGateway(){
+  }
+
+  loadData(limit,offset){
   var data={
       userId:this.loginData.userId,
       subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-      tblName:'gatewayRegistration'
+     limit:limit,
+     offset:offset,
+    tblName:'gatewayRegistration'
     }
 
   this.api.getData(data).then((res:any)=>{
@@ -86,7 +98,7 @@ refreshGateway(){
       this.dataSource = new MatTableDataSource(this.gatewayData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+       // this.dataSource.paginator = this.paginator;
       })
       this.elementsTemp = this.gatewayData
 
@@ -181,5 +193,27 @@ GatewaypgiAlret(value){
     return {}
   }
 }
+getUpdate(event) {
+  // console.log("paginator event",event);
+  // console.log("paginator event length", this.currentPageLength);
+  this.limit = event.pageSize
+ this.offset = event.pageIndex*event.pageSize
+  // console.log("limit==",limit,"offset==",offset)
+ this.refreshGateway(this.limit,this.offset)
+}
+getDataCount(){
+  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    tblName:'gatewayRegistration'
+  }
+  this.api.getDataCount(data).then((res:any)=>{
+      console.log("length of location report on device name ======",res);
+       if(res.status){
+         console.log('\nTotal response: ',res.success[0].count);
+         this.currentPageLength = parseInt(res.success[0].count);
 
+       }
+     })
+}
 }
