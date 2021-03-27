@@ -7,20 +7,12 @@
                     <input matInput type="text"  formControlName="username" placeholder="Enter Email Id / Mobile Number" autocomplete="off" (keyup)="validate($event)" required>
                 </mat-form-field> <br>
                 <mat-error *ngIf="invalidUser" class="otp-exp">
-                    Invalid User,Please Contact Admin
+                    Invalid User, Please Contact Admin
                 </mat-error><br>
                  <!--  <mat-form-field class="inputField">
                     <input matInput type="text"  formControlName="captch" placeholder="Enter the captcher" autocomplete="off" (keyup)="validate($event)" required>
                 </mat-form-field> <br> -->
-                <ngx-recaptcha2 #captchaElem
-                 [siteKey]="siteKey"
-                  [theme]="theme"
-                  [useGlobalDomain]="false"
-                  [size]='size'
-                  (success)="handleSuccess($event)"
 
-                formControlName="recaptcha">
-               </ngx-recaptcha2><br>
 
                 <span class="dail" *ngIf="type">Note* : Please provide registered mobile number with valid country dail code
                     if you are authenticating through mobile number to get OTP.
@@ -47,6 +39,15 @@
                 <mat-error *ngIf="invalidOTP"  class="otp-exp">
                     Invalid OTP
                 </mat-error>
+                <ngx-recaptcha2 #captchaElem
+                [siteKey]="siteKey"
+                 [theme]="theme"
+                 [useGlobalDomain]="false"
+                 [size]='size'
+                 (success)="handleSuccess($event)"
+
+               formControlName="recaptcha">
+              </ngx-recaptcha2><br>
                 <div class="btn-otp">
                     <button *ngIf="sendOTP" class="sendotp" mat-raised-button color="primary" [disabled]="!twoStepAuthForm.valid" (click)="sendOtp(twoStepAuthForm.value)">Send OTP</button>&nbsp;&nbsp;
                     <button class="btn-sub" mat-raised-button color="primary" [disabled]="!twoStepAuthForm.valid" *ngIf="otpField" (click)="submit(twoStepAuthForm.value)">Submit</button>&nbsp;&nbsp;

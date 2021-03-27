@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginComponent } from '../login/login.component';
-
+import {GeneralMaterialsService} from '../general-materials.service'
 import { LoginCheckService } from '../login-check.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -30,14 +30,19 @@ export class SetNewPasswordComponent implements OnInit {
     private login: LoginCheckService,
     private api: ApiService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private general:GeneralMaterialsService
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((res) => {
+   /*  this.route.queryParams.subscribe((res) => {
       this.userData = JSON.parse(res.user);
      // console.log('user info==', this.userData);
-    });
+    }); */
+    this.general.setpassword.subscribe((res:any)=>{
+      this.userData = res;
+      //console.log('user info==', this.userData);
+    })
 
     this.setPasswordForm = this.fb.group(
       {
@@ -95,7 +100,6 @@ export class SetNewPasswordComponent implements OnInit {
         if (res.status) {
           // if(this.login.login(JSON.stringify(res.success))){
           this.router.navigate(['/login']);
-
           // }
         }
       });

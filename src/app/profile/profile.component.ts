@@ -129,7 +129,7 @@ refreshSubUserData(){
     userId : this.loginData.userId
   }
   this.api.getSubUser(data).then((res:any)=>{
-   console.log("data===",res)
+  // console.log("data===",res)
     if(res.status){
       this.subUser=res.success
     }else{
@@ -143,14 +143,14 @@ refreshSubUserData(){
 
 
   delete(a){
-    console.log("delete==",a)
+   // console.log("delete==",a)
     var data={
       subUserId : a.id,
       isDeleted : a.isDeleted == 'Y' ? 'N' : 'Y'
     }
-    console.log("data===",data)
+   // console.log("data===",data)
     this.api.deleteSubUser(data).then((res:any)=>{
-       console.log("data===",res)
+      // console.log("data===",res)
      if(res.status){
        var msg = "User updated successfully"
        this.general.openSnackBar(msg,'')

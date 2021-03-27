@@ -54,7 +54,7 @@ export class DeviceHistoryComponent implements OnInit {
    }
   // console.log("find data ======",data);
     this.api.getDeviceData(data).then((res:any)=>{
-      console.log("find data ======",res);
+      //console.log("find data ======",res);
       this.findData=[]
       if(res.status){
         this.finds=res.success

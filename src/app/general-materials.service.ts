@@ -29,7 +29,8 @@ export class GeneralMaterialsService {
 
   ENCRYPT_KEY: string = environment.ENCRYPTKEY;
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  public deviceHistory = new Subject<any>()
+  public deviceHistory: BehaviorSubject<any>= new BehaviorSubject<any>([]);
+  public setpassword:BehaviorSubject<any>= new BehaviorSubject<any>([]);
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
   openSnackBar(message: string, action: string) {

@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoginComponent } from '../login/login.component';
-
+import {GeneralMaterialsService} from '../general-materials.service'
 import { LoginCheckService } from '../login-check.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebsocketService } from '../websocket.service';
@@ -38,6 +38,7 @@ export class TwoStepAuthComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private socket: WebsocketService,
+    private general:GeneralMaterialsService,
     private reCaptchaV3Service: ReCaptchaV3Service
   ) {}
 
@@ -98,7 +99,7 @@ this.captchavalidation()
           username: value.username,
         };
         this.api.sendOtp(data).then((res: any) => {
-          console.log('send opt==', res);
+         // console.log('send opt==', res);
 
           if (res.status) {
             this.invalidUser = false;
@@ -129,9 +130,8 @@ this.captchavalidation()
           this.socket.joinRoom();
           this.router.navigate(['/home']);
         } else if (this.forgetPwd == 'forgetPassword') {
-          this.router.navigate(['/set-new-password'], {
-            queryParams: { user: JSON.stringify(data) },
-          });
+          this.router.navigate(['/set-new-password']);
+          this.general.setpassword.next(data)
         }
       } else {
         this.invalidOTP = true;
@@ -160,7 +160,7 @@ captchavalidation(){
   }); */
 }
 handleSuccess(a){
-console.log(a)
+//console.log(a)
 }
 
 }

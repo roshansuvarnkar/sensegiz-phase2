@@ -110,7 +110,7 @@ refreshFinds(limit,offset){
   }
    // console.log(data)
   this.api.getData(data).then((res:any)=>{
-   console.log("find device data ======",res);
+   //console.log("find device data ======",res);
     if(res.status){
      this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
@@ -161,7 +161,7 @@ refreshShift(){
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     tblName:'deviceShift',
   }
-console.log(data)
+//console.log(data)
   this.api.getData(data).then((res:any)=>{
   // console.log("shift  data ======",res);
     if(res.status){
@@ -582,9 +582,9 @@ getDataCount(){
     tblName:'deviceRegistration'
   }
   this.api.getDataCount(data).then((res:any)=>{
-      console.log("length of location report on device name ======",res);
+      //console.log("length of location report on device name ======",res);
        if(res.status){
-         console.log('\nTotal response: ',res.success[0].count);
+         //console.log('\nTotal response: ',res.success[0].count);
          this.currentPageLength = parseInt(res.success[0].count);
 
        }

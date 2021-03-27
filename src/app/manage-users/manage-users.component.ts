@@ -72,7 +72,7 @@ export class ManageUsersComponent implements OnInit {
       }
 
     this.api.getData(data).then((res:any)=>{
-      console.log("user data ======",res);
+    //  console.log("user data ======",res);
       if(res.status){
         this.userData=[]
         for (let i = 0; i <res.success.length; i++) {
@@ -153,9 +153,9 @@ export class ManageUsersComponent implements OnInit {
       tblName:'userDetails'
     }
     this.api.getDataCount(data).then((res:any)=>{
-        console.log("length of location report on device name ======",res);
+        //console.log("length of location report on device name ======",res);
          if(res.status){
-           console.log('\nTotal response: ',res.success[0].count);
+          // console.log('\nTotal response: ',res.success[0].count);
            this.currentPageLength = parseInt(res.success[0].count);
 
          }
