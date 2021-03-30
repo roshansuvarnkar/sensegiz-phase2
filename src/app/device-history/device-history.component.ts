@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,AfterViewInit,Input} from '@angular/core';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
@@ -7,6 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {GeneralMaterialsService} from '../general-materials.service'
+import {SideBarComponent} from '../side-bar/side-bar.component'
 @Component({
   selector: 'app-device-history',
   templateUrl: './device-history.component.html',
@@ -15,6 +16,7 @@ import {GeneralMaterialsService} from '../general-materials.service'
 export class DeviceHistoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  /* @Input() items:any[]; */
   index:any
   deviceData:any=[]
   finds:any=[]
@@ -25,17 +27,22 @@ export class DeviceHistoryComponent implements OnInit {
   currentPageSize:any=10
   displayedColumns: string[] = ['i','deviceName', 'contactDeviceName', 'updatedOn'];
 
-  constructor(private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
+  constructor(private api: ApiService,
+    private login:LoginCheckService,
+    private general:GeneralMaterialsService,
+    private route: ActivatedRoute) {
+     // console.log("message====",this.items);
+     }
 
   ngOnInit(): void {
-
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
-
+   // console.log("rfrfff",this.input);
    // this.route.queryParams.subscribe(params => {
         //this.deviceData = JSON.parse(params.record) ;
         // console.log("records=",this.deviceData )
         this.general.deviceHistory.subscribe((res:any)=>{
+         // console.log(res)
           this.deviceData =res
           this.refreshFinds()
           this.getTotalCount()
@@ -43,6 +50,7 @@ export class DeviceHistoryComponent implements OnInit {
 
 
     //setInterval(()=>{this.refreshFinds()},60*1000)
+
   }
 
   refreshFinds(limit=10,offset=0){
@@ -54,7 +62,7 @@ export class DeviceHistoryComponent implements OnInit {
    }
   // console.log("find data ======",data);
     this.api.getDeviceData(data).then((res:any)=>{
-      //console.log("find data ======",res);
+     //console.log("find data ======",res);
       this.findData=[]
       if(res.status){
         this.finds=res.success

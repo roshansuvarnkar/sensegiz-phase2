@@ -29,6 +29,7 @@ export class SideBarComponent implements OnInit {
   date1:any
   index:any
   onlineCount:any = 0;
+  message:any
   constructor(private api: ApiService,
     private login:LoginCheckService,
     private general:GeneralMaterialsService,
@@ -88,9 +89,12 @@ export class SideBarComponent implements OnInit {
       }
     })
   }
-
+    letse:any;
   clickDevice(data){
-   // console.log("data====",data)
+  //  console.log("data====",data)
+   this.message=data
+   console.log("data====",this.message)
+ // console.log(".leats",this.element)
     this.router.navigate(['/device-history']);
     this.general.deviceHistory.next(data)
   }

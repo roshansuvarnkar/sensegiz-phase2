@@ -434,7 +434,7 @@ export class AdminSettingsComponent implements OnInit {
 
 
   onSubmitScanningForm(data){
-    // console.log("data==",data)
+     //console.log("data==",data)
     if (this.scanningForm.valid) {
       try {
         data.userId=this.dataGet.userId
@@ -600,7 +600,7 @@ export class AdminSettingsComponent implements OnInit {
       try {
         data.userId=this.dataGet.userId
         this.api.setGatewayDataRate(data).then((res:any)=>{
-         // console.log("setGatewayDataRate ===",res)
+         // console.log("setGatewayDataRate ===",data)
           if(res.status){
             this.refreshSetting()
             var msg='Gateway data rate updated successfully'
