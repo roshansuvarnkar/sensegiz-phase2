@@ -11,8 +11,6 @@ export class AuthGuard implements CanActivate {
 loginData:any
 constructor(private router: Router, private login: LoginCheckService) {}
 
-
-
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

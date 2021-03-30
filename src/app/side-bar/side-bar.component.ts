@@ -89,7 +89,6 @@ export class SideBarComponent implements OnInit {
     })
   }
 
-
   clickDevice(data){
    // console.log("data====",data)
     this.router.navigate(['/device-history']);

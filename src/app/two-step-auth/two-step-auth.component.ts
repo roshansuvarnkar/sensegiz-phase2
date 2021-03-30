@@ -25,7 +25,6 @@ export class TwoStepAuthComponent implements OnInit {
   newPassword: boolean = false;
   otpExpired: boolean = false;
   type: boolean = false;
-
   @ViewChild('captchaRef') public captchaRef: ReCaptcha2Component;
   siteKey:string;
   theme:string;
@@ -121,7 +120,6 @@ this.captchavalidation()
     //  console.log('submit==', res);
       var otpExpiry = res.hasOwnProperty('failure');
       this.otpExpired = otpExpiry == true ? true : false;
-
       if (res.status) {
         this.invalidOTP = false;
         localStorage.setItem('sensegizTwoStep', 'true');
@@ -162,6 +160,7 @@ captchavalidation(){
 handleSuccess(a){
 //console.log(a)
 }
+
 
 }
 
