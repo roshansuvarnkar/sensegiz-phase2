@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild,AfterViewInit,Input} from '@angular/core';
+import { Component, OnInit, ViewChild,Input} from '@angular/core';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
@@ -16,7 +16,6 @@ import {SideBarComponent} from '../side-bar/side-bar.component'
 export class DeviceHistoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  /* @Input() items:any[]; */
   index:any
   deviceData:any=[]
   finds:any=[]
@@ -31,7 +30,7 @@ export class DeviceHistoryComponent implements OnInit {
     private login:LoginCheckService,
     private general:GeneralMaterialsService,
     private route: ActivatedRoute) {
-     // console.log("message====",this.items);
+      // console.log("message====",this.items);
      }
 
   ngOnInit(): void {
@@ -39,10 +38,9 @@ export class DeviceHistoryComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
    // console.log("rfrfff",this.input);
    // this.route.queryParams.subscribe(params => {
-        //this.deviceData = JSON.parse(params.record) ;
-        // console.log("records=",this.deviceData )
-        this.general.deviceHistory.subscribe((res:any)=>{
-         // console.log(res)
+   // console.log("records=",this.deviceData )
+       this.general.deviceHistory.subscribe((res:any)=>{
+          // console.log(res)
           this.deviceData =res
           this.refreshFinds()
           this.getTotalCount()
