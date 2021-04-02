@@ -32,6 +32,8 @@ export class DeviceHistoryComponent implements OnInit {
     private route: ActivatedRoute) {
       // console.log("message====",this.items);
      }
+    // lot:any;
+   //  pars:any
 
   ngOnInit(): void {
     this.loginData = this.login.Getlogin()
@@ -48,7 +50,14 @@ export class DeviceHistoryComponent implements OnInit {
 
 
     //setInterval(()=>{this.refreshFinds()},60*1000)
-
+   /*  setInterval(()=>{
+      this.lot=localStorage.getItem('value')
+      var pars=JSON.parse(this.lot)
+      this.deviceData =pars
+      this.refreshFinds()
+     // this.getTotalCount()
+   })
+ */
   }
 
   refreshFinds(limit=10,offset=0){

@@ -134,6 +134,19 @@ export class HistoryReportComponent implements OnInit {
       })
 
     }
+    if(this.type=='custom'){
+      var data23={
+        userId:this.loginData.userId,
+        type:this.liveData.type,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+      }
+      this.api.OnlineOfflineReportCount(data23).then((res:any)=>{
+        if(res.status){
+          this.currentPageLength = parseInt(res.success[0].count);
+        }
+
+      })
+    }
   if(this.type=='basedOnFindName'){
     var data1={
       userId:this.loginData.userId,
@@ -142,6 +155,7 @@ export class HistoryReportComponent implements OnInit {
       fromDate: this.from,
       toDate:this.to,
       zone:this.general.getZone(this.date)
+
     }
 
     this.api.getHistoryNameReportTotalCount(data1).then((res:any)=>{
@@ -809,11 +823,13 @@ temperatureData(limit,offset){
 
 }
 /* ---------------------------------- */
-customReport(){
+customReport(limit,offset){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    type:this.liveData.type
+    type:this.liveData.type,
+    limit:limit,
+    offset:offset
   }
  // console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
@@ -824,7 +840,7 @@ customReport(){
       this.dataSource = new MatTableDataSource(this.customData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator
+       // this.dataSource.paginator = this.paginator
       })
     }
   })
@@ -850,7 +866,7 @@ customReport(){
         this.geofenceAndlocationReport(limit=limit,offset=offset)
       }
       if(this.type == 'custom'){
-        this.customReport()
+        this.customReport(limit=limit,offset=offset)
 
       }
       if(this.type == 'deptcummulative'){
