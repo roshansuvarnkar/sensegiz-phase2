@@ -189,6 +189,30 @@ export class HistoryReportComponent implements OnInit {
     })
 
   }
+  /* ---------------------------------------------------------------------------------------- */
+
+  if(this.type=='cummulative'){
+    date=new Date()
+    var data9={
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+      fromDate: this.from,
+      toDate:this.to,
+      zone:this.general.getZone(date)
+    }
+     this.api.viewCTReportCount(data9).then((res:any)=>{
+   // console.log("length of location report on device name ======",res);
+      if(res.status){
+        // console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength = parseInt(res.success[0].count);
+        // this.tempLen=this.currentPageLength
+      }else{
+        this.currentPageLength = parseInt(res.success[0].count);
+      }
+    })
+
+  }
+  /* -------------------------------------------------------------- */
   if(this.type=='geoFenceReport'){
     var data3={
       userId:this.loginData.userId,
@@ -422,7 +446,7 @@ export class HistoryReportComponent implements OnInit {
 //   },{})
 // }
 
-summaryReport(){
+summaryReport(limit,offset){
   var date=new Date()
   var data={
     userId:this.loginData.userId,
@@ -431,11 +455,13 @@ summaryReport(){
     // fromDate: this.from,
     // toDate:this.to,
     type:this.status,
+    limit:limit,
+    offset:offset,
     zone:this.general.getZone(date)
   }
  // console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
-  //  console.log("summary report======",res);
+   console.log("summary report======",res);
 
     this.liveData=[]
     this.locationData=[]
@@ -545,22 +571,22 @@ location(loc){
   a[a.length-1]= a[a.length-1]+'.'
   return a
 }
-cummulativeReport(){
+cummulativeReport(limit,offset){
   var date=new Date()
-
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     fromDate: this.from,
     toDate:this.to,
+    limit:limit,
+    offset:offset,
     zone:this.general.getZone(date)
-
   }
- // console.log("hvhs======",data)
+  //console.log("hvhs======",data)
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
-  //console.log("cummulative report==========",res)
+ // console.log("cummulative report==========",res)
     if(res.status){
       this.totTime=res.success;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
@@ -578,7 +604,7 @@ cummulativeReport(){
         this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+         // this.dataSource.paginator = this.paginator
            })
 
       // }
@@ -851,13 +877,13 @@ customReport(limit,offset){
         this.basedOnDate(limit=limit,offset=offset)
       }
       if(this.type == 'cummulative'){
-        this.cummulativeReport()
+        this.cummulativeReport(limit=limit,offset=offset)
       }
       if(this.type == 'basedOnFindName'){
         this.basedOnFindName(limit=limit,offset=offset)
       }
       if(this.type == 'summaryReport'){
-        this.summaryReport()
+        this.summaryReport(limit=limit,offset=offset)
       }
       if(this.type == 'locationReport'){
         this.locationReport(limit=limit,offset=offset)

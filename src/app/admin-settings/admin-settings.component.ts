@@ -30,6 +30,7 @@ export class AdminSettingsComponent implements OnInit {
   setting:any=[]
   min:any=[]
   sec:any=[]
+  hrs:any=[]
   shifts:any=[]
   multishift:any=[]
   inactivityStatusValue:any=[]
@@ -116,6 +117,7 @@ export class AdminSettingsComponent implements OnInit {
 
   this. refreshSetting()
   this.minThresholdMinsec()
+  this.temperaturePeriod()
   this.refreshShift()
   }
 
@@ -239,26 +241,34 @@ export class AdminSettingsComponent implements OnInit {
       }
     })
   }
+temperaturePeriod(){
 
+  for(let i=0;i<=42;i++){
+  var temp =i;
+  this.hrs.push(temp)
+   console.log(temp)
+  }
+}
   minThresholdMinsec(){
-    var seconds=''
+
     for(let i =0;i<=5;i++){
       var minutes=i==0?'none':i
       this.min.push(minutes)
+     // console.log(this.min)
      }
+     var seconds=''
     for(let i =-1;i<=11;i++){
-      if(i==1|| i==2 || i==3){
-      }
-      else{
         if(i==-1){
           seconds='none'
         }
         else{
+         // console.log(i)
          seconds=(i*5).toString()
         }
         this.sec.push(seconds)
+       // console.log(this.sec)
       }
-    }
+
   }
 
 
