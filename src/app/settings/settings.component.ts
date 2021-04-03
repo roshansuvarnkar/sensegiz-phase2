@@ -36,7 +36,8 @@ export class SettingsComponent implements OnInit {
   buzzerTimeForm:FormGroup
   buzzerConfigForm:FormGroup
   maxDistanceForm:FormGroup
-  multishiftingselect:FormGroup
+  Temperaturescale:FormGroup
+  //multishiftingselect:FormGroup
   loginData:any
   setting:any
   duration:any
@@ -168,8 +169,11 @@ export class SettingsComponent implements OnInit {
     });
 
     this.maxDistanceForm = this.fb.group({
-      maxDistance:['',Validators.required]
+      maxDistance:[{value:'',disabled: true},Validators.required]
     });
+    this.Temperaturescale=this.fb.group({
+      temperatureFormat:['',Validators.required]
+    })
 
   }
   contactTeam(){
@@ -627,6 +631,7 @@ export class SettingsComponent implements OnInit {
       } catch (err) {
       }
     }
+
    }
 
 
@@ -708,7 +713,24 @@ export class SettingsComponent implements OnInit {
 
   //  }
 
+  /* ----------------------------------------------------------------------------- */
+  onSubmitTemperature(value){
+    if(this.Temperaturescale.valid){
+     try{
+      var data={
+        userId:this.loginData.userId,
+        temperatureFormat:value.temperatureFormat
+      }
+      this.api.updateTemperatureFormat(data).then((res)=>{
+        this.general.updateItem('sensegizlogin','temperature',data.temperatureFormat)
+        //console.log(res)
+      })
+     } catch(err){
 
+     }
+    }
+  }
+/* ------------------------------------------------------------------------------- */
   option(data){
     //console.log("option===",data.target.value)
     if(data.target.value == '' || data.target.value == 'undefined' || data.target.value == null){
@@ -939,7 +961,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
- 
+
 
   openOvercrowdDialog(): void {
     const dialogConfig = new MatDialogConfig();

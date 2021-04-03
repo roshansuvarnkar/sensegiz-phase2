@@ -32,7 +32,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+  <mat-card (click)="contactTeam()">
     <mat-card-title>
       Define Maximum Range
     </mat-card-title>
@@ -59,7 +59,7 @@
             </mat-error>
         </mat-form-field>
         <br><br><br>
-        <button class="btn-set" mat-raised-button [disabled]="!maxDistanceForm.valid"  color="primary">Submit</button>
+        <button class="btn-set" mat-raised-button disabled  color="primary">Submit</button>
       </form>
     </mat-card-content>
   </mat-card>
@@ -537,5 +537,26 @@
   </mat-card-content>
 </mat-card>
 <!-- -------------------- -->
+<mat-card>
+  <mat-card-title>
+    Configure Temperature Scale
+  </mat-card-title>
+  <!-- <mat-card-subtitle>
+    Enter minimum distance for user (in meter)
+  </mat-card-subtitle> -->
+  <mat-card-content>
+
+    <br>
+    <form [formGroup]="Temperaturescale" (ngSubmit)="onSubmitTemperature(Temperaturescale.value)">
+
+      <mat-radio-group  color="primary" formControlName="temperatureFormat"  class="wearable">
+        <mat-radio-button value="C" name="small" >Celsius</mat-radio-button>
+        <mat-radio-button value="F" name="small" >Fahrenheit</mat-radio-button>
+      </mat-radio-group><br>
+      <br><br>
+      <button class="btn-set" mat-raised-button   color="primary" [disabled]="!Temperaturescale.valid">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card>
 
 </div>

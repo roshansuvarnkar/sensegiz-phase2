@@ -79,10 +79,10 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
           this.dataSource = new MatTableDataSource(this.findData);
           //this.dataSource = new MatTableDataSource(this.activeData);
 
-          setTimeout(() => {
+     /*      setTimeout(() => { */
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
-          })
+      /*     }) */
 
         }
       })
@@ -102,11 +102,11 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
           this.infectedData=res.success
           this.dataSource = new MatTableDataSource(this.infectedData);
 
-          setTimeout(() => {
+       /*    setTimeout(() => { */
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
 
-          })
+     /*      }) */
 
         }
       })
@@ -128,11 +128,11 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
           this.onlineData=res.success
           this.dataSource = new MatTableDataSource(this.onlineData);
 
-          setTimeout(() => {
+        /*   setTimeout(() => { */
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
 
-          })
+        /*   }) */
 
         }
       })
@@ -153,11 +153,11 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
           this.offlineData=res.success
           this.dataSource = new MatTableDataSource(this.offlineData);
 
-          setTimeout(() => {
+        /*   setTimeout(() => { */
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
 
-          })
+         /*  }) */
 
         }
       })
@@ -177,11 +177,11 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
            this.deallocate=res.success;
            this.dataSource = new MatTableDataSource(this.deallocate);
 
-           setTimeout(() => {
+        /*    setTimeout(() => { */
              this.dataSource.sort = this.sort;
              this.dataSource.paginator = this.paginator;
 
-           })
+         /*   }) */
 
          }
        })

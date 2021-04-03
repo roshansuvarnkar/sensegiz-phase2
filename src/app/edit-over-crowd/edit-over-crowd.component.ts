@@ -84,7 +84,8 @@ export class EditOverCrowdComponent implements OnInit {
 				{
 					id:[this.coinDatatemp[i].id],
 					coinId:[this.coinDatatemp[i].coinId],
-					coinName: [this.coinDatatemp[i].coinName],
+          coinName:[{value:this.coinDatatemp[i].coinName,disabled: true}],
+				//	coinName: [this.coinDatatemp[i].coinName],
 					// gatewayId:[this.coinData[i].gatewayId],
 					maxLimit:[this.coinDatatemp[i].maxLimit]
 
@@ -255,7 +256,7 @@ filterCoin(data){
   return a;
 }
 submit(data,i){
- // console.log("data======",data)
+  //console.log("data======",data)
   var value={
     userId:data.items[i].userId,
     groupName:data.items[i].name,
@@ -264,7 +265,7 @@ submit(data,i){
   }
  // console.log("value======",value)
   this.api.updateGroupName(value).then((res:any)=>{
-  //  console.log("group maxlimit response===",res)
+   //console.log("group maxlimit response===",res)
     if(res.status){
       // this.refreshSetting()
       var msg='Group updated Successfully'
@@ -279,7 +280,7 @@ submit(data,i){
 }
 
  submitOvercrowd(data){
-
+ // console.log("data==",data)
 	data.coinId=[data.coinId]
 	data.userId=this.loginData.userId
 	//  console.log("data==",data)
@@ -295,7 +296,6 @@ submit(data,i){
   }
 
   deleteOvercrowd(value){
-
 	  var data = {
     id:value.id,
     userId:this.loginData.userId,

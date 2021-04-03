@@ -53,6 +53,8 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns5: string[] = ['i','username','department','count','totTime'];
   displayedColumns6: string[] = ['i','deviceId','deviceName','department','dataReceivedTime','updatedOnLoc'];
   displayedColumns7: string[] = ['i','username','department','count','totTime'];
+  displayedColumns8: string[] = ['i','deviceName','temperature','temperatureTimestamp']
+
   department:any
   fileName:any
   locationData:any=[]
@@ -194,6 +196,28 @@ export class HistoryReportComponent implements OnInit {
 
     }
 
+     if(this.type=='temperature'){
+      var data5={
+        userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+        deviceName:this.deviceName,
+        fromDate: this.from,
+        toDate:this.to,
+        zone:this.general.getZone(this.date)
+      }
+
+        this.api.temperatureDataCount(data5).then((res:any)=>{
+        console.log("length of geo fence report on device name ======",res);
+          if(res.status){
+            // console.log('\nTotal response: ',res.success[0].count);
+            this.currentPageLength=parseInt(res.success[0].count);
+
+           console.log( this.currentPageLength)
+            // this.tempLen=this.currentPageLength
+          }
+        })
+
+      }
 
     if(this.type=='deptcummulative'){
       var date=new Date()
@@ -207,11 +231,11 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.getDepartmentReportTotalCount(data6).then((res:any)=>{
-         //console.log("length of deportment wise report on device name ======",res);
+       //  console.log("length of deportment wise report on device name ======",res);
 
           if(res.status){
             this.currentPageLength=parseInt(res.count)
-           //console.log('\nTotal response: ',res.count);
+         // console.log('\nTotal response: ',res.count);
            // this.currentPageLength = parseInt(res.success[0].count);
             // this.tempLen=this.currentPageLength
           }else{
@@ -440,7 +464,7 @@ summaryReport(){
 
 dataDateReduce(data){
   return data.reduce((group,obj)=>{
-   // console.log(obj.contactDeviceName.toLowerCase() == this.deviceName.toLowerCase())
+  // console.log(obj.contactDeviceName.toLowerCase() == this.deviceName.toLowerCase())
   const name = obj.contactDeviceName.toLowerCase().trim() == this.deviceName.toLowerCase().trim()?obj.baseDeviceName.trim(): obj.contactDeviceName.trim()
 
   // console.log("this.deviceName====",this.deviceName)
@@ -576,10 +600,10 @@ departmentReport(limit,offset){
     zone:this.general.getZone(date),
   }
 
-       // console.log("data3==",data)
+//        console.log("data3==",data)
 
   this.api.getDepartmentreport(data).then((res:any)=>{
-      //console.log("department history======",res);
+     // console.log("department history======",res);
     this.liveData=[]
     this.totTime=[]
     if(res.status){
@@ -714,7 +738,6 @@ geofenceAndlocationReport(limit,offset){
           outTime:res.success[i].outTime == '0000-00-00 00:00:00' || res.success[i].outTime == null?'-':res.success[i].outTime,
           totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime),
           geofenceStatus:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured',
-
         });
       }
 
@@ -739,8 +762,53 @@ geofenceAndlocationReport(limit,offset){
   // }
 })
 }
+/* -------------------------------------- */
+temperatureData(limit,offset){
+  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    deviceName:this.deviceName,
+    fromDate: this.from,
+    toDate:this.to,
+    offset:offset,
+    limit:limit,
+    zone:this.general.getZone(this.date)
+  }
+
+ // console.log(data)
+  this.api.temperatureData(data).then((res:any)=>{
+  //console.log(res)
+    this.liveData=[]
+    this.totTime=[]
+    for(let i=0;i<res.success.length;i++){
+    if(res.status){
+      this.liveData.push({
+        i:i+1,
+        deviceName:res.success[i].deviceName,
+        temperature:this.general.temperatureconver(res.success[i].temperature,this.loginData.temperature),
+        temp:res.success[i].temperature,
+        temperatureTimestamp:res.success[i].timestamp,
 
 
+      /*   i:i+1,
+        coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
+        department:res.success[i].department,
+        inTime:res.success[i].inTime == '0000-00-00 00:00:00'|| res.success[i].inTime == null?'-':res.success[i].inTime,
+        outTime:res.success[i].outTime == '0000-00-00 00:00:00' || res.success[i].outTime == null?'-':res.success[i].outTime,
+        totTime:this.general.totalTime(res.success[i].inTime,res.success[i].outTime),
+        geofenceStatus:res.success[i].geofenceStatus == 0?'Entered location ':res.success[i].geofenceStatus == 1?'Exited location':'Not configured', */
+      });
+    }
+    this.dataSource = new MatTableDataSource(this.liveData);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+    //  this.dataSource.paginator = this.paginator
+       })
+  }
+  })
+
+}
+/* ---------------------------------- */
 customReport(){
   var data={
     userId:this.loginData.userId,
@@ -787,6 +855,9 @@ customReport(){
       }
       if(this.type == 'deptcummulative'){
         this.departmentReport(limit=limit,offset=offset)
+      }
+      if(this.type == 'temperature'){
+        this.temperatureData(limit=limit,offset=offset)
       }
 }
 
@@ -901,7 +972,23 @@ getPages(){
 
       })
     }
+if(this.type=='temperature'){
+  data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    deviceName:this.deviceName,
+    fromDate: this.from,
+    toDate:this.to,
+    zone:this.general.getZone(date),
+    type:this.type
+  }
+ // console.log(data)
 
+  fileName="Temperature- "+this.deviceName
+  this.api.downloadTemperatureData(data,fileName).then((res:any)=>{
+    //console.log(res)
+  })
+}
 
 if(this.type=='deptcummulative'){
   data={
@@ -919,9 +1006,10 @@ if(this.type=='deptcummulative'){
 
   this.api.downloadDeptCummulative(data,fileName).then((res:any)=>{
 
-   // console.log("report data recieved ======",res);
+  //  console.log("report data recieved ======",res);
 
   })
+
 }
 
 
@@ -1281,6 +1369,38 @@ filterTotTime(event){
 
     })
   }
+
+  temapraturecolors(val){
+  var cof=this.loginData.temperature
+    if(cof == "C"){
+      if(val < 38){
+        var a = {
+            'color':'green',
+        }
+        return a
+      }
+      else if(val >=38){
+        var a = {
+          'color':'red',
+        }
+        return a
+      }
+    }else{
+      if(val < 100.4){
+        var a = {
+            'color':'green',
+        }
+        return a
+      }
+      else if(val >=100.4){
+        var a = {
+          'color':'red',
+        }
+        return a
+      }
+    }
+  }
+
 
 
 

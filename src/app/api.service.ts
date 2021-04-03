@@ -737,6 +737,20 @@ export class ApiService {
       });
     });
   }
+  temperatureDataCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/temperatureDataCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
   getLocationHistoryRowCount(data) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -1237,6 +1251,7 @@ export class ApiService {
     let body = {
       data: data,
     };
+
     let url = this.host + '/updategroupName';
     return new Promise((resolve, reject) => {
       this.http.post(url, body, httpOptions).subscribe((res: any) => {
@@ -1612,4 +1627,63 @@ export class ApiService {
       });
     });
   }
+
+  temperatureData(data){
+      const httpOptions={
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+      let url =this.host+'/temperatureData';
+      let body={
+        data:data
+      }
+      return new Promise((resolve,reject)=>{
+        this.http.post(url,body,httpOptions).subscribe((res:any)=>{
+          //console.log(res.data)
+          resolve(res.data)
+        })
+      })
+
+  }
+  updateTemperatureFormat(data){
+    const httpOptions={
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    }
+    let url =this.host+'/updateTemperatureFormat';
+    let body={
+      data:data
+    }
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,body,httpOptions).subscribe((res:any)=>{
+        resolve(res.data)
+      })
+    })
+  }
+  downloadTemperatureData(data,fileName){
+    this.general.loadingFreez.next({ status: true });
+
+    let url = this.host + '/downloadTemperatureData';
+    let body = {
+      data: data,
+    };
+
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(url, body, {
+          observe: 'response',
+          responseType: 'blob' as 'json',
+        })
+        .subscribe(
+          (res: any) => {
+            // resolve(decry);
+            if (res.status == 200) this.downloadFile(res, fileName);
+            resolve(true);
+          },
+          (err) => {
+            //console.log('err==', err);
+          }
+        );
+    });
+  }
+
+
 }

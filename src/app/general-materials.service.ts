@@ -14,6 +14,7 @@ import * as XLSX from 'xlsx';
 import * as moment from 'moment';
 import * as CryptoJS from 'crypto-js';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,9 +25,7 @@ export class GeneralMaterialsService {
   date1: any;
   date2: any;
   time: any;
-
-  encryption: string;
-  decryption: string;
+  cof:any;
 
   ENCRYPT_KEY: string = environment.ENCRYPTKEY;
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
@@ -62,7 +61,7 @@ export class GeneralMaterialsService {
   }
 
   setObject(key, obj) {
-    console.log(obj)
+    //console.log(obj)
     localStorage.setItem(key, this.encrypt(obj));
    //console.log('get==', this.getObject('sensegizlogin'));
   }
@@ -74,7 +73,6 @@ export class GeneralMaterialsService {
   }
 
   updateItem(key, property, value) {
-    console.log(key,property,value)
     var obj = this.getObject(key);
     obj[property] = value;
     console.log('obj===', obj);
@@ -147,10 +145,8 @@ export class GeneralMaterialsService {
     }
     return date;
   }
-
   totalTime(inTime, outTime) {
    // console.log('time===', inTime, outTime);
-
     this.date1 = new Date(inTime);
     this.date2 =
       outTime == null ? new Date('0000-00-00 00:00:00') : new Date(outTime);
@@ -193,8 +189,9 @@ export class GeneralMaterialsService {
   }
 
   getZone(date) {
+   // console.log('time zone==', date);
     var timezone = date.getTimezoneOffset();
-   // console.log('time zone==', timezone);
+  //console.log('time zone==', timezone);
 
     let m = timezone % 60;
     // console.log("m==",m)
@@ -202,24 +199,48 @@ export class GeneralMaterialsService {
     let h = timezone;
     // console.log("h==",m)
 
-    let mm = m <= 9 && m >= 0 ? '0' + m : m;
-    let hh = h <= 9 && h >= 0 ? '0' + h : h;
+    let mm = m <= 9 && m >= 5 ? '0' + m : m;
+    let hh = h <= 9 && h >= 5 ? '0' + h : h;
 
     var timezones = -timezone;
-    // console.log("time zone==",time1zone)
+   //console.log("time zone==",timezones)
 
     if (timezones < 0) {
       var timeZone = '-' + (hh + ':' + mm).toString();
+
     } else {
       timeZone = '+' + (-hh + ':' + -mm).toString();
+
     }
 
     return timeZone;
   }
+/* ------------------------------------------------------------------------ */
 
+  temperatureconver(val,formate){
+   // console.log(val,formate)
+    if(formate == "C"){
+      if(val == 'NA'){
+        return val
+      }else{
+        return val+'°C'
+      }
+    }else{
+      if(val=="NA"){
+        return val
+      }else{
+        let temp = Number(val) * 1.8 + 32;
+        this.cof = Math.round(temp * 10) / 10;
+        return this.cof+"°F"
+      }
+
+    }
+
+     }
+
+/* ------------------------------------------------------- ------------------------*/
   decrypt(data) {
     if(data){
-
       var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
       return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
@@ -234,4 +255,6 @@ export class GeneralMaterialsService {
   getToken() {
     return JSON.parse(localStorage.getItem('token'));
   }
+
+
 }
