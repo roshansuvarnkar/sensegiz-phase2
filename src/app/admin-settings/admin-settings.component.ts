@@ -79,8 +79,10 @@ export class AdminSettingsComponent implements OnInit {
       count:['',[Validators.required,Validators.max(253), Validators.min(0)]],
     })
     this.timeForm=this.fb.group({
-      minutes:[{value:'',disabled: false},Validators.required],
-      seconds:[{value:'',disabled: false},Validators.required]
+     /*  minutes:[{value:'',disabled: false},Validators.required],
+      seconds:[{value:'',disabled: false},Validators.required] */
+      minutes:['',Validators.required],
+      seconds:['',Validators.required]
     })
 
     this.workingForm = this.fb.group({
