@@ -90,7 +90,7 @@ ngOnInit(): void {
     header:['']
   })
  // this.refreshFinds()
-
+  this.loadData()
   this.refreshShift()
   this.departmentList()
   this.getDataCount()
@@ -107,7 +107,7 @@ refreshFinds(limit,offset){
     offset:offset,
     tblName:'deviceRegistration'
   }
-   // console.log(data)
+  // console.log(data)
   this.api.getData(data).then((res:any)=>{
    //console.log("find device data ======",res);
     if(res.status){
