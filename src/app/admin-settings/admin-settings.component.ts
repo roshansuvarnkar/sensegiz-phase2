@@ -79,10 +79,10 @@ export class AdminSettingsComponent implements OnInit {
       count:['',[Validators.required,Validators.max(253), Validators.min(0)]],
     })
     this.timeForm=this.fb.group({
-     /*  minutes:[{value:'',disabled: false},Validators.required],
-      seconds:[{value:'',disabled: false},Validators.required] */
-      minutes:['',Validators.required],
-      seconds:['',Validators.required]
+       minutes:[{value:'',disabled: false},Validators.required],
+      seconds:[{value:'',disabled: false},Validators.required]
+    /*   minutes:['',Validators.required],
+      seconds:['',Validators.required] */
     })
 
     this.workingForm = this.fb.group({
@@ -119,7 +119,6 @@ export class AdminSettingsComponent implements OnInit {
 
   this. refreshSetting()
   this.minThresholdMinsec()
-  this.temperaturePeriod()
   this.refreshShift()
   }
 
@@ -243,14 +242,6 @@ export class AdminSettingsComponent implements OnInit {
       }
     })
   }
-temperaturePeriod(){
-
-  for(let i=0;i<=42;i++){
-  var temp =i;
-  this.hrs.push(temp)
-   console.log(temp)
-  }
-}
   minThresholdMinsec(){
 
     for(let i =0;i<=5;i++){
@@ -522,12 +513,8 @@ temperaturePeriod(){
   }
 
   onSubmitTimeForm(data){
-    //  console.log(" time data===",data);
-
+    console.log(" time data===",data);
        data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
-
-
-
      var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
      var data1={
        userId:this.dataGet.userId,

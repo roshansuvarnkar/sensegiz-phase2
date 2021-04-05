@@ -54,7 +54,6 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns6: string[] = ['i','deviceId','deviceName','department','dataReceivedTime','updatedOnLoc'];
   displayedColumns7: string[] = ['i','username','department','count','totTime'];
   displayedColumns8: string[] = ['i','deviceName','temperature','temperatureTimestamp']
-
   department:any
   fileName:any
   locationData:any=[]
@@ -201,7 +200,7 @@ export class HistoryReportComponent implements OnInit {
       zone:this.general.getZone(date)
     }
      this.api.viewCTReportCount(data9).then((res:any)=>{
-   // console.log("length of location report on device name ======",res);
+    console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -586,7 +585,7 @@ cummulativeReport(limit,offset){
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
- // console.log("cummulative report==========",res)
+  console.log("cummulative report==========",res)
     if(res.status){
       this.totTime=res.success;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){

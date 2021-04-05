@@ -90,10 +90,13 @@ ngOnInit(): void {
     header:['']
   })
  // this.refreshFinds()
- this.loadData()
+
   this.refreshShift()
   this.departmentList()
   this.getDataCount()
+  this.interval = setInterval(()=>{
+    this.loadData()
+  },10000);
 
 }
 loadData(limit=10,offset=0){
