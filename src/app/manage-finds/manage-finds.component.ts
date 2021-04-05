@@ -94,10 +94,6 @@ ngOnInit(): void {
   this.refreshShift()
   this.departmentList()
   this.getDataCount()
-  this.interval = setInterval(()=>{
-    this.loadData()
-  },10000);
-
 }
 loadData(limit=10,offset=0){
   this.refreshFinds(limit=limit,offset=offset)
