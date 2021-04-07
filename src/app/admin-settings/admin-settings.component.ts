@@ -52,6 +52,7 @@ export class AdminSettingsComponent implements OnInit {
   selectfind:boolean=false
   custom:boolean=false
   standered:boolean=true
+  shiftName:any;
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -105,7 +106,7 @@ export class AdminSettingsComponent implements OnInit {
       deviceId:[''],
       status:['',Validators.required],
       type:['',Validators.required],
-     // earanshift:['']
+      eraseShift:['',Validators.required]
     })
     this.temperaturehrsmin=this.fb.group({
       tempPeriodhours:[''],
@@ -147,7 +148,7 @@ export class AdminSettingsComponent implements OnInit {
     }
    // console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-    console.log("setting data page ======",res);
+    //console.log("setting data page ======",res);
 
       if(res.status){
         this.setting = res.success[0]
@@ -504,7 +505,7 @@ export class AdminSettingsComponent implements OnInit {
     }
     this.api.getData(data).then((res:any)=>{
       if(res.status){
-        console.log(res)
+       // console.log(res)
         this.scanCountForm.patchValue({
           count:res.success[0].scanCount.toString()
         })
@@ -513,7 +514,7 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   onSubmitTimeForm(data){
-    console.log(" time data===",data);
+   // console.log(" time data===",data);
        data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
      var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
      var data1={
@@ -729,18 +730,25 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   onMultiShiftselect(values){
+    //console.log(values)
+
     if(this.multishiftingselect.valid){
     try{
+      if(values.eraseShift==0){
+          this.shiftName=values.shiftName
+      }else{
+        this.shiftName="zeroShift"
+      }
       var data={
         userId : this.dataGet.userId,
         shiftId : values.shiftName.id,
-        shiftName : values.shiftName.shiftName,
+        shiftName :this.shiftName,
         deviceId : values.deviceId,
         status: values.status,
         type :values.type,
-       // earanshift:values.earanshift,
+        eraseShift:values.eraseShift,
         }
-        //console.log(data)
+       // console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
            // console.log("multishift data sent===",res)
             if(res.status){

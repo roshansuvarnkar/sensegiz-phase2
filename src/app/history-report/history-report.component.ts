@@ -179,7 +179,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
-   //  console.log("length of location report on device name ======",res);
+     //console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -200,7 +200,7 @@ export class HistoryReportComponent implements OnInit {
       zone:this.general.getZone(date)
     }
      this.api.viewCTReportCount(data9).then((res:any)=>{
-    console.log("length of location report on device name ======",res);
+    //console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -225,7 +225,7 @@ export class HistoryReportComponent implements OnInit {
       this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
        // console.log("length of geo fence report on device name ======",res);
         if(res.status){
-          // console.log('\nTotal response: ',res.success[0].count);
+           //console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
           // this.tempLen=this.currentPageLength
         }
@@ -244,12 +244,12 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.temperatureDataCount(data5).then((res:any)=>{
-        console.log("length of geo fence report on device name ======",res);
+      //  console.log("length of geo fence report on device name ======",res);
           if(res.status){
             // console.log('\nTotal response: ',res.success[0].count);
             this.currentPageLength=parseInt(res.success[0].count);
 
-           console.log( this.currentPageLength)
+          // console.log( this.currentPageLength)
             // this.tempLen=this.currentPageLength
           }
         })
@@ -298,7 +298,7 @@ export class HistoryReportComponent implements OnInit {
       offset:offset,
       zone:this.general.getZone(this.date)
     }
-    console.log("data==",data)
+   // console.log("data==",data)
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
     //  console.log("find data based on date ======",res);
       this.liveData=[]
@@ -460,7 +460,7 @@ summaryReport(limit,offset){
   }
  // console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
-   console.log("summary report======",res);
+  // console.log("summary report======",res);
 
     this.liveData=[]
     this.locationData=[]
@@ -585,7 +585,7 @@ cummulativeReport(limit,offset){
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
-  console.log("cummulative report==========",res)
+  //console.log("cummulative report==========",res)
     if(res.status){
       this.totTime=res.success;
       // if(this.selectMin.get('minute').value=='null' || this.selectMin.get('minute').value==0){
@@ -747,7 +747,6 @@ locationReport(limit,offset){
 
 
 geofenceAndlocationReport(limit,offset){
-
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -757,9 +756,8 @@ geofenceAndlocationReport(limit,offset){
     offset:offset,
     limit:limit,
     zone:this.general.getZone(this.date)
-
   }
-  // console.log("data3==",data)
+   //console.log("data3==+++",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
    // console.log("Location and geo fence history======",res);
     this.liveData=[]
