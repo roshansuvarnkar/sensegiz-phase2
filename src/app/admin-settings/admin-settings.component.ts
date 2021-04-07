@@ -735,7 +735,7 @@ export class AdminSettingsComponent implements OnInit {
     if(this.multishiftingselect.valid){
     try{
       if(values.eraseShift==0){
-          this.shiftName=values.shiftName
+          this.shiftName=values.shiftName.shiftName
       }else{
         this.shiftName="zeroShift"
       }
