@@ -731,23 +731,36 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   onMultiShiftselect(values){
-    //console.log(values)
+   // console.log(values)
     if(this.multishiftingselect.valid){
     try{
-      if(values.eraseShift==0 && values.type==1 || values.type ==2){
+      if(values.status == 1){
+        if(values.eraseShift == 0){
+          this.shiftName=values.shiftName.shiftName
+          this.eraseShift=values.eraseShift
+        }else{
+          this.shiftName='zeroShift'
+          this.eraseShift=values.eraseShift
+        }
+      }else{
+        this.shiftName=values.shiftName.shiftName
+        this.eraseShift="0"
+      }
+     /*  if(values.eraseShift==0){
+        console.log(values.eraseShift)
           this.shiftName=values.shiftName.shiftName
           this.eraseShift=values.eraseShift
          // this.eraseshift=values.eraseShift
-      }else if(values.status == 0 && values.type ==1 ||values.type ==2){
-        this.shiftName=values.shiftName.shiftName
-          this.eraseShift='0'
-      }
-      else{
+      }else{
+        alert(this.eraseShift)
         this.shiftName="zeroShift"
         this.eraseShift=values.eraseShift
        // this.eraseshift="0"
       }
-
+      if(values.status == 0 && values.type ==1){
+        this.shiftName=values.shiftName.shiftName
+          this.eraseShift='0'
+      } */
       var data={
         userId : this.dataGet.userId,
         shiftId : values.shiftName.id,
