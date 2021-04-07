@@ -53,6 +53,7 @@ export class AdminSettingsComponent implements OnInit {
   custom:boolean=false
   standered:boolean=true
   shiftName:any;
+  eraseShift:any;
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -106,7 +107,7 @@ export class AdminSettingsComponent implements OnInit {
       deviceId:[''],
       status:['',Validators.required],
       type:['',Validators.required],
-      eraseShift:['',Validators.required]
+      eraseShift:['']
     })
     this.temperaturehrsmin=this.fb.group({
       tempPeriodhours:[''],
@@ -731,14 +732,22 @@ export class AdminSettingsComponent implements OnInit {
 
   onMultiShiftselect(values){
     //console.log(values)
-
     if(this.multishiftingselect.valid){
     try{
-      if(values.eraseShift==0){
+      if(values.eraseShift==0 ){
           this.shiftName=values.shiftName.shiftName
-      }else{
-        this.shiftName="zeroShift"
+          this.eraseShift=values.eraseShift
+         // this.eraseshift=values.eraseShift
+      }else if(values.status == 0 && values.type ==1 ||values.type ==2){
+        this.shiftName=values.shiftName.shiftName
+          this.eraseShift='0'
       }
+      else{
+        this.shiftName="zeroShift"
+        this.eraseShift=values.eraseShift
+       // this.eraseshift="0"
+      }
+
       var data={
         userId : this.dataGet.userId,
         shiftId : values.shiftName.id,
@@ -746,11 +755,11 @@ export class AdminSettingsComponent implements OnInit {
         deviceId : values.deviceId,
         status: values.status,
         type :values.type,
-        eraseShift:values.eraseShift,
+        eraseShift: this.eraseShift,
         }
-       // console.log(data)
+        console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-           // console.log("multishift data sent===",res)
+            console.log("multishift data sent===",res)
             if(res.status){
               this.multishiftingselect.reset()
               this.refreshShift()
@@ -779,9 +788,9 @@ username:any=[]
       subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
       tblName:'deviceData'
     }
-   // console.log("data==",data)
+    console.log("data==",data)
     this.api.getAssignedDevices(data).then((res:any)=>{
-    // console.log("getAssignedDevices res==******",res)
+     console.log("getAssignedDevices res==******",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
