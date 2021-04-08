@@ -816,7 +816,7 @@ username:any=[]
 
 selectfinds(event){
   this.selectfind=event.value='0' || '1' || '2'?false:true;
- console.log(this.selectfind)
+ //console.log(this.selectfind)
 
 }
 
