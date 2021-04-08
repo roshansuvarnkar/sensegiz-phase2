@@ -103,8 +103,8 @@ export class AdminSettingsComponent implements OnInit {
     });
 
     this.multishiftingselect=this.fb.group({
-      shiftName:['',],
-      deviceId:['',Validators.required],
+      shiftName:[''],
+      deviceId:[''],
       status:['',Validators.required],
       type:['',Validators.required],
       eraseShift:['']
