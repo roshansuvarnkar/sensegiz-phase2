@@ -781,9 +781,9 @@ export class AdminSettingsComponent implements OnInit {
         type :values.type,
         eraseShift: '0',
         }
-        console.log(data)
+      //  console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-           console.log("multishift data sent===",res)
+         ///  console.log("multishift data sent===",res)
             if(res.status){
               this.multishiftingselect.reset()
               this.refreshShift()
@@ -812,9 +812,9 @@ username:any=[]
       subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
       tblName:'deviceData'
     }
-    console.log("data==",data)
+   // console.log("data==",data)
     this.api.getAssignedDevices(data).then((res:any)=>{
-     console.log("getAssignedDevices res==******",res)
+    // console.log("getAssignedDevices res==******",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
@@ -932,7 +932,7 @@ selectfinds(event){
 
   }
   oneraseshiftselect(values){
-    console.log(values)
+   // console.log(values)
     if(this.eraseshiftselsect.valid){
       try{
         if(values.type==1){
@@ -964,9 +964,9 @@ selectfinds(event){
           type :values.type,
           eraseShift: this.eraseShift,
           }
-          console.log(data)
+        //  console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-             console.log("multishift data sent===",res)
+           //  console.log("multishift data sent===",res)
               if(res.status){
                 this.eraseshiftselsect.reset()
                 this.refreshShift()

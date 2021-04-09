@@ -21,7 +21,7 @@ mat-card {
     margin-top: -1rem;
 
   }
-  
+
   mat-card-title{
     color: #ef6c00;
     /* font-family: serif; */
@@ -38,6 +38,11 @@ mat-card {
   position: absolute;
   bottom: 1rem;
   right: 7.5rem;
+}
+.spanbtton{
+position: absolute;
+bottom: 1rem;
+right: 5rem;
 }
 td.ng-star-inserted {
     cursor: pointer;
