@@ -575,7 +575,7 @@
               <mat-radio-button value="1" name="small">All</mat-radio-button>
               <mat-radio-button value="2" name="small">Specific Finds</mat-radio-button>
             </mat-radio-group><br>
-            <!--  <div [hidden]="(eraseshiftselsect.get('type').value ==1 || eraseshiftselsect.get('type').value ==2)">
+            <div hidden>
               <mat-form-field>
                 <mat-label>Shift Name</mat-label>
                 <mat-select formControlName="shiftName" name="shiftName">
@@ -584,7 +584,7 @@
                   </mat-option>
                 </mat-select>
             </mat-form-field>
-            </div> -->
+            </div>
           <mat-form-field class="full-width-input" *ngIf="(eraseshiftselsect.get('type').value == 2)">
             <input type='text' matInput placeholder="Device Id" formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
             <mat-autocomplete #auto="matAutocomplete">

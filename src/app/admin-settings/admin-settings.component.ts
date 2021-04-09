@@ -147,6 +147,9 @@ export class AdminSettingsComponent implements OnInit {
         this.multishiftingselect.patchValue({
           shiftName:this.multishift[0]
         })
+        this.eraseshiftselsect.patchValue({
+          shiftName:this.multishift[0]
+        })
      /*    this.eraseshiftselsect.patchValue({
           shiftName:this.multishift[0]
         }) */
@@ -946,7 +949,6 @@ selectfinds(event){
 
   }
   oneraseshiftselect(values){
-   // console.log(values)
     if(this.eraseshiftselsect.valid){
       try{
         if(values.type==1){
@@ -954,21 +956,6 @@ selectfinds(event){
         }else{
           this.eraseShift='2'
         }
-       /*  if(values.eraseShift==0){
-          console.log(values.eraseShift)
-            this.shiftName=values.shiftName.shiftName
-            this.eraseShift=values.eraseShift
-           // this.eraseshift=values.eraseShift
-        }else{
-          alert(this.eraseShift)
-          this.shiftName="zeroShift"
-          this.eraseShift=values.eraseShift
-         // this.eraseshift="0"
-        }
-        if(values.status == 0 && values.type ==1){
-          this.shiftName=values.shiftName.shiftName
-            this.eraseShift='0'
-        } */
         var data={
           userId : this.dataGet.userId,
           shiftId : values.shiftName.id,
@@ -978,20 +965,20 @@ selectfinds(event){
           type :values.type,
           eraseShift: this.eraseShift,
           }
-        //  console.log(data)
+           console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-           //  console.log("multishift data sent===",res)
+            console.log("multishift data sent===",res)
               if(res.status){
                 this.eraseshiftselsect.reset()
                 this.refreshShift()
-                var msg='Multishift Select updated Successfully'
+                var msg='Erase Shift Select updated Successfully'
                 this.general.openSnackBar(msg,'')
               }
             }).catch(err=>{
               //console.log("err===",err);
             })
          }catch(err){
-
+          console.log("err===",err);
         }
       }
   }
