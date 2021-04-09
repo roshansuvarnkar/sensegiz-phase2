@@ -824,7 +824,7 @@ username:any=[]
     })
 
   }
- 
+
 selectfinds(event){
   this.selectfind=event.value='0' || '1' || '2'?false:true;
  //console.log(this.selectfind)
@@ -904,7 +904,21 @@ selectfinds(event){
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+  openDialog2(): void {
 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"eraseshifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
   scannIntravaleLimit(valees){
     if(valees==1){
       this.custom=false
