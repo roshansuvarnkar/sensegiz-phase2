@@ -26,6 +26,7 @@ export class AdminSettingsComponent implements OnInit {
   sendDataForm:FormGroup
   maxDistanceForm:FormGroup
   multishiftingselect:FormGroup
+  eraseshiftselsect:FormGroup
   temperaturehrsmin:FormGroup
   setting:any=[]
   min:any=[]
@@ -109,6 +110,13 @@ export class AdminSettingsComponent implements OnInit {
       type:['',Validators.required],
       eraseShift:['']
     })
+    this.eraseshiftselsect=this.fb.group({
+      shiftName:[''],
+      deviceId:[''],
+      status:[''],
+      type:['',Validators.required],
+      eraseShift:['',Validators.required]
+    })
     this.temperaturehrsmin=this.fb.group({
       tempPeriodhours:[''],
       tempPeriodminutes:['']
@@ -139,6 +147,9 @@ export class AdminSettingsComponent implements OnInit {
         this.multishiftingselect.patchValue({
           shiftName:this.multishift[0]
         })
+     /*    this.eraseshiftselsect.patchValue({
+          shiftName:this.multishift[0]
+        }) */
       }
     })
   }
@@ -734,7 +745,7 @@ export class AdminSettingsComponent implements OnInit {
    // console.log(values)
     if(this.multishiftingselect.valid){
     try{
-      if(values.status == 1){
+     /*  if(values.status == 1){
         if(values.eraseShift == 0){
           this.shiftName=values.shiftName.shiftName
           this.eraseShift=values.eraseShift
@@ -745,7 +756,7 @@ export class AdminSettingsComponent implements OnInit {
       }else{
         this.shiftName=values.shiftName.shiftName
         this.eraseShift="0"
-      }
+      } */
      /*  if(values.eraseShift==0){
         console.log(values.eraseShift)
           this.shiftName=values.shiftName.shiftName
@@ -764,15 +775,15 @@ export class AdminSettingsComponent implements OnInit {
       var data={
         userId : this.dataGet.userId,
         shiftId : values.shiftName.id,
-        shiftName :this.shiftName,
+        shiftName :values.shiftName.shiftName,
         deviceId : values.deviceId,
         status: values.status,
         type :values.type,
-        eraseShift: this.eraseShift,
+        eraseShift: '0',
         }
-       // console.log(data)
+        console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-          // console.log("multishift data sent===",res)
+           console.log("multishift data sent===",res)
             if(res.status){
               this.multishiftingselect.reset()
               this.refreshShift()
@@ -801,9 +812,9 @@ username:any=[]
       subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
       tblName:'deviceData'
     }
-  //  console.log("data==",data)
+    console.log("data==",data)
     this.api.getAssignedDevices(data).then((res:any)=>{
-    // console.log("getAssignedDevices res==******",res)
+     console.log("getAssignedDevices res==******",res)
       if(res.status){
         this.username=[]
        for(let i=0;i<res.success.length;i++){
@@ -919,5 +930,55 @@ selectfinds(event){
 
     })
 
+  }
+  oneraseshiftselect(values){
+    console.log(values)
+    if(this.eraseshiftselsect.valid){
+      try{
+        if(values.type==1){
+          this.eraseShift='1'
+        }else{
+          this.eraseShift='2'
+        }
+       /*  if(values.eraseShift==0){
+          console.log(values.eraseShift)
+            this.shiftName=values.shiftName.shiftName
+            this.eraseShift=values.eraseShift
+           // this.eraseshift=values.eraseShift
+        }else{
+          alert(this.eraseShift)
+          this.shiftName="zeroShift"
+          this.eraseShift=values.eraseShift
+         // this.eraseshift="0"
+        }
+        if(values.status == 0 && values.type ==1){
+          this.shiftName=values.shiftName.shiftName
+            this.eraseShift='0'
+        } */
+        var data={
+          userId : this.dataGet.userId,
+          shiftId : values.shiftName.id,
+          shiftName :"zeroShift",
+          deviceId : values.deviceId,
+          status: '1',
+          type :values.type,
+          eraseShift: this.eraseShift,
+          }
+          console.log(data)
+          this.api.setDeviceMultiShift(data).then((res:any)=>{
+             console.log("multishift data sent===",res)
+              if(res.status){
+                this.multishiftingselect.reset()
+                this.refreshShift()
+                var msg='Multishift Select updated Successfully'
+                this.general.openSnackBar(msg,'')
+              }
+            }).catch(err=>{
+              //console.log("err===",err);
+            })
+         }catch(err){
+
+        }
+      }
   }
 }
