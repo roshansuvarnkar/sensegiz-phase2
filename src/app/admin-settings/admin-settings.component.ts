@@ -968,7 +968,7 @@ selectfinds(event){
           this.api.setDeviceMultiShift(data).then((res:any)=>{
              console.log("multishift data sent===",res)
               if(res.status){
-                this.multishiftingselect.reset()
+                this.eraseshiftselsect.reset()
                 this.refreshShift()
                 var msg='Multishift Select updated Successfully'
                 this.general.openSnackBar(msg,'')
