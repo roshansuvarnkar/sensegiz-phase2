@@ -115,7 +115,7 @@ export class AdminSettingsComponent implements OnInit {
       deviceId:[''],
       status:[''],
       type:['',Validators.required],
-      eraseShift:['',Validators.required]
+      eraseShift:['']
     })
     this.temperaturehrsmin=this.fb.group({
       tempPeriodhours:[''],
@@ -824,7 +824,7 @@ username:any=[]
     })
 
   }
-
+ 
 selectfinds(event){
   this.selectfind=event.value='0' || '1' || '2'?false:true;
  //console.log(this.selectfind)

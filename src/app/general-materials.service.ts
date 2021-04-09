@@ -194,7 +194,6 @@ export class GeneralMaterialsService {
    // console.log('time zone==', date);
     var timezone = date.getTimezoneOffset();
   //console.log('time zone==', timezone);
-
     let m = timezone % 60;
     // console.log("m==",m)
     timezone = (timezone - m) / 60;
@@ -243,7 +242,9 @@ export class GeneralMaterialsService {
 /* ------------------------------------------------------- ------------------------*/
   decrypt(data) {
     if(data){
+    //  console.log(data)
       var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
+     // console.log(JSON.parse(deData.toString(CryptoJS.enc.Utf8)))
       return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
     else{
