@@ -513,15 +513,12 @@
               <mat-radio-button value="2" name="small" (change)="selectfinds($event)">Specific Finds</mat-radio-button>
             </mat-radio-group><br>
             <mat-form-field *ngIf="(multishiftingselect.get('status').value == 1 && (multishiftingselect.get('type').value == 1 || multishiftingselect.get('type').value == 2))">
-              <mat-label>Shift Name</mat-label>
+              <mat-label>Shift Name*</mat-label>
               <mat-select formControlName="shiftName" name="shiftName">
                 <mat-option *ngFor="let b of multishift" [value]="b">
                   {{b.shiftName}}
                 </mat-option>
-
               </mat-select>
-
-
           </mat-form-field>
           <mat-form-field class="full-width-input" *ngIf="(multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 1 || multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 0)">
             <input type='text' matInput placeholder="Device Id" formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
@@ -605,7 +602,7 @@
             </div>
               <br><br><br><br><br>
               <span  class="spanbtton">
-                <button mat-raised-button [disabled]="!eraseshiftselsect.valid || (eraseshiftselsect.get('deviceId').value=='') "  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button mat-raised-button [disabled]="!eraseshiftselsect.valid || (eraseshiftselsect.get('type').value ==2 && eraseshiftselsect.get('deviceId').value=='') "  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
                 <button type="button" mat-raised-button (click)="openDialog2()"  color="primary">Info</button>
               </span>
            <!--  <div  class="btn-set">
