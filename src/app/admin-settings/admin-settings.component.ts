@@ -150,9 +150,8 @@ export class AdminSettingsComponent implements OnInit {
         this.eraseshiftselsect.patchValue({
           shiftName:this.multishift[0]
         })
-     /*    this.eraseshiftselsect.patchValue({
-          shiftName:this.multishift[0]
-        }) */
+      }else{
+        this.shiftName="Please Create Shift"
       }
     })
   }
