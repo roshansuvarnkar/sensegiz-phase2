@@ -104,7 +104,7 @@ export class AdminSettingsComponent implements OnInit {
     });
 
     this.multishiftingselect=this.fb.group({
-      shiftName:[''],
+      shiftName:['',Validators.required],
       deviceId:[''],
       status:['',Validators.required],
       type:['',Validators.required],
@@ -981,27 +981,5 @@ selectfinds(event){
       }
   }
 
-shiftnameselsect(){
-  var data={
-    userId:this.dataGet.userId,
-    subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
-    tblName:'deviceShift'
-  }
 
-  this.api.getData(data).then((res:any)=>{
-   // console.log(res)
-    if(res.status){
-      this.shifts=res.success
-      this.multishift=res.success
-      this.multishiftingselect.patchValue({
-        shiftName:this.multishift[0]
-      })
-      this.eraseshiftselsect.patchValue({
-        shiftName:this.multishift[0]
-      })
-    }else{
-      this.shiftName="Please Create Shift"
-    }
-  })
-}
 }
