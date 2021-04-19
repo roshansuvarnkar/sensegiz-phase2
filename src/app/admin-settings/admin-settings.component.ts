@@ -28,6 +28,7 @@ export class AdminSettingsComponent implements OnInit {
   multishiftingselect:FormGroup
   eraseshiftselsect:FormGroup
   temperaturehrsmin:FormGroup
+  onffbutton:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
@@ -51,6 +52,7 @@ export class AdminSettingsComponent implements OnInit {
   multipleShift:boolean=false
   timeExceed:boolean=false
   selectfind:boolean=false
+  onoffselsect:any=[];
   custom:boolean=false
   standered:boolean=true
   shiftName:any;
@@ -120,6 +122,9 @@ export class AdminSettingsComponent implements OnInit {
     this.temperaturehrsmin=this.fb.group({
       tempPeriodhours:[''],
       tempPeriodminutes:['']
+    })
+    this.onffbutton=this.fb.group({
+      onOff:['',Validators.required]
     })
 
     this.route.queryParams.subscribe(params => {
@@ -222,6 +227,28 @@ export class AdminSettingsComponent implements OnInit {
             type : res.success[0].inactivityStatus
          })
         }
+        /* ------------------------------------------------ */
+        if(res.success[0].lastDateCommand == 'ON'){
+          this.onoffselsect = {
+            value:true,
+            status:'Disable',
+            onOff:2
+          }
+           this.onffbutton.patchValue({
+            onOff:2
+          })
+        }
+        if(res.success[0].lastDateCommand == 'OFF'){
+          this.onoffselsect = {
+            value:false,
+            status:'Enable',
+            onOff:1
+          }
+         /*  this.onffbutton.patchValue({
+            onOff:1
+          }) */
+        }
+         /* ---------------------------------------------------------- */
         this.maxDistanceForm.patchValue({
           maxDistance:res.success[0].maxDistance.toString()
         })
@@ -247,10 +274,6 @@ export class AdminSettingsComponent implements OnInit {
          /*  this.inactivityForm.patchValue({
             inactivity: res.success[0].inactivity
          }) */
-        }
-      }else{
-        if(res.code == '403'){
-          this.login.logout()
         }
       }
     })
@@ -682,7 +705,7 @@ export class AdminSettingsComponent implements OnInit {
 
     if (this.inactivityForm.valid) {
       try {
-        console.log("inactivity data==",value)
+      // console.log("inactivity data==",value)
         value.inactivity= value.type == '2'? 0 : value.inactivity
         var data={
           userId : this.dataGet.userId,
@@ -691,7 +714,7 @@ export class AdminSettingsComponent implements OnInit {
         }
 
         this.api.getInactivityDeviceSetting(data).then((res:any)=>{
-           console.log("Inactivity response===",res)
+          // console.log("Inactivity response===",res)
           if(res.status){
             this.refreshSetting()
             var msg = 'Inactivity updated Successfully'
@@ -834,7 +857,6 @@ selectfinds(event){
 
 
 
-
    getMin(event){
     // console.log("event==",event)
     if(event.value=="none"){
@@ -963,9 +985,9 @@ selectfinds(event){
           type :values.type,
           eraseShift: this.eraseShift,
           }
-           console.log(data)
+          // console.log(data)
           this.api.setDeviceMultiShift(data).then((res:any)=>{
-            console.log("multishift data sent===",res)
+           // console.log("multishift data sent===",res)
               if(res.status){
                 this.eraseshiftselsect.reset()
                 this.refreshShift()
@@ -976,7 +998,7 @@ selectfinds(event){
               //console.log("err===",err);
             })
          }catch(err){
-          console.log("err===",err);
+          //console.log("err===",err);
         }
       }
   }
@@ -1004,4 +1026,64 @@ shiftnameselsect(){
     }
   })
 }
+
+onoffeven(event){
+  if(event.checked == true){
+    this.onoffselsect = {
+      value:true,
+      status:'Disable',
+      onOff:1
+    }
+     this.onffbutton.patchValue({
+      onOff:1
+    })
+
+  }
+  else if(event.checked == false){
+    this.onoffselsect = {
+      value:false,
+      status:'Enable',
+      onOff:2
+    }
+    this.onffbutton.patchValue({
+      onOff:2
+    })
+
+  }
+ // console.log(event.checked==true)
+  /* if(event.checked==true){
+    this.onoffselsect="2"
+  }else{
+    this.onoffselsect="1"
+  } */
+ // this.onoffselsected == event.checked == false ? 0:1 ;
+ /*  var isolate = a.isolated == 0 ? 1 :0 */
+//console.log(this.onoffselsected)
+}
+
+onSubmitonoff(values){
+  if(this.onffbutton.valid){
+    try{
+      var data={
+        userId:this.dataGet.userId,
+        subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+        onOff: values.onOff
+      }
+    //  console.log(data)
+      this.api.onofftoggele(data).then((res:any)=>{
+        if(res.status){
+         // console.log(res)
+         this.onffbutton.reset()
+          this.refreshSetting()
+          var msg='On or Off updated Successfully'
+          this.general.openSnackBar(msg,'')
+        }
+      })
+    }catch(err){
+
+    }
+  }
+
+}
+
 }

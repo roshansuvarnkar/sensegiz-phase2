@@ -478,7 +478,7 @@
               <mat-error>
                 Please provide a valid to time
               </mat-error>
-            </mat-form-field><br> <br> <br><br>
+            </mat-form-field><br> <br> <br>
             <span  class="spanbtton">
               <button  mat-raised-button [disabled]="!workingForm.valid" color="primary">Submit</button> &nbsp;&nbsp;&nbsp;
               <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
@@ -521,7 +521,7 @@
               </mat-select>
              <!--  <mat-error>Please Create Shift</mat-error> -->
           </mat-form-field>
-          <p *ngIf="multishiftingselect.get('status').value == 1" style="font-size: 12px;color:red;margin-top: -17px;margin-left: -80px;">{{shiftName}}</p> 
+          <p *ngIf="multishiftingselect.get('status').value == 1" style="font-size: 12px;color:red;margin-top: -17px;margin-left: -80px;">{{shiftName}}</p>
           <mat-form-field class="full-width-input" *ngIf="(multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 1 || multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 0)">
             <mat-label>Device Id</mat-label>
             <input type='text' matInput  formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
@@ -533,7 +533,7 @@
           </mat-form-field>
             <div class="maxlimit">
             </div>
-              <br><br> <br><br><br>
+              <br><br>
               <span  class="spanbtton">
                 <button mat-raised-button
                 [disabled]="!multishiftingselect.valid ||
@@ -599,7 +599,7 @@
           </mat-form-field>
             <div class="maxlimit">
             </div>
-              <br><br><br><br><br>
+              <br><br>
               <span  class="spanbtton">
                 <button mat-raised-button [disabled]="!eraseshiftselsect.valid || (eraseshiftselsect.get('type').value ==2 && eraseshiftselsect.get('deviceId').value=='') "  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
                 <button type="button" mat-raised-button (click)="openDialog2()"  color="primary">Info</button>
@@ -767,6 +767,21 @@
 
 
        -->
+       <mat-card>
+        <mat-card-title>
+          On/Off
+        </mat-card-title>
+
+        <mat-card-content>
+          <form [formGroup]="onffbutton" (ngSubmit)="onSubmitonoff(onffbutton.value)">
+          <!--   <mat-slide-toggle color="primary" [checked]="false" formControlName="onoff" (change)="onoffeven($event)" ></mat-slide-toggle> -->
+
+            <br><br>
+            <mat-slide-toggle color="primary" [checked]="onoffselsect.value" formControlName="onOff" (change)="onoffeven($event)" >{{onoffselsect.status}}</mat-slide-toggle>
+            <button class="btn-set" mat-raised-button [disabled]="!onffbutton.valid" color="primary">Submit</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
 
 </div>
 

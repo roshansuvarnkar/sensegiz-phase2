@@ -1300,8 +1300,6 @@ filterTotTime(event){
       this.title = 'Summary Report of Find Name'+this.deviceName;
       let element = document.getElementById('htmlData');
       this.general.exportToExcel(element,this.fileName, this.title)
-
-
     }
     // else{
     //   console.log("this.excelData====",this.excelData)
