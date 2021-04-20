@@ -20,9 +20,10 @@ export class ProfileComponent implements OnInit {
  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   dataSource: any = [];
   displayedColumns = ['i','userName','type','department','mobileNum','createdDate','isDeleted'];
+  findData:any=[]
+
   subAddUserform:FormGroup
   subUser:any
-  findData:any=[]
   loginData:any
   registered:boolean=false;
   SearchCountryField = SearchCountryField;

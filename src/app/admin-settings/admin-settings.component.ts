@@ -124,7 +124,7 @@ export class AdminSettingsComponent implements OnInit {
       tempPeriodminutes:['']
     })
     this.onffbutton=this.fb.group({
-      onOff:['',Validators.required]
+      onOff:['']
     })
 
     this.route.queryParams.subscribe(params => {

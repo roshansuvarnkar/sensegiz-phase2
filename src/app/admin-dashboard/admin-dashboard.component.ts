@@ -125,7 +125,7 @@ export class AdminDashboardComponent implements OnInit {
       console.log('data===', res);
       this.findData=[]
       if (res.status) {
-        this.adminData = res.success;
+       // this.adminData = res.success;
         for (let i = 0; i <res.success.length; i++) {
           this.findData.push(
             {
