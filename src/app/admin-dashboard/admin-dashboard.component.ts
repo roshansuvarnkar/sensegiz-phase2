@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginCheckService } from '../login-check.service';
 import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import {
   MatDialog,
   MatDialogRef,
@@ -23,6 +26,11 @@ import { WebsocketService } from '../websocket.service';
   styleUrls: ['./admin-dashboard.component.css'],
 })
 export class AdminDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+ @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+ dataSource: any = [];
+  displayedColumns = ['i','userName','createdDate','apiKey','add','settings','isDeleted'];
+  findData:any=[]
   SearchCountryField = SearchCountryField;
   TooltipLabel = TooltipLabel;
   CountryISO = CountryISO;
@@ -114,13 +122,27 @@ export class AdminDashboardComponent implements OnInit {
 
   refreshAdminData() {
     this.api.getAdminData().then((res: any) => {
-     // console.log('data===', res);
+      console.log('data===', res);
+      this.findData=[]
       if (res.status) {
         this.adminData = res.success;
-      }else{
-        if(res.code=='403'){
-          this.login.logout()
+        for (let i = 0; i <res.success.length; i++) {
+          this.findData.push(
+            {
+                i: i+1,
+               userName:res.success[i].userName,
+               apiKey:res.success[i].apiKey,
+               userId:res.success[i].userId,
+               createdDate:res.success[i].createdDate,
+               isDeleted:res.success[i].isDeleted
+            });
         }
+        this.dataSource = new MatTableDataSource(this.findData);
+         setTimeout(() => {
+          this.dataSource.sort = this.sort;
+         this.dataSource.paginator = this.paginator;
+          // this.paginator.length = this.currentPageSize
+       })
       }
     });
   }
@@ -162,11 +184,12 @@ export class AdminDashboardComponent implements OnInit {
     this.api.deleteAdminUser(data).then((res: any) => {
       // console.log("data===",res)
       if (res.status) {
-        var msg = 'User updated successfully';
-        this.socket.leaveRoom(data);
-      //  console.log(this.socket.leaveRoom(data))
+        var msg = 'User updated successfully'
         this.general.openSnackBar(msg, '');
+        this.socket.leaveRoom(data);
         this.refreshAdminData();
+      //  console.log(this.socket.leaveRoom(data))
+
       }
     });
   }

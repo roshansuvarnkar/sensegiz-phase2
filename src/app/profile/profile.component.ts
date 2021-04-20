@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   displayedColumns = ['i','userName','type','department','mobileNum','createdDate','isDeleted'];
   subAddUserform:FormGroup
   subUser:any
+  findData:any=[]
   loginData:any
   registered:boolean=false;
   SearchCountryField = SearchCountryField;
@@ -130,7 +131,7 @@ export class ProfileComponent implements OnInit {
      }
    }
 
-   findData:any=[]
+
 refreshSubUserData(){
   let data = {
     userId : this.loginData.userId
