@@ -57,6 +57,7 @@ export class AdminSettingsComponent implements OnInit {
   standered:boolean=true
   shiftName:any;
   eraseShift:any;
+  onoffnull:any;
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -1064,10 +1065,17 @@ onoffeven(event){
 onSubmitonoff(values){
   if(this.onffbutton.valid){
     try{
+      if(values.onOff == null){
+        this.onoffnull=2
+      }else if(values.onOff==""){
+        this.onoffnull=2
+      }else{
+        this.onoffnull=values.onOff
+      }
       var data={
         userId:this.dataGet.userId,
         subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
-        onOff: values.onOff
+        onOff: this.onoffnull
       }
     //  console.log(data)
       this.api.onofftoggele(data).then((res:any)=>{
