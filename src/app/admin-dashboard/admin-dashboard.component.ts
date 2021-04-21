@@ -122,7 +122,7 @@ export class AdminDashboardComponent implements OnInit {
 
   refreshAdminData() {
     this.api.getAdminData().then((res: any) => {
-      console.log('data===', res);
+     // console.log('data===', res);
       this.findData=[]
       if (res.status) {
        // this.adminData = res.success;
