@@ -103,7 +103,9 @@ userType:any
     /* ------------------------------------------ */
 
     this.customReport= this.fb.group({
-      type:['',Validators.required]
+      type:['',Validators.required],
+     /*  fromDate: ['', Validators.required],
+      toDate: ['', Validators.required] */
     })
     this.departmentcummulativeForm = this.fb.group({
       department:['',Validators.required],

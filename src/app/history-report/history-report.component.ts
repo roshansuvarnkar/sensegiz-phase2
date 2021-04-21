@@ -460,8 +460,7 @@ summaryReport(limit,offset){
   }
  // console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
-  console.log("summary report======",res);
-
+  //console.log("summary report======",res);
     this.liveData=[]
     this.locationData=[]
     this.deviceIdData=[]
@@ -469,7 +468,7 @@ summaryReport(limit,offset){
     if(res.status){
       this.deviceIdData=this.deviceId(res.success)
       var groupUser = this.dataDateReduce(res.success)
-    //  this.locationData=this.location(res.success)
+     this.locationData=this.location(res.success)
     //  console.log("locationData===",this.locationData)
       this.liveData = Object.keys(groupUser).map((data)=>{
         // for(let i=0;i<res.success.length;i++){
@@ -551,12 +550,11 @@ departments(date){
 }
 
 location(loc){
-   console.log("loc===",loc)
+   //console.log("loc===",loc)
   var a=[]
   var locArr=[]
   for(let i=0;i<loc.length;i++){
     var arr=loc[i].location.split(',')
-    console.log("arr",arr)
     for(let j=0;j<arr.length;j++){
       // locArr.push(arr[j].toUpperCase())
       if(!a.includes(arr[j])){
@@ -855,7 +853,7 @@ customReport(limit,offset){
     limit:limit,
     offset:offset
   }
- // console.log(" custom data======",data)
+ console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
   //  console.log("Custom Report res==",res)
     this.customData=[]
