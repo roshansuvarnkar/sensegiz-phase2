@@ -137,6 +137,9 @@ export class HistoryReportComponent implements OnInit {
     }
     if(this.type=='custom'){
       var date=new Date()
+      if(this.sync =="2"){
+        this.from="0000-00-00 00:00:00"
+      }
       var data23={
         userId:this.loginData.userId,
         sync:this.sync,
@@ -145,8 +148,10 @@ export class HistoryReportComponent implements OnInit {
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
       this.api.OnlineOfflineReportCount(data23).then((res:any)=>{
-        //console.log(res)
+        console.log(res)
         if(res.status){
+          this.currentPageLength = parseInt(res.success[0].count);
+        }else{
           this.currentPageLength = parseInt(res.success[0].count);
         }
 
@@ -852,6 +857,9 @@ temperatureData(limit,offset){
 /* ---------------------------------- */
 customReport(limit,offset){
   var date=new Date()
+  if(this.sync =="2"){
+    this.from="0000-00-00 00:00:00"
+  }
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -861,9 +869,9 @@ customReport(limit,offset){
     offset:offset,
     zone:this.general.getZone(date)
   }
-   // console.log(" custom data======",data)
+    console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
-  // console.log("Custom Report res==",res)
+   console.log("Custom Report res==",res)
     this.customData=[]
     if(res.status){
       this.customData=res.success
@@ -1061,6 +1069,9 @@ if(this.type=='deptcummulative'){
 
     if(this.type=='custom'){
       var date=new Date()
+      if(this.sync =="2"){
+        this.from="0000-00-00 00:00:00"
+      }
       data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
