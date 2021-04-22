@@ -515,6 +515,7 @@
         </mat-form-field> -->
         <br> <br>
         <button class="btn-set" color="primary" mat-raised-button [disabled]="!customReport.valid">Submit</button>
+        <!-- [disabled]=" (customReport.get('sync').value =='' && customReport.get('fromDate').value =='') || customReport.get('sync').value ==''" -->
       </form>
     </mat-card-content>
   </mat-card>
