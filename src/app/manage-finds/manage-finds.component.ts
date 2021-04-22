@@ -365,7 +365,24 @@ departmentSelect(a,b){
   })
 }
 search(a){
-  // console.log("a==",a)
+ /*  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    search:a,
+    tblName:'deviceRegistration'
+  }
+ console.log("a==",data)
+ this.api.addFindSearch(data).then((res:any)=>{
+   if(res.status){
+     console.log("res",res)
+    this.dataSource = new MatTableDataSource(this.findData);
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    //  this.dataSource.filter =a.trim().toLowerCase()
+    })
+   }
+ }) */
   // if(a.length>0){
   //   this.findData = this.elementsTemp.filter(obj=>{
   //     return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)

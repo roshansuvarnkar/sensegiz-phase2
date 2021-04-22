@@ -102,12 +102,7 @@ export class ManageGatewaysComponent implements OnInit {
       })
       this.elementsTemp = this.gatewayData
 
-    }else{
-      if(res.code=='403'){
-        this.login.logout()
-      }
     }
-
   })
 }
 
@@ -152,6 +147,24 @@ delete(a){
 
 
 search(a){
+ /*  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    search:a,
+    tblName:'gatewayRegistration'
+  }
+  console.log(data)
+  this.api.addGatewaysSearch(data).then((res:any)=>{
+    if(res.status){
+      this.dataSource = new MatTableDataSource(this.gatewayData);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+     //   this.dataSource.filter =a.trim().toLowerCase()
+
+      })
+    }
+  }) */
   // if(a.length>0){
   //   this.gatewayData = this.elementsTemp.filter(obj=>{
   //     return ((obj.gatewayId.toString().toLowerCase().indexOf(a)>-1) || (obj.gatewayName.toString().toLowerCase().indexOf(a)>-1))

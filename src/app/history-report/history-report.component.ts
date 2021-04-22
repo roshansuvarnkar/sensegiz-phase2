@@ -75,6 +75,7 @@ export class HistoryReportComponent implements OnInit {
   deviceIdData:any
   status:any
   customData:any
+  sync:any;
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -101,6 +102,7 @@ export class HistoryReportComponent implements OnInit {
       this.date=data.date
       this.status=data.status
       this.department=data.department
+      this.sync=data.sync
      }
 
   ngOnInit(): void {
@@ -136,7 +138,7 @@ export class HistoryReportComponent implements OnInit {
     if(this.type=='custom'){
       var data23={
         userId:this.loginData.userId,
-        type:this.liveData.type,
+        sync:this.sync,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
       this.api.OnlineOfflineReportCount(data23).then((res:any)=>{
@@ -451,14 +453,14 @@ summaryReport(limit,offset){
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
-    // fromDate: this.from,
-    // toDate:this.to,
+     fromDate: this.from,
+     toDate:this.to,
     type:this.status,
     limit:limit,
     offset:offset,
     zone:this.general.getZone(date)
   }
- // console.log("Sumaary data==",data)
+ //console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
   //console.log("summary report======",res);
     this.liveData=[]
@@ -825,7 +827,6 @@ temperatureData(limit,offset){
         temp:res.success[i].temperature,
         temperatureTimestamp:res.success[i].timestamp,
 
-
       /*   i:i+1,
         coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
         department:res.success[i].department,
@@ -849,11 +850,12 @@ customReport(limit,offset){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    type:this.liveData.type,
+    sync:this.sync,
+    fromDate: this.from,
     limit:limit,
     offset:offset
   }
- console.log(" custom data======",data)
+ //console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
   //  console.log("Custom Report res==",res)
     this.customData=[]

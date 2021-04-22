@@ -193,7 +193,7 @@ export class GeneralMaterialsService {
   getZone(date) {
    // console.log('time zone==', date);
     var timezone = date.getTimezoneOffset();
-  //console.log('time zone==', timezone);
+  //console.log('time zone==', timezone+100);
     let m = timezone % 60;
     // console.log("m==",m)
     timezone = (timezone - m) / 60;
