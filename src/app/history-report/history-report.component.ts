@@ -148,7 +148,7 @@ export class HistoryReportComponent implements OnInit {
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
       this.api.OnlineOfflineReportCount(data23).then((res:any)=>{
-        console.log(res)
+       // console.log(res)
         if(res.status){
           this.currentPageLength = parseInt(res.success[0].count);
         }else{
@@ -869,9 +869,9 @@ customReport(limit,offset){
     offset:offset,
     zone:this.general.getZone(date)
   }
-    console.log(" custom data======",data)
+   // console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
-   console.log("Custom Report res==",res)
+  // console.log("Custom Report res==",res)
     this.customData=[]
     if(res.status){
       this.customData=res.success
