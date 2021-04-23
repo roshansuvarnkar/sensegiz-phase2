@@ -103,7 +103,7 @@ refreshmanagepople(){
 this.loadData(this.limit,this.offset,this.devicename)
   }
   loadData(limit=10,offset=0,a){
-    console.log(limit,offset,a)
+   // console.log(limit,offset,a)
       this.refreshFinds(limit=limit,offset=offset,a=a,)
       }
 refreshFinds(limit,offset,deviceName){
@@ -115,9 +115,9 @@ refreshFinds(limit,offset,deviceName){
     deviceName:deviceName,
     tblName:'deviceRegistration'
   }
-  console.log(data)
+  //console.log(data)
   this.api.getData(data).then((res:any)=>{
-   console.log("find device data ======",res);
+   //console.log("find device data ======",res);
     if(res.status){
      this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
