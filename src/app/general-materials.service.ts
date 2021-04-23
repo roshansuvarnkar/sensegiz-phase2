@@ -31,6 +31,7 @@ export class GeneralMaterialsService {
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public deviceHistory: BehaviorSubject<any>= new BehaviorSubject<any>([]);
   public setpassword:BehaviorSubject<any>= new BehaviorSubject<any>([]);
+  public managefind=new Subject<any>()
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
   openSnackBar(message: string, action: string) {

@@ -1079,7 +1079,7 @@ if(this.type=='deptcummulative'){
         fromDate: this.from,
         sync:this.sync
       }
-      fileName="CustomReport"
+      fileName="Sync Details Report"
       //console.log("data to send ======",data);
 
       //apicall
