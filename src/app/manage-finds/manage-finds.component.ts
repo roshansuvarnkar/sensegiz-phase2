@@ -49,6 +49,7 @@ isDesktopDevice:boolean
 check:boolean
 deviceInfo=null
 departments:any
+devicename:any
 @ViewChild('fileInput') fileInput:ElementRef
 constructor(public dialog: MatDialog,
   private api: ApiService,
@@ -71,7 +72,7 @@ openDialog(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     //this.refreshFinds()
-    this.loadData()
+    this.refreshmanagepople()
   });
 }
 
@@ -89,27 +90,34 @@ ngOnInit(): void {
     type:'devices',
     header:['']
   })
- // this.refreshFinds()
-  this.loadData()
+ // this.refreshManageFinds()
+ this.refreshmanagepople()
+  //this.loadData()
   this.refreshShift()
   this.departmentList()
-  this.getDataCount()
+  this.getDataCount(this.devicename)
 }
-loadData(limit=10,offset=0){
-  this.refreshFinds(limit=limit,offset=offset)
 
+
+refreshmanagepople(){
+this.loadData(this.limit,this.offset,this.devicename)
   }
-refreshFinds(limit,offset){
+  loadData(limit=10,offset=0,a){
+    console.log(limit,offset,a)
+      this.refreshFinds(limit=limit,offset=offset,a=a,)
+      }
+refreshFinds(limit,offset,deviceName){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     limit:limit,
     offset:offset,
+    deviceName:deviceName,
     tblName:'deviceRegistration'
   }
-  // console.log(data)
+  console.log(data)
   this.api.getData(data).then((res:any)=>{
-   //console.log("find device data ======",res);
+   console.log("find device data ======",res);
     if(res.status){
      this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
@@ -179,7 +187,7 @@ edit(data){
 
   dialogRef.afterClosed().subscribe(result => {
     //this.refreshFinds()
-    this.loadData()
+    this.refreshmanagepople()
   });
 }
 
@@ -198,7 +206,7 @@ delete(a){
       // console.log("find data ======",res);
       if(res.status){
         //this.refreshFinds()
-        this.loadData()
+        this.refreshmanagepople()
         var msg = 'Device Deleted Successfully'
         this.general.openSnackBar(msg,'')
       }
@@ -224,14 +232,14 @@ infected(a){
           // console.log("infected data ======",res);
           if(res.status){
           //  this.refreshFinds()
-          this.loadData()
+          this.refreshmanagepople()
             var msg = 'Employee updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         })
       }
     else{
-      this.loadData()
+      this.refreshmanagepople()
       //this.refreshFinds()
     }
 
@@ -257,7 +265,7 @@ isolated(a){
         this.api.editIsolation(data).then((res:any)=>{
          // console.log("isolated data ======",res);
           if(res.status){
-            this.loadData()
+            this.refreshmanagepople()
             //this.refreshFinds()
             var msg = 'Employee updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -266,12 +274,12 @@ isolated(a){
       }
       else{
         alert("You cannot isolate infected person.")
-        this.loadData()
+        this.refreshmanagepople()
        // this.refreshFinds()
       }
     }
     else{
-      this.loadData()
+      this.refreshmanagepople()
       //this.refreshFinds()
     }
 
@@ -292,7 +300,7 @@ isolated(a){
           //console.log("deallocate resp",res)
           if(res.status){
             a.check=res.status
-            this.loadData()
+            this.refreshmanagepople()
             //this.refreshFinds()
           }
           else{
@@ -302,13 +310,13 @@ isolated(a){
         })
 
       }
-      this.loadData()
+      this.refreshmanagepople()
       //this.refreshFinds()
 
     }
     else{
       alert("You cannot allocate device")
-      this.loadData()
+      this.refreshmanagepople()
      // this.refreshFinds()
     }
 
@@ -327,7 +335,7 @@ onShiftSelection(a){
     // console.log("shift update data ======",res);
     if(res.status){
       //this.refreshFinds()
-      this.loadData()
+      this.refreshmanagepople()
       var msg = 'Employee Shift updated Successfully'
       this.general.openSnackBar(msg,'')
     }
@@ -357,7 +365,7 @@ departmentSelect(a,b){
   this.api.setDeviceDepartment(data).then((res:any)=>{
    // console.log("department list======",res);
     if(res.status){
-      this.loadData()
+      this.refreshmanagepople()
       //this.refreshFinds()
       var msg = 'Employee department updated Successfully'
       this.general.openSnackBar(msg,'')
@@ -365,6 +373,10 @@ departmentSelect(a,b){
   })
 }
 search(a){
+  var limit=10;
+  var offset=0
+  this.loadData(limit=10,offset=0,a)
+  this.getDataCount(a)
  /*  var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -395,12 +407,12 @@ search(a){
   //   this.findData= this.elementsTemp
 
   // }
-  this.dataSource = new MatTableDataSource(this.findData);
+ /*  this.dataSource = new MatTableDataSource(this.findData);
   setTimeout(() => {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.dataSource.filter =a.trim().toLowerCase()
-  })
+  }) */
 }
 
 
@@ -582,16 +594,18 @@ fileSubmit(data){
  getUpdate(event) {
   // console.log("paginator event",event);
   // console.log("paginator event length", this.currentPageLength);
+  var devicename=''
   this.limit = event.pageSize
  this.offset = event.pageIndex*event.pageSize
   // console.log("limit==",limit,"offset==",offset)
- this.loadData(this.limit,this.offset)
+ this.loadData(this.limit,this.offset,devicename)
 }
-getDataCount(){
+getDataCount(devicename){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    tblName:'deviceRegistration'
+    tblName:'deviceRegistration',
+    deviceName:devicename,
   }
   this.api.getDataCount(data).then((res:any)=>{
       //console.log("length of location report on device name ======",res);
