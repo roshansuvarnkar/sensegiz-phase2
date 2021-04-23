@@ -138,7 +138,7 @@ export class HistoryReportComponent implements OnInit {
     if(this.type=='custom'){
       var date=new Date()
       if(this.sync =="2"){
-        this.from="0000-00-00 00:00:00"
+        this.from="0000-00-00"
       }
       var data23={
         userId:this.loginData.userId,
@@ -858,7 +858,7 @@ temperatureData(limit,offset){
 customReport(limit,offset){
   var date=new Date()
   if(this.sync =="2"){
-    this.from="0000-00-00 00:00:00"
+    this.from="0000-00-00"
   }
   var data={
     userId:this.loginData.userId,
@@ -1070,7 +1070,7 @@ if(this.type=='deptcummulative'){
     if(this.type=='custom'){
       var date=new Date()
       if(this.sync =="2"){
-        this.from="0000-00-00 00:00:00"
+        this.from="0000-00-00"
       }
       data={
         userId:this.loginData.userId,
