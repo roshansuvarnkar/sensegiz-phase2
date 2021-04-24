@@ -101,8 +101,10 @@ refreshManageFinds(){
 }
 
 loadData(limit=10,offset=0,a){
-  console.log(limit,offset,a)
+ // console.log(limit,offset,a)
   this.refreshFinds(limit=limit,offset=offset,a=a,)
+  this.getDataCount()
+
   }
 
 
@@ -383,6 +385,8 @@ search(a){
   var offset=0
   this.loadData(limit=10,offset=0,a)
   this.general.managefind.next(a)
+  this.getDataCount()
+
  /*  var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
