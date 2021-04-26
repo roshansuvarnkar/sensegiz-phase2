@@ -119,6 +119,7 @@ refreshFinds(limit,offset,deviceName){
   }
   //console.log(data)
   this.api.getData(data).then((res:any)=>{
+    this.getDataCount()
   // console.log("find device data ======",res);
     if(res.status == true){
       this.findData=[]
@@ -157,6 +158,7 @@ refreshFinds(limit,offset,deviceName){
 
     }else{
       this.findData=[]
+      this.getDataCount()
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
@@ -383,9 +385,10 @@ departmentSelect(a,b){
 search(a){
   var limit=10;
   var offset=0
-  this.loadData(limit=10,offset=0,a)
+ // this.loadData(limit=10,offset=0,a)
   this.general.managefind.next(a)
-  this.getDataCount()
+  this.refreshManageFinds()
+  //this.getDataCount()
 
  /*  var data={
     userId:this.loginData.userId,
