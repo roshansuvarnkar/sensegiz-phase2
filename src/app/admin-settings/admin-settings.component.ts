@@ -29,6 +29,7 @@ export class AdminSettingsComponent implements OnInit {
   eraseshiftselsect:FormGroup
   temperaturehrsmin:FormGroup
   onffbutton:FormGroup
+  meshForm:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
@@ -36,6 +37,7 @@ export class AdminSettingsComponent implements OnInit {
   shifts:any=[]
   multishift:any=[]
   inactivityStatusValue:any=[]
+  gatWaysData:any=[]
   dataGet:any
   hrsvalues:any;
   minvalues:any;
@@ -55,6 +57,7 @@ export class AdminSettingsComponent implements OnInit {
   onoffselsect:any=[];
   custom:boolean=false
   standered:boolean=true
+  grouped:boolean=false;
   shiftName:any;
   eraseShift:any;
   onoffnull:any;
@@ -127,7 +130,10 @@ export class AdminSettingsComponent implements OnInit {
     this.onffbutton=this.fb.group({
       onOff:['']
     })
-
+    this.meshForm=this.fb.group({
+      gatewayId:['',Validators.required],
+      meshId:['',Validators.required],
+    })
     this.route.queryParams.subscribe(params => {
       this.dataGet = JSON.parse(params.record) ;
       // console.log("data==",this.dataGet.userId)
@@ -136,6 +142,7 @@ export class AdminSettingsComponent implements OnInit {
   this. refreshSetting()
   this.minThresholdMinsec()
   this.refreshShift()
+  this.refreshgateways()
   }
 
   refreshShift(){
@@ -1093,5 +1100,42 @@ onSubmitonoff(values){
   }
 
 }
+refreshgateways(){
+  var data={
+    userId:this.dataGet.userId,
+    subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+    tblName:'gatewayRegistration'
+  }
+ // console.log("data",data)
+  this.api.getDataGateways(data).then((res:any)=>{
+    if(res.status){
+      this.gatWaysData=res.success
+      this.grouped=false
+    }
+   // console.log("res1",res)
+  })
+}
+onSubmitmeshForm(vales){
+  if(this.meshForm.valid){
+    try{
+      var data={
+        userId:this.dataGet.userId,
+        gatewayId:vales.gatewayId,
+        meshId:vales.meshId
+      }
+      console.log(data)
+      this.api.createMeshId(data).then((res:any)=>{
+        if(res.status){
+          this.meshForm.reset()
+          this.refreshSetting()
+          var msg='Mesh ID updated Successfully'
+          this.general.openSnackBar(msg,'')
+        }
 
+      })
+    }catch(err){
+
+    }
+  }
+}
 }

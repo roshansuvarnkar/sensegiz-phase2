@@ -148,7 +148,7 @@ displayedColumns: string[] = ['i', 'deviceId', 'deviceName','updatedOnLoc','data
      // console.log("data===",data)
 
       this.api.getOnlineCount(data).then((res:any)=>{
-      //  console.log("offline==",res)
+     // console.log("offline==",res)
         if(res.status){
           this.offlineData=res.success
           this.dataSource = new MatTableDataSource(this.offlineData);

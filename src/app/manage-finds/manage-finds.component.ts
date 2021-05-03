@@ -383,8 +383,6 @@ departmentSelect(a,b){
   })
 }
 search(a){
-  var limit=10;
-  var offset=0
  // this.loadData(limit=10,offset=0,a)
   this.general.managefind.next(a)
   this.refreshManageFinds()

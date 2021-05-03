@@ -29,7 +29,7 @@ export class AdminDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
  dataSource: any = [];
-  displayedColumns = ['i','userName','createdDate','apiKey','add','settings','isDeleted'];
+  displayedColumns = ['i','userName','createdDate','apiKey','add','settings','Analytics','isDeleted'];
   findData:any=[]
   SearchCountryField = SearchCountryField;
   TooltipLabel = TooltipLabel;
@@ -167,7 +167,22 @@ export class AdminDashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {});
   }
+  openDialog1(data): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '80vh';
+    dialogConfig.width = '35vw';
+    dialogConfig.data = {
+      type: 'Analytics',
+      data: data,
+    };
+    const dialogRef = this.dialog.open(AdminAddBleIdComponent, dialogConfig);
 
+    dialogRef.afterClosed().subscribe((result) => {
+
+    });
+  }
   openSetting(data) {
     this.router.navigate(['/admin-settings'], {
       queryParams: { record: JSON.stringify(data) },

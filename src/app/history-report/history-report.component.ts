@@ -136,9 +136,6 @@ export class HistoryReportComponent implements OnInit {
     }
     if(this.type=='custom'){
       var date=new Date()
-      if(this.sync =="2"){
-        this.from="0000-00-00"
-      }
       var data23={
         userId:this.loginData.userId,
         sync:this.sync,
@@ -455,7 +452,11 @@ export class HistoryReportComponent implements OnInit {
 //   },{})
 // }
 
-summaryReport(limit,offset){
+summaryReport(){
+  if(this.status !="2"){
+    this.from="0000-00-00",
+    this.to ="0000-00-00"
+  }
   var date=new Date()
   var data={
     userId:this.loginData.userId,
@@ -464,8 +465,6 @@ summaryReport(limit,offset){
      fromDate: this.from,
      toDate:this.to,
     type:this.status,
-    limit:limit,
-    offset:offset,
     zone:this.general.getZone(date)
   }
  //console.log("Sumaary data==",data)
@@ -856,9 +855,7 @@ temperatureData(limit,offset){
 /* ---------------------------------- */
 customReport(limit,offset){
   var date=new Date()
-  if(this.sync =="2"){
-    this.from="0000-00-00"
-  }
+
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -894,7 +891,7 @@ customReport(limit,offset){
         this.basedOnFindName(limit=limit,offset=offset)
       }
       if(this.type == 'summaryReport'){
-        this.summaryReport(limit=limit,offset=offset)
+        this.summaryReport()
       }
       if(this.type == 'locationReport'){
         this.locationReport(limit=limit,offset=offset)
@@ -1068,9 +1065,7 @@ if(this.type=='deptcummulative'){
 
     if(this.type=='custom'){
       var date=new Date()
-      if(this.sync =="2"){
-        this.from="0000-00-00"
-      }
+
       data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,

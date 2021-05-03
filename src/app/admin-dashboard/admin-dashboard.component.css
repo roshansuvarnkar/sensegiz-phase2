@@ -49,9 +49,9 @@ hr.main {
 .head{
     color: #df7217;
 }
-mat-icon {
+ mat-icon {
     cursor: pointer;
-}
+  }
 ::ng-deep input#primaryPhoneInput{
     border: none;
 
