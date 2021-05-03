@@ -767,8 +767,22 @@
 
 
        -->
+       <mat-card>
+        <mat-card-title>
+         Find On / Off
+        </mat-card-title>
 
-      <!-- --------------------------------------------------- -->
+        <mat-card-content>
+          <form [formGroup]="onffbutton" (ngSubmit)="onSubmitonoff(onffbutton.value)">
+          <!--   <mat-slide-toggle color="primary" [checked]="false" formControlName="onoff" (change)="onoffeven($event)" ></mat-slide-toggle> -->
+
+            <br><br>
+            <mat-slide-toggle color="primary" [checked]="onoffselsect.value" formControlName="onOff" (change)="onoffeven($event)" >{{onoffselsect.status}}</mat-slide-toggle>
+            <button class="btn-set" mat-raised-button [disabled]="!onffbutton.valid" color="primary">Submit</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
 <mat-card>
   <mat-card-title>
     Mesh ID
@@ -802,5 +816,6 @@
     </form>
     </mat-card-content>
 </mat-card>
+
 </div>
 
