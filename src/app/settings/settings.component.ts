@@ -37,6 +37,7 @@ export class SettingsComponent implements OnInit {
   buzzerConfigForm:FormGroup
   maxDistanceForm:FormGroup
   Temperaturescale:FormGroup
+  emailConfig:FormGroup
   //multishiftingselect:FormGroup
   loginData:any
   setting:any
@@ -176,6 +177,12 @@ export class SettingsComponent implements OnInit {
     this.Temperaturescale=this.fb.group({
       temperatureFormat:['',Validators.required]
     })
+this.emailConfig=this.fb.group({
+    emailConfig:['',Validators.required],
+    features:['',Validators.required]
+})
+
+
       this.Temperaturescale.patchValue({
         temperatureFormat: this.temperaterpatch
       })
@@ -1112,5 +1119,7 @@ username:any=[]
    }
 
   }
+ /*  onSubmitemailConfig(data){
 
+  } */
 }

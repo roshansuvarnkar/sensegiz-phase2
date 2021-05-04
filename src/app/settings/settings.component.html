@@ -558,5 +558,41 @@
     </form>
   </mat-card-content>
 </mat-card>
+<!-- ------------------------- -->
+<!--
+<mat-card>
+  <mat-card-title>
+    Mesh ID
+  </mat-card-title>
+  <mat-card-subtitle>
+    Enter gateways and mesh id
+  </mat-card-subtitle> <br>
+  <mat-card-content>
+    <form [formGroup]="emailConfig" (ngSubmit)="onSubmitemailConfig(emailConfig.value)" >
+      <mat-form-field  >
+          <mat-label>Gateways</mat-label>
+          <mat-select  formControlName="emailConfig" multiple required>
+         <mat-option *ngFor="let gateways of gatWaysData" [value]="gateways.gatewayId">{{gateways.gatewayId}}</mat-option>
+          </mat-select>
+          <mat-error>
+            Please provide a gateways
+          </mat-error>
+      </mat-form-field>
 
+    <mat-form-field  >
+      <mat-label>Gateways</mat-label>
+      <mat-select  formControlName="features" multiple required>
+       <mat-option *ngFor="let gateways of gatWaysData" [value]="gateways.gatewayId">{{gateways.gatewayId}}</mat-option>
+      </mat-select>
+      <mat-error>
+        Please provide a gateways
+      </mat-error>
+  </mat-form-field>
+      <br>
+    <div class="btn-set-grp">
+      <button mat-raised-button [disabled]="!emailConfig.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+    </div>
+    </form>
+    </mat-card-content>
+</mat-card> -->
 </div>
