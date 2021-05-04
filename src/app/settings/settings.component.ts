@@ -43,6 +43,7 @@ export class SettingsComponent implements OnInit {
   setting:any
   duration:any
   wearableType:any
+  userData:any=[]
   statusCustomise:boolean=false
   minStatus:boolean=false
   secStatus:boolean=false
@@ -91,6 +92,7 @@ export class SettingsComponent implements OnInit {
    // this.refreshShift()
     this.refreshCoins()
     this.refreshSetting()
+    this.emailConfigUser()
     // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
@@ -1119,7 +1121,24 @@ username:any=[]
    }
 
   }
- /*  onSubmitemailConfig(data){
+  /* ------------------------------------ */
 
+
+  emailConfigUser(){
+    var data={
+        userId:this.loginData.userId,
+        subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 &&  this.loginData.id!=0) ? this.loginData.id : 0,
+        tblName:'userDetails'
+      }
+
+    this.api.getData(data).then((res:any)=>{
+     //console.log("user data ======",res);
+      if(res.status){
+        this.userData=res.success;
+      }
+    })
+  }
+  /*  onSubmitemailConfig(data){
+    console.log(data)
   } */
 }
