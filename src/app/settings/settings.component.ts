@@ -62,12 +62,14 @@ export class SettingsComponent implements OnInit {
   twoStepAuthStatus:any=[]
   inactivityStatusValue:any=[]
   coinData:any=[]
+  userAlert:any=[]
   groupCoinData:any=[]
   groupCoinDataTemp:any=[]
   coin:any=[]
   min:any=[]
   sec:any=[]
   shifts:any=[]
+  featuresData:any=[]
   loading:boolean=false
   tempImagePath:any
   temperaterpatch:any
@@ -93,6 +95,7 @@ export class SettingsComponent implements OnInit {
     this.refreshCoins()
     this.refreshSetting()
     this.emailConfigUser()
+    this.featuresAlert()
     // this.minThresholdMinsec()
 
     this.workingForm = this.fb.group({
@@ -179,12 +182,11 @@ export class SettingsComponent implements OnInit {
     this.Temperaturescale=this.fb.group({
       temperatureFormat:['',Validators.required]
     })
-this.emailConfig=this.fb.group({
-    emailConfig:['',Validators.required],
-    features:['',Validators.required]
-})
-
-
+    this.emailConfig=this.fb.group({
+      emailid:['',Validators.required],
+      type:['',Validators.required],
+      enable:['',Validators.required]
+  })
       this.Temperaturescale.patchValue({
         temperatureFormat: this.temperaterpatch
       })
@@ -1132,13 +1134,138 @@ username:any=[]
       }
 
     this.api.getData(data).then((res:any)=>{
-     //console.log("user data ======",res);
+     console.log("user data ======",res);
       if(res.status){
         this.userData=res.success;
       }
     })
   }
-  /*  onSubmitemailConfig(data){
-    console.log(data)
-  } */
+  featuresAlert(){
+    var data={
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 &&  this.loginData.id!=0) ? this.loginData.id : 0,
+    }
+    this.api.getFeaturesAlert(data).then((res:any)=>{
+      this.featuresData=res.success
+    // console.log("features",res)
+    })
+  }
+  onSubmitemailConfig(vales){
+    if(this.emailConfig.valid){
+     try{
+      var data={
+        userId:this.loginData.userId,
+        emailId:vales.emailid,
+        type:vales.type,
+        enable :vales.enable,
+      }
+       this.api.emailConfigurationAlert(data).then((res:any)=>{
+         console.log(res)
+         if(res.status){
+           this.refreshSetting()
+           this.emailConfig.reset()
+           var msg = 'Email Configuration Alert updated Successfully'
+           this.general.openSnackBar(msg,'')
+         }
+       })
+     }catch(err){
+
+     }
+    }
+
+ }
+ userEmailAlert(vales){
+  var data={
+    userId:this.loginData.userId,
+    emailId:vales.emailId
+  }
+  console.log(data)
+  this.api.useremailAlert(data).then((res:any)=>{
+    this.userAlert=[]
+    console.log(res)
+    if(res.success[0].ACB==1){
+      this.userAlert.push('ACB')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }if(res.success[0].CBS==1){
+      this.userAlert.push('CBS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].CCS==1){
+      this.userAlert.push('CCS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].COS==1){
+      this.userAlert.push('COS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].DIS==1){
+      this.userAlert.push('DIS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].FVA==1){
+      this.userAlert.push('FVA')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].FVI==1){
+      this.userAlert.push('FVI')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].GSS==1){
+      this.userAlert.push('GSS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].ICS==1){
+      this.userAlert.push('ICS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].IPDQ==1){
+      this.userAlert.push('IPDQ')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].IPPQ==1){
+      this.userAlert.push('IPPQ')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].MIN==1){
+      this.userAlert.push('MIN')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].MIS==1){
+      this.userAlert.push('MIS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].UTS==1){
+      this.userAlert.push('UTS')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    } 
+  })
+}
 }
