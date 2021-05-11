@@ -121,8 +121,9 @@ refreshFinds(limit,offset,deviceName){
   //console.log(data)
   this.api.getData(data).then((res:any)=>{
   // console.log("find device data ======",res);
+  this.getDataCount()
     if(res.status == true){
-     //this.getDataCount()
+     //
       this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
@@ -159,8 +160,9 @@ refreshFinds(limit,offset,deviceName){
 
     }else{
       this.findData=[]
-      //this.getDataCount()
+      this.getDataCount()
       this.dataSource = new MatTableDataSource(this.findData);
+
       setTimeout(() => {
         this.dataSource.sort = this.sort;
       })
@@ -387,7 +389,7 @@ search(deviceName){
  // this.loadData(limit=10,offset=0,deviceName)
   this.general.managefind.next(deviceName)
   this.refreshManageFinds()
-  this.getDataCount()
+  //this.getDataCount()
  /*  var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -399,13 +401,13 @@ search(deviceName){
    if(res.status){
      console.log("res",res)
     this.dataSource = new MatTableDataSource(this.findData);
-    setTimeout(() => {
+    */setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    //  this.dataSource.filter =a.trim().toLowerCase()
+      this.dataSource.filter =deviceName.trim().toLowerCase()
     })
-   }
- }) */
+  /* }
+ })
   // if(a.length>0){
   //   this.findData = this.elementsTemp.filter(obj=>{
   //     return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)
