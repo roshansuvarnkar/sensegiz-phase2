@@ -102,12 +102,13 @@ refreshManageFinds(){
 
 loadData(limit=10,offset=0,a){
  // console.log(limit,offset,a)
-  this.refreshFinds(limit=limit,offset=offset,a=a,)
-  this.getDataCount()
-
+ this.refreshFinds(limit=limit,offset=offset,a=a,)
+ // this.getDataCount()
   }
-
-
+ /*  refresData(limit,offset,a){
+    this.refreshFinds(limit,offset,a)
+  }
+ */
 refreshFinds(limit,offset,deviceName){
   var data={
     userId:this.loginData.userId,
@@ -119,9 +120,9 @@ refreshFinds(limit,offset,deviceName){
   }
   //console.log(data)
   this.api.getData(data).then((res:any)=>{
-    this.getDataCount()
   // console.log("find device data ======",res);
     if(res.status == true){
+     //this.getDataCount()
       this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
@@ -158,7 +159,7 @@ refreshFinds(limit,offset,deviceName){
 
     }else{
       this.findData=[]
-      this.getDataCount()
+      //this.getDataCount()
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
@@ -382,12 +383,11 @@ departmentSelect(a,b){
     }
   })
 }
-search(a){
- // this.loadData(limit=10,offset=0,a)
-  this.general.managefind.next(a)
+search(deviceName){
+ // this.loadData(limit=10,offset=0,deviceName)
+  this.general.managefind.next(deviceName)
   this.refreshManageFinds()
-  //this.getDataCount()
-
+  this.getDataCount()
  /*  var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -603,16 +603,18 @@ fileSubmit(data){
 
 
  getUpdate(event) {
-  // console.log("paginator event",event);
+  //console.log("paginator event",event);
   // console.log("paginator event length", this.currentPageLength);
   this.limit = event.pageSize
  this.offset = event.pageIndex*event.pageSize
  this.general.managefind.subscribe((res)=>{
-     this.devicename=res
+     this.devicename=res.deviceName,
+     this.offset = 0;
+
  })
  this.loadData(this.limit,this.offset,this.devicename)
   // console.log("limit==",limit,"offset==",offset)
-
+this.getDataCount()
 }
 
 getDataCount(){
@@ -627,11 +629,11 @@ getDataCount(){
   }
  // console.log("count",data)
   this.api.getDataCount(data).then((res:any)=>{
-    //  console.log("length of location report on device name ======",res);
+      //console.log("length of location report on device name ======",res);
        if(res.status){
          //console.log('\nTotal response: ',res.success[0].count);
-         this.currentPageLength = parseInt(res.success[0].count);
-
+          this.currentPageLength = parseInt(res.success[0].count);
+         // this.paginator.length = this.currentPageSize
        }
      })
 }
