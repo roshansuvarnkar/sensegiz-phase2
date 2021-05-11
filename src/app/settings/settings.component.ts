@@ -1150,7 +1150,7 @@ username:any=[]
     // console.log("features",res)
     })
   }
-  onSubmitemailConfig(vales){
+ /*  onSubmitemailConfig(vales){
     if(this.emailConfig.valid){
      try{
       var data={
@@ -1173,8 +1173,8 @@ username:any=[]
      }
     }
 
- }
- userEmailAlert(vales){
+ } */
+/*  userEmailAlert(vales){
   var data={
     userId:this.loginData.userId,
     emailId:vales.emailId
@@ -1265,7 +1265,7 @@ username:any=[]
       this.emailConfig.patchValue({
         type:this.userAlert
       })
-    } 
+    }
   })
-}
+} */
 }
