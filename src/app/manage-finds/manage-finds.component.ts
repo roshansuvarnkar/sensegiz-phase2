@@ -404,7 +404,7 @@ search(deviceName){
     */setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.dataSource.filter =deviceName.trim().toLowerCase()
+      //this.dataSource.filter =deviceName.trim().toLowerCase()
     })
   /* }
  })
