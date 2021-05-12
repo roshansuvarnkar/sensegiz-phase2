@@ -22,6 +22,10 @@ export class ManageUsersComponent implements OnInit {
   userType:any
   userData:any=[]
   dataSource: any = [];
+  currentPageLength:any=10
+  currentPageSize:any=10
+  limit:any
+  offset:any
   displayedColumns = ['i','mobileNum','emailId','edit',	'delete'];
 
   constructor(public dialog: MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,) {}
@@ -49,22 +53,28 @@ export class ManageUsersComponent implements OnInit {
     this.userType=this.loginData.type
 
     this.refreshUsers()
+    this.getDataCount()
   }
 
+  refreshUsers(limit=10,offset=0){
+    this.loadData(limit=limit,offset=offset)
+  //this.refreshFinds(limit=limit,offset=offset)
 
+  }
 
-  refreshUsers(){
+  loadData(limit,offset){
     var data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 &&  this.loginData.id!=0) ? this.loginData.id : 0,
+        limit:limit,
+        offset:offset,
         tblName:'userDetails'
       }
 
     this.api.getData(data).then((res:any)=>{
-      // console.log("user data ======",res);
+    //  console.log("user data ======",res);
       if(res.status){
         this.userData=[]
-
         for (let i = 0; i <res.success.length; i++) {
           this.userData.push(
             {   i:i+1,
@@ -78,7 +88,7 @@ export class ManageUsersComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.userData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+         // this.dataSource.paginator = this.paginator;
         })
 
 
@@ -126,8 +136,31 @@ export class ManageUsersComponent implements OnInit {
         }
       })
     }
-  }
 
+  }
+  getUpdate(event) {
+    // console.log("paginator event",event);
+    // console.log("paginator event length", this.currentPageLength);
+    this.limit = event.pageSize
+   this.offset = event.pageIndex*event.pageSize
+    // console.log("limit==",limit,"offset==",offset)
+   this.refreshUsers(this.limit,this.offset)
+  }
+  getDataCount(){
+    var data={
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+      tblName:'userDetails'
+    }
+    this.api.getDataCount(data).then((res:any)=>{
+        //console.log("length of location report on device name ======",res);
+         if(res.status){
+          // console.log('\nTotal response: ',res.success[0].count);
+           this.currentPageLength = parseInt(res.success[0].count);
+
+         }
+       })
+  }
 
 
 }

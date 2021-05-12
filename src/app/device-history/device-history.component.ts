@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild,Input} from '@angular/core';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { ApiService } from '../api.service';
 import { LoginCheckService } from '../login-check.service';
@@ -6,6 +6,8 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Timestamp } from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
+import {GeneralMaterialsService} from '../general-materials.service'
+import {SideBarComponent} from '../side-bar/side-bar.component'
 @Component({
   selector: 'app-device-history',
   templateUrl: './device-history.component.html',
@@ -24,36 +26,51 @@ export class DeviceHistoryComponent implements OnInit {
   currentPageSize:any=10
   displayedColumns: string[] = ['i','deviceName', 'contactDeviceName', 'updatedOn'];
 
-  constructor(private api: ApiService,private login:LoginCheckService,private route: ActivatedRoute) { }
+  constructor(private api: ApiService,
+    private login:LoginCheckService,
+    private general:GeneralMaterialsService,
+    private route: ActivatedRoute) {
+      // console.log("message====",this.items);
+     }
+    // lot:any;
+   //  pars:any
 
   ngOnInit(): void {
-
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
+   // console.log("rfrfff",this.input);
+   // this.route.queryParams.subscribe(params => {
+   // console.log("records=",this.deviceData )
+       this.general.deviceHistory.subscribe((res:any)=>{
+          // console.log(res)
+          this.deviceData =res
+          this.refreshFinds()
+          this.getTotalCount()
+        })
 
 
-    this.route.queryParams.subscribe(params => {
-        this.deviceData = JSON.parse(params.record) ;
-        // console.log("records=",this.deviceData )
-        this.getTotalCount()
-        this.refreshFinds()
-    })
     //setInterval(()=>{this.refreshFinds()},60*1000)
+   /*  setInterval(()=>{
+      this.lot=localStorage.getItem('value')
+      var pars=JSON.parse(this.lot)
+      this.deviceData =pars
+      this.refreshFinds()
+     // this.getTotalCount()
+   })
+ */
   }
 
-
   refreshFinds(limit=10,offset=0){
-
    var data={
     userId:this.loginData.userId,
     deviceName:this.deviceData.deviceName,
     limit:limit,
     offset:offset
    }
+  // console.log("find data ======",data);
     this.api.getDeviceData(data).then((res:any)=>{
-    //  console.log("find data ======",res);
+     //console.log("find data ======",res);
       this.findData=[]
-
       if(res.status){
         this.finds=res.success
         for(let i=0;i<res.success.length;i++){
@@ -66,12 +83,10 @@ export class DeviceHistoryComponent implements OnInit {
 
         }
       }
-
         this.dataSource = new MatTableDataSource(this.findData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
           // this.dataSource.paginator = this.paginator;
-
         });
 
 

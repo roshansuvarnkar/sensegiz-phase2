@@ -26,6 +26,7 @@ export class AdminSettingsComponent implements OnInit {
   sendDataForm:FormGroup
   maxDistanceForm:FormGroup
   multishiftingselect:FormGroup
+  temperaturehrsmin:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
@@ -33,6 +34,8 @@ export class AdminSettingsComponent implements OnInit {
   multishift:any=[]
   inactivityStatusValue:any=[]
   dataGet:any
+  hrsvalues:any;
+  minvalues:any;
   statusCustomise:boolean=false
   selectedValue:boolean=false
   selectStatus1:boolean=false
@@ -101,6 +104,10 @@ export class AdminSettingsComponent implements OnInit {
       type:['',Validators.required],
      // earanshift:['']
     })
+    this.temperaturehrsmin=this.fb.group({
+      tempPeriodhours:[''],
+      tempPeriodminutes:['']
+    })
 
     this.route.queryParams.subscribe(params => {
       this.dataGet = JSON.parse(params.record) ;
@@ -137,7 +144,7 @@ export class AdminSettingsComponent implements OnInit {
     }
    // console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-  //console.log("setting data page ======",res);
+    console.log("setting data page ======",res);
 
       if(res.status){
         this.setting = res.success[0]
@@ -145,6 +152,18 @@ export class AdminSettingsComponent implements OnInit {
           buffer: res.success[0].buffer,
         })
 
+        if(res.success[0].temperaturePeriod<6){
+          this.temperaturehrsmin.patchValue({
+            tempPeriodminutes:res.success[0].temperaturePeriod+"0"
+          })
+        }else{
+          this.hrsvalues=Math.floor(res.success[0].temperaturePeriod/6).toString()
+          this.minvalues=(((res.success[0].temperaturePeriod)-this.hrsvalues*6)).toString()
+          this.temperaturehrsmin.patchValue({
+            tempPeriodhours:this.hrsvalues,
+            tempPeriodminutes:this.minvalues+"0"
+          })
+        }
         if(res.success[0].durationThreshold<=55){
           this.minStatus=true
           this.timeFormStatus=false
@@ -190,6 +209,10 @@ export class AdminSettingsComponent implements OnInit {
         this.maxDistanceForm.patchValue({
           maxDistance:res.success[0].maxDistance.toString()
         })
+        this.scanCountForm.patchValue({
+          count:res.success[0].scanCount.toString()
+        })
+
        /*  else{
           this.inactivityStatusValue = {
             value:false,
@@ -434,7 +457,7 @@ export class AdminSettingsComponent implements OnInit {
       try {
         data.userId=this.dataGet.userId
         this.api.updateScanningInterval(data).then((res:any)=>{
-          // console.log("Scanning Interval===",res)
+         //  console.log("Scanning Interval===",res)
           if(res.status){
             this.refreshSetting()
             this.meetingcount()
@@ -478,6 +501,7 @@ export class AdminSettingsComponent implements OnInit {
     }
     this.api.getData(data).then((res:any)=>{
       if(res.status){
+        console.log(res)
         this.scanCountForm.patchValue({
           count:res.success[0].scanCount.toString()
         })
@@ -595,7 +619,7 @@ export class AdminSettingsComponent implements OnInit {
       try {
         data.userId=this.dataGet.userId
         this.api.setGatewayDataRate(data).then((res:any)=>{
-         // console.log("setGatewayDataRate ===",res)
+         // console.log("setGatewayDataRate ===",data)
           if(res.status){
             this.refreshSetting()
             var msg='Gateway data rate updated successfully'
@@ -849,5 +873,22 @@ selectfinds(event){
       this.custom=true
       this.standered=false
     }
+  }
+  onSubmittemperaturehoursmints(values){
+  var data={
+    userId:this.dataGet.userId,
+    tempPeriodhours:values.tempPeriodhours,
+    tempPeriodminutes:values.tempPeriodminutes,
+  }
+    this.api.updateTemperaturePeriod(data).then((res:any)=>{
+      if(res.status){
+        this.temperaturehrsmin.reset()
+        this.refreshSetting()
+        var msg='Update Temperature Period Successfully'
+        this.general.openSnackBar(msg,'')
+      }
+
+    })
+
   }
 }
