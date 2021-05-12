@@ -1173,8 +1173,8 @@ username:any=[]
      }
     }
 
- } */
-/*  userEmailAlert(vales){
+ }
+  userEmailAlert(vales){
   var data={
     userId:this.loginData.userId,
     emailId:vales.emailId
