@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { identifierModuleUrl } from '@angular/compiler';
 import { GeneralMaterialsService } from './general-materials.service';
-import {CryptoJS} from 'crypto-js'
+
 @Injectable({
   providedIn: 'root',
 })

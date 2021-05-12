@@ -1,5 +1,5 @@
 <div  class="selectDevice">
-    
+
     <div >
         <form [formGroup]="deviceSelectForm" (ngSubmit)="submit(deviceSelectForm.value)">
             <mat-form-field class="field" >
@@ -10,7 +10,7 @@
             </mat-form-field>  &nbsp;&nbsp;&nbsp;&nbsp;
 
               <mat-form-field class="field">
-                <mat-label>Select Coin</mat-label>
+                <mat-label>Select Beacon+</mat-label>
                 <mat-select  multiple formControlName="coinSelect" required>
                   <mat-option *ngFor="let coin of coinData" [value]="coin.coinId">{{coin.coinName}}</mat-option>
                 </mat-select>
@@ -33,39 +33,39 @@
 
 
 
-  <div class="center" > 
+  <div class="center" >
     <p>Geo-Fence Setting </p>
     <hr>
- 
-  
+
+
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort >
-  
-  
+
+
      <div  >
         <ng-container matColumnDef="i"  >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Sl No. </th>
             <td mat-cell *matCellDef="let geofence" > {{geofence.i}} </td>
           </ng-container>
-  
-  
+
+
           <ng-container matColumnDef="deviceName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Device Name </th>
             <td mat-cell *matCellDef="let geofence"> {{geofence.deviceName}} </td>
           </ng-container>
-  
-  
+
+
           <ng-container matColumnDef="coinName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Location Name</th>
             <td mat-cell *matCellDef="let geofence "> {{geofence.coinName}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
             <td mat-cell *matCellDef="let geofence"  (click)="delete(geofence)" class="cursor"><mat-icon>{{geofence.delete}}</mat-icon> </td>
           </ng-container>
      </div>
-  
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
       </table>

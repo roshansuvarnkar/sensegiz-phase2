@@ -36,7 +36,7 @@ export class WebsocketService {
     });
 
     this.socket.on('joinRoom', (data) => {
-     console.log('\n\joinRoom==', data);
+    // console.log('\n\joinRoom==', data);
     });
 
     this.socket.on('leaveRoom', (data) => {
