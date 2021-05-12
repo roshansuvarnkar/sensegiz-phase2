@@ -431,8 +431,10 @@
           <mat-radio-group  color="primary" formControlName="status" class="infect" >
             <mat-radio-button value="0" name="small" [checked]="true">Before marking Infected</mat-radio-button>
             <mat-radio-button value="1" name="small" >After marking Infected</mat-radio-button>
+            <mat-radio-button value="2" name="small" >All data</mat-radio-button>
           </mat-radio-group>
         <br>
+
         <mat-form-field class="full-width-input">
           <input type='text' matInput placeholder="User Name" formControlName="deviceName" [matAutocomplete]="auto"
           (keyup)="infectedSuggestion($event)" required>
@@ -444,7 +446,26 @@
           <mat-error>
             Please provide a valid user name
           </mat-error>
+        </mat-form-field><br>
+        <mat-form-field *ngIf="summaryReportForm.get('status').value==2">
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker19" formControlName="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker19"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker19></mat-datepicker>
+          <mat-error>
+            Please provide a valid from date
+          </mat-error>
         </mat-form-field>
+        <mat-form-field *ngIf="summaryReportForm.get('status').value==2">
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker20" formControlName="toDate">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker20"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker20></mat-datepicker>
+          <mat-error>
+            Please provide a valid to date
+          </mat-error>
+        </mat-form-field>
+        <br>
 
         <br> <br><br>
         <button class="btn-set" mat-raised-button [disabled]="!summaryReportForm.valid" color="primary">Submit</button>
@@ -455,23 +476,46 @@
   <mat-card>
     <span class="card-head">
       <mat-card-title color="primary">
-        Custom Report
+        Device Synced Details
       </mat-card-title>
       <mat-card-subtitle>
-        Select Report Type
+        Select Synced Details
       </mat-card-subtitle>
     </span>
     <mat-card-content>
       <form [formGroup]="customReport" (ngSubmit)="onSubmitCustomReport(customReport.value)">
         <mat-form-field>
-          <mat-label>Select type</mat-label>
-          <mat-select formControlName="type">
-            <mat-option value="1"> Within 24 Hours</mat-option>
-            <mat-option value="2"> Between 24 Hours and 48 Hours</mat-option>
-            <mat-option value="3"> More than 48 Hours</mat-option>
+          <mat-label>Select Synced</mat-label>
+          <mat-select formControlName="sync">
+            <mat-option value="1"> Synced</mat-option>
+            <mat-option value="2">Not Synced</mat-option>
+           <!--  <mat-option value="3"> More than 48 Hours</mat-option> -->
           </mat-select>
-        </mat-form-field> <br> <br> <br>
+        </mat-form-field> <br>
+        <div>
+          <mat-form-field >
+            <mat-label>From date</mat-label>
+            <input matInput [matDatepicker]="myDatepicker18" formControlName="fromDate" required>
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker18"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker18></mat-datepicker>
+            <mat-error>
+              Please provide a valid from date
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      <!--   <mat-form-field *ngIf="customReport.get('type').value==1">
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="myDatepicker18" formControlName="toDate">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker18"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker18></mat-datepicker>
+          <mat-error>
+            Please provide a valid to date
+          </mat-error>
+        </mat-form-field> -->
+        <br> <br>
         <button class="btn-set" color="primary" mat-raised-button [disabled]="!customReport.valid">Submit</button>
+        <!-- [disabled]=" (customReport.get('sync').value =='' && customReport.get('fromDate').value =='') || customReport.get('sync').value ==''" -->
       </form>
     </mat-card-content>
   </mat-card>

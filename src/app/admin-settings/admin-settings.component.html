@@ -409,7 +409,7 @@
 
                 <mat-label>Minutes</mat-label>
                 <mat-select  formControlName="minutes"  (selectionChange)="getMin($event)" [required]="requiredStatus1">
-                  <mat-option *ngFor="let a of min"  [value]="a">{{a}}</mat-option>
+                  <mat-option *ngFor="let a of min"  [value]="a" [disabled]="this.timeForm.get('seconds').value <=55">{{a}}</mat-option>
                 </mat-select>
 
                <mat-error *ngIf="!minStatus">
@@ -418,11 +418,11 @@
             </mat-form-field>
           <!-- </div> -->
           <!-- <div *ngIf="!secStatus"> -->
-            <mat-form-field  >
+            <mat-form-field>
 
               <mat-label>Seconds</mat-label>
-              <mat-select  formControlName="seconds"   (selectionChange)="getSec($event)" [required]="requiredStatus2" >
-                <mat-option *ngFor="let b of sec" [value]="b">{{b}}</mat-option>
+              <mat-select  formControlName="seconds" (selectionChange)="getSec($event)" [required]="requiredStatus2"   >
+                <mat-option *ngFor="let b of sec" [value]="b" [disabled]="this.timeForm.get('minutes').value <=5">{{b}}</mat-option>
               </mat-select>
 
              <mat-error *ngIf="!secStatus">
@@ -436,7 +436,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card>
+       <mat-card>
         <mat-card-title>
           Define Shift Time
         </mat-card-title>
@@ -478,13 +478,18 @@
                 Please provide a valid to time
               </mat-error>
             </mat-form-field><br> <br> <br>
-           <div class="btn-set">
+            <span  class="spanbtton">
+              <button  mat-raised-button [disabled]="!workingForm.valid" color="primary">Submit</button> &nbsp;&nbsp;&nbsp;
+              <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
+            </span>
+          <!--  <div class="btn-set">
             <button  mat-raised-button [disabled]="!workingForm.valid" color="primary">Submit</button> &nbsp;&nbsp;&nbsp;
             <button type="button" mat-raised-button (click)="openDialog()" color="primary">Info</button>
-           </div>
+           </div> -->
           </form>
         </mat-card-content>
       </mat-card>
+      <!-- --------------------------------- -->
       <mat-card>
         <mat-card-title>
           Multishift Select
@@ -493,33 +498,94 @@
           Enter coin name and maximum limit
         </mat-card-subtitle> -->
          <br>
+
         <mat-card-content>
           <br>
 
           <form [formGroup]="multishiftingselect" (ngSubmit)="onMultiShiftselect(multishiftingselect.value)" >
             <mat-radio-group  color="primary" formControlName="status"  class="wearable">
-              <mat-radio-button value="1" name="small" >Enable</mat-radio-button>
-              <mat-radio-button value="0" name="small" >Disable</mat-radio-button>
+              <mat-radio-button style="margin-left: -10px !important;"  value="1" name="small" >Enable</mat-radio-button>
+              <mat-radio-button  style="margin-left: -35px !important;" value="0" name="small" >Disable</mat-radio-button>
             </mat-radio-group><br>
             <mat-radio-group  color="primary" formControlName="type"  class="wearable" >
-              <mat-radio-button value="1" name="small"  (change)="selectfinds($event)">All</mat-radio-button>
+              <mat-radio-button  value="1" name="small"  (change)="selectfinds($event)">All</mat-radio-button>
               <mat-radio-button value="2" name="small" (change)="selectfinds($event)">Specific Finds</mat-radio-button>
             </mat-radio-group><br>
-          <!--   <mat-radio-group  color="primary" formControlName="earanshift"  class="wearable">
-              <mat-radio-button value="1" name="small" *ngIf="(multishiftingselect.get('status').value == 1 && multishiftingselect.get('type').value == 1)">Earanshift</mat-radio-button>
-              <mat-radio-button value="2" name="small" *ngIf="(multishiftingselect.get('status').value == 1 && multishiftingselect.get('type').value == 2)">Earanshift</mat-radio-button>
-            </mat-radio-group><br> -->
-            <mat-form-field *ngIf="(multishiftingselect.get('status').value == 1)">
-              <mat-label>Shift Name</mat-label>
-              <mat-select formControlName="shiftName" name="shiftName">
+            <mat-form-field *ngIf="(multishiftingselect.get('status').value == 1 && (multishiftingselect.get('type').value == 1 || multishiftingselect.get('type').value == 2))">
+              <mat-label>Shift Name*</mat-label>
+              <mat-select formControlName="shiftName" name="shiftName" (click)="shiftnameselsect()" >
                 <mat-option *ngFor="let b of multishift" [value]="b">
                   {{b.shiftName}}
                 </mat-option>
-
               </mat-select>
-
+             <!--  <mat-error>Please Create Shift</mat-error> -->
           </mat-form-field>
+          <p *ngIf="multishiftingselect.get('status').value == 1" style="font-size: 12px;color:red;margin-top: -17px;margin-left: -80px;">{{shiftName}}</p>
           <mat-form-field class="full-width-input" *ngIf="(multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 1 || multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 0)">
+            <mat-label>Device Id</mat-label>
+            <input type='text' matInput  formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let user of username" [value]="user.deviceId">
+                {{user.deviceId}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+            <div class="maxlimit">
+            </div>
+              <br><br>
+              <span  class="spanbtton">
+                <button mat-raised-button
+                [disabled]="!multishiftingselect.valid ||
+                 (multishiftingselect.get('status').value && multishiftingselect.get('type').value ==2 && multishiftingselect.get('deviceId').value =='') "
+                 color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" mat-raised-button (click)="openDialog1()"  color="primary">Info</button>
+              </span>
+         <!--    <div  class="btn-set">
+              <button mat-raised-button [disabled]="!multishiftingselect.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+              <button type="button" mat-raised-button (click)="openDialog1()"  color="primary">Info</button>
+            </div> -->
+
+            </form>
+        </mat-card-content>
+
+      </mat-card>
+      <!-- -------------------------------------- -->
+      <mat-card>
+        <mat-card-title>
+          Erase Shift
+        </mat-card-title>
+
+         <br>
+
+        <mat-card-content>
+          <br>
+
+          <form [formGroup]="eraseshiftselsect" (ngSubmit)="oneraseshiftselect(eraseshiftselsect.value)" >
+          <!--   <mat-radio-group  color="primary" formControlName="status"  class="wearable">
+              <mat-radio-button style="margin-left: -10px !important;" value="1" name="small" >Enable</mat-radio-button>
+              <mat-radio-button  style="margin-left:-20px !important;"value="0" name="small" >Disable</mat-radio-button>
+            </mat-radio-group><br> -->
+
+         <!--   <mat-radio-group  color="primary" formControlName="eraseShift"  class="wearable">
+
+              <mat-radio-button style="margin-left: -30px !important;" value="0" name="small">Erase</mat-radio-button>
+
+            </mat-radio-group><br> -->
+            <mat-radio-group  color="primary" formControlName="type"  class="wearable" >
+              <mat-radio-button value="1" name="small">All</mat-radio-button>
+              <mat-radio-button value="2" name="small">Specific Finds</mat-radio-button>
+            </mat-radio-group><br>
+            <div hidden>
+              <mat-form-field>
+                <mat-label>Shift Name</mat-label>
+                <mat-select formControlName="shiftName" name="shiftName">
+                  <mat-option *ngFor="let b of multishift" [value]="b">
+                    {{b.shiftName}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+          <mat-form-field class="full-width-input" *ngIf="(eraseshiftselsect.get('type').value == 2)">
             <input type='text' matInput placeholder="Device Id" formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option *ngFor="let user of username" [value]="user.deviceId">
@@ -532,12 +598,16 @@
           </mat-form-field>
             <div class="maxlimit">
             </div>
-              <br><br> <br>
-            <div  class="btn-set">
-              <button mat-raised-button [disabled]="!multishiftingselect.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+              <br><br>
+              <span  class="spanbtton">
+                <button mat-raised-button [disabled]="!eraseshiftselsect.valid || (eraseshiftselsect.get('type').value ==2 && eraseshiftselsect.get('deviceId').value=='') "  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" mat-raised-button (click)="openDialog2()"  color="primary">Info</button>
+              </span>
+           <!--  <div  class="btn-set">
+              <button mat-raised-button [disabled]="!eraseshiftselsect.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
               <button type="button" mat-raised-button (click)="openDialog1()"  color="primary">Info</button>
             </div>
-
+ -->
             </form>
         </mat-card-content>
 
@@ -627,6 +697,124 @@
           </form>
         </mat-card-content>
       </mat-card>
+      <!-- ---------------------------------------------------------------------- -->
+      <!--
+ <mat-card>
+        <mat-card-title>
+          Multishift Select
+        </mat-card-title>
+
+        <br>
+
+        <mat-card-content>
+          <br>
+
+          <form [formGroup]="multishiftingselect" (ngSubmit)="onMultiShiftselect(multishiftingselect.value)" >
+            <mat-radio-group  color="primary" formControlName="status"  class="wearable">
+              <mat-radio-button style="margin-left: -10px !important;"  value="1" name="small" >Enable</mat-radio-button>
+              <mat-radio-button  style="margin-left: -35px !important;" value="0" name="small" >Disable</mat-radio-button>
+            </mat-radio-group><br>
+            <mat-radio-group  color="primary" formControlName="type"  class="wearable" >
+              <mat-radio-button  value="1" name="small">All</mat-radio-button>
+              <mat-radio-button value="2" name="small">Specific Finds</mat-radio-button>
+            </mat-radio-group><br>
+            <mat-radio-group  color="primary" formControlName="eraseShift"  class="wearable" *ngIf="(multishiftingselect.get('status').value==1 && (multishiftingselect.get('type').value==1 || multishiftingselect.get('type').value==2) )" >
+              <mat-radio-button  value="0" name="small">Select Shift</mat-radio-button>
+              <mat-radio-button value="1" name="small" [hidden]="(multishiftingselect.get('type').value ==2)" (change)="selectfinds($event)">Earse</mat-radio-button>
+              <mat-radio-button value="2" name="small"  *ngIf="(multishiftingselect.get('type').value ==2)" (change)="selectfinds($event)">Ersanshift</mat-radio-button>
+            </mat-radio-group><br>
+            <div *ngIf="(multishiftingselect.get('eraseShift').value == 0)">
+              <mat-form-field [hidden]="(multishiftingselect.get('eraseShift').value == 1 ||multishiftingselect.get('eraseShift').value == 2)">
+                <mat-label>Shift Name</mat-label>
+                <mat-select formControlName="shiftName" name="shiftName">
+                  <mat-option *ngFor="let b of multishift" [value]="b">
+                    {{b.shiftName}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+
+          <mat-form-field class="full-width-input" *ngIf="(multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 1 || multishiftingselect.get('type').value == 2 && multishiftingselect.get('status').value == 0)">
+            <input type='text' matInput placeholder="Device Id" formControlName="deviceId" [matAutocomplete]="auto"  (keyup)="userSuggestion($event)" >
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let user of username" [value]="user.deviceId">
+                {{user.deviceId}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error>
+              Please provide a valid user name
+            </mat-error>
+          </mat-form-field>
+            <div class="maxlimit">
+            </div>
+              <br><br> <br><br><br>
+              <span  class="spanbtton">
+                <button mat-raised-button [disabled]="!multishiftingselect.valid || (multishiftingselect.get('shiftName').value == '' )"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" mat-raised-button (click)="openDialog1()"  color="primary">Info</button>
+              </span>
+
+
+            </form>
+        </mat-card-content>
+
+      </mat-card>
+
+
+
+
+
+
+
+       -->
+       <mat-card>
+        <mat-card-title>
+         Find On / Off
+        </mat-card-title>
+
+        <mat-card-content>
+          <form [formGroup]="onffbutton" (ngSubmit)="onSubmitonoff(onffbutton.value)">
+          <!--   <mat-slide-toggle color="primary" [checked]="false" formControlName="onoff" (change)="onoffeven($event)" ></mat-slide-toggle> -->
+
+            <br><br>
+            <mat-slide-toggle color="primary" [checked]="onoffselsect.value" formControlName="onOff" (change)="onoffeven($event)" >{{onoffselsect.status}}</mat-slide-toggle>
+            <button class="btn-set" mat-raised-button [disabled]="!onffbutton.valid" color="primary">Submit</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+<mat-card>
+  <mat-card-title>
+    Mesh ID
+  </mat-card-title>
+  <mat-card-subtitle>
+    Enter gateways and mesh id
+  </mat-card-subtitle> <br>
+  <mat-card-content>
+    <form [formGroup]="meshForm" (ngSubmit)="onSubmitmeshForm(meshForm.value)" >
+      <mat-form-field  >
+          <mat-label>Gateways</mat-label>
+          <mat-select  formControlName="gatewayId" multiple required>
+            <mat-option *ngFor="let gateways of gatWaysData" [value]="gateways.gatewayId">{{gateways.gatewayId}}</mat-option>
+          </mat-select>
+          <mat-error>
+            Please provide a gateways
+          </mat-error>
+      </mat-form-field>
+    <div class="maxlimit" >
+      <mat-form-field>
+        <input type='number' min="1" max='255'  matInput placeholder="Mesh ID" formControlName="meshId"  required>
+        <mat-error>
+          Please provide a mesh Id from 1-255
+        </mat-error>
+      </mat-form-field>
+    </div>
+      <br>
+    <div class="btn-set-grp">
+      <button mat-raised-button [disabled]="!meshForm.valid"  color="primary">Submit</button>&nbsp;&nbsp;&nbsp;
+    </div>
+    </form>
+    </mat-card-content>
+</mat-card>
 
 </div>
 

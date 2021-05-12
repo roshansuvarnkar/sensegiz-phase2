@@ -49,6 +49,7 @@ isDesktopDevice:boolean
 check:boolean
 deviceInfo=null
 departments:any
+devicename:any
 @ViewChild('fileInput') fileInput:ElementRef
 constructor(public dialog: MatDialog,
   private api: ApiService,
@@ -71,7 +72,7 @@ openDialog(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     //this.refreshFinds()
-    this.loadData()
+    this.refreshManageFinds()
   });
 }
 
@@ -89,30 +90,41 @@ ngOnInit(): void {
     type:'devices',
     header:['']
   })
- // this.refreshFinds()
- this.loadData()
+ this.refreshManageFinds()
+ // this.loadData(this.limit,this.offset,this.devicename)
   this.refreshShift()
   this.departmentList()
   this.getDataCount()
-
 }
-loadData(limit=10,offset=0){
-  this.refreshFinds(limit=limit,offset=offset)
+refreshManageFinds(){
+  this.loadData(this.limit,this.offset,this.devicename)
+}
 
+loadData(limit=10,offset=0,a){
+ // console.log(limit,offset,a)
+ this.refreshFinds(limit=limit,offset=offset,a=a,)
+ // this.getDataCount()
   }
-refreshFinds(limit,offset){
+ /*  refresData(limit,offset,a){
+    this.refreshFinds(limit,offset,a)
+  }
+ */
+refreshFinds(limit,offset,deviceName){
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     limit:limit,
     offset:offset,
+    deviceName:deviceName,
     tblName:'deviceRegistration'
   }
-   // console.log(data)
+  //console.log(data)
   this.api.getData(data).then((res:any)=>{
-   //console.log("find device data ======",res);
-    if(res.status){
-     this.findData=[]
+  // console.log("find device data ======",res);
+  this.getDataCount()
+    if(res.status == true){
+     //
+      this.findData=[]
       for (let i = 0; i <res.success.length; i++) {
         this.findData.push(
           {
@@ -138,7 +150,6 @@ refreshFinds(limit,offset){
               empId:res.success[i].empId == ''||res.success[i].empId == 'NULL' || res.success[i].empId == 'undefined' ? '-' : res.success[i].empId
           });
       }
-
       this.dataSource = new MatTableDataSource(this.findData);
       setTimeout(() => {
         this.dataSource.sort = this.sort;
@@ -148,9 +159,14 @@ refreshFinds(limit,offset){
       this.elementsTemp = this.findData
 
     }else{
-      if(res.code=='403'){
-        this.login.logout()
-      }
+      this.findData=[]
+      this.getDataCount()
+      this.dataSource = new MatTableDataSource(this.findData);
+
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+      })
+      this.elementsTemp = this.findData
     }
   })
 }
@@ -184,7 +200,7 @@ edit(data){
 
   dialogRef.afterClosed().subscribe(result => {
     //this.refreshFinds()
-    this.loadData()
+    this.refreshManageFinds()
   });
 }
 
@@ -203,7 +219,7 @@ delete(a){
       // console.log("find data ======",res);
       if(res.status){
         //this.refreshFinds()
-        this.loadData()
+        this.refreshManageFinds()
         var msg = 'Device Deleted Successfully'
         this.general.openSnackBar(msg,'')
       }
@@ -229,14 +245,14 @@ infected(a){
           // console.log("infected data ======",res);
           if(res.status){
           //  this.refreshFinds()
-          this.loadData()
+          this.refreshManageFinds()
             var msg = 'Employee updated Successfully'
             this.general.openSnackBar(msg,'')
           }
         })
       }
     else{
-      this.loadData()
+      this.refreshManageFinds()
       //this.refreshFinds()
     }
 
@@ -262,7 +278,7 @@ isolated(a){
         this.api.editIsolation(data).then((res:any)=>{
          // console.log("isolated data ======",res);
           if(res.status){
-            this.loadData()
+            this.refreshManageFinds()
             //this.refreshFinds()
             var msg = 'Employee updated Successfully'
             this.general.openSnackBar(msg,'')
@@ -271,12 +287,12 @@ isolated(a){
       }
       else{
         alert("You cannot isolate infected person.")
-        this.loadData()
+        this.refreshManageFinds()
        // this.refreshFinds()
       }
     }
     else{
-      this.loadData()
+      this.refreshManageFinds()
       //this.refreshFinds()
     }
 
@@ -297,7 +313,7 @@ isolated(a){
           //console.log("deallocate resp",res)
           if(res.status){
             a.check=res.status
-            this.loadData()
+            this.refreshManageFinds()
             //this.refreshFinds()
           }
           else{
@@ -307,13 +323,13 @@ isolated(a){
         })
 
       }
-      this.loadData()
+      this.refreshManageFinds()
       //this.refreshFinds()
 
     }
     else{
       alert("You cannot allocate device")
-      this.loadData()
+      this.refreshManageFinds()
      // this.refreshFinds()
     }
 
@@ -332,7 +348,7 @@ onShiftSelection(a){
     // console.log("shift update data ======",res);
     if(res.status){
       //this.refreshFinds()
-      this.loadData()
+      this.refreshManageFinds()
       var msg = 'Employee Shift updated Successfully'
       this.general.openSnackBar(msg,'')
     }
@@ -362,15 +378,36 @@ departmentSelect(a,b){
   this.api.setDeviceDepartment(data).then((res:any)=>{
    // console.log("department list======",res);
     if(res.status){
-      this.loadData()
+      this.refreshManageFinds()
       //this.refreshFinds()
       var msg = 'Employee department updated Successfully'
       this.general.openSnackBar(msg,'')
     }
   })
 }
-search(a){
-  // console.log("a==",a)
+search(deviceName){
+ // this.loadData(limit=10,offset=0,deviceName)
+  this.general.managefind.next(deviceName)
+  this.refreshManageFinds()
+  //this.getDataCount()
+ /*  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+    search:a,
+    tblName:'deviceRegistration'
+  }
+ console.log("a==",data)
+ this.api.addFindSearch(data).then((res:any)=>{
+   if(res.status){
+     console.log("res",res)
+    this.dataSource = new MatTableDataSource(this.findData);
+    */setTimeout(() => {
+      this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+      //this.dataSource.filter =deviceName.trim().toLowerCase()
+    })
+  /* }
+ })
   // if(a.length>0){
   //   this.findData = this.elementsTemp.filter(obj=>{
   //     return ((obj.deviceName.toString().toLowerCase().indexOf(a)>-1) || (obj.deviceId.toString().toLowerCase().indexOf(a)>-1)
@@ -383,12 +420,12 @@ search(a){
   //   this.findData= this.elementsTemp
 
   // }
-  this.dataSource = new MatTableDataSource(this.findData);
+ /*  this.dataSource = new MatTableDataSource(this.findData);
   setTimeout(() => {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.dataSource.filter =a.trim().toLowerCase()
-  })
+  }) */
 }
 
 
@@ -568,25 +605,37 @@ fileSubmit(data){
 
 
  getUpdate(event) {
-  // console.log("paginator event",event);
+  //console.log("paginator event",event);
   // console.log("paginator event length", this.currentPageLength);
   this.limit = event.pageSize
  this.offset = event.pageIndex*event.pageSize
+ this.general.managefind.subscribe((res)=>{
+     this.devicename=res.deviceName,
+     this.offset = 0;
+
+ })
+ this.loadData(this.limit,this.offset,this.devicename)
   // console.log("limit==",limit,"offset==",offset)
- this.loadData(this.limit,this.offset)
+this.getDataCount()
 }
+
 getDataCount(){
+  this.general.managefind.subscribe((data)=>{
+    this.devicename=data
+  })
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    tblName:'deviceRegistration'
+    tblName:'deviceRegistration',
+    deviceName:this.devicename,
   }
+ // console.log("count",data)
   this.api.getDataCount(data).then((res:any)=>{
       //console.log("length of location report on device name ======",res);
        if(res.status){
          //console.log('\nTotal response: ',res.success[0].count);
-         this.currentPageLength = parseInt(res.success[0].count);
-
+          this.currentPageLength = parseInt(res.success[0].count);
+         // this.paginator.length = this.currentPageSize
        }
      })
 }

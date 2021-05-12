@@ -49,7 +49,9 @@ import {NgxIntlTelInputModule} from 'ngx-intl-tel-input';
 import { AuthenticationInterceptor } from './authentication.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BnNgIdleService } from 'bn-ng-idle';
-import {NgxCaptchaModule} from 'ngx-captcha'
+import {NgxCaptchaModule} from 'ngx-captcha';
+import { AdminAnalysticsComponent } from './admin-analystics/admin-analystics/admin-analystics.component';
+import { AdminAnlysticsMoreComponent } from './adminAnalysticsmore/admin-anlystics-more/admin-anlystics-more.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +85,8 @@ import {NgxCaptchaModule} from 'ngx-captcha'
     TwoStepAuthComponent,
     ProfileComponent,
     EditOverCrowdComponent,
+    AdminAnalysticsComponent,
+    AdminAnlysticsMoreComponent,
 
   ],
   imports: [

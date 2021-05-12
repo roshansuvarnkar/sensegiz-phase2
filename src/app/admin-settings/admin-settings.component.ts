@@ -26,13 +26,18 @@ export class AdminSettingsComponent implements OnInit {
   sendDataForm:FormGroup
   maxDistanceForm:FormGroup
   multishiftingselect:FormGroup
+  eraseshiftselsect:FormGroup
   temperaturehrsmin:FormGroup
+  onffbutton:FormGroup
+  meshForm:FormGroup
   setting:any=[]
   min:any=[]
   sec:any=[]
+  hrs:any=[]
   shifts:any=[]
   multishift:any=[]
   inactivityStatusValue:any=[]
+  gatWaysData:any=[]
   dataGet:any
   hrsvalues:any;
   minvalues:any;
@@ -49,8 +54,13 @@ export class AdminSettingsComponent implements OnInit {
   multipleShift:boolean=false
   timeExceed:boolean=false
   selectfind:boolean=false
+  onoffselsect:any=[];
   custom:boolean=false
   standered:boolean=true
+  grouped:boolean=false;
+  shiftName:any;
+  eraseShift:any;
+  onoffnull:any;
   constructor(private fb:FormBuilder,public dialog: MatDialog,private api:ApiService,private login:LoginCheckService,private general:GeneralMaterialsService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -78,8 +88,10 @@ export class AdminSettingsComponent implements OnInit {
       count:['',[Validators.required,Validators.max(253), Validators.min(0)]],
     })
     this.timeForm=this.fb.group({
-      minutes:[{value:'',disabled: false},Validators.required],
+       minutes:[{value:'',disabled: false},Validators.required],
       seconds:[{value:'',disabled: false},Validators.required]
+    /*   minutes:['',Validators.required],
+      seconds:['',Validators.required] */
     })
 
     this.workingForm = this.fb.group({
@@ -98,17 +110,30 @@ export class AdminSettingsComponent implements OnInit {
     });
 
     this.multishiftingselect=this.fb.group({
-      shiftName:[''],
+      shiftName:['',Validators.required],
       deviceId:[''],
       status:['',Validators.required],
       type:['',Validators.required],
-     // earanshift:['']
+      eraseShift:['']
+    })
+    this.eraseshiftselsect=this.fb.group({
+      shiftName:[''],
+      deviceId:[''],
+      status:[''],
+      type:['',Validators.required],
+      eraseShift:['']
     })
     this.temperaturehrsmin=this.fb.group({
       tempPeriodhours:[''],
       tempPeriodminutes:['']
     })
-
+    this.onffbutton=this.fb.group({
+      onOff:['']
+    })
+    this.meshForm=this.fb.group({
+      gatewayId:['',Validators.required],
+      meshId:['',[Validators.required,Validators.max(255), Validators.min(1)]],
+    })
     this.route.queryParams.subscribe(params => {
       this.dataGet = JSON.parse(params.record) ;
       // console.log("data==",this.dataGet.userId)
@@ -117,6 +142,7 @@ export class AdminSettingsComponent implements OnInit {
   this. refreshSetting()
   this.minThresholdMinsec()
   this.refreshShift()
+  this.refreshgateways()
   }
 
   refreshShift(){
@@ -131,7 +157,10 @@ export class AdminSettingsComponent implements OnInit {
       if(res.status){
         this.shifts=res.success
         this.multishift=res.success
-        this.multishiftingselect.patchValue({
+         this.multishiftingselect.patchValue({
+          shiftName:this.multishift[0]
+        })
+        this.eraseshiftselsect.patchValue({
           shiftName:this.multishift[0]
         })
       }
@@ -144,7 +173,7 @@ export class AdminSettingsComponent implements OnInit {
     }
    // console.log("data get==",data)
     this.api.getData(data).then((res:any)=>{
-    console.log("setting data page ======",res);
+    //console.log("setting data page ======",res);
 
       if(res.status){
         this.setting = res.success[0]
@@ -206,6 +235,28 @@ export class AdminSettingsComponent implements OnInit {
             type : res.success[0].inactivityStatus
          })
         }
+        /* ------------------------------------------------ */
+        if(res.success[0].lastDateCommand == 'ON'){
+          this.onoffselsect = {
+            value:true,
+            status:'Disable',
+            onOff:1
+          }
+           this.onffbutton.patchValue({
+            onOff:1
+          })
+        }
+        if(res.success[0].lastDateCommand == 'OFF'){
+          this.onoffselsect = {
+            value:false,
+            status:'Enable',
+            onOff:2
+          }
+         /*  this.onffbutton.patchValue({
+            onOff:1
+          }) */
+        }
+         /* ---------------------------------------------------------- */
         this.maxDistanceForm.patchValue({
           maxDistance:res.success[0].maxDistance.toString()
         })
@@ -232,33 +283,29 @@ export class AdminSettingsComponent implements OnInit {
             inactivity: res.success[0].inactivity
          }) */
         }
-      }else{
-        if(res.code == '403'){
-          this.login.logout()
-        }
       }
     })
   }
-
   minThresholdMinsec(){
-    var seconds=''
+
     for(let i =0;i<=5;i++){
       var minutes=i==0?'none':i
       this.min.push(minutes)
+     // console.log(this.min)
      }
+     var seconds=''
     for(let i =-1;i<=11;i++){
-      if(i==1|| i==2 || i==3){
-      }
-      else{
         if(i==-1){
           seconds='none'
         }
         else{
+         // console.log(i)
          seconds=(i*5).toString()
         }
         this.sec.push(seconds)
+       // console.log(this.sec)
       }
-    }
+
   }
 
 
@@ -501,7 +548,7 @@ export class AdminSettingsComponent implements OnInit {
     }
     this.api.getData(data).then((res:any)=>{
       if(res.status){
-        console.log(res)
+       // console.log(res)
         this.scanCountForm.patchValue({
           count:res.success[0].scanCount.toString()
         })
@@ -510,12 +557,8 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   onSubmitTimeForm(data){
-    //  console.log(" time data===",data);
-
+   // console.log(" time data===",data);
        data.seconds=data.minutes!=="none"?data.minutes*60:data.seconds
-
-
-
      var second=data.seconds <=9 && data.seconds >= 0 ?"0"+data.seconds:data.seconds
      var data1={
        userId:this.dataGet.userId,
@@ -662,7 +705,7 @@ export class AdminSettingsComponent implements OnInit {
     }
    }
    bufferval(event){
-    // console.log(event.target.value)
+     //console.log(event.target.value)
       this.bufferValue=event.target.value>5?true:false
    }
 
@@ -670,7 +713,7 @@ export class AdminSettingsComponent implements OnInit {
 
     if (this.inactivityForm.valid) {
       try {
-       // console.log("inactivity data==",value)
+      // console.log("inactivity data==",value)
         value.inactivity= value.type == '2'? 0 : value.inactivity
         var data={
           userId : this.dataGet.userId,
@@ -730,37 +773,66 @@ export class AdminSettingsComponent implements OnInit {
   }
 
   onMultiShiftselect(values){
-    if(this.multishiftingselect.valid){
-    try{
-      var data={
-        userId : this.dataGet.userId,
-        shiftId : values.shiftName.id,
-        shiftName : values.shiftName.shiftName,
-        deviceId : values.deviceId,
-        status: values.status,
-        type :values.type,
-       // earanshift:values.earanshift,
-        }
-        //console.log(data)
-          this.api.setDeviceMultiShift(data).then((res:any)=>{
-           // console.log("multishift data sent===",res)
-            if(res.status){
-              this.multishiftingselect.reset()
-              this.refreshShift()
-              var msg='Multishift Select updated Successfully'
-              this.general.openSnackBar(msg,'')
-            }
-          }).catch(err=>{
-            //console.log("err===",err);
-          })
-    }catch (err) {
+    // console.log(values)
+     if(this.multishiftingselect.valid){
+     try{
+      /*  if(values.status == 1){
+         if(values.eraseShift == 0){
+           this.shiftName=values.shiftName.shiftName
+           this.eraseShift=values.eraseShift
+         }else{
+           this.shiftName='zeroShift'
+           this.eraseShift=values.eraseShift
+         }
+       }else{
+         this.shiftName=values.shiftName.shiftName
+         this.eraseShift="0"
+       } */
+      /*  if(values.eraseShift==0){
+         console.log(values.eraseShift)
+           this.shiftName=values.shiftName.shiftName
+           this.eraseShift=values.eraseShift
+          // this.eraseshift=values.eraseShift
+       }else{
+         alert(this.eraseShift)
+         this.shiftName="zeroShift"
+         this.eraseShift=values.eraseShift
+        // this.eraseshift="0"
+       }
+       if(values.status == 0 && values.type ==1){
+         this.shiftName=values.shiftName.shiftName
+           this.eraseShift='0'
+       } */
+       var data={
+         userId : this.dataGet.userId,
+         shiftId : values.shiftName.id,
+         shiftName :values.shiftName.shiftName,
+         deviceId : values.deviceId,
+         status: values.status,
+         type :values.type,
+         eraseShift: '0',
+         }
+       //  console.log(data)
+           this.api.setDeviceMultiShift(data).then((res:any)=>{
+          ///  console.log("multishift data sent===",res)
+             if(res.status){
+               this.multishiftingselect.reset()
+               this.refreshShift()
+               this.refreshSetting()
+               var msg='Multishift Select updated Successfully'
+               this.general.openSnackBar(msg,'')
+             }
+           }).catch(err=>{
+             //console.log("err===",err);
+           })
+     }catch (err) {
 
-    }
-    }
+     }
+     }
 
 
 
-}
+ }
 
 username:any=[]
 
@@ -786,11 +858,10 @@ username:any=[]
   }
 
 selectfinds(event){
-  this.selectfind=event.value='1' || '2'?false:true;
- // console.log(this.selectfind)
+  this.selectfind=event.value='0' || '1' || '2'?false:true;
+ //console.log(this.selectfind)
 
 }
-
 
 
 
@@ -864,7 +935,21 @@ selectfinds(event){
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+  openDialog2(): void {
 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '60vh';
+    dialogConfig.width = '70vw';
+    dialogConfig.data = {
+      type:"eraseshifts"
+    }
+    const dialogRef = this.dialog.open(EditSettingShiftComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
   scannIntravaleLimit(valees){
     if(valees==1){
       this.custom=false
@@ -891,4 +976,166 @@ selectfinds(event){
     })
 
   }
+  oneraseshiftselect(values){
+    if(this.eraseshiftselsect.valid){
+      try{
+        if(values.type==1){
+          this.eraseShift='1'
+        }else{
+          this.eraseShift='2'
+        }
+        var data={
+          userId : this.dataGet.userId,
+          shiftId : values.shiftName.id,
+          shiftName :"zeroShift",
+          deviceId : values.deviceId,
+          status: '1',
+          type :values.type,
+          eraseShift: this.eraseShift,
+          }
+          // console.log(data)
+          this.api.setDeviceMultiShift(data).then((res:any)=>{
+           // console.log("multishift data sent===",res)
+              if(res.status){
+                this.eraseshiftselsect.reset()
+                this.refreshShift()
+                var msg='Erase Shift Select updated Successfully'
+                this.general.openSnackBar(msg,'')
+              }
+            }).catch(err=>{
+              //console.log("err===",err);
+            })
+         }catch(err){
+          //console.log("err===",err);
+        }
+      }
+  }
+
+shiftnameselsect(){
+  var data={
+    userId:this.dataGet.userId,
+    subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+    tblName:'deviceShift'
+  }
+
+  this.api.getData(data).then((res:any)=>{
+   // console.log(res)
+    if(res.status){
+      this.shifts=res.success
+      this.multishift=res.success
+      this.multishiftingselect.patchValue({
+        shiftName:this.multishift[0]
+      })
+      this.eraseshiftselsect.patchValue({
+        shiftName:this.multishift[0]
+      })
+    }else{
+      this.shiftName="Please Create Shift"
+    }
+  })
+}
+
+onoffeven(event){
+  if(event.checked == true){
+    this.onoffselsect = {
+      value:true,
+      status:'Disable',
+      onOff:1
+    }
+     this.onffbutton.patchValue({
+      onOff:1
+    })
+
+  }
+  else if(event.checked == false){
+    this.onoffselsect = {
+      value:false,
+      status:'Enable',
+      onOff:2
+    }
+    this.onffbutton.patchValue({
+      onOff:2
+    })
+
+  }
+ // console.log(event.checked==true)
+  /* if(event.checked==true){
+    this.onoffselsect="2"
+  }else{
+    this.onoffselsect="1"
+  } */
+ // this.onoffselsected == event.checked == false ? 0:1 ;
+ /*  var isolate = a.isolated == 0 ? 1 :0 */
+//console.log(this.onoffselsected)
+}
+
+onSubmitonoff(values){
+  if(this.onffbutton.valid){
+    try{
+      if(values.onOff == null){
+        this.onoffnull=2
+      }else if(values.onOff==""){
+        this.onoffnull=2
+      }else{
+        this.onoffnull=values.onOff
+      }
+      var data={
+        userId:this.dataGet.userId,
+        subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+        onOff: this.onoffnull
+      }
+    //  console.log(data)
+      this.api.onofftoggele(data).then((res:any)=>{
+        if(res.status){
+         // console.log(res)
+         this.onffbutton.reset()
+          this.refreshSetting()
+          var msg='On or Off updated Successfully'
+          this.general.openSnackBar(msg,'')
+        }
+      })
+    }catch(err){
+
+    }
+  }
+
+}
+refreshgateways(){
+  var data={
+    userId:this.dataGet.userId,
+    subUserId: (this.dataGet.hasOwnProperty('id') && this.dataGet.type==4 && this.dataGet.id!=0) ? this.dataGet.id : 0,
+    tblName:'gatewayRegistration'
+  }
+ // console.log("data",data)
+  this.api.getDataGateways(data).then((res:any)=>{
+    if(res.status){
+      this.gatWaysData=res.success
+      this.grouped=false
+    }
+   // console.log("res1",res)
+  })
+}
+onSubmitmeshForm(vales){
+  if(this.meshForm.valid){
+    try{
+      var data={
+        userId:this.dataGet.userId,
+        gatewayId:vales.gatewayId,
+        meshId:vales.meshId
+      }
+      console.log(data)
+      this.api.createMeshId(data).then((res:any)=>{
+        if(res.status){
+          this.meshForm.reset()
+          this.refreshSetting()
+          var msg='Mesh ID updated Successfully'
+          this.general.openSnackBar(msg,'')
+        }
+
+      })
+    }catch(err){
+
+    }
+  }
+}
 }

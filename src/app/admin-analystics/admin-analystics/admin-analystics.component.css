@@ -1,0 +1,52 @@
+table.mat-table {
+
+  width: 100%;
+  margin-top: 1rem;
+  /* text-align: center; */
+}
+
+::ng-deep .mat-sort-header-container {
+display:flex;
+justify-content:center;
+font-weight: 500;
+font-size: 0.9rem;
+color: #ef6c00;
+}
+.center {
+text-align: center;
+font-size: 1.6rem;
+margin: 1.2rem 0 2rem 0;
+letter-spacing: 2px;
+font-weight: 500;
+}
+.totalfind{
+  text-align: center;
+  font-size: 1rem;
+  margin: 1.2rem 0 2rem 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+hr{
+width: 29rem;
+}
+mat-icon{
+color: #ef6c00;
+cursor: pointer;
+}
+.download1{
+  margin-right: 5rem !important;
+  position: absolute;
+  margin-top: -3rem;
+}
+.backforward{
+  width: 4rem;
+  height: 7vh;
+  margin-left: 1rem;
+  position: absolute;
+  margin-top: -4rem;
+  justify-content:center;
+}
+.material-icons{
+color: #ef6c00;
+cursor: pointer;
+}

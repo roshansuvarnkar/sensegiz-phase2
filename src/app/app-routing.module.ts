@@ -22,8 +22,8 @@ import { LocationComponent } from './location/location.component';
 import { TwoStepAuthComponent } from './two-step-auth/two-step-auth.component';
 import { SetNewPasswordComponent } from './set-new-password/set-new-password.component';
 import { ProfileComponent } from './profile/profile.component';
-
-
+import {AdminAnalysticsComponent} from './admin-analystics/admin-analystics/admin-analystics.component'
+import {AdminAnlysticsMoreComponent} from './adminAnalysticsmore/admin-anlystics-more/admin-anlystics-more.component'
 
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
@@ -48,6 +48,8 @@ const routes: Routes = [
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},
   {path:'admin-settings' , component:AdminSettingsComponent, canActivate: [AuthGuard], data:{role:['admin']}},
+  {path:'admin-Analystics' , component:AdminAnalysticsComponent, canActivate: [AuthGuard], data:{role:['admin']}},
+  {path:'admin-more' , component:AdminAnlysticsMoreComponent, canActivate: [AuthGuard], data:{role:['admin']}},
 ];
 
 @NgModule({

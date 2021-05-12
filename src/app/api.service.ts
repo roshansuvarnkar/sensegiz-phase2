@@ -1727,4 +1727,202 @@ export class ApiService {
       });
     });
   }
+
+  viewCTReportCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/viewCTReportCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  /* -------------------------------- */
+  onofftoggele(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/updateOnOffStatus ';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getSyncedDeviceDetails(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getSyncedDeviceDetails';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  MoregetSyncedDeviceDataTypes(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getSyncedDeviceDataTypes';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getSyncedDeviceDetailsCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getSyncedDeviceDetailsCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  getSyncedDeviceDataTypesCount(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getSyncedDeviceDataTypesCount';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+
+  getDataGateways(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getData';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+createMeshId(data) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/createMesh';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+ analysticDownloadReport(data,fileName){
+    this.general.loadingFreez.next({status:true})
+    let body={
+      data:data
+    }
+    let url = this.host+'/downloadSyncedDeviceDetails';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe((res:any)=>{
+        //console.log(res)
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+
+        resolve(true);
+      },
+      err=>{
+       // console.log("err==",err)
+      })
+    });
+
+  }
+  analysticMoreDownloadReport(data,fileName){
+    this.general.loadingFreez.next({status:true})
+    let body={
+      data:data
+    }
+    let url = this.host+'/downloadSyncedDeviceDataTypes';
+    return new Promise((resolve,reject)=>{
+      this.http.post(url,body,{ observe: 'response', responseType: 'blob' as 'json' }).subscribe((res:any)=>{
+        if(res.status==200)
+        this.downloadFile(res,fileName)
+
+        resolve(true);
+      },
+      err=>{
+       // console.log("err==",err)
+      })
+    });
+
+  }
+  getFeaturesAlert(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getEmailAlertTypes';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  emailConfigurationAlert(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/configureEmailAlert';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  useremailAlert(data){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    let body = {
+      data: data,
+    };
+    let url = this.host + '/getEmailAlertSettings';
+    return new Promise((resolve, reject) => {
+      this.http.post(url, body, httpOptions).subscribe((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
 }

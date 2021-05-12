@@ -31,6 +31,7 @@ export class GeneralMaterialsService {
   public loadingFreez: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public deviceHistory: BehaviorSubject<any>= new BehaviorSubject<any>([]);
   public setpassword:BehaviorSubject<any>= new BehaviorSubject<any>([]);
+  public managefind=new Subject<any>()
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
   openSnackBar(message: string, action: string) {
@@ -193,8 +194,7 @@ export class GeneralMaterialsService {
   getZone(date) {
    // console.log('time zone==', date);
     var timezone = date.getTimezoneOffset();
-  //console.log('time zone==', timezone);
-
+  //console.log('time zone==', timezone+100);
     let m = timezone % 60;
     // console.log("m==",m)
     timezone = (timezone - m) / 60;
@@ -243,7 +243,9 @@ export class GeneralMaterialsService {
 /* ------------------------------------------------------- ------------------------*/
   decrypt(data) {
     if(data){
+    //  console.log(data)
       var deData = CryptoJS.AES.decrypt(data, this.ENCRYPT_KEY);
+     // console.log(JSON.parse(deData.toString(CryptoJS.enc.Utf8)))
       return JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
     else{

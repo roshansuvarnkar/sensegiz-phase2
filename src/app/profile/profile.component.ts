@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginCheckService } from '../login-check.service';
@@ -6,6 +6,9 @@ import { ApiService } from '../api.service';
 import { GeneralMaterialsService } from '../general-materials.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +16,11 @@ import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+ @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  dataSource: any = [];
+  displayedColumns = ['i','userName','type','department','mobileNum','createdDate','isDeleted'];
+  findData:any=[]
 
   subAddUserform:FormGroup
   subUser:any
@@ -124,6 +132,7 @@ export class ProfileComponent implements OnInit {
      }
    }
 
+
 refreshSubUserData(){
   let data = {
     userId : this.loginData.userId
@@ -132,10 +141,26 @@ refreshSubUserData(){
   // console.log("data===",res)
     if(res.status){
       this.subUser=res.success
-    }else{
-      if(res.code=='403'){
-        this.login.logout()
+      this.findData=[]
+      for (let i = 0; i <res.success.length; i++) {
+        this.findData.push(
+          {
+              i: i+1,
+              id:res.success[i].id,
+             userName:res.success[i].userName,
+             type:res.success[i].type,
+             department:res.success[i].department,
+             mobileNum:res.success[i].mobileNum,
+             createdDate:res.success[i].createdDate,
+             isDeleted:res.success[i].isDeleted
+          });
       }
+      this.dataSource = new MatTableDataSource(this.findData);
+      setTimeout(() => {
+        this.dataSource.sort = this.sort;
+       this.dataSource.paginator = this.paginator;
+        // this.paginator.length = this.currentPageSize
+      })
     }
   })
 }
@@ -150,7 +175,7 @@ refreshSubUserData(){
     }
    // console.log("data===",data)
     this.api.deleteSubUser(data).then((res:any)=>{
-      // console.log("data===",res)
+     //  console.log("data===",res)
      if(res.status){
        var msg = "User updated successfully"
        this.general.openSnackBar(msg,'')

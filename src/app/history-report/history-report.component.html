@@ -235,8 +235,14 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
     </table>
     </div>
-  <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 25,100]" showFirstLastButtons ></mat-paginator>
-
+ <!--  <mat-paginator pageSize=10 [pageSizeOptions]="[5, 10, 25,100]" showFirstLastButtons ></mat-paginator> -->
+ <mat-paginator
+ (page)="getUpdate($event)"
+ [length] = "currentPageLength"
+ [pageSize]="currentPageSize"
+ [pageSizeOptions] = "[5, 10, 25, 100]"
+ showFirstLastButtons
+></mat-paginator>
 </div>
 
 <div *ngIf="type =='basedOnFindName'" id="htmlData">
@@ -390,7 +396,8 @@
       </span>
     </div> <br>
     <p class="center-head" mat-dialog-title>
-      Infected User : {{deviceName | titlecase}} <br>
+     <!--  Infected User : {{deviceName | titlecase}} <br> -->
+        Summary Report : {{deviceName | titlecase}} <br>
       <!-- Department : {{department}} -->
     </p>
 
@@ -399,7 +406,7 @@
     </div>  <br>
 
     <div class="tab-align">
-      <div >
+       <div >
         <span >
          <table>
            <tr>
@@ -625,7 +632,7 @@
 
 <div *ngIf="type =='custom'" id="htmlData">
   <div class="content">
-      <p class="center"> CUSTOM REPORT </p>
+      <p class="center">DEVICE SYNCED DETAILS </p>
       <span class="icon">
         <mat-icon class="download2" (click)="getPages()">cloud_download</mat-icon>
         <button mat-button mat-dialog-close><mat-icon >clear</mat-icon></button>

@@ -54,7 +54,6 @@ export class HistoryReportComponent implements OnInit {
   displayedColumns6: string[] = ['i','deviceId','deviceName','department','dataReceivedTime','updatedOnLoc'];
   displayedColumns7: string[] = ['i','username','department','count','totTime'];
   displayedColumns8: string[] = ['i','deviceName','temperature','temperatureTimestamp']
-
   department:any
   fileName:any
   locationData:any=[]
@@ -76,6 +75,7 @@ export class HistoryReportComponent implements OnInit {
   deviceIdData:any
   status:any
   customData:any
+  sync:any;
     constructor(
       public dialog: MatDialog,
       private api: ApiService,
@@ -102,6 +102,7 @@ export class HistoryReportComponent implements OnInit {
       this.date=data.date
       this.status=data.status
       this.department=data.department
+      this.sync=data.sync
      }
 
   ngOnInit(): void {
@@ -129,19 +130,24 @@ export class HistoryReportComponent implements OnInit {
         if(res.status){
           // console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
-
         }
       })
 
     }
     if(this.type=='custom'){
+      var date=new Date()
       var data23={
         userId:this.loginData.userId,
-        type:this.liveData.type,
+        sync:this.sync,
+        zone:this.general.getZone(date),
+        fromDate: this.from,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
       }
       this.api.OnlineOfflineReportCount(data23).then((res:any)=>{
+       // console.log(res)
         if(res.status){
+          this.currentPageLength = parseInt(res.success[0].count);
+        }else{
           this.currentPageLength = parseInt(res.success[0].count);
         }
 
@@ -180,7 +186,7 @@ export class HistoryReportComponent implements OnInit {
     }
 
     this.api.getLocationHistoryRowCount(data2).then((res:any)=>{
-   //  console.log("length of location report on device name ======",res);
+     //console.log("length of location report on device name ======",res);
       if(res.status){
         // console.log('\nTotal response: ',res.success[0].count);
         this.currentPageLength = parseInt(res.success[0].count);
@@ -189,6 +195,30 @@ export class HistoryReportComponent implements OnInit {
     })
 
   }
+  /* ---------------------------------------------------------------------------------------- */
+
+  if(this.type=='cummulative'){
+    date=new Date()
+    var data9={
+      userId:this.loginData.userId,
+      subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+      fromDate: this.from,
+      toDate:this.to,
+      zone:this.general.getZone(date)
+    }
+     this.api.viewCTReportCount(data9).then((res:any)=>{
+    //console.log("length of location report on device name ======",res);
+      if(res.status){
+        // console.log('\nTotal response: ',res.success[0].count);
+        this.currentPageLength = parseInt(res.success[0].count);
+        // this.tempLen=this.currentPageLength
+      }else{
+        this.currentPageLength = parseInt(res.success[0].count);
+      }
+    })
+
+  }
+  /* -------------------------------------------------------------- */
   if(this.type=='geoFenceReport'){
     var data3={
       userId:this.loginData.userId,
@@ -202,7 +232,7 @@ export class HistoryReportComponent implements OnInit {
       this.api.getGeofenceReportRowCount(data3).then((res:any)=>{
        // console.log("length of geo fence report on device name ======",res);
         if(res.status){
-          // console.log('\nTotal response: ',res.success[0].count);
+           //console.log('\nTotal response: ',res.success[0].count);
           this.currentPageLength = parseInt(res.success[0].count);
           // this.tempLen=this.currentPageLength
         }
@@ -221,12 +251,12 @@ export class HistoryReportComponent implements OnInit {
       }
 
         this.api.temperatureDataCount(data5).then((res:any)=>{
-        console.log("length of geo fence report on device name ======",res);
+      //  console.log("length of geo fence report on device name ======",res);
           if(res.status){
             // console.log('\nTotal response: ',res.success[0].count);
             this.currentPageLength=parseInt(res.success[0].count);
 
-           console.log( this.currentPageLength)
+          // console.log( this.currentPageLength)
             // this.tempLen=this.currentPageLength
           }
         })
@@ -275,7 +305,7 @@ export class HistoryReportComponent implements OnInit {
       offset:offset,
       zone:this.general.getZone(this.date)
     }
-    console.log("data==",data)
+   // console.log("data==",data)
     this.api.getDeviceHistoryBasedOnDate(data).then((res:any)=>{
     //  console.log("find data based on date ======",res);
       this.liveData=[]
@@ -423,20 +453,23 @@ export class HistoryReportComponent implements OnInit {
 // }
 
 summaryReport(){
+  if(this.status !="2"){
+    this.from="0000-00-00",
+    this.to ="0000-00-00"
+  }
   var date=new Date()
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     deviceName:this.deviceName,
-    // fromDate: this.from,
-    // toDate:this.to,
+     fromDate: this.from,
+     toDate:this.to,
     type:this.status,
     zone:this.general.getZone(date)
   }
- // console.log("Sumaary data==",data)
+ //console.log("Sumaary data==",data)
   this.api.getSummaryReport(data).then((res:any)=>{
-  //  console.log("summary report======",res);
-
+  //console.log("summary report======",res);
     this.liveData=[]
     this.locationData=[]
     this.deviceIdData=[]
@@ -444,7 +477,7 @@ summaryReport(){
     if(res.status){
       this.deviceIdData=this.deviceId(res.success)
       var groupUser = this.dataDateReduce(res.success)
-      this.locationData=this.location(res.success)
+     this.locationData=this.location(res.success)
     //  console.log("locationData===",this.locationData)
       this.liveData = Object.keys(groupUser).map((data)=>{
         // for(let i=0;i<res.success.length;i++){
@@ -526,7 +559,7 @@ departments(date){
 }
 
 location(loc){
-  //  console.log("loc===",loc)
+   //console.log("loc===",loc)
   var a=[]
   var locArr=[]
   for(let i=0;i<loc.length;i++){
@@ -545,18 +578,18 @@ location(loc){
   a[a.length-1]= a[a.length-1]+'.'
   return a
 }
-cummulativeReport(){
+cummulativeReport(limit,offset){
   var date=new Date()
-
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
     fromDate: this.from,
     toDate:this.to,
+    limit:limit,
+    offset:offset,
     zone:this.general.getZone(date)
-
   }
- // console.log("hvhs======",data)
+  //console.log("hvhs======",data)
   this.api.viewCTReport(data).then((res:any)=>{
     this.liveData=[]
     this.totTime=[]
@@ -578,7 +611,7 @@ cummulativeReport(){
         this.dataSource = new MatTableDataSource(this.liveData);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator
+         // this.dataSource.paginator = this.paginator
            })
 
       // }
@@ -722,7 +755,6 @@ locationReport(limit,offset){
 
 
 geofenceAndlocationReport(limit,offset){
-
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
@@ -732,9 +764,8 @@ geofenceAndlocationReport(limit,offset){
     offset:offset,
     limit:limit,
     zone:this.general.getZone(this.date)
-
   }
-  // console.log("data3==",data)
+   //console.log("data3==+++",data)
   this.api.getGeofenceReport(data).then((res:any)=>{
    // console.log("Location and geo fence history======",res);
     this.liveData=[]
@@ -803,7 +834,6 @@ temperatureData(limit,offset){
         temp:res.success[i].temperature,
         temperatureTimestamp:res.success[i].timestamp,
 
-
       /*   i:i+1,
         coinName:res.success[i].coinName == null?'Not available':res.success[i].coinName,
         department:res.success[i].department,
@@ -824,16 +854,20 @@ temperatureData(limit,offset){
 }
 /* ---------------------------------- */
 customReport(limit,offset){
+  var date=new Date()
+
   var data={
     userId:this.loginData.userId,
     subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
-    type:this.liveData.type,
+    sync:this.sync,
+    fromDate: this.from,
     limit:limit,
-    offset:offset
+    offset:offset,
+    zone:this.general.getZone(date)
   }
- // console.log(" custom data======",data)
+   // console.log(" custom data======",data)
   this.api.getCustomReport(data).then((res:any)=>{
-  //  console.log("Custom Report res==",res)
+  // console.log("Custom Report res==",res)
     this.customData=[]
     if(res.status){
       this.customData=res.success
@@ -851,7 +885,7 @@ customReport(limit,offset){
         this.basedOnDate(limit=limit,offset=offset)
       }
       if(this.type == 'cummulative'){
-        this.cummulativeReport()
+        this.cummulativeReport(limit=limit,offset=offset)
       }
       if(this.type == 'basedOnFindName'){
         this.basedOnFindName(limit=limit,offset=offset)
@@ -1030,13 +1064,16 @@ if(this.type=='deptcummulative'){
 
 
     if(this.type=='custom'){
+      var date=new Date()
+
       data={
         userId:this.loginData.userId,
         subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
         zone:this.general.getZone(date),
-        type:this.liveData.type
+        fromDate: this.from,
+        sync:this.sync
       }
-      fileName="CustomReport"
+      fileName="Sync Details Report"
       //console.log("data to send ======",data);
 
       //apicall
@@ -1277,8 +1314,6 @@ filterTotTime(event){
       this.title = 'Summary Report of Find Name'+this.deviceName;
       let element = document.getElementById('htmlData');
       this.general.exportToExcel(element,this.fileName, this.title)
-
-
     }
     // else{
     //   console.log("this.excelData====",this.excelData)
