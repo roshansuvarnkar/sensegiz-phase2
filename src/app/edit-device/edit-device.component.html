@@ -3,7 +3,7 @@
 <div *ngIf="type=='finds'">
 
   <div class="flexWrap space-between">
-    <h2 mat-dialog-title>Edit Safr Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+    <h2 mat-dialog-title>Edit Find Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
   </div>
 
 
@@ -20,9 +20,9 @@
           </div>
       </mat-step>
       <mat-step >
-          <ng-template matStepLabel>Fill out your Safr Id</ng-template>
+          <ng-template matStepLabel>Fill out your Find Id</ng-template>
           <mat-form-field>
-            <mat-label>Safr Id</mat-label>
+            <mat-label>Find Id</mat-label>
             <input type="number" min="1" matInput formControlName="deviceId" placeholder="Ex. 1" disabled required>
           </mat-form-field>
           <div>
@@ -249,14 +249,14 @@
 
 <div *ngIf="type=='coins'">
   <div class="flexWrap space-between">
-    <h2 mat-dialog-title>Edit Beacon+ Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
+    <h2 mat-dialog-title>Edit Coin Details</h2><button mat-button mat-dialog-close><mat-icon>clear</mat-icon></button>
   </div>
   <mat-horizontal-stepper  #stepper >
     <form [formGroup]="coinform" >
       <mat-step >
-        <ng-template matStepLabel class="stepper">Select Beacon+ Type</ng-template>
+        <ng-template matStepLabel class="stepper">Select Coin Type</ng-template>
         <mat-form-field>
-          <mat-label>Select Beacon+ Type</mat-label>
+          <mat-label>Select Coin Type</mat-label>
           <input type="text" formControlName="coinType" matInput disabled>
         </mat-form-field>
 
@@ -265,9 +265,9 @@
         </div>
     </mat-step>
       <mat-step >
-        <ng-template matStepLabel>Fill out Beacon+ Name</ng-template>
+        <ng-template matStepLabel>Fill out Coin Name</ng-template>
         <mat-form-field>
-          <mat-label>Beacon+ Name</mat-label>
+          <mat-label>Coin Name</mat-label>
           <input matInput type='text' placeholder="Coin Name" formControlName="coinName" required>
         </mat-form-field>
         <div>
@@ -276,9 +276,9 @@
       </mat-step>
 
       <mat-step >
-          <ng-template matStepLabel>Fill out Beacon+ Id</ng-template>
+          <ng-template matStepLabel>Fill out Coin Id</ng-template>
           <mat-form-field>
-            <mat-label>Beacon+ Id</mat-label>
+            <mat-label>Coin Id</mat-label>
             <input matInput  placeholder="coin Id" formControlName="coinId" disabled required>
           </mat-form-field>
           <div>

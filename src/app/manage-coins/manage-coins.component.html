@@ -1,5 +1,5 @@
 <div class="">
-    <button class="button" mat-flat-button color="primary" (click)="openDialog()" *ngIf="userType!=3">Add Beacon+</button>
+    <button class="button" mat-flat-button color="primary" (click)="openDialog()" *ngIf="userType!=3">Add Coin</button>
     <mat-form-field class="full-width-input search">
       <input matInput placeholder="Search device" autocomplete="off" matInput (keyup)="search($event.target.value)">
       <mat-icon matSuffix>search</mat-icon>
@@ -23,13 +23,13 @@
 
 
             <ng-container matColumnDef="coinId">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Beacon+ Id</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Coin Id</th>
               <td mat-cell *matCellDef="let coin"> {{coin.coinId}} </td>
             </ng-container>
 
 
             <ng-container matColumnDef="coinName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Beacon+ Name </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Coin Name </th>
               <td mat-cell *matCellDef="let coin" class="cursor">
                 <span  *ngIf="coin.latestStatus!='0000-00-00 00:00:00'&& coin.coinStatus == 0" matTooltip="Coin Status : {{coin.latestStatus | date: 'medium'}} , Offline">
                   {{coin.coinName}}
@@ -44,7 +44,7 @@
             </ng-container>
 
             <ng-container matColumnDef="coinType">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Beacon+ Type </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Coin Type </th>
               <td mat-cell *matCellDef="let coin "> {{coin.coinType}} </td>
             </ng-container>
 
