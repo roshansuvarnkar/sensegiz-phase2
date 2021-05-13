@@ -127,6 +127,7 @@ export class ManageUsersComponent implements OnInit {
       }
       this.api.deletedeviceandUser(data).then((res:any)=>{
         // console.log("find data ======",res);
+        this.refreshUsers()
         if(res.status){
           this.refreshUsers()
           var msg = 'Contact Deleted Successfully'
