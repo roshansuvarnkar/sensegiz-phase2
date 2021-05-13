@@ -1097,7 +1097,7 @@ export class SettingsComponent implements OnInit {
     // console.log("features",res)
     })
   }
- /*  onSubmitemailConfig(vales){
+  onSubmitemailConfig(vales){
     if(this.emailConfig.valid){
      try{
       var data={
@@ -1120,8 +1120,8 @@ export class SettingsComponent implements OnInit {
      }
     }
 
- } */
-/*  userEmailAlert(vales){
+ }
+  userEmailAlert(vales){
   var data={
     userId:this.loginData.userId,
     emailId:vales.emailId
@@ -1214,5 +1214,5 @@ export class SettingsComponent implements OnInit {
       })
     }
   })
-} */
+} 
 }
