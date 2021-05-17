@@ -7,6 +7,8 @@ import * as CanvasJS from 'src/app/../assets/canvasjs-2.3.2/canvasjs.min';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 import { HomeCountViewComponent } from 'src/app/home-count-view/home-count-view.component';
   import * as moment from 'moment';
+  import {ThemePalette} from '@angular/material/core';
+import {ProgressBarMode} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-liverepoorting',
@@ -14,6 +16,11 @@ import { HomeCountViewComponent } from 'src/app/home-count-view/home-count-view.
   styleUrls: ['./liverepoorting.component.css']
 })
 export class LiverepoortingComponent implements OnInit {
+
+  color = 'primary';
+  value = 50;
+
+updatedTime:any;
   date:any;
   timeout:any;
   loginData:any
@@ -28,7 +35,7 @@ export class LiverepoortingComponent implements OnInit {
   findData:any=[]
   findLen:any
   checkUrl:any
-
+  locationOccupency:any=[]
   contactTimeMax:any=[]
   contactDeviceMax:any
 
@@ -58,6 +65,7 @@ export class LiverepoortingComponent implements OnInit {
     this.loginData = JSON.parse(this.loginData)
     this.refreshSetting()
     this.numOfcontactPerDay()
+    this.locationAccupencygetData()
     this.refresh()
     this.timeout=setInterval(()=>{this.refresh()},30*1000)
   }
@@ -66,6 +74,7 @@ export class LiverepoortingComponent implements OnInit {
     this.date=new Date()
     this.refreshSetting()
     this.numOfcontactPerDay()
+    this.locationAccupencygetData()
   }
 
 
@@ -88,16 +97,53 @@ export class LiverepoortingComponent implements OnInit {
       }
     })
   }
+locationAccupencygetData(){
+  var data={
+    userId:this.loginData.userId,
+    subUserId: (this.loginData.hasOwnProperty('id') && this.loginData.type==4 && this.loginData.id!=0) ? this.loginData.id : 0,
+  }
+  //console.log(data)
+ this.api.locationAccupencyData(data).then((res:any)=>{
+  // console.log(res)
+   this.updatedTime=new Date(res.lastUpdatedAt)
+   //this.locationOccupency=[]
+   if(res.success){
+    this.locationOccupency=[]
+    // this.locationOccupency=res.success
+   for (let i = 0; i <res.success.length; i++) {
+      this.locationOccupency.push(
+        {
+          coinId:res.success[i].coinId,
+          coinName:res.success[i].coinName,
+          latestStatus:res.success[i].latestStatus,
+          maximumOccupancy: res.success[i].maximumOccupancy,
+          remainingOccupancy:res.success[i].remainingOccupancy<0 ? '0':res.success[i].remainingOccupancy,
+          t2C: res.success[i].t2C,
+          totalOccupancy: res.success[i].totalOccupancy,
+          userId: res.success[i].userId,
+        })
+     }
+   }
 
+ })
+}
 
   progress(val){
-var a=2*val;
-if(a<33){
-var aa={
-  'background-color':'red',
-  'width':a+'%'
-}
-return aa
+var a=Math.round((val.remainingOccupancy/val.maximumOccupancy)*100)
+ if(a<33){
+  if(a==0){
+    var aa={
+      'background-color':'red',
+      'width':100+'%'
+    }
+    return aa
+  }else if(a>=0 && a<33){
+    var aa={
+      'background-color':'red',
+      'width':a+'%'
+    }
+    return aa
+  }
 }else if(a>32 && a<=65){
   var aa={
     'background-color':'yellow',
@@ -160,7 +206,7 @@ numOfcontactPerDay(){
                     dataPointWidth: 30,
                     data: [{
                       type: "column",
-
+                      color:'#56d22d',
                       dataPoints:this.dataPoints
                     }]
                   });
@@ -183,9 +229,10 @@ numOfcontactPerDay(){
           gridThickness: 1
         },
         dataPointWidth: 30,
+
         data: [{
           type: "column",
-
+          color:'#56d22d',
           dataPoints:this.dataPoints
         }]
       });
@@ -194,8 +241,6 @@ numOfcontactPerDay(){
 
   })
  }
-
-
 
 
 }

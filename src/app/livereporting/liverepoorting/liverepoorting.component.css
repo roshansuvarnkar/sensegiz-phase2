@@ -32,6 +32,7 @@ span.emp-pad1 {
   font-size: 3.6rem;
   letter-spacing: 2px;
   font-weight: 900;
+
 }
 .inscenter{
   font-size: 1rem;
@@ -75,8 +76,9 @@ mat-card-content.mat-card-content.setting {
     color: cadetblue;
 }
 mat-button .button{
-  color: #ef6c00;
+  color: #ef6c00 ;
 }
 .distancecontact{
   letter-spacing: -0.5px;
 }
+

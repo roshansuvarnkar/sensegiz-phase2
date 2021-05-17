@@ -1095,7 +1095,7 @@ export class SettingsComponent implements OnInit {
     }
     this.api.getFeaturesAlert(data).then((res:any)=>{
       this.featuresData=res.success
-    // console.log("features",res)
+     console.log("features",res)
     })
   }
    onSubmitemailConfig(vales){
@@ -1133,7 +1133,7 @@ export class SettingsComponent implements OnInit {
  // console.log(data)
   this.api.useremailAlert(data).then((res:any)=>{
     this.userAlert=[]
-    //console.log(res)
+    console.log(res)
     if(res.success[0].ACB==1){
       this.userAlert.push('ACB')
       this.emailConfig.patchValue({
@@ -1217,6 +1217,27 @@ export class SettingsComponent implements OnInit {
         type:this.userAlert
       })
     }
+    if(res.success[0].GFL==1){
+      this.userAlert.push('GFL')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].GOC==1){
+      this.userAlert.push('GOC')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
+    if(res.success[0].OCA==1){
+      this.userAlert.push('OCA')
+      this.emailConfig.patchValue({
+        type:this.userAlert
+      })
+    }
   })
 }
 }
+
+
+
