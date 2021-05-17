@@ -1,0 +1,74 @@
+<div class="container-fluid">
+<div class="col-md-8 col-sm-8">
+<div class="center">
+  <p><span  class="emp-pad1">Last Update</span><span class="cent">{{date | date:'EEE' | uppercase}}</span>
+  <span class="cent">:</span><span class="cent">{{date | date:'hh'}}</span>
+<span class="cent">:</span><span class="cent">{{date | date:'mm'}}</span>
+<span class="cent">{{date | date:'a'}}</span></p>
+  </div>
+</div>
+
+<div class="flex">
+<mat-card class="col-md-8 col-sm-8">
+  <mat-card-content>
+    <div class="center2">
+      Location Occupancy Status
+      </div>
+      <table  class="table table-borderless  text-center">
+        <thead >
+          <tr style="width: 10%;">
+            <th class="pl-md-1">
+           Location
+            </th>
+            <th style="width: 80%;">
+           <mat-icon style="float: left;">settings</mat-icon>
+           Occupancy Count
+           </th>
+           <th style="width: 10%;">
+            Remaining Capacity
+           </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><div class="progress">
+              <div class="progress-bar" role="progressbar" [ngStyle]="progress(10)"   aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0</div>
+            </div></td>
+            <td>50/50</td></tr>
+        </tbody>
+        </table>
+  </mat-card-content>
+</mat-card>
+<mat-card class="col-md-4 col-sm-4">
+<mat-card-content class="center"><br>
+<div><span class="actcenter">0</span></div><br>
+<div><span class="inscenter">ACTIVE INTRUSION</span></div><br>
+<div> <span class="totalinst">Total instrusion:0</span></div>
+</mat-card-content>
+</mat-card>
+</div>
+
+
+
+<div class="main-home">
+  <div class="home">
+<mat-card *ngIf="loginData.type!==3 && loginData.type!==4">
+  <mat-card-content>
+    <mat-icon >settings</mat-icon><br>
+        <mat-card class="settingcard">
+          <mat-card-content class="setting" routerLink="/settings">
+            <mat-label>  Minimum social distance</mat-label>
+            <mat-label>  {{setting?.distance}} meter</mat-label>
+            <mat-icon >keyboard_arrow_right</mat-icon>
+          </mat-card-content>
+        </mat-card><br>
+  </mat-card-content>
+</mat-card>
+</div>
+</div>
+
+
+
+
+</div>

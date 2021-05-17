@@ -51,7 +51,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BnNgIdleService } from 'bn-ng-idle';
 import {NgxCaptchaModule} from 'ngx-captcha';
 import { AdminAnalysticsComponent } from './admin-analystics/admin-analystics/admin-analystics.component';
-import { AdminAnlysticsMoreComponent } from './adminAnalysticsmore/admin-anlystics-more/admin-anlystics-more.component'
+import { AdminAnlysticsMoreComponent } from './adminAnalysticsmore/admin-anlystics-more/admin-anlystics-more.component';
+import { LiverepoortingComponent } from './livereporting/liverepoorting/liverepoorting.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +88,7 @@ import { AdminAnlysticsMoreComponent } from './adminAnalysticsmore/admin-anlysti
     EditOverCrowdComponent,
     AdminAnalysticsComponent,
     AdminAnlysticsMoreComponent,
+    LiverepoortingComponent,
 
   ],
   imports: [

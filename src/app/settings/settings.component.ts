@@ -74,6 +74,7 @@ export class SettingsComponent implements OnInit {
   tempImagePath:any
   temperaterpatch:any
   type:any
+  email:any;
   uploadForm: FormGroup;
 
   @ViewChild('fileInput') fileInput : ElementRef;
@@ -1081,7 +1082,7 @@ export class SettingsComponent implements OnInit {
       }
 
     this.api.getData(data).then((res:any)=>{
-     console.log("user data ======",res);
+    // console.log("user data ======",res);
       if(res.status){
         this.userData=res.success;
       }
@@ -1098,16 +1099,19 @@ export class SettingsComponent implements OnInit {
     })
   }
    onSubmitemailConfig(vales){
-    if(this.emailConfig.valid){
-     try{
-      var data={
-        userId:this.loginData.userId,
-        emailId:vales.emailid,
-        type:vales.type,
-        enable :vales.enable,
-      }
+    this.email=vales
+     if(this.emailConfig.valid){
+      try{
+        var data={
+          userId:this.loginData.userId,
+         id:this.email.emailid.id,
+         emailId:this.email.emailid.emailId,
+          type:vales.type,
+          enable :vales.enable,
+        }
+        //console.log(data)
        this.api.emailConfigurationAlert(data).then((res:any)=>{
-         console.log(res)
+        // console.log(res)
          if(res.status){
            this.refreshSetting()
            this.emailConfig.reset()
@@ -1126,10 +1130,10 @@ export class SettingsComponent implements OnInit {
     userId:this.loginData.userId,
     emailId:vales.emailId
   }
-  console.log(data)
+ // console.log(data)
   this.api.useremailAlert(data).then((res:any)=>{
     this.userAlert=[]
-    console.log(res)
+    //console.log(res)
     if(res.success[0].ACB==1){
       this.userAlert.push('ACB')
       this.emailConfig.patchValue({
