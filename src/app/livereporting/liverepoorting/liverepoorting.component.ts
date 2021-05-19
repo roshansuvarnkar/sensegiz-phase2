@@ -71,7 +71,6 @@ updatedTime:any;
   }
 
   refresh(){
-    this.date=new Date()
     this.refreshSetting()
     this.numOfcontactPerDay()
     this.locationAccupencygetData()
@@ -104,8 +103,9 @@ locationAccupencygetData(){
   }
   //console.log(data)
  this.api.locationAccupencyData(data).then((res:any)=>{
-  // console.log(res)
+
    this.updatedTime=new Date(res.lastUpdatedAt)
+  // console.log(this.updatedTime)
    //this.locationOccupency=[]
    if(res.success){
     this.locationOccupency=[]
