@@ -105,7 +105,7 @@ locationAccupencygetData(){
  this.api.locationAccupencyData(data).then((res:any)=>{
 
    this.updatedTime=new Date(res.lastUpdatedAt)
-  // console.log(this.updatedTime)
+     console.log(res)
    //this.locationOccupency=[]
    if(res.success){
     this.locationOccupency=[]
@@ -130,8 +130,8 @@ locationAccupencygetData(){
 
   progress(val){
 var a=Math.round((val.remainingOccupancy/val.maximumOccupancy)*100)
- if(a<33){
-  if(a==0){
+if(a<33){
+   if(a==0){
     var aa={
       'background-color':'red',
       'width':100+'%'
@@ -143,7 +143,12 @@ var a=Math.round((val.remainingOccupancy/val.maximumOccupancy)*100)
       'width':a+'%'
     }
     return aa
+  } 
+  var aa={
+    'background-color':'red',
+    'width':a+'%'
   }
+  return aa
 }else if(a>32 && a<=65){
   var aa={
     'background-color':'yellow',
@@ -156,6 +161,12 @@ var aa={
   'width':a+'%'
 }
 return aa
+}else{
+  var aa={
+    'background-color':'white',
+    'width':100+'%'
+  }
+  return aa
 }
   }
 
