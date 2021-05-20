@@ -1132,6 +1132,7 @@ export class SettingsComponent implements OnInit {
   }
  // console.log(data)
   this.api.useremailAlert(data).then((res:any)=>{
+    console.log(res)
     if(res.status==true){
       this.userAlert=[]
       if(res.success[0].ACB==1){

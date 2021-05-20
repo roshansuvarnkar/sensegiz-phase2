@@ -64,7 +64,7 @@ updatedTime:any;
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.refreshSetting()
-    this.numOfcontactPerDay()
+   // this.numOfcontactPerDay()
     this.locationAccupencygetData()
     this.refresh()
     this.timeout=setInterval(()=>{this.refresh()},30*1000)
@@ -72,7 +72,7 @@ updatedTime:any;
 
   refresh(){
     this.refreshSetting()
-    this.numOfcontactPerDay()
+   // this.numOfcontactPerDay()
     this.locationAccupencygetData()
   }
 
@@ -160,7 +160,7 @@ return aa
   }
 
 
-
+/*
 numOfcontactPerDay(){
   var date=new Date()
   var data={
@@ -190,13 +190,13 @@ numOfcontactPerDay(){
       }
 
       var chart = new CanvasJS.Chart("chartContainer", {
-      /*   animationEnabled: true,
-        zoomEnabled: true, */
+       //animationEnabled: true,
+        //zoomEnabled: true,
         theme: "light1",
-                   /*  title: {
-                      text: "No. of contacts",
-                      fontColor: "#ef6c00",
-                    }, */
+                 //  title: {
+                    //  text: "No. of contacts",
+                    //  fontColor: "#ef6c00",
+                  //  },
                     axisX:{
                       gridThickness: 1
                     },
@@ -215,13 +215,13 @@ numOfcontactPerDay(){
       chart.destroy()
       chart=null;
       chart = new CanvasJS.Chart("chartContainer", {
-       /*  animationEnabled: true,
-        exportEnabled: true, */
-      /*   title: {
-          text: "No. of contacts",
-          fontColor: "#ef6c00",
-        },
- */
+       // animationEnabled: true,
+       // exportEnabled: true,
+      //  title: {
+         /// text: "No. of contacts",
+        //  fontColor: "#ef6c00",
+       // },
+
         axisX:{
           gridThickness: 1
         },
@@ -240,7 +240,7 @@ numOfcontactPerDay(){
     }
 
   })
- }
+ } */
 
 
 }
