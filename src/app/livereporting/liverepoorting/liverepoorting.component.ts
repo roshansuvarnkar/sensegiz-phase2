@@ -140,25 +140,26 @@ if(a<33){
   }else if(a>=0 && a<33){
     var aa={
       'background-color':'red',
-      'width':a+'%'
+      'width':100-a+'%'
     }
     return aa
   }
   var aa={
     'background-color':'red',
-    'width':a+'%'
+    'width':100-a+'%'
   }
   return aa
 }else if(a>32 && a<=65){
   var aa={
     'background-color':'yellow',
-    'width':a+'%'
+    'width':100-a+'%',
+
   }
   return aa
 }else if(a>65 && a<=100){
 var aa={
   'background-color':'green',
-  'width':a+'%'
+  'width':100-a+'%'
 }
 return aa
 }else{
