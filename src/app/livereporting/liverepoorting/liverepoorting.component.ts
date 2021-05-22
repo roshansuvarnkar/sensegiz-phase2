@@ -143,7 +143,7 @@ if(a<33){
       'width':a+'%'
     }
     return aa
-  } 
+  }
   var aa={
     'background-color':'red',
     'width':a+'%'
