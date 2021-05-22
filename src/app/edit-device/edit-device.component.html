@@ -10,7 +10,7 @@
   <mat-horizontal-stepper  #stepper >
     <form [formGroup]="Findform" >
       <mat-step >
-          <ng-template matStepLabel>Fill out your name</ng-template>
+          <ng-template matStepLabel>Name</ng-template>
           <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput placeholder="User Name" formControlName="deviceName" required>
@@ -20,7 +20,7 @@
           </div>
       </mat-step>
       <mat-step >
-          <ng-template matStepLabel>Fill out your Find Id</ng-template>
+          <ng-template matStepLabel>Find Id</ng-template>
           <mat-form-field>
             <mat-label>Find Id</mat-label>
             <input type="number" min="1" matInput formControlName="deviceId" placeholder="Ex. 1" disabled required>
@@ -32,7 +32,7 @@
       </mat-step>
 
       <mat-step >
-        <ng-template matStepLabel>Fill out your Employee Id</ng-template>
+        <ng-template matStepLabel>Employee Id</ng-template>
         <mat-form-field>
           <mat-label>Employee Id</mat-label>
           <input type="text" matInput formControlName="empId" placeholder="Employee Id" >
@@ -44,7 +44,7 @@
     </mat-step>
 
       <mat-step class="step-phone">
-        <ng-template matStepLabel>Fill out your Mobile Number</ng-template>
+        <ng-template matStepLabel>Mobile Number</ng-template>
         <!-- <mat-form-field>
           <mat-label>Mobile Number</mat-label>
           <input type="tel" matInput formControlName="mobileNum" placeholder="Mobile Number" >
@@ -82,7 +82,7 @@
     </mat-step>
 
       <mat-step >
-        <ng-template matStepLabel>Fill out your Email Id</ng-template>
+        <ng-template matStepLabel>Email Id</ng-template>
         <mat-form-field>
           <mat-label>Email Id</mat-label>
           <input type="email" matInput formControlName="emailId" placeholder="Ex. xyz@gmail.com" >
@@ -132,7 +132,7 @@
         </div>
       </mat-step>
       <mat-step >
-          <ng-template matStepLabel>Fill out your gateway nick name</ng-template>
+          <ng-template matStepLabel>Gateway name</ng-template>
           <mat-form-field>
             <mat-label>Gateway Nick Name</mat-label>
             <input matInput placeholder="Gateway Nick Name" formControlName="deviceName" required>
@@ -142,7 +142,7 @@
           </div>
       </mat-step>
       <mat-step >
-          <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
+          <ng-template matStepLabel>Gateway Id</ng-template>
           <mat-form-field>
             <mat-label>Gateway Id</mat-label>
             <input  matInput formControlName="deviceId" placeholder="Ex. 1" required>
@@ -254,7 +254,7 @@
   <mat-horizontal-stepper  #stepper >
     <form [formGroup]="coinform" >
       <mat-step >
-        <ng-template matStepLabel class="stepper">Select Coin Type</ng-template>
+        <ng-template matStepLabel class="stepper">Coin Type</ng-template>
         <mat-form-field>
           <mat-label>Select Coin Type</mat-label>
           <input type="text" formControlName="coinType" matInput disabled>
@@ -265,7 +265,7 @@
         </div>
     </mat-step>
       <mat-step >
-        <ng-template matStepLabel>Fill out Coin Name</ng-template>
+        <ng-template matStepLabel>Coin Name</ng-template>
         <mat-form-field>
           <mat-label>Coin Name</mat-label>
           <input matInput type='text' placeholder="Coin Name" formControlName="coinName" required>
@@ -276,7 +276,7 @@
       </mat-step>
 
       <mat-step >
-          <ng-template matStepLabel>Fill out Coin Id</ng-template>
+          <ng-template matStepLabel>Coin Id</ng-template>
           <mat-form-field>
             <mat-label>Coin Id</mat-label>
             <input matInput  placeholder="coin Id" formControlName="coinId" disabled required>
@@ -287,7 +287,7 @@
       </mat-step>
 
       <mat-step >
-        <ng-template matStepLabel>Fill out your Gateway Id</ng-template>
+        <ng-template matStepLabel>Gateway Id</ng-template>
 
 
           <mat-form-field>
