@@ -23,8 +23,13 @@
 
     <button mat-menu-item routerLink="/settings" *ngIf="loginDataInfo.type!==3"> <mat-icon>settings</mat-icon>Settings</button>
     <button mat-menu-item routerLink="/profile" *ngIf="loginDataInfo.type!==3"> <mat-icon>perm_identity</mat-icon>Create Profile</button>
-    <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>Reports</button>
+    <button mat-menu-item [matMenuTriggerFor]="report"> <mat-icon>menu_book</mat-icon>Reports</button>
+    <mat-menu #report="matMenu" yPosition="below">
+      <button mat-menu-item routerLink="/history"><mat-icon>menu_book</mat-icon> Historical Report</button>
+      <button mat-menu-item routerLink="/live-reporting"><mat-icon>menu_book</mat-icon>Live Reporting</button>
+      </mat-menu>
     <button mat-menu-item  (click)="logout()" class="logout"><mat-icon >exit_to_app</mat-icon>Logout</button>
+
 
     <!-- <button mat-raised-button class="guide"><span routerLink="/user-guide">User Guide</span></button> -->
 
@@ -81,11 +86,13 @@
      <span routerLink="/profile" *ngIf="loginDataInfo.type!==3 && loginDataInfo.type!==4">Create Profile</span>
 
     <!--  <span routerLink="/history">Reports</span> -->
+    <span>
      <span [matMenuTriggerFor]="belowMenu" class="menu">Reports</span>
      <mat-menu #belowMenu="matMenu" yPosition="below">
-       <button mat-menu-item routerLink="/history">Reports</button>
+       <button mat-menu-item routerLink="/history"> Historical Report</button>
        <button mat-menu-item routerLink="/live-reporting">Live Reporting</button>
        </mat-menu>
+      </span>
    <span routerLink="/user-guide">User Guide</span>
 
 
