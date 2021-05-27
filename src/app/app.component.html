@@ -26,7 +26,6 @@
     <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>Reports</button>
     <button mat-menu-item  (click)="logout()" class="logout"><mat-icon >exit_to_app</mat-icon>Logout</button>
 
-
     <!-- <button mat-raised-button class="guide"><span routerLink="/user-guide">User Guide</span></button> -->
 
   </mat-menu>
@@ -67,7 +66,7 @@
 <div *ngIf="twoStepAuth?.status && twoStepAuth?.role=='user'">
   <mat-toolbar color="primary" class="menubar">
     <span routerLink="/home">Home</span>
-    <span routerLink="/live-reporting">Live Reporting</span>
+   <!--  <span routerLink="/live-reporting">Live Reporting</span> -->
     <span routerLink="/dashboard">Manage People</span>
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/exception">Exception</span>
@@ -80,8 +79,13 @@
         </mat-menu>
      </span>
      <span routerLink="/profile" *ngIf="loginDataInfo.type!==3 && loginDataInfo.type!==4">Create Profile</span>
-     <span routerLink="/history">Reports</span>
 
+    <!--  <span routerLink="/history">Reports</span> -->
+     <span [matMenuTriggerFor]="belowMenu" class="menu">Reports</span>
+     <mat-menu #belowMenu="matMenu" yPosition="below">
+       <button mat-menu-item routerLink="/history">Reports</button>
+       <button mat-menu-item routerLink="/live-reporting">Live Reporting</button>
+       </mat-menu>
    <span routerLink="/user-guide">User Guide</span>
 
 
