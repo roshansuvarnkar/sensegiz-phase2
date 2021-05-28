@@ -105,7 +105,7 @@ locationAccupencygetData(){
  this.api.locationAccupencyData(data).then((res:any)=>{
 
    this.updatedTime=new Date(res.lastUpdatedAt)
-     console.log(res)
+     //console.log(res)
    //this.locationOccupency=[]
    if(res.success){
     this.locationOccupency=[]
