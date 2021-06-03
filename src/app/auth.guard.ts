@@ -24,7 +24,7 @@ constructor(private router: Router, private login: LoginCheckService) {}
            this.login.loginCheckStatus.next(true)
         }
         else if(next.data.role == 'user' ){
-
+console.log(this.loginData)
           if(this.loginData.type == 3 || this.loginData.type == 4){
             if(state.url == "/settings" || state.url == "/profile" ){
               this.login.loginCred.next(true)

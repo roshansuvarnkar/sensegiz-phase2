@@ -118,14 +118,15 @@ export class ManageUsersComponent implements OnInit {
 
   delete(a){
     if(confirm('Are you sure you want to delete the user')){
-      // console.log("yes",a)
+       //console.log("yes",a)
       var data = {
       id:a.id,
       userId:this.loginData.userId,
       userName:a.emailId,
       tblName:'userDetails'
       }
-      this.api.deletedeviceandUser(data).then((res:any)=>{
+      console.log("yes",data)
+       this.api.deletedeviceandUser(data).then((res:any)=>{
         // console.log("find data ======",res);
         this.refreshUsers()
         if(res.status){
