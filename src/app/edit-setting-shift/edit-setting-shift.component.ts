@@ -103,8 +103,6 @@ export class EditSettingShiftComponent implements OnInit {
 		  this.shifts[i].fromTime=(hh+':'+mm)
 		  this.shifts[i].toTime=(hh1+':'+mm1)
 	  }
-
-
   		    const control = <FormArray>this.shiftForm.controls.items;
 			control.controls = [];
 			for(var i=0;i<this.shifts.length;i++){
