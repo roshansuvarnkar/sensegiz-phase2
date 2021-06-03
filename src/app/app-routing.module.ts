@@ -24,7 +24,7 @@ import { SetNewPasswordComponent } from './set-new-password/set-new-password.com
 import { ProfileComponent } from './profile/profile.component';
 import {AdminAnalysticsComponent} from './admin-analystics/admin-analystics/admin-analystics.component'
 import {AdminAnlysticsMoreComponent} from './adminAnalysticsmore/admin-anlystics-more/admin-anlystics-more.component'
-
+import {LiverepoortingComponent} from '../app/livereporting/liverepoorting/liverepoorting.component'
 const routes: Routes = [
   { path: '', component:HomeComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'login' , component:LoginComponent},
@@ -43,7 +43,7 @@ const routes: Routes = [
   {path:'exception' , component:ExceptionComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'location' , component:LocationComponent, canActivate: [AuthGuard], data:{role:['user']}},
   {path:'profile' , component:ProfileComponent, canActivate: [AuthGuard], data:{role:['user']}},
-
+  {path:'live-reporting' , component:LiverepoortingComponent, canActivate: [AuthGuard], data:{role:['user']}},
 
   {path:'admin-login' , component:AdminLoginComponent},
   {path:'admin-dashboard' , component:AdminDashboardComponent, canActivate: [AuthGuard], data:{role:['admin']}},

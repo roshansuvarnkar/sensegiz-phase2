@@ -1,0 +1,137 @@
+<div class="container-fluid">
+<div class="col-md-8 col-sm-8">
+<div class="center">
+  <p><span  class="emp-pad1">Last Update</span><span class="cent">{{this.updatedTime | date:'EEE' | uppercase}}</span>
+  <span class="cent">:</span><span class="cent">{{this.updatedTime | date:'hh'}}</span>
+<span class="cent">:</span><span class="cent">{{this.updatedTime | date:'mm'}}</span>
+<span class="cent">{{this.updatedTime | date:'a'}}</span></p>
+  </div>
+</div>
+
+<div class="flex">
+<mat-card class="col-md-8 col-sm-8" style="height: 280px;overflow-y:auto ;">
+  <mat-card-content>
+    <div class="center2">
+      Location Occupancy Status
+      </div>
+      <table class="table table-borderless  text-center">
+        <thead >
+          <tr style="width: 20%;">
+            <th class="pl-md-1">
+           Location
+            </th>
+            <th style="width: 70%;">
+           <!-- <mat-icon style="float: left;">settings</mat-icon> -->
+           Occupancy Count
+           </th>
+           <th style="width: 10%;">
+            Remaining Capacity
+           </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let location of locationOccupency">
+          <tr>
+            <td>{{location.coinName}}</td>
+            <td><div class="progress">
+              <div class="progress-bar" role="progressbar" [ngStyle]="progress(location)"   aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{location.totalOccupancy}}</div>
+            </div></td>
+            <td>{{location.remainingOccupancy}}/{{location.maximumOccupancy}}</td></tr>
+        </tbody>
+        </table>
+  </mat-card-content>
+</mat-card>
+
+<!-- <mat-card class="col-md-4 col-sm-4">
+<mat-card-content class="center"><br><br><br>
+<div><span class="actcenter">0</span></div><br>
+<div><span class="inscenter">ACTIVE INTRUSION</span></div><br>
+<div> <span class="totalinst">Total instrusion:0</span></div>
+</mat-card-content>
+</mat-card> -->
+</div>
+
+
+<!--
+<div class="main-home">
+  <div class="home">
+<mat-card *ngIf="loginData.type!==3 && loginData.type!==4">
+  <mat-card-content>
+    <mat-icon >settings</mat-icon><br>
+        <mat-card class="settingcard">
+          <mat-card-content class="setting" routerLink="/settings">
+            <mat-label>  Minimum social distance</mat-label>
+            <mat-label>  {{setting?.distance}} meter</mat-label>
+            <mat-icon >keyboard_arrow_right</mat-icon>
+          </mat-card-content>
+        </mat-card><br>
+  </mat-card-content>
+</mat-card>
+</div>
+</div> -->
+<!--
+<div class="main-home">
+  <div class="homes">
+<mat-card *ngIf="loginData.type!==3 && loginData.type!==4">
+  <mat-card-title>Exposed Contacts Count</mat-card-title>
+  <p class="distancecontact">How many people have near distance-contact and the duration spend categorization </p>
+  <mat-card-content>
+        <mat-card class="settingcard">
+          <mat-card-content >
+            <table  class="table table-borderless  text-center">
+              <thead >
+                <tr>
+                  <th> <mat-icon >settings</mat-icon></th>
+                  <th># People</th>
+                  <th>Duration(Min)</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td> <button mat-raised-button color="warn" style="float: left !important;">Very High</button></td>
+                  <td>1</td>
+                  <td>>50</td>
+                  <td><button>Send frinedly</button></td>
+                </tr>
+                <tr>
+                  <td> <button mat-raised-button color="warn" style="float: left !important;">High</button></td>
+                  <td>2</td>
+                  <td>20-50</td>
+                  <td><button >Send frinedly</button></td>
+                </tr>
+                <tr>
+                  <td><button mat-raised-button color="accent" style="float: left !important;">Medium</button></td>
+                  <td>3</td>
+                  <td>10-20</td>
+                  <td><button>Send praise</button></td>
+                </tr>
+                <tr>
+                  <td> <button mat-raised-button color="primary" style="float: left !important;">Low</button></td>
+                  <td>4</td>
+                  <td> <10 </td>
+                  <td><button>Send praise</button></td>
+                </tr>
+              </tbody>
+              </table>
+          </mat-card-content>
+        </mat-card><br>
+  </mat-card-content>
+</mat-card>
+</div>
+ -->
+<!-- <div class="homess">
+  <mat-card>
+    <mat-card-title>Number and Duration of Contacts</mat-card-title>
+    <p class="distancecontact">The following chart showes to how many people you had near diviance contact. </p>
+    <mat-card-content>
+      <div id="chartContainer" style="height:300px; width: 100%;"></div>
+    </mat-card-content>
+  </mat-card>
+  </div>
+
+</div> -->
+
+
+
+
+</div>

@@ -64,7 +64,7 @@ openDialog(): void {
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
   dialogConfig.height = '50vh';
-  dialogConfig.width = '50vw';
+  dialogConfig.width = '70vw';
   dialogConfig.data = {
     type:"finds"
   }
@@ -191,7 +191,7 @@ edit(data){
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
   dialogConfig.height = '50vh';
-  dialogConfig.width = '50vw';
+  dialogConfig.width = '70vw';
   dialogConfig.data = {
     type:"finds",
     data:data

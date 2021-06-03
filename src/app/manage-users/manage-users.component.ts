@@ -120,20 +120,21 @@ export class ManageUsersComponent implements OnInit {
     if(confirm('Are you sure you want to delete the user')){
        //console.log("yes",a)
       var data = {
-        id:a.id,
-        userId:this.loginData.userId,
-        userName:a.emailId,
-        tblName:'userDetails'
+      id:a.id,
+      userId:this.loginData.userId,
+      userName:a.emailId,
+      tblName:'userDetails'
       }
       console.log("yes",data)
        this.api.deletedeviceandUser(data).then((res:any)=>{
         // console.log("find data ======",res);
+        this.refreshUsers()
         if(res.status){
           this.refreshUsers()
           var msg = 'Contact Deleted Successfully'
           this.general.openSnackBar(msg,'')
         }
-      }) 
+      })
     }
 
   }

@@ -21,9 +21,17 @@
     <button mat-menu-item routerLink="/exception"> <mat-icon>group</mat-icon>Exception</button>
     <!-- <button mat-menu-item routerLink="/location"> <mat-icon>place</mat-icon>Location</button> -->
 
-    <button mat-menu-item routerLink="/settings" *ngIf="loginDataInfo.type!==3"> <mat-icon>settings</mat-icon>Settings</button>
+    <button mat-menu-item [matMenuTriggerFor]="settings" *ngIf="loginDataInfo.type!==3"> <mat-icon>settings</mat-icon>Settings</button>
+    <mat-menu #settings="matMenu" yPosition="below">
+      <button mat-menu-item routerLink="/settings" *ngIf="loginDataInfo.type!==4">General settings</button>
+      <button mat-menu-item routerLink="/geo-fence">Geofence settings</button>
+      </mat-menu>
     <button mat-menu-item routerLink="/profile" *ngIf="loginDataInfo.type!==3"> <mat-icon>perm_identity</mat-icon>Create Profile</button>
-    <button mat-menu-item routerLink="/history"> <mat-icon>menu_book</mat-icon>Reports</button>
+    <button mat-menu-item [matMenuTriggerFor]="report"> <mat-icon>menu_book</mat-icon>Reports</button>
+    <mat-menu #report="matMenu" yPosition="below">
+      <button mat-menu-item routerLink="/history"> Historical Report</button>
+      <button mat-menu-item routerLink="/live-reporting">Live Reporting</button>
+      </mat-menu>
     <button mat-menu-item  (click)="logout()" class="logout"><mat-icon >exit_to_app</mat-icon>Logout</button>
 
 
@@ -67,7 +75,7 @@
 <div *ngIf="twoStepAuth?.status && twoStepAuth?.role=='user'">
   <mat-toolbar color="primary" class="menubar">
     <span routerLink="/home">Home</span>
-
+   <!--  <span routerLink="/live-reporting">Live Reporting</span> -->
     <span routerLink="/dashboard">Manage People</span>
     <span routerLink="/live-data">Social Distancing</span>
     <span routerLink="/exception">Exception</span>
@@ -80,8 +88,15 @@
         </mat-menu>
      </span>
      <span routerLink="/profile" *ngIf="loginDataInfo.type!==3 && loginDataInfo.type!==4">Create Profile</span>
-     <span routerLink="/history">Reports</span>
 
+    <!--  <span routerLink="/history">Reports</span> -->
+    <span>
+     <span [matMenuTriggerFor]="belowMenu" class="menu">Reports</span>
+     <mat-menu #belowMenu="matMenu" yPosition="below">
+       <button mat-menu-item routerLink="/history"> Historical Report</button>
+       <button mat-menu-item routerLink="/live-reporting">Live Reporting</button>
+       </mat-menu>
+      </span>
    <span routerLink="/user-guide">User Guide</span>
 
 

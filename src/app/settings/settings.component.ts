@@ -74,6 +74,7 @@ export class SettingsComponent implements OnInit {
   tempImagePath:any
   temperaterpatch:any
   type:any
+  email:any;
   uploadForm: FormGroup;
 
   @ViewChild('fileInput') fileInput : ElementRef;
@@ -1081,7 +1082,7 @@ export class SettingsComponent implements OnInit {
       }
 
     this.api.getData(data).then((res:any)=>{
-     console.log("user data ======",res);
+    // console.log("user data ======",res);
       if(res.status){
         this.userData=res.success;
       }
@@ -1094,20 +1095,22 @@ export class SettingsComponent implements OnInit {
     }
     this.api.getFeaturesAlert(data).then((res:any)=>{
       this.featuresData=res.success
-    // console.log("features",res)
     })
   }
-  onSubmitemailConfig(vales){
-    if(this.emailConfig.valid){
-     try{
-      var data={
-        userId:this.loginData.userId,
-        emailId:vales.emailid,
-        type:vales.type,
-        enable :vales.enable,
-      }
+   onSubmitemailConfig(vales){
+    this.email=vales
+     if(this.emailConfig.valid){
+      try{
+        var data={
+          userId:this.loginData.userId,
+         id:this.email.emailid.id,
+         emailId:this.email.emailid.emailId,
+          type:vales.type,
+          enable :vales.enable,
+        }
+        //console.log(data)
        this.api.emailConfigurationAlert(data).then((res:any)=>{
-         console.log(res)
+        // console.log(res)
          if(res.status){
            this.refreshSetting()
            this.emailConfig.reset()
@@ -1121,98 +1124,126 @@ export class SettingsComponent implements OnInit {
     }
 
  }
+ val:any=[]
   userEmailAlert(vales){
   var data={
     userId:this.loginData.userId,
     emailId:vales.emailId
   }
-  console.log(data)
+ // console.log(data)
   this.api.useremailAlert(data).then((res:any)=>{
-    this.userAlert=[]
-    console.log(res)
-    if(res.success[0].ACB==1){
-      this.userAlert.push('ACB')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }if(res.success[0].CBS==1){
-      this.userAlert.push('CBS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
+    //console.log(res)
+    if(res.status==true){
+      this.userAlert=[]
+      if(res.success[0].ACB==1){
+        this.userAlert.push('ACB')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].CBS==1){
+        this.userAlert.push('CBS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].CCS==1){
+        this.userAlert.push('CCS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].COS==1){
+        this.userAlert.push('COS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].DIS==1){
+        this.userAlert.push('DIS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].FVA==1){
+        this.userAlert.push('FVA')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].FVI==1){
+        this.userAlert.push('FVI')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].GSS==1){
+        this.userAlert.push('GSS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].ICS==1){
+        this.userAlert.push('ICS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].IPDQ==1){
+        this.userAlert.push('IPDQ')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].IPPQ==1){
+        this.userAlert.push('IPPQ')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].MIN==1){
+        this.userAlert.push('MIN')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].MIS==1){
+        this.userAlert.push('MIS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].UTS==1){
+        this.userAlert.push('UTS')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].GFL==1){
+        this.userAlert.push('GFL')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].GOC==1){
+        this.userAlert.push('GOC')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+      if(res.success[0].OCA==1){
+        this.userAlert.push('OCA')
+        this.emailConfig.patchValue({
+          type:this.userAlert
+        })
+      }
+    }else{
+      this.userAlert=[]
     }
-    if(res.success[0].CCS==1){
-      this.userAlert.push('CCS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].COS==1){
-      this.userAlert.push('COS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].DIS==1){
-      this.userAlert.push('DIS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].FVA==1){
-      this.userAlert.push('FVA')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].FVI==1){
-      this.userAlert.push('FVI')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].GSS==1){
-      this.userAlert.push('GSS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].ICS==1){
-      this.userAlert.push('ICS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].IPDQ==1){
-      this.userAlert.push('IPDQ')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].IPPQ==1){
-      this.userAlert.push('IPPQ')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].MIN==1){
-      this.userAlert.push('MIN')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].MIS==1){
-      this.userAlert.push('MIS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
-    if(res.success[0].UTS==1){
-      this.userAlert.push('UTS')
-      this.emailConfig.patchValue({
-        type:this.userAlert
-      })
-    }
+
   })
-} 
+
+}
+
+
 }

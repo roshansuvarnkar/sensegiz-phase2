@@ -53,7 +53,7 @@ constructor(public dialog: MatDialog,
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '50vh';
-    dialogConfig.width = '50vw';
+    dialogConfig.width = '60vw';
     dialogConfig.data = {
       type:"coins"
     }
@@ -154,7 +154,7 @@ edit(data){
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
   dialogConfig.height = '50vh';
-  dialogConfig.width = '50vw';
+  dialogConfig.width = '60vw';
   dialogConfig.data = {
     type:"coins",
     data:data

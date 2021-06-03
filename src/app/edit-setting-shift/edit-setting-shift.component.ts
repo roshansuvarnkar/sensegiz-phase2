@@ -63,8 +63,7 @@ export class EditSettingShiftComponent implements OnInit {
 	  }
 
 	  this.api.getData(data).then((res:any)=>{
-	    console.log("shift  data ======",res);
-
+	   // console.log("shift  data ======",res);
 	    if(res.status){
 
 		  this.shifts=res.success
@@ -75,18 +74,22 @@ export class EditSettingShiftComponent implements OnInit {
 			var month = dateobj.getMonth() + 1
 			var day = dateobj.getDate()
 			var date = month + '/' + day + '/'  + year
-        if(this.shifts[i].fromTime=="00:00"){
           var time1="00:00"
           var time2="00:00"
           time1=new Date(time1).toString()
           time2=new Date(time2).toString()
-        }else{
-          var time1=date+" "+this.shifts[i].fromTime+':00 UTC'
-          var time2=date+" "+this.shifts[i].toTime+':00 UTC'
-          time1=new Date(time1).toString()
-          time2=new Date(time2).toString()
-        }
 
+          if(this.shifts[i].shiftName !='zeroShift'){
+            var time1=date+" "+this.shifts[i].fromTime+':00 UTC'
+            var time2=date+" "+this.shifts[i].toTime+':00 UTC'
+            time1=new Date(time1).toString()
+            time2=new Date(time2).toString()
+          }else{
+            var time1=date+" "+this.shifts[i].fromTime
+            var time2=date+" "+this.shifts[i].toTime
+            time1=new Date(time1).toString()
+            time2=new Date(time2).toString()
+          }
 			var h=new Date(time1).getHours()
 			var m=new Date(time1).getMinutes()
 			var h1=new Date(time2).getHours()
