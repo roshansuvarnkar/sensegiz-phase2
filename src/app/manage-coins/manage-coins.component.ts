@@ -27,8 +27,8 @@ export class ManageCoinsComponent implements OnInit {
   inserted:any=[]
   currentPageLength:any=10
 currentPageSize:any=10
-limit:any
-offset:any
+limit:any=10
+offset:any=0
   displayedColumns = ['i','coinId','coinName','coinType','gatewayId','batteryStatus',	'edit',	'delete'];
 
 
@@ -43,7 +43,7 @@ constructor(public dialog: MatDialog,
   this.loginData = this.login.Getlogin()
   this.loginData = JSON.parse(this.loginData)
   this.userType=this.loginData.type
-  this.refreshCoins()
+  this.refreshCoins(this.limit,this.offset)
   this.getDataCount()
   }
 
@@ -60,12 +60,13 @@ constructor(public dialog: MatDialog,
     const dialogRef = this.dialog.open(AddFindComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshCoins()
+      this.refreshCoins(this.limit,this.offset)
+      this.getDataCount()
     });
 
 
   }
-  refreshCoins(limit=10,offset=0){
+  refreshCoins(limit,offset){
     this.loadData(limit=limit,offset=offset)
     }
   loadData(limit=10,offset=0){
@@ -162,7 +163,8 @@ edit(data){
   const dialogRef = this.dialog.open(EditDeviceComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(result => {
-    this.refreshCoins()
+    this.refreshCoins(this.limit,this.offset)
+    this.getDataCount()
   });
 }
 
@@ -180,7 +182,8 @@ delete(value){
     this.api.deletedeviceandUser(data).then((res:any)=>{
       //console.log("coin data ======",res);
       if(res.status){
-        this.refreshCoins()
+        this.refreshCoins(this.limit,this.offset)
+        this.getDataCount()
         var msg = 'Coin deleted Successfully'
         this.general.openSnackBar(msg,'')
       }

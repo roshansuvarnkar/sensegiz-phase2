@@ -25,8 +25,8 @@ export class ManageGatewaysComponent implements OnInit {
   dataSource: any = [];
   currentPageLength:any=10
   currentPageSize:any=10
-  limit:any
-  offset:any
+  limit:any=10
+  offset:any=0
   displayedColumns = ['i','gatewayId','gatewayName','gatewayType','currentVersion','edit','delete']; //'bleVersion',
   // ,'currentVersion'
   constructor(private dialog:MatDialog,private api: ApiService,private login:LoginCheckService,private general:GeneralMaterialsService) { }
@@ -46,7 +46,8 @@ export class ManageGatewaysComponent implements OnInit {
     const dialogRef = this.dialog.open(AddFindComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshGateway()
+      this.refreshGateway(this.limit,this.offset)
+      this.getDataCount()
     });
   }
 
@@ -55,11 +56,11 @@ export class ManageGatewaysComponent implements OnInit {
     this.loginData = this.login.Getlogin()
     this.loginData = JSON.parse(this.loginData)
     this.userType=this.loginData.type
-    this.refreshGateway()
+    this.refreshGateway(this.limit,this.offset)
     this.getDataCount()
   }
 
-  refreshGateway(limit=10,offset=0){
+  refreshGateway(limit,offset){
     this.loadData(limit=limit,offset=offset)
   //this.refreshFinds(limit=limit,offset=offset)
 
@@ -120,7 +121,8 @@ edit(data){
   const dialogRef = this.dialog.open(EditDeviceComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(result => {
-    this.refreshGateway()
+    this.refreshGateway(this.limit,this.offset)
+    this.getDataCount()
   });
 }
 
@@ -136,7 +138,8 @@ delete(a){
     this.api.deletedeviceandUser(data).then((res:any)=>{
       // console.log("gateway data ======",res);
       if(res.status){
-        this.refreshGateway()
+        this.refreshGateway(this.limit,this.offset)
+        this.getDataCount()
         var msg = 'Gateway Deleted Successfully'
         this.general.openSnackBar(msg,'')
       }
